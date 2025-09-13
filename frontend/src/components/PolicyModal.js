@@ -305,13 +305,22 @@ const PolicyModal = ({
                                 </div>
                             </div>
                         )}
+
+                    {/* Policy Incident Graph - Inside scrollable content */}
+                    <div className="policy-modal-graph-section">
+                        <PolicyIncidentGraph
+                            state={policy.State || policy.state}
+                            policyDate={policy.effective_date || `${policy['Effective Date Year']}-${policy['Effective Date Month']}-${policy['Effective Date Day']}`}
+                            timelineData={timelineData}
+                        />
+                    </div>
                 </div>
 
                 {/* Bookmark Controls */}
                 {isBookmarked && (
                     <div className="bookmark-controls">
                         <div className="bookmark-controls-header">
-                            <h3>📚 Bookmarked Policy</h3>
+                            <h3>Bookmarked Policy</h3>
                             <div className="bookmark-controls-buttons">
                                 <button
                                     className={`control-btn ${showAnnotations ? 'active' : ''}`}
@@ -425,18 +434,9 @@ const PolicyModal = ({
                             </div>
                         )}
 
-                        {/* Policy Incident Graph - moved to bottom of bookmark controls */}
-                        {policy && (
-                            <div className="policy-modal-graph-section">
-                                <PolicyIncidentGraph
-                                    state={policy.State || policy.state}
-                                    policyDate={policy.effective_date || `${policy['Effective Date Year']}-${policy['Effective Date Month']}-${policy['Effective Date Day']}`}
-                                    timelineData={timelineData}
-                                />
-                            </div>
-                        )}
                     </div>
                 )}
+
 
 
                 <div className="policy-modal-footer">
