@@ -21,7 +21,13 @@ function Controls({
             <div className="current-year-badge">
                 {currentYear}
             </div>
-
+            <button
+                className="methodology-btn"
+                onClick={() => window.open('/methodology', '_blank')}
+                title="View Methodology"
+            >
+                Methodology
+            </button>
         </div>
     );
 }

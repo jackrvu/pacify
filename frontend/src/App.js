@@ -11,10 +11,10 @@ import IncidentPins from './components/IncidentPins';
 import IncidentHeatmap from './components/IncidentHeatmap';
 import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
-import IncidentSummary from './components/IncidentSummary';
 import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
 import StateGunViolencePanel from './components/StateGunViolencePanel';
+import HeatmapLegend from './components/HeatmapLegend';
 import ResizableTab from './components/ResizableTab';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
@@ -408,21 +408,12 @@ function App() {
                         currentYear={currentYear}
                         availableYears={availableYears}
                     />
-
-
-
                 </div>
+
+                {/* Heatmap Legend - positioned independently */}
+                <HeatmapLegend />
             </div>
 
-            {/* Compact incident summary */}
-            <IncidentSummary
-                incidents={incidents}
-                currentYear={currentYear}
-                selectedState={selectedState}
-                cursorPosition={cursorPosition}
-                onMapClick={mapClickCount}
-                isMobile={isMobile}
-            />
 
             {/* Policy Timeline Popup */}
             <PolicyTimelinePopup
