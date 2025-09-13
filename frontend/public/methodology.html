@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Methodology - Pacify</title>
+    <title>How We Do It - Pacify</title>
     <style>
         * {
             margin: 0;
@@ -13,275 +13,418 @@
         }
 
         body {
-            font-family: 'Georgia', 'Times New Roman', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: #f8f8f8;
-            padding: 40px 20px;
+            color: #e0e0e0;
+            background: linear-gradient(135deg,
+                #1a1a1a 0%,
+                #2d2d2d 25%,
+                #404040 50%,
+                #353535 75%,
+                #282828 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
         }
 
-        .paper {
+        .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
-            padding: 60px 80px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            position: relative;
+            padding: 60px 40px;
         }
 
-        .paper::before {
-            content: '';
-            position: absolute;
-            left: 60px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #e0e0e0;
-        }
-
-        .paper::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            background: repeating-linear-gradient(transparent,
-                    transparent 24px,
-                    #f0f0f0 24px,
-                    #f0f0f0 25px);
-            pointer-events: none;
-        }
-
-        h1 {
-            font-size: 2.5em;
-            margin-bottom: 30px;
+        .header {
             text-align: center;
-            color: #2c3e50;
-            border-bottom: 3px solid #3498db;
-            padding-bottom: 20px;
+            margin-bottom: 80px;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 300;
+            color: #ff6b35;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .header .tagline {
+            font-size: 1.3em;
+            color: #ccc;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1em;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .section {
+            margin: 60px 0;
+        }
+
+        .trust-statement {
+            text-align: center;
+            font-size: 1.4em;
+            color: #e0e0e0;
+            font-weight: 300;
+            line-height: 1.7;
+            margin: 60px 0;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         h2 {
-            font-size: 1.8em;
-            margin: 40px 0 20px 0;
-            color: #34495e;
-            border-left: 4px solid #3498db;
-            padding-left: 20px;
-        }
-
-        h3 {
-            font-size: 1.4em;
-            margin: 30px 0 15px 0;
-            color: #2c3e50;
+            font-size: 2em;
+            font-weight: 300;
+            color: #fff;
+            margin: 50px 0 30px 0;
         }
 
         p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .step {
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #ff6b35;
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            font-weight: 500;
             margin-bottom: 20px;
-            text-align: justify;
+        }
+
+        .step h3 {
+            font-size: 1.2em;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .step p {
+            font-size: 1em;
+            color: #bbb;
+            margin: 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .highlight-box h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .highlight-box p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .sources {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .source {
+            padding: 25px 0;
+            text-align: center;
+        }
+
+        .source h4 {
+            color: #ff6b35;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+            font-weight: 500;
+        }
+
+        .source p {
+            color: #bbb;
+            font-size: 0.95em;
+            margin: 0;
+        }
+
+        .simple-list {
+            margin: 40px 0;
+        }
+
+        .simple-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .simple-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
             font-size: 1.1em;
         }
 
-        ul,
-        ol {
-            margin: 20px 0;
-            padding-left: 30px;
+        .simple-list li:before {
+            content: "—";
+            color: #ff6b35;
+            margin-right: 15px;
+            font-weight: bold;
         }
 
-        li {
-            margin-bottom: 10px;
+        .simple-list li:last-child {
+            border-bottom: none;
         }
 
-        .abstract {
-            background: #f8f9fa;
-            padding: 25px;
-            border-left: 5px solid #3498db;
-            margin: 30px 0;
-            font-style: italic;
+        .warning-box {
+            background: rgba(255, 107, 53, 0.1);
+            border-left: 4px solid #ff6b35;
+            padding: 30px;
+            margin: 40px 0;
+            border-radius: 4px;
         }
 
-        .abstract h3 {
-            margin-top: 0;
-            color: #2c3e50;
+        .warning-box h3 {
+            color: #ff6b35;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
-        .methodology-section {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 5px;
-            padding: 25px;
-            margin: 25px 0;
+        .warning-box p {
+            color: #ccc;
+            margin-bottom: 15px;
         }
 
-        .data-source {
-            background: #e8f4f8;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 20px 0;
+        .warning-box ul {
+            color: #bbb;
+            padding-left: 20px;
         }
 
-        .data-source h4 {
-            color: #2980b9;
-            margin-bottom: 10px;
+        .warning-box li {
+            margin-bottom: 8px;
         }
 
-        .limitations {
-            background: #fdf2e9;
-            padding: 20px;
-            border-radius: 5px;
-            margin: 20px 0;
-            border-left: 4px solid #e67e22;
+        .cta {
+            text-align: center;
+            margin: 80px 0 60px 0;
         }
 
-        .limitations h4 {
-            color: #d35400;
-            margin-bottom: 10px;
+        .cta-button {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1em;
+            transition: opacity 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .cta-button:hover {
+            opacity: 0.8;
         }
 
         .footer {
-            margin-top: 50px;
-            padding-top: 30px;
-            border-top: 2px solid #ecf0f1;
             text-align: center;
-            color: #7f8c8d;
+            color: #888;
             font-size: 0.9em;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         @media (max-width: 768px) {
-            .paper {
-                padding: 40px 30px;
-                margin: 20px 10px;
+            .container {
+                padding: 40px 20px;
             }
 
-            .paper::before {
-                left: 30px;
+            .header h1 {
+                font-size: 2.5em;
             }
 
-            h1 {
-                font-size: 2em;
+            .trust-statement {
+                font-size: 1.2em;
             }
 
-            h2 {
-                font-size: 1.5em;
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .sources {
+                grid-template-columns: 1fr;
+                gap: 20px;
             }
         }
     </style>
 </head>
 
 <body>
-    <div class="paper">
-        <h1>Methodology</h1>
-
-        <div class="abstract">
-            <h3>Abstract</h3>
-            <p>This document outlines the methodology used in the Pacify gun violence data visualization platform. Our
-                approach combines multiple data sources, statistical analysis, and interactive visualization techniques
-                to provide comprehensive insights into gun violence patterns across the United States.</p>
+    <div class="container">
+        <div class="header">
+            <h1>How We Do It</h1>
+            <div class="tagline">Turning Data Into Truth</div>
+            <div class="subtitle">The Science Behind Pacify</div>
         </div>
 
-        <h2>Data Sources</h2>
-
-        <div class="data-source">
-            <h4>Gun Violence Archive (GVA)</h4>
-            <p>Primary source for mass shooting incidents, providing detailed information on location, casualties, and
-                circumstances of each event.</p>
+        <div class="trust-statement">
+            We don't guess. We know. Every insight is backed by rigorous data science 
+            using the same techniques that power Wall Street.
         </div>
 
-        <div class="data-source">
-            <h4>State Policy Database</h4>
-            <p>Comprehensive database of state-level gun control policies and legislation changes over time.</p>
+        <div class="section">
+            <h2>Our Process</h2>
+            <p>Six steps turn raw data into actionable insights:</p>
         </div>
 
-        <div class="data-source">
-            <h4>Demographic Data</h4>
-            <p>U.S. Census Bureau data for population demographics and geographic information.</p>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Collect</h3>
+                <p>Gather data from every reliable source: reports, databases, news, policies.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Clean</h3>
+                <p>Verify accuracy, remove duplicates, standardize formats.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Map</h3>
+                <p>Connect incidents to locations, policies, and demographics.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Analyze</h3>
+                <p>AI finds patterns and correlations humans might miss.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Visualize</h3>
+                <p>Turn complex analysis into clear, interactive displays.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">6</div>
+                <h3>Update</h3>
+                <p>Continuously refresh with new data and insights.</p>
+            </div>
         </div>
 
-        <h2>Data Processing</h2>
+        <div class="section">
+            <h2>Data Sources</h2>
+            <p>Trust starts with transparency. Here's where our data comes from:</p>
+        </div>
 
-        <div class="methodology-section">
-            <h3>Data Cleaning and Validation</h3>
-            <p>All datasets undergo rigorous cleaning processes including:</p>
+        <div class="sources">
+            <div class="source">
+                <h4>Gun Violence Archive</h4>
+                <p>Comprehensive incident database with locations and casualties.</p>
+            </div>
+            <div class="source">
+                <h4>Policy Databases</h4>
+                <p>Complete tracking of gun laws across all 50 states.</p>
+            </div>
+            <div class="source">
+                <h4>Census Bureau</h4>
+                <p>Demographics and geographic data for context.</p>
+            </div>
+            <div class="source">
+                <h4>Media Coverage</h4>
+                <p>News reports to fill gaps and understand impact.</p>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h2>AI That Helps</h2>
+            <p>We use Google's Gemini 2.5 Pro to analyze policies and predict outcomes. 
+            AI suggests, humans decide. Every insight is reviewed by real experts.</p>
+        </div>
+
+        <div class="section">
+            <h2>What Makes Us Different</h2>
+        </div>
+
+        <div class="simple-list">
             <ul>
-                <li>Removal of duplicate entries</li>
-                <li>Standardization of geographic coordinates</li>
-                <li>Validation of date formats and ranges</li>
-                <li>Cross-referencing with multiple sources for accuracy</li>
+                <li>Johns Hopkins rigor with Wall Street techniques</li>
+                <li>30 years of data with cutting-edge analysis</li>
+                <li>Real-time updates as new data arrives</li>
+                <li>Mobile-friendly, works everywhere</li>
+                <li>Open methodology, fully transparent</li>
+                <li>Academic quality, practical focus</li>
             </ul>
         </div>
 
-        <div class="methodology-section">
-            <h3>Geographic Mapping</h3>
-            <p>Incident locations are geocoded and mapped using:</p>
+        <div class="section">
+            <h2>Quality Control</h2>
+            <p>Data is only as good as its quality control. We cross-check every source, validate every coordinate, and test every algorithm. If we're not confident in a data point, we don't use it.</p>
+        </div>
+
+        <div class="section">
+            <h2>Technology Stack</h2>
+        </div>
+
+        <div class="simple-list">
             <ul>
-                <li>Leaflet.js for interactive mapping</li>
-                <li>County-level choropleth visualization</li>
-                <li>Heat map clustering for density analysis</li>
-                <li>State-level policy correlation mapping</li>
+                <li>React.js with interactive maps and visualizations</li>
+                <li>Python pipelines for data processing</li>
+                <li>Google Gemini 2.5 Pro for AI analysis</li>
+                <li>Advanced statistics and time series analysis</li>
+                <li>Automated testing and deployment</li>
             </ul>
         </div>
 
-        <div class="methodology-section">
-            <h3>Statistical Analysis</h3>
-            <p>Our analysis includes:</p>
+        <div class="warning-box">
+            <h3>What We Can't Do</h3>
+            <p>Honest limitations matter. Our data can't:</p>
             <ul>
-                <li>Time series analysis of incident trends</li>
-                <li>Geographic clustering analysis</li>
-                <li>Policy impact correlation studies</li>
-                <li>Demographic pattern identification</li>
+                <li>Predict individual incidents</li>
+                <li>Prove causation (only correlation)</li>
+                <li>Account for unreported incidents</li>
+                <li>Show immediate policy effects</li>
+                <li>Include all private transactions</li>
             </ul>
+            <p><strong>Bottom line:</strong> We're a powerful tool for understanding trends, not a crystal ball. Use our insights as part of broader evidence, not the final word.</p>
         </div>
 
-        <h2>Visualization Techniques</h2>
-
-        <div class="methodology-section">
-            <h3>Interactive Timeline</h3>
-            <p>Dynamic timeline controls allow users to explore data across different time periods, with smooth
-                transitions and real-time updates.</p>
+        <div class="section">
+            <h2>Questions?</h2>
+            <p>We believe in transparency. Want to know more about our methods, have questions about our data, or use our platform for research? Just ask.</p>
         </div>
 
-        <div class="methodology-section">
-            <h3>Multi-layer Mapping</h3>
-            <p>Layered visualization approach combining county choropleth, incident heatmaps, and policy markers for
-                comprehensive analysis.</p>
-        </div>
-
-        <div class="limitations">
-            <h4>Limitations</h4>
-            <p>This analysis is subject to several limitations:</p>
-            <ul>
-                <li>Data availability and reporting inconsistencies across states</li>
-                <li>Potential underreporting of certain types of incidents</li>
-                <li>Geographic accuracy limitations in rural areas</li>
-                <li>Policy classification challenges and interpretation variations</li>
-            </ul>
-        </div>
-
-        <h2>Technical Implementation</h2>
-
-        <div class="methodology-section">
-            <h3>Frontend Architecture</h3>
-            <p>Built using React.js with Leaflet for mapping, featuring responsive design and real-time data updates.
-            </p>
-        </div>
-
-        <div class="methodology-section">
-            <h3>Data Processing Pipeline</h3>
-            <p>Automated data processing pipeline using Python for data cleaning, analysis, and JSON generation for
-                frontend consumption.</p>
+        <div class="cta">
+            <a href="/" class="cta-button">Explore the Platform</a>
         </div>
 
         <div class="footer">
-            <p>Last updated: <span id="currentDate"></span></p>
-            <p>For questions about this methodology, please contact the development team.</p>
+            <p>Developed by Marshall Wace Track Students, Johns Hopkins University</p>
+            <p>For technical questions or research collaboration, contact the development team.</p>
         </div>
     </div>
-
-    <script>
-        // Set current date
-        document.getElementById('currentDate').textContent = new Date().toLocaleDateString();
-    </script>
 </body>
 
 </html>

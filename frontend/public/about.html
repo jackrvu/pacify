@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Pacify</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background: linear-gradient(135deg,
+                #1a1a1a 0%,
+                #2d2d2d 25%,
+                #404040 50%,
+                #353535 75%,
+                #282828 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .header h1 {
+            font-size: 3.5em;
+            font-weight: 300;
+            color: #ff6b35;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .header .tagline {
+            font-size: 1.3em;
+            color: #ccc;
+            font-weight: 300;
+            margin-bottom: 10px;
+        }
+
+        .header .subtitle {
+            font-size: 1em;
+            color: #999;
+            font-weight: 400;
+        }
+
+        .section {
+            margin: 60px 0;
+        }
+
+        .hero-statement {
+            text-align: center;
+            font-size: 1.4em;
+            color: #e0e0e0;
+            font-weight: 300;
+            line-height: 1.7;
+            margin: 60px 0;
+            padding: 40px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .stat {
+            padding: 20px 0;
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: 200;
+            color: #ff6b35;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #ccc;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+        }
+
+        h2 {
+            font-size: 2em;
+            font-weight: 300;
+            color: #fff;
+            margin: 50px 0 30px 0;
+        }
+
+        p {
+            font-size: 1.1em;
+            color: #ccc;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .feature h3 {
+            font-size: 1.2em;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .feature p {
+            font-size: 1em;
+            color: #bbb;
+            margin: 0;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .highlight-box h2 {
+            color: white;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .highlight-box p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2em;
+            margin: 0;
+        }
+
+        .simple-list {
+            margin: 40px 0;
+        }
+
+        .simple-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .simple-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 1.1em;
+        }
+
+        .simple-list li:before {
+            content: "—";
+            color: #ff6b35;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .simple-list li:last-child {
+            border-bottom: none;
+        }
+
+        .cta {
+            text-align: center;
+            margin: 80px 0 60px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b35;
+            color: white;
+            padding: 15px 35px;
+            text-decoration: none;
+            margin: 10px;
+            font-weight: 500;
+            font-size: 1em;
+            transition: opacity 0.3s ease;
+            border: 2px solid #ff6b35;
+            border-radius: 4px;
+        }
+
+        .cta-button:hover {
+            opacity: 0.8;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: #ff6b35;
+        }
+
+        .cta-button.secondary:hover {
+            background: #ff6b35;
+            color: white;
+        }
+
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px;
+            }
+
+            .header h1 {
+                font-size: 2.5em;
+            }
+
+            .hero-statement {
+                font-size: 1.2em;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Pacify</h1>
+            <div class="tagline">Making Gun Violence Data Matter</div>
+            <div class="subtitle">Johns Hopkins University • Marshall Wace Track</div>
+        </div>
+
+        <div class="hero-statement">
+            We turn 30 years of gun violence data into clear insights that help save lives. 
+            This isn't just visualization—it's evidence for change.
+        </div>
+
+        <div class="stats">
+            <div class="stat">
+                <span class="stat-number">500K+</span>
+                <span class="stat-label">Incidents</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">30</span>
+                <span class="stat-label">Years</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">3,143</span>
+                <span class="stat-label">Counties</span>
+            </div>
+            <div class="stat">
+                <span class="stat-number">50</span>
+                <span class="stat-label">States</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>What We Do</h2>
+            <p>We analyze gun violence patterns across America and show which policies actually work. Our platform helps policymakers, researchers, and citizens understand complex data through simple, interactive tools.</p>
+        </div>
+
+        <div class="features">
+            <div class="feature">
+                <h3>Interactive Maps</h3>
+                <p>See patterns across America, from national trends to local details.</p>
+            </div>
+            <div class="feature">
+                <h3>Smart Analysis</h3>
+                <p>AI reveals which policies work, backed by real data.</p>
+            </div>
+            <div class="feature">
+                <h3>Timeline View</h3>
+                <p>Watch how violence changes over time and after policy changes.</p>
+            </div>
+            <div class="feature">
+                <h3>Policy Tracker</h3>
+                <p>Compare laws across all 50 states and see their results.</p>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h2>Built at Johns Hopkins</h2>
+            <p>We use Wall Street-level data science to understand public policy. 
+            Advanced techniques that predict markets now help prevent violence.</p>
+        </div>
+
+        <div class="section">
+            <h2>Why This Matters</h2>
+            <p>Gun violence policy is often driven by politics, not evidence. We provide the missing piece: clear, unbiased analysis of what actually works to prevent violence.</p>
+        </div>
+
+        <div class="simple-list">
+            <ul>
+                <li>Help lawmakers make evidence-based decisions</li>
+                <li>Show communities what prevention works</li>
+                <li>Give researchers powerful analysis tools</li>
+                <li>Make complex data accessible to everyone</li>
+                <li>Turn statistics into actionable insights</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>The Technology</h2>
+            <p>We use cutting-edge AI and machine learning to process over 500,000 incidents. Our platform correlates data with policy changes and presents insights anyone can understand.</p>
+        </div>
+
+        <div class="simple-list">
+            <ul>
+                <li>AI-powered analysis using Google's latest technology</li>
+                <li>Real-time data processing and updates</li>
+                <li>Mobile-friendly design</li>
+                <li>Academic rigor, user-friendly interface</li>
+                <li>Open, transparent methodology</li>
+            </ul>
+        </div>
+
+        <div class="cta">
+            <a href="/" class="cta-button">Explore the Data</a>
+            <a href="/methodology.html" class="cta-button secondary">How We Do It</a>
+        </div>
+
+        <div class="footer">
+            <p>Developed by Marshall Wace Track Students, Johns Hopkins University</p>
+            <p>For questions or collaboration opportunities, please contact the development team.</p>
+        </div>
+    </div>
+</body>
+
+</html>
