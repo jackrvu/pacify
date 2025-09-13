@@ -85,6 +85,7 @@ const AnalyticsDashboard = ({
     const [geminiResponse, setGeminiResponse] = useState('');
     const [showGeminiPanel, setShowGeminiPanel] = useState(false);
     const [geminiQuestion, setGeminiQuestion] = useState('');
+    const [currentAnalysisType, setCurrentAnalysisType] = useState(null);
 
     // Annotation editing state
     const [editingAnnotation, setEditingAnnotation] = useState(null);
@@ -256,6 +257,19 @@ const AnalyticsDashboard = ({
         }
     };
 
+    // Get analysis title based on insight type
+    const getAnalysisTitle = (insightType) => {
+        const titles = {
+            'safety_impact': '🛡️ Safety Impact Analysis',
+            'constitutional': '⚖️ Constitutional Analysis',
+            'effectiveness': '📊 Policy Effectiveness Analysis',
+            'comparison': '🔄 State Comparison Analysis',
+            'unintended': '⚠️ Unintended Consequences Analysis',
+            'implementation': '🔧 Implementation Challenges Analysis'
+        };
+        return titles[insightType] || '🤖 AI Analysis';
+    };
+
     const handleGeminiAnalysis = async (insightType = null) => {
         if (!isGeminiAvailable()) {
             alert('Gemini API is not configured. Please set up your API key to use AI analysis.');
@@ -266,11 +280,16 @@ const AnalyticsDashboard = ({
 
         setGeminiLoading(true);
         setGeminiResponse('');
+        setCurrentAnalysisType(insightType);
 
         try {
+            console.log('Analyzing policy with insight type:', insightType);
+            
             const result = insightType
                 ? await getPolicyInsights(currentPolicy, insightType)
                 : await analyzePolicyWithGemini(currentPolicy, geminiQuestion || null);
+
+            console.log('Analysis result for', insightType, ':', result);
 
             if (result.success) {
                 setGeminiResponse(result.analysis);
@@ -674,8 +693,12 @@ const AnalyticsDashboard = ({
 
                                         {geminiResponse && (
                                             <div className="gemini-response">
-                                                <h4>AI Analysis:</h4>
-                                                <VisualAnalysisResponse analysis={geminiResponse} />
+                                                <h4>{getAnalysisTitle(currentAnalysisType)}</h4>
+                                                <VisualAnalysisResponse 
+                                                    analysis={geminiResponse} 
+                                                    hideSectionTitles={currentAnalysisType !== null}
+                                                    enableTypewriter={true}
+                                                />
                                                 <button
                                                     onClick={() => setGeminiResponse('')}
                                                     className="clear-response-btn"

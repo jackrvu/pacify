@@ -432,6 +432,7 @@ function App() {
                 key={panelKey}
                 stateData={getStateContextData()}
                 isVisible={showStateContextPanel && hoveredState}
+                onClose={() => setShowStateContextPanel(false)}
             />
 
             {/* Resizable Analytics Tab */}

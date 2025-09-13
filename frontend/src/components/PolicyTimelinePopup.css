@@ -67,37 +67,42 @@
 }
 
 .play-pause-btn {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 36px;
-    height: 36px;
-    padding: 0;
-    background: linear-gradient(135deg, #9ca3af, #6b7280);
-    border: none;
-    border-radius: 50%;
-    color: white;
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: pointer;
+    border-radius: 4px;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
+    flex-shrink: 0;
 }
 
 .play-pause-btn:hover {
-    background: linear-gradient(135deg, #6b7280, #4b5563);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(156, 163, 175, 0.4);
+    background: none;
+    color: #ffffff;
+    transform: scale(1.1);
+}
+
+.play-pause-btn:active {
+    transform: scale(0.95);
 }
 
 .play-pause-btn.playing {
-    background: linear-gradient(135deg, #e74c3c, #c0392b);
-    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+    background: transparent;
+    color: #ff6b35;
 }
 
 .play-pause-btn.playing:hover {
-    background: linear-gradient(135deg, #c0392b, #a93226);
-    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+    background: none;
+    color: #f7931e;
+    transform: scale(1.1);
 }
 
 .current-year-display {
@@ -112,23 +117,31 @@
 
 
 .close-timeline-btn {
-    background: rgba(255, 255, 255, 0.1);
+    background: none;
     border: none;
-    color: white;
-    font-size: 24px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    color: #e0e0e0;
+    font-size: 1.5rem;
+    font-weight: bold;
     cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
+    border-radius: 4px;
     transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .close-timeline-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    transform: scale(1.05);
+    background: none;
+    color: #e0e0e0;
+    transform: scale(1.1);
+}
+
+.close-timeline-btn:active {
+    transform: scale(0.95);
 }
 
 .timeline-container {

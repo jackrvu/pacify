@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './PolicyModal.css';
 import { bookmarkPolicy, unbookmarkPolicy, isPolicyBookmarked, addAnnotation } from '../utils/bookmarkService';
 import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
+import VisualAnalysisResponse from './VisualAnalysisResponse';
 
 const PolicyModal = ({
     isOpen,
@@ -17,6 +18,7 @@ const PolicyModal = ({
     const [geminiResponse, setGeminiResponse] = useState('');
     const [showGeminiPanel, setShowGeminiPanel] = useState(false);
     const [geminiQuestion, setGeminiQuestion] = useState('');
+    const [currentAnalysisType, setCurrentAnalysisType] = useState(null);
 
     // Check if policy is bookmarked when modal opens
     useEffect(() => {
@@ -106,6 +108,19 @@ const PolicyModal = ({
         }
     };
 
+    // Get analysis title based on insight type
+    const getAnalysisTitle = (insightType) => {
+        const titles = {
+            'safety_impact': '🛡️ Safety Impact Analysis',
+            'constitutional': '⚖️ Constitutional Analysis',
+            'effectiveness': '📊 Policy Effectiveness Analysis',
+            'comparison': '🔄 State Comparison Analysis',
+            'unintended': '⚠️ Unintended Consequences Analysis',
+            'implementation': '🔧 Implementation Challenges Analysis'
+        };
+        return titles[insightType] || '🤖 AI Analysis';
+    };
+
     // Gemini handlers
     const handleGeminiAnalysis = async (insightType = null) => {
         if (!isGeminiAvailable()) {
@@ -115,6 +130,7 @@ const PolicyModal = ({
 
         setGeminiLoading(true);
         setGeminiResponse('');
+        setCurrentAnalysisType(insightType);
 
         try {
             const policyData = {
@@ -388,9 +404,13 @@ const PolicyModal = ({
                                 
                                 {geminiResponse && (
                                     <div className="gemini-response">
-                                        <h4>AI Analysis:</h4>
+                                        <h4>{getAnalysisTitle(currentAnalysisType)}</h4>
                                         <div className="gemini-response-content">
-                                            {geminiResponse}
+                                            <VisualAnalysisResponse 
+                                                analysis={geminiResponse} 
+                                                hideSectionTitles={currentAnalysisType !== null}
+                                                enableTypewriter={true}
+                                            />
                                         </div>
                                         <button
                                             onClick={() => setGeminiResponse('')}

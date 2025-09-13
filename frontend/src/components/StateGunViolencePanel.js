@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import './StateGunViolencePanel.css';
 
-const StateGunViolencePanel = ({ stateData, isVisible }) => {
+const StateGunViolencePanel = ({ stateData, isVisible, onClose }) => {
     const contentRef = useRef(null);
     const scrollIntervalRef = useRef(null);
     const scrollPositionRef = useRef(0);
@@ -94,10 +94,15 @@ const StateGunViolencePanel = ({ stateData, isVisible }) => {
     return (
         <div className="state-gun-violence-panel">
             <div className="panel-header">
-                <h3>{stateData.state} Gun Violence</h3>
-                <div className="gemini-attribution">
-                    <small>information powered by Gemini 2.5 Pro with Search</small>
+                <div className="header-content">
+                    <h3>{stateData.state} Gun Violence</h3>
+                    <div className="gemini-attribution">
+                        <small>information powered by Gemini 2.5 Pro with Search</small>
+                    </div>
                 </div>
+                <button className="close-button" onClick={onClose} aria-label="Close panel">
+                    ×
+                </button>
             </div>
             <div className="panel-content" ref={contentRef}>
                 <div className="context-text">

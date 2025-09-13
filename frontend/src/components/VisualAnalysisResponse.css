@@ -6,65 +6,317 @@
 }
 
 .analysis-section {
-    background: rgba(45, 45, 45, 0.6);
-    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(45, 45, 45, 0.7), rgba(35, 35, 35, 0.8));
+    border-radius: 16px;
     padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.analysis-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1));
+    opacity: 0.8;
 }
 
 .analysis-section:hover {
-    background: rgba(45, 45, 45, 0.8);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, rgba(55, 55, 55, 0.8), rgba(45, 45, 45, 0.9));
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.25);
 }
 
 .section-header {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 0.75rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     padding-bottom: 0.75rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    position: relative;
 }
 
-.section-icon {
-    font-size: 1.5rem;
-    flex-shrink: 0;
+.section-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
+
+.section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 30%;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 1px;
+}
+
 
 .section-title {
     margin: 0;
     color: #fff;
     font-size: 1.2rem;
     font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
 }
 
 .section-content {
     color: #e0e0e0;
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: 0.95rem;
 }
 
 .content-line {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+    transition: all 0.2s ease;
+}
+
+.content-line:hover {
+    transform: translateX(4px);
 }
 
 .bullet-point {
     display: block;
-    padding-left: 1rem;
+    padding: 0.5rem 0 0.5rem 2rem;
     position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    border-left: 3px solid rgba(255, 255, 255, 0.3);
+    margin: 0.5rem 0;
 }
 
 .bullet-point::before {
     content: "▶";
     position: absolute;
-    left: 0;
-    color: #4CAF50;
+    left: -0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
     font-size: 0.8rem;
+    font-weight: bold;
+    z-index: 1;
+}
+
+.bullet-point .bold-text {
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 .content-text {
     display: block;
+    padding: 0.5rem 0;
+    line-height: 1.7;
+    color: #e8e8e8;
+}
+
+/* Enhanced styling for different types of content */
+.content-text strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.bold-text {
+    color: #fff;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.content-text em {
+    color: rgba(255, 255, 255, 0.8);
+    font-style: italic;
+}
+
+/* Special styling for conclusion sections */
+.content-line:has-text("Conclusion:") {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Better spacing for paragraphs */
+.content-text + .content-text {
+    margin-top: 0.5rem;
+}
+
+/* Enhanced bullet point variations */
+.bullet-point:nth-child(odd) {
+    border-left-color: rgba(255, 255, 255, 0.3);
+}
+
+.bullet-point:nth-child(even) {
+    border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+.bullet-point:nth-child(even)::before {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Special styling for key phrases and important content */
+.content-text:contains("Potential") {
+    font-weight: 500;
+}
+
+.content-text:contains("Conclusion") {
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Enhanced styling for lists and structured content */
+.bullet-point:first-child {
+    margin-top: 0;
+}
+
+.bullet-point:last-child {
+    margin-bottom: 0;
+}
+
+/* Better visual separation for different content types */
+.content-line:has-text("Potential Benefits:") {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.content-line:has-text("Potential Drawbacks:") {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.content-line:has-text("Overall Assessment:") {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Smooth animations for better UX */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.analysis-section {
+    animation: slideIn 0.4s ease-out;
+}
+
+.bullet-point {
+    animation: slideIn 0.3s ease-out;
+}
+
+/* Typewriter effect styles */
+
+.skip-typing-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    padding: 0.4rem 0.8rem;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+    backdrop-filter: blur(10px);
+}
+
+.skip-typing-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.skip-typing-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-1px);
+}
+
+.skip-typing-btn:hover::before {
+    left: 100%;
+}
+
+.skip-typing-btn:active {
+    transform: translateY(0);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.skip-typing-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.typing-cursor {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+    padding-left: 0.25rem;
+}
+
+.cursor-blink {
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    animation: blink 1s infinite;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+/* Typing animation for smooth character reveal */
+.analysis-section.typing {
+    overflow: hidden;
+}
+
+.content-line.typing {
+    animation: typeReveal 0.1s ease-out;
+}
+
+@keyframes typeReveal {
+    from {
+        opacity: 0;
+        transform: translateY(2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive design */
@@ -79,5 +331,21 @@
     
     .section-title {
         font-size: 1.1rem;
+    }
+    
+    .skip-typing-btn {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.7rem;
+        border-radius: 10px;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .section-title-group {
+        width: 100%;
     }
 }

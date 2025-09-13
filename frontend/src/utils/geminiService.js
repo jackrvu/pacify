@@ -88,7 +88,7 @@ State Statistics (2019-2025):
 
 Specific Question: ${question}
 
-Please provide a focused analysis addressing this specific question while considering the broader policy context.`;
+Please provide a focused analysis addressing ONLY this specific question. Do not include other analysis sections like Constitutional Analysis, State Context, etc. Focus exclusively on the question asked and provide a comprehensive answer with bullet points (•) for key points.`;
     } else {
         return `${basePrompt}
 
@@ -132,6 +132,7 @@ export const getPolicyInsights = async (policy, insightType) => {
     };
 
     const question = questions[insightType] || questions['safety_impact'];
+    console.log('getPolicyInsights called with insightType:', insightType, 'question:', question);
     return await analyzePolicyWithGemini(policy, question);
 };
 

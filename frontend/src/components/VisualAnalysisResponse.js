@@ -1,7 +1,19 @@
 import React from 'react';
 import './VisualAnalysisResponse.css';
+import useTypewriter from '../hooks/useTypewriter';
 
-const VisualAnalysisResponse = ({ analysis }) => {
+const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTypewriter = true }) => {
+    // Function to parse text and convert **text** to bold
+    const parseTextWithBold = (text) => {
+        const parts = text.split(/(\*\*[^*]+\*\*)/g);
+        return parts.map((part, index) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+                const boldText = part.slice(2, -2); // Remove ** from start and end
+                return <strong key={index} className="bold-text">{boldText}</strong>;
+            }
+            return part;
+        });
+    };
     const parseAnalysis = (text) => {
         // Check if it's already structured with ## headers
         if (text.includes('##')) {
@@ -14,7 +26,7 @@ const VisualAnalysisResponse = ({ analysis }) => {
                     const title = lines[0].trim();
                     const content = lines.slice(1).join('\n').trim();
                     
-                    if (title && content) {
+                    if (title && content && content.length > 10) {
                         parsed[title] = content;
                     }
                 }
@@ -22,8 +34,21 @@ const VisualAnalysisResponse = ({ analysis }) => {
             
             return parsed;
         } else {
-            // Fallback: parse unstructured text and organize it
-            return parseUnstructuredText(text);
+            // Check if this is a focused single-topic response
+            // If it doesn't contain multiple section markers, treat it as a single focused response
+            const hasMultipleSections = text.includes('Potential Benefits:') || 
+                                       text.includes('Potential Drawbacks:') || 
+                                       text.includes('Constitutional') ||
+                                       text.includes('Safety Impact') ||
+                                       text.includes('State Context');
+            
+            if (!hasMultipleSections) {
+                // This is a focused response, return it as a single section
+                return { 'Focused Analysis': text };
+            } else {
+                // Fallback: parse unstructured text and organize it
+                return parseUnstructuredText(text);
+            }
         }
     };
 
@@ -47,14 +72,14 @@ const VisualAnalysisResponse = ({ analysis }) => {
         
         // Look for structured sections first (these are most reliable)
         const structuredSections = [
-            { markers: ['Potential Benefits:', '**Potential Benefits:**'], title: '🛡️ Safety Benefits' },
-            { markers: ['Potential Drawbacks:', '**Potential Drawbacks:**'], title: '⚠️ Safety Concerns' },
-            { markers: ['Overall Assessment:', '**Overall Assessment:**'], title: '🎯 Key Takeaways' }
+            { markers: ['Potential Benefits:', '**Potential Benefits:**'], title: 'Safety Benefits' },
+            { markers: ['Potential Drawbacks:', '**Potential Drawbacks:**'], title: 'Safety Concerns' },
+            { markers: ['Overall Assessment:', '**Overall Assessment:**'], title: 'Key Takeaways' }
         ];
         
         structuredSections.forEach(section => {
             const content = extractSection(text, section.markers);
-            if (content && content.length > 50) {
+            if (content && content.length > 20) {
                 sections[section.title] = content;
                 // Mark this content as used
                 const startIndex = text.indexOf(content);
@@ -218,10 +243,10 @@ const VisualAnalysisResponse = ({ analysis }) => {
         
         // Look for constitutional content
         if (text.includes('Second Amendment') || text.includes('Constitutional') || text.includes('Due Process')) {
-            sections['⚖️ Constitutional Analysis'] = cleanText(text.substring(0, Math.min(800, text.length)));
+            sections['Constitutional Analysis'] = cleanText(text.substring(0, Math.min(800, text.length)));
         } else {
             // If no clear constitutional content, just show as analysis
-            sections['📋 Policy Analysis'] = cleanText(text.substring(0, Math.min(1000, text.length)));
+            sections['Policy Analysis'] = cleanText(text.substring(0, Math.min(1000, text.length)));
         }
         
         return sections;
@@ -233,13 +258,13 @@ const VisualAnalysisResponse = ({ analysis }) => {
         // Try to identify the main theme
         if (text.includes('Potential Benefits') || text.includes('Potential Drawbacks')) {
             // This looks like a safety analysis
-            sections['🛡️ Safety Analysis'] = cleanText(text);
+            sections['Safety Analysis'] = cleanText(text);
         } else if (text.includes('Second Amendment') || text.includes('Constitutional')) {
             // This looks like constitutional analysis
-            sections['⚖️ Constitutional Analysis'] = cleanText(text);
+            sections['Constitutional Analysis'] = cleanText(text);
         } else {
             // General policy analysis
-            sections['📋 Policy Analysis'] = cleanText(text);
+            sections['Policy Analysis'] = cleanText(text);
         }
         
         return sections;
@@ -253,35 +278,69 @@ const VisualAnalysisResponse = ({ analysis }) => {
     };
 
     const parsedAnalysis = parseAnalysis(analysis);
+    
+    // Use typewriter effect for the entire analysis text
+    const { displayedText, isTyping, isComplete, skipToEnd } = useTypewriter(
+        analysis, 
+        30, // typing speed in milliseconds
+        enableTypewriter
+    );
+    
+    // Parse the displayed text (which might be partial during typing)
+    const displayedParsedAnalysis = enableTypewriter ? parseAnalysis(displayedText) : parsedAnalysis;
+    
+    // Debug log to see what sections are being created
+    if (enableTypewriter && isTyping) {
+        console.log('Displayed text length:', displayedText.length);
+        console.log('Parsed sections:', Object.keys(displayedParsedAnalysis));
+        console.log('Section content lengths:', Object.entries(displayedParsedAnalysis).map(([title, content]) => [title, content.length]));
+    }
 
     return (
         <div className="visual-analysis">
-            {Object.entries(parsedAnalysis).map(([title, content], index) => (
+            
+            {Object.entries(displayedParsedAnalysis)
+                .filter(([title, content]) => title && content && content.trim().length > 0)
+                .map(([title, content], index) => (
                 <div key={index} className="analysis-section">
-                    <div className="section-header">
-                        <span className="section-icon">
-                            {title.includes('Summary') ? '📋' :
-                             title.includes('Benefits') ? '🛡️' :
-                             title.includes('Concerns') ? '⚠️' :
-                             title.includes('Takeaways') ? '🎯' :
-                             title.includes('Constitutional') ? '⚖️' :
-                             title.includes('Context') ? '📊' : '📝'}
-                        </span>
-                        <h3 className="section-title">{title}</h3>
-                    </div>
+                    {!hideSectionTitles && (
+                        <div className="section-header">
+                            <div className="section-title-group">
+                                <h3 className="section-title">{title}</h3>
+                            </div>
+                            {enableTypewriter && isTyping && index === 0 && (
+                                <button 
+                                    onClick={() => {
+                                        console.log('Skip button clicked, isTyping:', isTyping);
+                                        skipToEnd();
+                                    }} 
+                                    className="skip-typing-btn"
+                                    title="Skip typing animation and show full response"
+                                >
+                                    Skip
+                                </button>
+                            )}
+                        </div>
+                    )}
                     <div className="section-content">
                         {content.split('\n').map((line, lineIndex) => (
                             line.trim() ? (
                                 <div key={lineIndex} className="content-line">
                                     {line.startsWith('•') || line.startsWith('-') || line.startsWith('*') ? (
-                                        <span className="bullet-point">{line}</span>
+                                        <span className="bullet-point">{parseTextWithBold(line)}</span>
                                     ) : (
-                                        <span className="content-text">{line}</span>
+                                        <span className="content-text">{parseTextWithBold(line)}</span>
                                     )}
                                 </div>
                             ) : null
                         ))}
                     </div>
+                    
+                    {enableTypewriter && isTyping && index === Object.keys(displayedParsedAnalysis).length - 1 && (
+                        <div className="typing-cursor">
+                            <span className="cursor-blink">|</span>
+                        </div>
+                    )}
                 </div>
             ))}
         </div>
