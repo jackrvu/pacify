@@ -5,6 +5,23 @@
     padding: 1rem;
 }
 
+.raw-analysis-content {
+    color: #e0e0e0;
+    line-height: 1.6;
+    font-size: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.raw-analysis-content strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.raw-analysis-content em {
+    color: #ffd700;
+    font-style: italic;
+}
+
 .analysis-section {
     background: linear-gradient(135deg, rgba(45, 45, 45, 0.7), rgba(35, 35, 35, 0.8));
     border-radius: 16px;

@@ -757,8 +757,8 @@ const PolicyTimelinePopup = ({
                     {/* Year labels below timeline */}
                     <div className="year-labels">
                         {availableYears.map((year, index) => {
-                            // Show every few years to avoid crowding
-                            const shouldShow = index % Math.ceil(availableYears.length / 8) === 0 ||
+                            // Show more years for closer spacing (~80px apart)
+                            const shouldShow = index % Math.ceil(availableYears.length / 12) === 0 ||
                                 year === minYear ||
                                 year === maxYear ||
                                 year === currentYear;
