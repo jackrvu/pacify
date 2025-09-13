@@ -1,0 +1,302 @@
+"Incident ID","Incident Date",State,"City Or County",Address,"Victims Killed","Victims Injured","Suspects Killed","Suspects Injured","Suspects Arrested",Operations
+3305393,"September 11, 2025",Florida,Tampa,"6000 block of Woodville St",1,5,0,0,0,N/A
+3304563,"September 9, 2025",California,"San Francisco","1555 Burke St",0,6,0,0,0,N/A
+3304605,"September 8, 2025",California,"Santa Ana","400 S Susan St",1,3,0,0,0,N/A
+3303073,"September 7, 2025",Ohio,Cleveland,"1051 W 10th St",0,5,0,1,1,N/A
+3302748,"September 7, 2025",Texas,Cleveland,"2843 County Rd 5018",2,4,0,0,0,N/A
+3303232,"September 7, 2025",Tennessee,Memphis,"4100 block of Rosewind Cir",0,4,0,0,0,N/A
+3302041,"September 6, 2025",Virginia,Portsmouth,"Manly St and Dahlia St S",1,3,0,0,0,N/A
+3300931,"September 3, 2025",Missouri,"Kansas City","Harrison St and E Armour Blvd",0,5,0,0,0,N/A
+3299148,"September 1, 2025","New York",Bronx,"686 Allerton Ave",1,4,0,0,5,N/A
+3298615,"September 1, 2025",Illinois,Chicago,"3600 block of S Cottage Grove Ave",0,5,0,0,1,N/A
+3297880,"August 31, 2025",Illinois,Chicago,"2700 block of W Haddon Ave",0,4,0,0,0,N/A
+3297889,"August 30, 2025",Illinois,"Chicago Heights","400 block of W 14th St",1,4,0,0,1,N/A
+3298204,"August 30, 2025",Mississippi,Jackson,"5627 Dogwood Trail",2,2,0,0,3,N/A
+3297867,"August 30, 2025",Illinois,Chicago,"3500 block of S State St",0,7,0,0,0,N/A
+3297573,"August 29, 2025","New York","Syracuse (Geddes)","1002 State Fair Blvd",0,4,0,1,1,N/A
+3297408,"August 29, 2025",Florida,"Fort Lauderdale","657 NW 9th St",0,4,0,0,0,N/A
+3294737,"August 27, 2025",Minnesota,Minneapolis,"509 W 54th St",2,21,1,0,0,N/A
+3294361,"August 26, 2025",California,"Los Angeles","8501 S Figueroa St",0,5,0,0,0,N/A
+3294369,"August 26, 2025",Minnesota,Minneapolis,"E 29th St and Clinton Ave",1,6,0,0,0,N/A
+3292906,"August 24, 2025",Missouri,"Kansas City","E 13th St and Grand Blvd",2,3,0,0,0,N/A
+3293218,"August 24, 2025",Maryland,Hagerstown,"11205 John F Kennedy Dr",0,4,0,0,0,N/A
+3292691,"August 23, 2025","New York",Bronx,"Burke Ave and Wickham Ave",2,3,0,0,4,N/A
+3292026,"August 22, 2025","New York",Bronx,"1401 Overing St",0,4,0,0,0,N/A
+3289583,"August 18, 2025","West Virginia","Mount Carbon","Adena Dr",1,3,1,0,0,N/A
+3288499,"August 17, 2025",Virginia,Richmond,"1700 block of Clarkson Rd",1,3,0,0,0,N/A
+3288282,"August 17, 2025","New York",Brooklyn,"903 Franklin Ave",1,11,2,0,0,N/A
+3290521,"August 17, 2025",Mississippi,Prentiss,"84 Young Rd",1,4,0,0,5,N/A
+3290307,"August 16, 2025",Washington,Grandview,"Apricot Rd and County Line Rd",0,5,0,0,0,N/A
+3288024,"August 16, 2025",Indiana,Indianapolis,"3100 block of Brouse Ave",0,5,0,0,0,N/A
+3288736,"August 16, 2025",Michigan,Saginaw,"S 23rd St and Perkins St",0,5,0,0,0,N/A
+3288301,"August 16, 2025",Illinois,Chicago,"2400 block of W Jackson Blvd",0,4,0,0,0,N/A
+3284255,"August 11, 2025",Illinois,Chicago,"700 block of E 43rd St",0,5,0,0,0,N/A
+3283186,"August 10, 2025",Illinois,Chicago,"100 block of N La Crosse Ave",1,5,0,0,0,N/A
+3283977,"August 10, 2025",Mississippi,Jackson,"357 N Mart Plaza",0,8,0,0,0,N/A
+3283199,"August 10, 2025",Illinois,Chicago,"4500 block of W Wilcox St",0,4,0,0,0,N/A
+3283060,"August 9, 2025",Maryland,Baltimore,"5101 Queensbury Ave",1,5,0,0,0,N/A
+3282825,"August 9, 2025",Texas,Midland,"610 E Industrial Ave",0,4,0,0,1,N/A
+3281735,"August 7, 2025",Ohio,Cleveland,"1900 block of N Taylor Rd",2,2,0,0,1,N/A
+3280275,"August 6, 2025",Georgia,"Fort Stewart","594 Vanguard Rd",0,5,0,0,1,N/A
+3278590,"August 4, 2025",California,"Los Angeles","E 14th Pl and Paloma St",2,6,0,0,0,N/A
+3278919,"August 3, 2025",Virginia,"Virginia Beach","4900 block of Gulfstream Cir",0,4,0,0,0,N/A
+3278049,"August 3, 2025",Iowa,"Iowa City","600 block of E Court St",0,4,0,0,2,N/A
+3278491,"August 2, 2025",Nebraska,Omaha,"3501 N 30th St",0,6,0,1,1,N/A
+3277877,"August 2, 2025",Illinois,Harvey,"14400 block of Des Plaines St",0,5,1,1,0,N/A
+3276908,"August 1, 2025",Montana,Anaconda,"819 E 3rd St",4,0,0,0,1,N/A
+3276476,"July 30, 2025",Georgia,Atlanta,"2479 Abner Terrace NW",0,4,0,0,0,N/A
+3275972,"July 30, 2025",Pennsylvania,Philadelphia,"728 S 55th St",0,6,0,0,1,N/A
+3276738,"July 29, 2025",Tennessee,Tiptonville,"Carrington Rd",4,0,0,0,1,N/A
+3273804,"July 28, 2025",Michigan,Detroit,"3344 Puritan Ave",2,2,0,0,1,N/A
+3273521,"July 28, 2025",Nevada,Reno,"2500 E 2nd St",3,3,1,0,0,N/A
+3273423,"July 28, 2025",Georgia,Atlanta,"349 Edgewood Ave",1,10,0,0,1,N/A
+3273958,"July 28, 2025","New York","New York (Manhattan)","345 Park Ave",4,2,1,0,0,N/A
+3273415,"July 27, 2025",Illinois,Chicago,"W Flournoy St and S Springfield Ave",0,4,0,0,1,N/A
+3273353,"July 27, 2025",Indiana,Indianapolis,"3900 block of Hornickel Dr",0,5,0,0,0,N/A
+3273527,"July 27, 2025",Colorado,Denver,"20th St and Market St",0,4,0,0,1,N/A
+3274001,"July 27, 2025",Michigan,Flint,"3241 Industrial Ave",1,4,0,0,0,N/A
+3272738,"July 27, 2025",Illinois,"Mount Vernon","600 block of S 15th St",2,5,0,0,3,N/A
+3272694,"July 26, 2025",Pennsylvania,Philadelphia,"1900 block of W Hunting Park Ave",2,2,0,0,1,N/A
+3273390,"July 26, 2025",Mississippi,"Yazoo City","Leach St",0,4,0,0,0,N/A
+3271342,"July 24, 2025",Georgia,Atlanta,"279 Oak Dr",1,5,0,0,0,N/A
+3271477,"July 24, 2025",Pennsylvania,Philadelphia,"2300 block of N Lambert St",0,4,0,0,0,N/A
+3269743,"July 23, 2025",California,Needles,"1900 block of Erin Dr",1,3,0,0,0,N/A
+3267641,"July 20, 2025",Mississippi,Waynesboro,"Turner St and Grey St",0,5,0,0,0,N/A
+3266723,"July 20, 2025",Illinois,Chicago,"4935 W Ferdinand St",0,4,0,0,0,N/A
+3266713,"July 19, 2025",Tennessee,Cordova,"71 Fern Glade Cove",1,4,0,0,0,N/A
+3266988,"July 19, 2025",Arkansas,"Little Rock","1800 Broadway St",0,4,0,0,1,N/A
+3266574,"July 19, 2025",Ohio,Cleveland,"16400 block of Highview Ave",1,3,0,0,0,N/A
+3265909,"July 19, 2025",Illinois,Chicago,"8200 block of S Houston Ave",1,3,0,0,0,N/A
+3264154,"July 15, 2025","New York",Bronx,"E 187th St and Park Ave",0,4,0,0,0,N/A
+3261500,"July 13, 2025",Kentucky,Lexington,"5899 Old Richmond Rd",2,3,1,0,0,N/A
+3262173,"July 13, 2025",Texas,Houston,"6502 Dixie Dr",2,15,0,0,0,N/A
+3261407,"July 13, 2025","North Carolina",Charlotte,"300 N College St",1,5,0,0,3,N/A
+3261161,"July 12, 2025",Wisconsin,Milwaukee,"618 N Water St",2,3,0,0,1,N/A
+3261223,"July 12, 2025",Texas,"Round Rock","1401 A W Grimes Blvd",2,2,0,0,0,N/A
+3261477,"July 12, 2025",Pennsylvania,Easton,"100 block of Wilkes Barre St",0,6,0,0,2,N/A
+3261096,"July 12, 2025",Tennessee,Chattanooga,"6900 Ty Hi Dr",0,4,0,0,0,N/A
+3260230,"July 8, 2025",Idaho,Burley,"723 E 14th St",4,0,0,0,1,N/A
+3255423,"July 7, 2025",Ohio,Akron,"700 E Exchange St",0,5,0,0,0,N/A
+3254794,"July 7, 2025",Pennsylvania,Philadelphia,"N 62nd St and Vine St",0,4,0,0,0,N/A
+3255922,"July 7, 2025",California,"Los Angeles","10305 Main St",0,4,0,0,0,N/A
+3254764,"July 7, 2025",Pennsylvania,Philadelphia,"1500 block of S Etting St",3,9,0,0,3,N/A
+3254338,"July 6, 2025",Louisiana,Natchitoches,"300 block of Keyser Ave",1,5,0,0,2,N/A
+3254122,"July 6, 2025",Ohio,Toledo,"159 Matzinger Rd",2,2,0,0,0,N/A
+3253874,"July 5, 2025",Hawaii,Honolulu,"Palamea Ln",0,4,0,0,0,N/A
+3253521,"July 5, 2025",Texas,Dallas,"S Good Latimer Expy and Canton St",1,4,0,1,1,N/A
+3253096,"July 5, 2025","New York",Albany,"300 block of Livingston Ave",0,5,0,0,0,N/A
+3253594,"July 5, 2025",Texas,Lubbock,"2902 Parkway Dr",0,5,1,0,0,N/A
+3253722,"July 5, 2025",Missouri,"Saint Louis","N 9th St and Chambers St",1,3,0,0,0,N/A
+3254389,"July 5, 2025",Alabama,Talladega,"1509 Old Shocco Rd",4,0,0,0,1,N/A
+3253940,"July 5, 2025",California,"San Francisco","100 block of Harbor Rd",1,4,0,0,0,N/A
+3254494,"July 5, 2025",Washington,"Sedro Woolley","697 Pacific St",1,5,0,0,0,N/A
+3253085,"July 5, 2025",Massachusetts,Brockton,"May St",0,6,0,0,0,N/A
+3253102,"July 5, 2025",Pennsylvania,Philadelphia,"1136 S 11th St",0,8,0,0,1,N/A
+3253021,"July 5, 2025",Illinois,Chicago,"2700 block of S California Blvd",0,4,0,0,0,N/A
+3253050,"July 5, 2025",Indiana,Indianapolis,"W Washington St and S Illinois St",2,5,0,0,4,N/A
+3253569,"July 5, 2025",Ohio,Cleveland,"11501 Buckeye Rd",1,5,0,0,0,N/A
+3253812,"July 4, 2025",California,"Los Angeles","626 W 99th St",0,4,0,0,0,N/A
+3253257,"July 4, 2025","New York",Albany,"333 Madison Ave",1,3,0,0,3,N/A
+3252972,"July 4, 2025",Illinois,Chicago,"4859 S Justine St",0,7,0,0,0,N/A
+3252547,"July 4, 2025",Ohio,Columbus,"827 Wilson Ave",1,5,0,0,0,N/A
+3253178,"July 4, 2025",Virginia,Charlottesville,"Orangedale Ave",0,5,0,0,1,N/A
+3253871,"July 4, 2025",Ohio,Dayton,"1600 block of W Grand Ave",0,4,0,0,0,N/A
+3252080,"July 3, 2025",Illinois,Chicago,"1607 W 59th St",0,4,0,0,0,N/A
+3251873,"July 3, 2025",Illinois,Chicago,"600 block of E 133rd St",0,5,0,0,0,N/A
+3252377,"July 3, 2025",Georgia,Atlanta,"600 SE Martin St",0,4,0,0,0,N/A
+3251635,"July 2, 2025",Illinois,Chicago,"311 W Chicago Ave",4,14,0,0,0,N/A
+3251608,"July 1, 2025",Kentucky,Nicholasville,"Brannon Rd and US-27",0,4,0,0,0,N/A
+3249480,"June 29, 2025","South Carolina",Kingstree,"200 N Brooks St",2,2,0,0,0,N/A
+3248471,"June 29, 2025",Alabama,Mobile,"Springhill Ave and Catherine St",0,4,0,0,0,N/A
+3248330,"June 28, 2025",Missouri,"Kansas City","E 24th St and Lister Ave",1,3,0,0,0,N/A
+3248741,"June 28, 2025",Texas,Austin,"900 E Braker Ln",0,4,0,0,0,N/A
+3248162,"June 28, 2025",Louisiana,"New Orleans","8500 block of Bill St",0,4,0,0,0,N/A
+3249173,"June 28, 2025",Ohio,Columbus,"800 block of Avonia Dr",1,3,0,0,0,N/A
+3248449,"June 28, 2025",Ohio,Springfield,"1000 block of W Rose St",1,4,0,0,0,N/A
+3248058,"June 27, 2025",Oregon,Portland,"14919 SE Stark St",0,4,0,0,1,N/A
+3247121,"June 26, 2025","New Jersey",Trenton,"100 block of Passaic St",1,3,0,0,2,N/A
+3246330,"June 25, 2025",Mississippi,Moorhead,"800 E Southern Ave",0,4,0,0,0,N/A
+3245226,"June 23, 2025",Georgia,Jonesboro,"148 Church St",0,4,0,0,1,N/A
+3244129,"June 23, 2025","New Jersey",Newark,"367 6th Ave W",1,4,0,0,0,N/A
+3243988,"June 23, 2025",Maryland,Baltimore,"2500 block of Edmondson Ave",0,4,0,0,0,N/A
+3243663,"June 23, 2025",Maryland,Baltimore,"1900 block of McHenry St",0,4,0,0,0,N/A
+3242938,"June 22, 2025",Missouri,Springfield,"505 E St Louis St",0,4,0,0,0,N/A
+3242853,"June 22, 2025",Michigan,Ferndale,"21298 Majestic Ave",1,3,0,0,0,N/A
+3242627,"June 22, 2025",Louisiana,"Baton Rouge","3535 S Choctaw Dr",1,6,0,0,2,N/A
+3242908,"June 22, 2025",Missouri,"Kansas City","Vine St and E 19th St",2,4,0,0,1,N/A
+3242610,"June 22, 2025","New Jersey","East Orange","375 Central Ave",0,4,0,0,0,N/A
+3243238,"June 22, 2025",Pennsylvania,Pittsburgh,"N St Clair St and Broad St",0,5,0,0,2,N/A
+3242524,"June 21, 2025",California,"Moreno Valley","12000 block of Orchid Ln",0,6,0,0,0,N/A
+3242684,"June 21, 2025",Oklahoma,Tulsa,"E Admiral Pl and S 122nd E Ave",0,6,0,0,0,N/A
+3242475,"June 21, 2025","South Carolina",Anderson,"2009 Scarborough Rd",1,9,0,0,3,N/A
+3242658,"June 21, 2025",Oklahoma,Tulsa,"300 block of N Greenwood Ave",1,7,0,0,3,N/A
+3242431,"June 21, 2025",California,Compton,"1300 W El Segundo Blvd",0,4,0,0,0,N/A
+3242052,"June 20, 2025",Wisconsin,Milwaukee,"8300 block of W Brown Deer Rd",2,3,0,0,1,N/A
+3240121,"June 19, 2025",Oklahoma,Tulsa,"1264 S Lawton Ave",0,5,0,0,0,N/A
+3239589,"June 17, 2025",Mississippi,Louisville,"200 block of W College St",1,3,0,0,1,N/A
+3238923,"June 17, 2025",Wisconsin,Milwaukee,"1000 block of W Mineral St",0,4,0,0,0,N/A
+3238015,"June 16, 2025",Ohio,Cleveland,"5900 block of Luther Ave",1,6,0,0,0,N/A
+3235671,"June 16, 2025",Florida,Miami,"NW 62nd St and NW 2nd Ave",2,2,0,0,0,N/A
+3237753,"June 16, 2025",Ohio,Middletown,"1200 Elliott Dr",1,3,0,0,2,N/A
+3234040,"June 15, 2025",Ohio,Canton,"2900 8th St NE",0,4,0,0,0,N/A
+3234286,"June 15, 2025",Connecticut,Hartford,"181 Homestead Ave",0,5,0,0,0,N/A
+3234370,"June 15, 2025",Utah,"Salt Lake City (West Valley City)","5405 W 3100 S",3,2,0,0,1,N/A
+3245191,"June 15, 2025",Pennsylvania,Johnstown,"74 Fairfield Ave",0,4,0,0,0,N/A
+3233803,"June 15, 2025",Indiana,Elkhart,"W Garfield Ave and Benham Ave",1,11,0,0,0,N/A
+3233357,"June 15, 2025",Michigan,Detroit,N/A,0,5,0,0,0,N/A
+3233175,"June 14, 2025",Nevada,Reno,"Raggio Pkwy",1,4,0,0,0,N/A
+3233431,"June 14, 2025",Tennessee,Nashville,"Westchester Dr and Brick Church Pike",1,4,0,0,1,N/A
+3233889,"June 14, 2025",Missouri,"Kansas City","3500 Prospect Ave",2,3,0,0,0,N/A
+3232732,"June 14, 2025",Minnesota,"Minneapolis (Brooklyn Park)","8710 Windsor Terrace N",2,2,0,0,1,N/A
+3238280,"June 14, 2025",Mississippi,Greenville,"1500 block of S Colorado St",0,4,0,0,0,N/A
+3233274,"June 14, 2025",Ohio,Columbus,"S Ludlow St and W Town St",1,6,0,0,0,N/A
+3232994,"June 14, 2025",Delaware,Dover,"400 block of Barrister Pl",1,4,0,0,1,N/A
+3231819,"June 11, 2025",Florida,Jacksonville,"5020 Cleveland Rd",1,3,0,0,0,N/A
+3231555,"June 11, 2025",Michigan,Detroit,"14300 block of Mettetal St",0,4,0,0,1,N/A
+3231072,"June 9, 2025",Georgia,Augusta,"2101 Walton Way",0,4,0,0,0,N/A
+3229184,"June 9, 2025","District of Columbia",Washington,"1200 block of Mt Olivet Rd NE",1,3,0,0,0,N/A
+3228035,"June 8, 2025",Ohio,Cleveland,"4071 Lee Rd",0,7,0,0,4,N/A
+3228413,"June 8, 2025",Wisconsin,Milwaukee,"300 block of W McKinley Ave",0,4,0,0,0,N/A
+3228293,"June 8, 2025",Georgia,Lagrange,"105 Seminary St",1,6,0,0,0,N/A
+3228103,"June 7, 2025",Virginia,Portsmouth,"400 block of Viking St",0,4,0,0,0,N/A
+3227904,"June 7, 2025","North Carolina",Sanford,"102 E Trade St",0,5,0,1,3,N/A
+3228792,"June 7, 2025",Michigan,"Benton Harbor","1000 block of Bishop St",0,6,0,0,0,N/A
+3227101,"June 6, 2025","South Carolina",Columbia,"2408 Lincoln St",1,3,0,0,2,N/A
+3227478,"June 6, 2025",Louisiana,Cheneyville,"200 block of Derbourne St",0,5,0,0,13,N/A
+3226727,"June 5, 2025",Texas,Dallas,"3412 S Malcolm X Blvd",0,7,0,0,0,N/A
+3222953,"June 1, 2025","North Carolina",Hickory,"1125 Walnut Acres Dr",1,12,0,0,6,N/A
+3223359,"June 1, 2025","North Carolina",Asheville,"College St and Rankin Ave",0,4,1,0,0,N/A
+3223558,"June 1, 2025",Minnesota,Minneapolis,"724 Sibley St NE",1,4,0,2,4,N/A
+3223058,"June 1, 2025",Virginia,Danville,"Carver Dr and Cheyenne Dr",1,4,0,0,2,N/A
+3223369,"May 31, 2025",Georgia,Snellville,"2500 Sawyer Pkwy SW",0,5,0,0,2,N/A
+3223123,"May 31, 2025",Mississippi,Fayette,"1483 Main St",1,8,0,0,3,N/A
+3222306,"May 31, 2025",Illinois,Chicago,"7800 block of S Throop St",0,7,0,0,0,N/A
+3222806,"May 31, 2025",Indiana,Clarksville,"1909 Greentree Blvd",0,4,0,0,2,N/A
+3221157,"May 29, 2025",Indiana,Haubstadt,"12000 block of S Scottsdale Dr",3,1,0,0,1,N/A
+3220578,"May 28, 2025",Washington,Lakewood,"8928 N Thorne Ln SW",0,7,0,0,0,N/A
+3220528,"May 28, 2025",Hawaii,Waianae,"Lahaina St and Jade St",1,3,0,1,4,N/A
+3220589,"May 28, 2025",Georgia,Atlanta,"2261 Cascade Rd SW",0,4,0,0,0,N/A
+3219130,"May 27, 2025",Connecticut,Waterbury,"495 Union St",0,5,0,0,1,N/A
+3218775,"May 26, 2025",Pennsylvania,Philadelphia,"N Lemon Hill Dr and Sedgley Dr",2,9,0,0,0,N/A
+3218025,"May 25, 2025","South Carolina","Little River","1522 Watson Ave",0,10,0,0,1,N/A
+3217732,"May 25, 2025",Tennessee,"Oak Ridge","S Benedict Ave",0,9,0,0,0,N/A
+3217632,"May 24, 2025",Tennessee,Jackson,"2700 N Parkway E",0,6,0,1,1,N/A
+3217494,"May 24, 2025",Colorado,"Colorado Springs","1429 Potter Dr",0,6,0,0,1,N/A
+3217117,"May 23, 2025",Pennsylvania,Chester,"205 E 10th St",1,4,0,0,0,N/A
+3217276,"May 22, 2025",Texas,Mckinney,"7560 SH-121",1,3,0,0,1,N/A
+3212153,"May 18, 2025",Missouri,"Saint Louis","800 block of Schirmer St",4,0,0,0,0,N/A
+3251434,"May 18, 2025",Arizona,Tucson,"1100 block of S 6th Ave",0,4,0,0,0,N/A
+3212178,"May 18, 2025",Georgia,Macon,"4376 Log Cabin Dr",3,6,0,0,3,N/A
+3211604,"May 17, 2025",Washington,Seattle,"172 S Washington St",3,1,0,0,3,N/A
+3211829,"May 17, 2025",Michigan,Jackson,"103 Lincoln Ct",1,3,0,0,0,N/A
+3211202,"May 16, 2025",Nevada,"Las Vegas","1725 N Rainbow Blvd",1,4,1,0,0,N/A
+3211548,"May 16, 2025",Illinois,Chicago,"600 block of S Homan Ave",0,4,0,0,0,N/A
+3209696,"May 11, 2025",Georgia,Valdosta,"700 block of E Gordon St",0,4,0,0,1,N/A
+3206964,"May 11, 2025","South Carolina",Florence,"3027 E Palmetto St",1,5,0,1,1,N/A
+3210524,"May 10, 2025",California,Paramount,"7718 Somerset Blvd",0,4,0,0,0,N/A
+3207234,"May 10, 2025",California,Arvin,"Bautista St and Soledad Dr",2,2,0,0,0,N/A
+3206682,"May 10, 2025",Pennsylvania,Philadelphia,"N 33rd St and W Girard Ave",0,4,0,0,0,N/A
+3206957,"May 10, 2025",California,"Los Angeles",N/A,0,6,0,0,0,N/A
+3206052,"May 9, 2025",Michigan,Eastpointe,"8 Mile and Kelly Rd",1,4,0,0,1,N/A
+3206048,"May 9, 2025",Michigan,Detroit,"15700 block of Patton St",2,2,0,0,1,N/A
+3205141,"May 7, 2025",Connecticut,Hartford,"Nelson St",0,4,0,0,0,N/A
+3203108,"May 6, 2025",Tennessee,Memphis,"2536 N Watkins Rd",2,3,0,0,0,N/A
+3203064,"May 5, 2025",Oklahoma,"Oklahoma City","308 NW 10th St",0,7,0,0,3,N/A
+3203683,"May 5, 2025","South Carolina","North Charleston","6800 block of Ward Ave",1,3,1,0,0,N/A
+3203390,"May 5, 2025",Pennsylvania,Sharon,"317 Baldwin Ave",0,4,0,0,0,N/A
+3201452,"May 4, 2025",Oklahoma,Tulsa,"E 2nd St S and S Elgin Ave",0,5,1,1,0,N/A
+3201117,"May 4, 2025",Texas,Houston,"6000 block of Cherry Hill Ave",1,15,0,0,0,N/A
+3201936,"May 4, 2025",Arizona,Glendale,"6729 N 57th Dr",3,5,0,0,0,N/A
+3201959,"May 4, 2025",Colorado,Denver,"1900 block of Market St",0,4,0,0,1,N/A
+3199958,"May 2, 2025",Maryland,"Gwynn Oak (Woodlawn)","1800 block of Woodlawn Dr",1,3,0,0,0,N/A
+3198160,"April 29, 2025",Minnesota,Minneapolis,"1508 E 25th St",4,1,0,0,1,N/A
+3195984,"April 27, 2025","North Carolina","Elizabeth City","1704 Weeksville Rd",1,3,0,0,0,N/A
+3196464,"April 27, 2025",Tennessee,Memphis,"2871 S Perkins Rd",1,4,0,0,0,N/A
+3196061,"April 27, 2025","North Carolina","Rocky Mount","W End St",0,4,0,0,2,N/A
+3195885,"April 26, 2025","South Carolina","Myrtle Beach","913 N Ocean Blvd",0,11,1,0,0,N/A
+3189434,"April 20, 2025",Texas,Houston,"12929 Nyack Dr",0,4,0,0,0,N/A
+3190014,"April 20, 2025",Louisiana,Ruston,"302 S Farmerville St",1,5,0,0,1,N/A
+3189178,"April 19, 2025",Tennessee,Memphis,"Mosby Ave and N Dunlap St",1,4,0,0,0,N/A
+3188506,"April 18, 2025",Texas,Garland,"3820 W Walnut St",1,3,0,0,2,N/A
+3187190,"April 17, 2025",Florida,Tallahassee,"75 N Woodward Ave",2,5,0,1,1,N/A
+3185538,"April 15, 2025",Texas,Dallas,"5520 Langdon Rd",0,5,0,0,1,N/A
+3184200,"April 13, 2025",Arkansas,Conway,"600 5th Ave",2,9,0,0,4,N/A
+3184539,"April 13, 2025",Missouri,"Saint Louis","3800 block of Natural Bridge Ave",1,4,0,0,0,N/A
+3184153,"April 13, 2025",Louisiana,"New Orleans","100 block of Decatur St",0,5,0,0,2,N/A
+3184142,"April 13, 2025",Florida,"Daytona Beach","155 Ontario Ct",1,3,0,0,0,N/A
+3183722,"April 12, 2025",Texas,Crosby,"13203 Crosby Lynchburg Rd",1,6,0,0,0,N/A
+3182714,"April 11, 2025",California,Stockton,"517 Doctor MLK Jr Blvd",0,6,0,0,0,N/A
+3181158,"April 9, 2025",Tennessee,Memphis,"4005 S Mendenhall Rd",1,5,0,0,1,N/A
+3180141,"April 8, 2025",Virginia,Fredericksburg,"415 Olde Greenwich Cir",3,3,0,1,5,N/A
+3178598,"April 5, 2025",California,"Los Angeles","11000 block of S Manhattan Pl",1,4,0,0,0,N/A
+3177421,"April 4, 2025",Tennessee,Knoxville,"8039 Ray Mears Blvd",0,4,0,0,0,N/A
+3176539,"April 2, 2025",Maine,Sabattus,"916 Middle Road",2,2,1,0,0,N/A
+3173826,"March 31, 2025",Texas,"San Antonio","10227 Ironside Dr",0,4,1,0,0,N/A
+3173233,"March 30, 2025",Indiana,Whiting,"1516 Indianapolis Blvd",2,3,0,0,1,N/A
+3173872,"March 30, 2025",California,"San Francisco","58 Middle Point Rd",0,4,0,0,0,N/A
+3173569,"March 30, 2025",Texas,Austin,"215 E 6th St",0,4,0,0,1,N/A
+3172689,"March 29, 2025",Maryland,Baltimore,"400 block of Venable Ave",0,4,0,0,2,N/A
+3173790,"March 29, 2025","South Carolina",Orangeburg,"1175 Five Chop Rd",0,7,0,0,1,N/A
+3172644,"March 29, 2025",Washington,Tacoma,"17800 block of 25th Ave Ct E",2,4,0,1,2,N/A
+3170672,"March 26, 2025",Florida,"Hallandale (Hallandale Beach)","3181 W Hallandale Beach Blvd",4,1,1,0,0,N/A
+3166785,"March 23, 2025",Texas,Houston,"6419 1/2 Hillcroft St",0,6,0,0,1,N/A
+3166540,"March 22, 2025",Mississippi,Jackson,"Lamar St and Pearl St",1,7,0,0,3,N/A
+3166569,"March 22, 2025",Louisiana,Natchitoches,"LA-1225 and Catholic Ln",0,4,0,0,0,N/A
+3166767,"March 21, 2025",Washington,"Moses Lake","500 block of W Loop Dr",1,4,0,1,3,N/A
+3166052,"March 21, 2025","New Mexico","Las Cruces","850 S Walnut St",3,15,0,0,4,N/A
+3166856,"March 21, 2025",Georgia,Brunswick,"5700 Altama Ave",1,3,0,0,0,N/A
+3165724,"March 19, 2025",Alabama,Selma,"2800 block of Summerfield Rd",1,3,0,0,1,N/A
+3163394,"March 18, 2025",Georgia,Savannah,"1900 Westlake Ave",0,5,0,0,0,N/A
+3161961,"March 15, 2025","New Jersey",Verona,"10 Park Pl",0,4,0,0,0,N/A
+3161176,"March 15, 2025",Louisiana,Shreveport,"204 Texas St",2,2,0,0,1,N/A
+3161075,"March 14, 2025",Illinois,Chicago,"1949 W 51st St",0,4,0,1,3,N/A
+3157288,"March 10, 2025",Alabama,Huntsville,"708 Poplar Ave",0,4,0,0,1,N/A
+3152807,"March 4, 2025",Maryland,Severn,"8100 block of Meade Village Rd",2,2,0,0,0,N/A
+3152667,"March 4, 2025",Louisiana,Mamou,"Ballpark Rd",2,12,0,0,1,N/A
+3150651,"March 2, 2025",Texas,Houston,"3333 Raleigh St",0,5,0,0,1,N/A
+3152206,"March 2, 2025",Mississippi,Biloxi,"279 Caillavet St",0,6,0,0,1,N/A
+3151104,"March 2, 2025",Louisiana,Franklinton,"Greenlaw St",0,5,0,0,1,N/A
+3151577,"March 2, 2025",Virginia,Portsmouth,"2900 block of Arcadia Ave",1,3,0,0,1,N/A
+3151474,"March 1, 2025",California,Hayward,"21933 Foothill Blvd",0,4,0,0,0,N/A
+3151139,"March 1, 2025",Alabama,Sardis,"304 Co Rd 134",0,6,0,0,1,N/A
+3149025,"February 27, 2025",Ohio,Columbus,"480 block of Kimball Pl",1,3,0,0,0,N/A
+3146395,"February 24, 2025",Texas,Dallas,"Canada Dr and Gulden Ln",3,2,0,0,2,N/A
+3144174,"February 22, 2025",Pennsylvania,York,"1701 Innovation Dr",1,5,1,0,0,N/A
+3144274,"February 21, 2025",Indiana,"Lake Station","6700 block of 9th Ave",4,0,1,0,0,N/A
+3141807,"February 18, 2025",Florida,Tampa,"2600 E 28th Ave",1,3,0,0,0,N/A
+3140814,"February 16, 2025",Georgia,Decatur,"5300 block of Panola Industrial Blvd",1,4,0,0,0,N/A
+3139838,"February 15, 2025",Virginia,Roanoke,"4100 block of Melrose Ave NW",0,4,0,1,1,N/A
+3138476,"February 12, 2025",Missouri,"Saint Louis (Ferguson)","7000 block of Halpin Dr",1,3,0,0,0,N/A
+3136711,"February 10, 2025",Wyoming,Byron,"239 E Shoshone Ave",4,0,1,0,0,N/A
+3135132,"February 9, 2025",California,"Woodland Hills","5850 Winnetka Ave",1,6,0,0,0,N/A
+3135318,"February 8, 2025","North Carolina",Raleigh,"1000 block of Auston Grove Dr",0,4,0,0,0,N/A
+3134984,"February 8, 2025",Arizona,"Casa Grande","500 block of W 13th Pl",1,5,0,0,0,N/A
+3134788,"February 8, 2025",Oklahoma,Tulsa,"11800 block of E 21st St",2,2,0,0,3,N/A
+3134608,"February 7, 2025",Georgia,Atlanta,"Lakewood Ave SE and Lethea St SE",0,4,0,0,0,N/A
+3134167,"February 6, 2025",Florida,Quincy,"3749 Pat Thomas Pkwy",2,3,1,0,0,N/A
+3131985,"February 4, 2025",Ohio,"New Albany","8825 Smiths Mill Rd N",2,4,0,0,1,N/A
+3130376,"February 2, 2025",Pennsylvania,Allentown,"1500 Union Blvd",1,3,0,0,2,N/A
+3129861,"February 1, 2025",Oregon,Clatskanie,"Quincy Mayger Rd and Ilmari Rd",1,3,1,0,0,N/A
+3129663,"January 31, 2025",California,"Los Angeles","13200 block of Jarvis Avenue",2,5,0,0,0,N/A
+3127740,"January 29, 2025",Tennessee,Memphis,"900 block of College Park Dr",2,2,0,1,1,N/A
+3125975,"January 27, 2025",Indiana,Elkhart,"575 E Jackson Blvd",2,2,1,0,0,N/A
+3126004,"January 26, 2025",Virginia,"Richmond (Bon Air)","10016 Robious Rd",0,5,0,0,1,N/A
+3124977,"January 26, 2025",Texas,Amarillo,"709 S Polk St",1,8,0,0,1,N/A
+3124458,"January 25, 2025",Tennessee,Memphis,"2590 Park Ave",0,4,0,0,1,N/A
+3123627,"January 24, 2025",Alabama,Mobile,"1200 Murray Hill Ct",1,3,0,0,1,N/A
+3121297,"January 22, 2025",California,"Los Angeles","600 block of S Alvarado St",0,5,0,1,1,N/A
+3122078,"January 22, 2025",Texas,"San Antonio","18777 Stone Oak Pkwy",0,7,1,0,0,N/A
+3121802,"January 22, 2025",Maryland,Baltimore,"5400 block of York Rd",1,3,0,0,0,N/A
+3121591,"January 21, 2025",Minnesota,Minneapolis,"W 29th St and Pleasant Ave",0,4,0,0,0,N/A
+3119395,"January 19, 2025",Florida,"Boynton Beach","500 block of NE 2nd St",0,5,1,0,0,N/A
+3118521,"January 18, 2025",Louisiana,"New Orleans (River Ridge)","10133 Stephen Dr",2,2,1,0,0,N/A
+3116474,"January 16, 2025",Colorado,"Colorado Springs","7000 block of Dove Creek Cir",1,3,0,0,5,N/A
+3115486,"January 14, 2025",Texas,Houston,"12867 Greens Bayou St",2,2,0,0,0,N/A
+3114020,"January 12, 2025",Nebraska,Omaha,"N 24th St and Binney St",1,4,0,0,0,N/A
+3113477,"January 11, 2025",Louisiana,Dubberly,"5185 State Rte 531",0,6,0,0,4,N/A
+3109523,"January 5, 2025",Arizona,Tucson,"3000 S Mission Rd",0,4,0,0,1,N/A
+3108706,"January 3, 2025","District of Columbia",Washington,"1500 block of Harry Thomas Way NE",0,4,0,1,1,N/A
+3107148,"January 1, 2025","New York","Corona (Queens)","91-12 144th Pl",0,10,0,0,0,N/A
+3106647,"January 1, 2025",Illinois,Kankakee,"1845 Pierson Pkwy",2,5,0,0,0,N/A
+3106379,"January 1, 2025",Louisiana,"New Orleans","Bourbon St and Iberville St",1,7,1,0,0,N/A
+3107042,"January 1, 2025",Texas,Dallas,"2900 block of St George Dr",1,3,0,0,1,N/A
