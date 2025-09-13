@@ -1,3 +1,6 @@
+# Coordinate generation script for gun violence incident data
+# Uses US Census Geocoding API to convert addresses to lat/lng coordinates
+# Processes CSV files to add geographic coordinates for mapping visualization
 import csv, requests, pathlib, pandas as pd
 import time
 
