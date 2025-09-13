@@ -58,28 +58,6 @@
     min-width: 80px;
 }
 
-.methodology-btn {
-    background: linear-gradient(135deg, #9ca3af, #6b7280);
-    color: white;
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    display: inline-block;
-    text-align: center;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
-}
-
-.methodology-btn:hover {
-    background: linear-gradient(135deg, #6b7280, #4b5563);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(156, 163, 175, 0.4);
-}
 
 .timeline-toggle-section {
     border-top: 1px solid #333;

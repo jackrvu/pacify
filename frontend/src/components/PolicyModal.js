@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import './PolicyModal.css';
 import { bookmarkPolicy, unbookmarkPolicy, isPolicyBookmarked, addAnnotation } from '../utils/bookmarkService';
 import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
+import PolicyIncidentGraph from './PolicyIncidentGraph';
 import VisualAnalysisResponse from './VisualAnalysisResponse';
 
 const PolicyModal = ({
     isOpen,
     onClose,
     policy,
-    year
+    year,
+    timelineData = []
 }) => {
     const [isBookmarked, setIsBookmarked] = useState(false);
     const [showAnnotations, setShowAnnotations] = useState(false);
@@ -145,7 +147,7 @@ const PolicyModal = ({
                 state_mass_shooting_stats: policy.state_mass_shooting_stats
             };
 
-            const result = insightType 
+            const result = insightType
                 ? await getPolicyInsights(policyData, insightType)
                 : await analyzePolicyWithGemini(policyData, geminiQuestion || null);
 
@@ -401,7 +403,7 @@ const PolicyModal = ({
                                         </button>
                                     </div>
                                 </div>
-                                
+
                                 {geminiResponse && (
                                     <div className="gemini-response">
                                         <h4>{getAnalysisTitle(currentAnalysisType)}</h4>
@@ -422,6 +424,17 @@ const PolicyModal = ({
                                 )}
                             </div>
                         )}
+                    </div>
+                )}
+
+                {/* Policy Incident Graph */}
+                {policy && (
+                    <div className="policy-modal-graph-section">
+                        <PolicyIncidentGraph
+                            state={policy.State || policy.state}
+                            policyDate={policy.effective_date || `${policy['Effective Date Year']}-${policy['Effective Date Month']}-${policy['Effective Date Day']}`}
+                            timelineData={timelineData}
+                        />
                     </div>
                 )}
 

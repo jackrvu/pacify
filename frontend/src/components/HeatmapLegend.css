@@ -11,6 +11,7 @@
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
     font-size: 13px;
     font-weight: 500;
@@ -20,6 +21,7 @@
     z-index: 9999;
     backdrop-filter: blur(20px);
     letter-spacing: 0.5px;
+    width: 140px;
 }
 
 .heatmap-legend-button:hover {
@@ -44,6 +46,18 @@
 .heatmap-legend-button:hover .legend-icon {
     transform: scale(1.1);
     filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* Methodology Button - positioned below legend button */
+.methodology-button {
+    top: 130px;
+    /* Position below the legend button with reduced spacing */
+}
+
+/* About Button - positioned below methodology button */
+.about-button {
+    top: 180px;
+    /* Position below the methodology button with reduced spacing */
 }
 
 /* Modal Overlay */
@@ -216,8 +230,19 @@
     .heatmap-legend-button {
         top: 70px;
         left: 10px;
-        padding: 6px 10px;
+        padding: 6px 12px;
         font-size: 13px;
+        width: 120px;
+    }
+
+    .methodology-button {
+        top: 110px;
+        /* Position below legend button on mobile with reduced spacing */
+    }
+
+    .about-button {
+        top: 150px;
+        /* Position below methodology button on mobile with reduced spacing */
     }
 
     .heatmap-legend-modal {

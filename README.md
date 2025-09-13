@@ -8,7 +8,6 @@ A comprehensive web application for visualizing gun violence incidents across th
 - **Timeline Navigation**: Browse incidents by year with smooth transitions
 - **Policy Timeline**: View gun policy changes by state over time
 - **Incident Details**: Detailed information panels with nearby incident data
-- **Multiple Data Sources**: Combines historical (1985-2018) and recent (2019-2025) datasets
 
 ## Architecture
 

@@ -3,9 +3,11 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import './AnalyticsDashboard.css';
-import { getBookmarkedPolicies, unbookmarkPolicy, addAnnotation, updateAnnotation, removeAnnotation } from '../utils/bookmarkService';
+import { getBookmarkedPolicies, unbookmarkPolicy, addAnnotation, updateAnnotation, removeAnnotation, bookmarkPolicy, isPolicyBookmarked } from '../utils/bookmarkService';
 import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
 import VisualAnalysisResponse from './VisualAnalysisResponse';
+import PolicyIncidentGraph from './PolicyIncidentGraph';
+import PolicyModal from './PolicyModal';
 
 // Utility function for consistent timestamp generation
 const getCurrentTimestamp = () => {
@@ -44,10 +46,7 @@ const formatDateForDisplay = (dateString) => {
         return date.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZoneName: 'short'
+            day: 'numeric'
         });
     } catch (error) {
         console.error('Date formatting error:', error, 'for date:', dateString);
@@ -93,6 +92,60 @@ const AnalyticsDashboard = ({
 
     // Simple session info for display
     const [sessionCreated] = useState(getCurrentTimestamp());
+
+    // Policy data state
+    const [policies, setPolicies] = useState([]);
+    const [policiesLoading, setPoliciesLoading] = useState(true);
+    const [policyFilter, setPolicyFilter] = useState({
+        state: 'all',
+        year: 'all'
+    });
+    const [sortBy, setSortBy] = useState('state'); // 'date', 'policy', 'state'
+
+    // Policy modal state
+    const [showPolicyModal, setShowPolicyModal] = useState(false);
+    const [selectedPolicyForModal, setSelectedPolicyForModal] = useState(null);
+
+    // Load policy data
+    useEffect(() => {
+        const loadPolicyData = async () => {
+            try {
+                setPoliciesLoading(true);
+                const response = await fetch('/policy_analysis_results.json');
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch policy data: ${response.status}`);
+                }
+
+                const responseText = await response.text();
+                const cleanedJson = responseText.replace(/:\s*NaN\s*,/g, ': null,').replace(/:\s*NaN\s*}/g, ': null}');
+                const policyData = JSON.parse(cleanedJson);
+
+                // Filter and sort policies chronologically
+                const validPolicies = policyData.filter(policy =>
+                    policy &&
+                    typeof policy === 'object' &&
+                    policy.effective_date &&
+                    policy.state &&
+                    policy.law_id
+                ).sort((a, b) => {
+                    const dateA = new Date(a.effective_date);
+                    const dateB = new Date(b.effective_date);
+                    return dateB - dateA; // Most recent first
+                });
+
+                setPolicies(validPolicies);
+                console.log(`Loaded ${validPolicies.length} policies chronologically`);
+            } catch (error) {
+                console.error('Error loading policy data:', error);
+                setPolicies([]);
+            } finally {
+                setPoliciesLoading(false);
+            }
+        };
+
+        loadPolicyData();
+    }, []);
 
     // Load bookmarked policies
     useEffect(() => {
@@ -174,6 +227,104 @@ const AnalyticsDashboard = ({
             return matchesFilter && matchesSearch;
         });
     }, [bookmarkedPolicies, bookmarkFilter, bookmarkSearch]);
+
+    // Filter and sort policies based on current filter settings
+    const filteredPolicies = useMemo(() => {
+        const filtered = policies.filter(policy => {
+            const policyYear = new Date(policy.effective_date).getFullYear();
+
+            return (
+                (policyFilter.state === 'all' || policy.state === policyFilter.state) &&
+                (policyFilter.year === 'all' || policyYear.toString() === policyFilter.year)
+            );
+        });
+
+        // Sort the filtered policies
+        return filtered.sort((a, b) => {
+            switch (sortBy) {
+                case 'date':
+                    return new Date(b.effective_date) - new Date(a.effective_date); // Most recent first
+                case 'policy':
+                    const policyA = a.law_class || a.policy_type || '';
+                    const policyB = b.law_class || b.policy_type || '';
+                    return policyA.localeCompare(policyB);
+                case 'state':
+                default:
+                    return a.state.localeCompare(b.state);
+            }
+        });
+    }, [policies, policyFilter, sortBy]);
+
+    // Get unique values for filter dropdowns
+    const uniqueStates = useMemo(() => {
+        const states = [...new Set(policies.map(p => p.state))].sort();
+        return states;
+    }, [policies]);
+
+    const uniqueYears = useMemo(() => {
+        const years = [...new Set(policies.map(p => new Date(p.effective_date).getFullYear()))].sort((a, b) => b - a);
+        return years;
+    }, [policies]);
+
+    // Policy browser handlers
+    const handleViewPolicyDetails = (policy) => {
+        setCurrentPolicy(policy);
+        setActiveView('policy-details');
+    };
+
+    const handleBookmarkPolicy = (policy) => {
+        if (isPolicyBookmarked(policy.law_id)) {
+            // Unbookmark
+            const result = unbookmarkPolicy(policy.law_id);
+            if (result.success) {
+                // Refresh bookmarked policies
+                const bookmarks = getBookmarkedPolicies();
+                setBookmarkedPolicies(bookmarks);
+            } else {
+                alert(result.message);
+            }
+        } else {
+            // Bookmark
+            const policyData = {
+                law_id: policy.law_id,
+                state: policy.state,
+                policy_type: policy.policy_type,
+                law_class: policy.law_class,
+                effective_date: policy.effective_date,
+                description: policy.description,
+                impact_analysis: policy.impact_analysis,
+                original_content: policy.original_content,
+                human_explanation: policy.human_explanation,
+                mass_shooting_analysis: policy.mass_shooting_analysis,
+                state_mass_shooting_stats: policy.state_mass_shooting_stats
+            };
+            const result = bookmarkPolicy(policyData);
+            if (result.success) {
+                // Refresh bookmarked policies
+                const bookmarks = getBookmarkedPolicies();
+                setBookmarkedPolicies(bookmarks);
+            } else {
+                alert(result.message);
+            }
+        }
+    };
+
+    // Check if a policy is bookmarked
+    const isPolicyBookmarked = (lawId) => {
+        return bookmarkedPolicies.some(bookmark => bookmark.law_id === lawId);
+    };
+
+    // Handle opening policy modal
+    const handleOpenPolicyModal = (policy) => {
+        setSelectedPolicyForModal(policy);
+        setShowPolicyModal(true);
+    };
+
+    // Handle closing policy modal
+    const handleClosePolicyModal = () => {
+        setShowPolicyModal(false);
+        setSelectedPolicyForModal(null);
+    };
 
     // Policy details handlers
     const handleAddAnnotation = () => {
@@ -317,9 +468,6 @@ const AnalyticsDashboard = ({
             {/* Header */}
             <div className="dashboard-header">
                 <div className="session-info">
-                    <span className="session-date">
-                        Session started: {formatDateForDisplay(sessionCreated)}
-                    </span>
                 </div>
 
                 <div className="session-controls">
@@ -351,8 +499,122 @@ const AnalyticsDashboard = ({
                 {activeView === 'analytics' && (
                     <div className="dashboard-main">
                         <div className="workspace-header">
-                            <h2>Analytics Workspace</h2>
-                            <p>Build your analysis here...</p>
+                            <h2>Policy Timeline Browser</h2>
+                            <p>Browse enacted policies chronologically from our dataset</p>
+                        </div>
+
+                        {/* Policy Filters */}
+                        <div className="policy-filters">
+                            <div className="filter-group">
+                                <label>State:</label>
+                                <select
+                                    value={policyFilter.state}
+                                    onChange={(e) => setPolicyFilter(prev => ({ ...prev, state: e.target.value }))}
+                                >
+                                    <option value="all">All States</option>
+                                    {uniqueStates.map(state => (
+                                        <option key={state} value={state}>{state}</option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Sort By:</label>
+                                <select
+                                    value={sortBy}
+                                    onChange={(e) => setSortBy(e.target.value)}
+                                >
+                                    <option value="state">State Name (A-Z)</option>
+                                    <option value="policy">Policy Name (A-Z)</option>
+                                    <option value="date">Date (Newest First)</option>
+                                </select>
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Year:</label>
+                                <select
+                                    value={policyFilter.year}
+                                    onChange={(e) => setPolicyFilter(prev => ({ ...prev, year: e.target.value }))}
+                                >
+                                    <option value="all">All Years</option>
+                                    {uniqueYears.map(year => (
+                                        <option key={year} value={year.toString()}>{year}</option>
+                                    ))}
+                                </select>
+                            </div>
+                        </div>
+
+                        {/* Policy List */}
+                        <div className="policy-list">
+                            {policiesLoading ? (
+                                <div className="loading-state">
+                                    <div className="loading-spinner"></div>
+                                    <p>Loading policies...</p>
+                                </div>
+                            ) : filteredPolicies.length === 0 ? (
+                                <div className="empty-state">
+                                    <div className="empty-icon">📋</div>
+                                    <h3>No policies found</h3>
+                                    <p>Try adjusting your filters to see more policies</p>
+                                </div>
+                            ) : (
+                                <div className="policy-grid">
+                                    {filteredPolicies.map((policy, index) => (
+                                        <div key={policy.law_id || index} className="policy-card" onClick={() => handleOpenPolicyModal(policy)}>
+                                            <div className="policy-header">
+                                                <h3>{policy.state} {policy.policy_type}</h3>
+                                                <span className="policy-date">
+                                                    {formatDateForDisplay(policy.effective_date)}
+                                                </span>
+                                            </div>
+
+                                            <div className="policy-details">
+                                                <div className="policy-info">
+                                                    <strong>Description:</strong> {policy.law_class ?
+                                                        policy.law_class.split(' ').map(word =>
+                                                            word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+                                                        ).join(' ') :
+                                                        'No description available'
+                                                    }
+                                                </div>
+                                                {policy.impact_analysis && (
+                                                    <div className="policy-impact">
+                                                        <strong>Impact:</strong> {policy.impact_analysis}
+                                                    </div>
+                                                )}
+                                            </div>
+
+                                            {/* Incident Graph */}
+                                            <div className="policy-graph">
+                                                <PolicyIncidentGraph
+                                                    state={policy.state}
+                                                    policyDate={policy.effective_date}
+                                                    timelineData={timelineData}
+                                                />
+                                            </div>
+
+                                            <div className="policy-actions">
+                                                <button
+                                                    className="view-details-btn"
+                                                    onClick={() => handleViewPolicyDetails(policy)}
+                                                >
+                                                    View Details
+                                                </button>
+                                                <button
+                                                    className={`bookmark-btn ${isPolicyBookmarked(policy.law_id) ? 'bookmarked' : ''}`}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleBookmarkPolicy(policy);
+                                                    }}
+                                                    title={isPolicyBookmarked(policy.law_id) ? 'Remove bookmark' : 'Bookmark policy'}
+                                                >
+                                                    {isPolicyBookmarked(policy.law_id) ? '★' : '☆'}
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
@@ -714,6 +976,27 @@ const AnalyticsDashboard = ({
                     </div>
                 )}
             </div>
+
+            {/* Policy Modal */}
+            <PolicyModal
+                isOpen={showPolicyModal}
+                onClose={handleClosePolicyModal}
+                policy={selectedPolicyForModal ? {
+                    'Law ID': selectedPolicyForModal.law_id,
+                    'State': selectedPolicyForModal.state,
+                    'Law Class': selectedPolicyForModal.law_class,
+                    'Effect': selectedPolicyForModal.effect,
+                    'Effective Date Year': new Date(selectedPolicyForModal.effective_date).getFullYear(),
+                    'Effective Date Month': new Date(selectedPolicyForModal.effective_date).getMonth() + 1,
+                    'Effective Date Day': new Date(selectedPolicyForModal.effective_date).getDate(),
+                    'Content': selectedPolicyForModal.original_content,
+                    'Additional Context and Notes': selectedPolicyForModal.human_explanation,
+                    // Include original fields for compatibility
+                    ...selectedPolicyForModal
+                } : null}
+                year={selectedPolicyForModal ? new Date(selectedPolicyForModal.effective_date).getFullYear() : null}
+                timelineData={timelineData}
+            />
         </div>
     );
 };
