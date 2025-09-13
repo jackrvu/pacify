@@ -2,7 +2,6 @@
 // Shows policy changes over time with interactive timeline controls and modal details
 // Supports auto-play, manual scrubbing, and detailed policy information display
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import Papa from 'papaparse';
 import './PolicyTimelinePopup.css';
 
 const PolicyTimelinePopup = ({
@@ -16,6 +15,7 @@ const PolicyTimelinePopup = ({
 }) => {
     const [policyData, setPolicyData] = useState([]);
     const [loadingPolicy, setLoadingPolicy] = useState(false);
+    const [policyAnalysisData, setPolicyAnalysisData] = useState([]);
     const [isDragging, setIsDragging] = useState(false);
     const [selectedPolicy, setSelectedPolicy] = useState(null);
 
@@ -23,6 +23,10 @@ const PolicyTimelinePopup = ({
     const [isPlaying, setIsPlaying] = useState(false);
     const isPlayingRef = useRef(false);
     const intervalRef = useRef(null);
+
+    // Continuous timeline position state
+    const [continuousPosition, setContinuousPosition] = useState(0); // 0-100 percentage
+    const animationFrameRef = useRef(null);
 
     // Resize state
     const [panelHeight, setPanelHeight] = useState(200);
@@ -33,28 +37,70 @@ const PolicyTimelinePopup = ({
     const [expandedPolicies, setExpandedPolicies] = useState(new Set());
     const modalBodyRef = useRef(null);
 
+    // Get policies for the timeline range
+    const minYear = Math.min(...availableYears);
+    const maxYear = Math.max(...availableYears);
+
+    // Convert between continuous position (0-100) and year - defined early to avoid hoisting issues
+    const positionToYear = (position) => {
+        return minYear + (position / 100) * (maxYear - minYear);
+    };
+
+    const yearToPosition = (year) => {
+        return ((year - minYear) / (maxYear - minYear)) * 100;
+    };
+
     // Load policy data when component mounts
     useEffect(() => {
         const loadPolicyData = async () => {
             try {
                 setLoadingPolicy(true);
-                const response = await fetch('/data/policy_sorted.csv');
-                const csvText = await response.text();
 
-                Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: (results) => {
-                        setPolicyData(results.data);
-                        setLoadingPolicy(false);
-                    },
-                    error: (error) => {
-                        console.error('Error parsing policy CSV:', error);
-                        setLoadingPolicy(false);
-                    }
+                // Load policy analysis JSON data directly as the primary source
+                const analysisResponse = await fetch('/policy_analysis_results.json');
+
+                if (!analysisResponse.ok) {
+                    throw new Error(`Failed to fetch policy data: ${analysisResponse.status} ${analysisResponse.statusText}`);
+                }
+
+                const responseText = await analysisResponse.text();
+
+                // Clean up any NaN values in the JSON before parsing
+                const cleanedJson = responseText.replace(/:\s*NaN\s*,/g, ': null,').replace(/:\s*NaN\s*}/g, ': null}');
+
+                let analysisData;
+                try {
+                    analysisData = JSON.parse(cleanedJson);
+                } catch (parseError) {
+                    console.error('JSON Parse Error:', parseError);
+                    console.error('Problem area:', responseText.substring(Math.max(0, parseError.message.indexOf('position') - 50), parseError.message.indexOf('position') + 100));
+                    throw new Error(`Invalid JSON format: ${parseError.message}`);
+                }
+
+                // Validate that we have an array
+                if (!Array.isArray(analysisData)) {
+                    throw new Error('Policy data should be an array');
+                }
+
+                // Filter out any invalid entries and validate required fields
+                const validPolicies = analysisData.filter(policy => {
+                    return policy &&
+                        typeof policy === 'object' &&
+                        policy.effective_date &&
+                        policy.state &&
+                        policy.law_id;
                 });
+
+                console.log(`Loaded ${validPolicies.length} valid policies out of ${analysisData.length} total entries`);
+
+                // Set both policy data and analysis data from the JSON file
+                setPolicyData(validPolicies);
+                setPolicyAnalysisData(validPolicies);
+                setLoadingPolicy(false);
             } catch (error) {
                 console.error('Error loading policy data:', error);
+                setPolicyData([]);
+                setPolicyAnalysisData([]);
                 setLoadingPolicy(false);
             }
         };
@@ -72,6 +118,13 @@ const PolicyTimelinePopup = ({
         }
     }, [selectedState]);
 
+    // Update continuous position when current year changes (but not when dragging)
+    useEffect(() => {
+        if (!isDragging && !isPlaying) {
+            setContinuousPosition(yearToPosition(currentYear));
+        }
+    }, [currentYear, isDragging, isPlaying, yearToPosition]);
+
     // Cleanup on unmount
     useEffect(() => {
         return () => {
@@ -80,6 +133,10 @@ const PolicyTimelinePopup = ({
             if (intervalRef.current) {
                 clearInterval(intervalRef.current);
                 intervalRef.current = null;
+            }
+            if (animationFrameRef.current) {
+                cancelAnimationFrame(animationFrameRef.current);
+                animationFrameRef.current = null;
             }
         };
     }, []);
@@ -135,8 +192,12 @@ const PolicyTimelinePopup = ({
         const grouped = {};
 
         policyData.forEach(policy => {
-            const year = parseInt(policy['Effective Date Year']);
-            const state = policy.State;
+            // Extract year from effective_date field (format: YYYY-M-D)
+            const effectiveDate = policy.effective_date;
+            if (!effectiveDate) return;
+
+            const year = parseInt(effectiveDate.split('-')[0]);
+            const state = policy.state;
 
             // Only include policies for the selected state (if one is selected)
             if (year && year >= 1995 && year <= 2025) {
@@ -154,10 +215,6 @@ const PolicyTimelinePopup = ({
         return grouped;
     }, [policyData, selectedState]);
 
-    // Get policies for the timeline range
-    const minYear = Math.min(...availableYears);
-    const maxYear = Math.max(...availableYears);
-
     // Simple year increment function - just go to next year every 2 seconds
     const incrementYear = useCallback(() => {
         const currentIndex = availableYears.indexOf(currentYear);
@@ -167,38 +224,68 @@ const PolicyTimelinePopup = ({
         onYearChange(nextYear);
     }, [availableYears, currentYear, onYearChange]);
 
-    // Start simple year increment
+    // Smooth auto-play animation
     const startAutoPlay = useCallback(() => {
         if (availableYears.length === 0) return;
 
-        // Clear existing interval if any
+        // Clear existing animations
         if (intervalRef.current) {
             clearInterval(intervalRef.current);
+        }
+        if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
         }
 
         setIsPlaying(true);
         isPlayingRef.current = true;
 
-        // Use interval instead of recursive setTimeout
-        intervalRef.current = setInterval(() => {
-            if (!isPlayingRef.current) {
-                if (intervalRef.current) {
-                    clearInterval(intervalRef.current);
-                    intervalRef.current = null;
-                }
-                return;
+        const startPosition = yearToPosition(currentYear);
+        const endPosition = 100; // Go to end of timeline
+        const duration = (availableYears.length - availableYears.indexOf(currentYear)) * 2000; // 2 seconds per year
+        const startTime = Date.now();
+
+        const animate = () => {
+            if (!isPlayingRef.current) return;
+
+            const elapsed = Date.now() - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+
+            // Smooth easing
+            const easeProgress = progress < 0.5
+                ? 2 * progress * progress
+                : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+            const currentPosition = startPosition + (endPosition - startPosition) * easeProgress;
+            setContinuousPosition(currentPosition);
+
+            // Calculate discrete year for data updates
+            const currentFloatYear = positionToYear(currentPosition);
+            const discreteYear = Math.round(currentFloatYear);
+
+            // Update discrete year when we cross year boundaries
+            if (availableYears.includes(discreteYear) && discreteYear !== currentYear) {
+                onYearChange(discreteYear);
             }
 
-            // We need to access the latest state here
-            onYearChange(prevYear => {
-                const currentIndex = availableYears.indexOf(prevYear);
-                const nextIndex = (currentIndex + 1) % availableYears.length;
-                return availableYears[nextIndex];
-            });
-        }, 2000);
-    }, [availableYears, onYearChange]);
+            if (progress < 1) {
+                animationFrameRef.current = requestAnimationFrame(animate);
+            } else {
+                // Loop back to start
+                onYearChange(availableYears[0]);
+                setContinuousPosition(yearToPosition(availableYears[0]));
+                // Restart animation after a brief pause
+                setTimeout(() => {
+                    if (isPlayingRef.current) {
+                        startAutoPlay();
+                    }
+                }, 500);
+            }
+        };
 
-    // Stop year increment
+        animationFrameRef.current = requestAnimationFrame(animate);
+    }, [availableYears, currentYear, onYearChange, yearToPosition, positionToYear]);
+
+    // Stop auto-play animation
     const stopAutoPlay = useCallback(() => {
         setIsPlaying(false);
         isPlayingRef.current = false;
@@ -206,7 +293,13 @@ const PolicyTimelinePopup = ({
             clearInterval(intervalRef.current);
             intervalRef.current = null;
         }
-    }, []);
+        if (animationFrameRef.current) {
+            cancelAnimationFrame(animationFrameRef.current);
+            animationFrameRef.current = null;
+        }
+        // Snap to current discrete year position
+        setContinuousPosition(yearToPosition(currentYear));
+    }, [currentYear, yearToPosition]);
 
     // Handle play/pause
     const handlePlayPause = () => {
@@ -232,34 +325,54 @@ const PolicyTimelinePopup = ({
         }
     };
 
-    // Handle dragging the year indicator
+    // Handle dragging the year indicator with smooth movement
     const handleIndicatorDrag = (event) => {
         event.preventDefault();
+        setIsDragging(true);
+
         const timelineTrack = event.currentTarget.parentElement;
         const timelineRect = timelineTrack.getBoundingClientRect();
-        let lastUpdateTime = 0;
-        
+        let currentDragPosition = continuousPosition; // Store the drag position locally
+
         const handleMouseMove = (e) => {
             const x = e.clientX - timelineRect.left;
             const percentage = Math.max(0, Math.min(100, (x / timelineRect.width) * 100));
-            
-            // Convert percentage to year
-            const yearRange = maxYear - minYear;
-            const newYear = Math.round(minYear + (percentage / 100) * yearRange);
-            
-            // Throttle updates to improve performance during dragging
-            const now = Date.now();
-            if (onYearChange && newYear >= minYear && newYear <= maxYear && (now - lastUpdateTime > 16)) {
-                onYearChange(newYear);
-                lastUpdateTime = now;
+
+            // Store the current drag position
+            currentDragPosition = percentage;
+
+            // Update continuous position immediately for smooth movement
+            setContinuousPosition(percentage);
+
+            // Convert to nearest year for data updates
+            const floatYear = positionToYear(percentage);
+            const nearestYear = Math.round(floatYear);
+
+            // Only update discrete year if it's valid and different
+            if (availableYears.includes(nearestYear) && nearestYear !== currentYear) {
+                onYearChange(nearestYear);
             }
         };
-        
+
         const handleMouseUp = () => {
+            setIsDragging(false);
+
+            // Use the actual drag position, not the state value
+            const floatYear = positionToYear(currentDragPosition);
+            const roundedYear = Math.round(floatYear);
+
+            // Find the closest available year to the rounded year
+            const snapYear = availableYears.reduce((prev, curr) =>
+                Math.abs(curr - roundedYear) < Math.abs(prev - roundedYear) ? curr : prev
+            );
+
+            onYearChange(snapYear);
+            setContinuousPosition(yearToPosition(snapYear));
+
             document.removeEventListener('mousemove', handleMouseMove);
             document.removeEventListener('mouseup', handleMouseUp);
         };
-        
+
         document.addEventListener('mousemove', handleMouseMove);
         document.addEventListener('mouseup', handleMouseUp);
     };
@@ -274,7 +387,7 @@ const PolicyTimelinePopup = ({
     // Toggle policy expansion
     const togglePolicyExpansion = (policyId) => {
         const scrollTop = modalBodyRef.current?.scrollTop || 0;
-        
+
         setExpandedPolicies(prev => {
             const newSet = new Set(prev);
             if (newSet.has(policyId)) {
@@ -284,7 +397,7 @@ const PolicyTimelinePopup = ({
             }
             return newSet;
         });
-        
+
         // Restore scroll position after re-render
         requestAnimationFrame(() => {
             if (modalBodyRef.current) {
@@ -311,16 +424,27 @@ const PolicyTimelinePopup = ({
         }
     };
 
-    // Format policy date
-    const formatPolicyDate = (year, month, day) => {
-        if (!year) return 'Unknown Date';
+    // Format policy date from effective_date string (format: YYYY-M-D)
+    const formatPolicyDate = (effectiveDateStr) => {
+        if (!effectiveDateStr) return 'Unknown Date';
 
-        const date = new Date(year, (month || 1) - 1, day || 1);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
+        try {
+            const [year, month, day] = effectiveDateStr.split('-').map(num => parseInt(num));
+            const date = new Date(year, (month || 1) - 1, day || 1);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        } catch (error) {
+            return effectiveDateStr; // Return the original string if parsing fails
+        }
+    };
+
+    // Get Gemini analysis for a policy
+    const getGeminiAnalysis = (policyLawId) => {
+        if (!policyAnalysisData.length || !policyLawId) return null;
+        return policyAnalysisData.find(analysis => analysis.law_id === policyLawId);
     };
 
     if (!isVisible) return null;
@@ -333,74 +457,126 @@ const PolicyTimelinePopup = ({
             <div className="policy-modal-overlay" onClick={handleBackToTimeline}>
                 <div className="policy-modal-dialog" onClick={(e) => e.stopPropagation()}>
                     <div className="policy-modal-header">
-                        <h2>Policy Changes in {selectedPolicy.year}</h2>
-                        {selectedState && <p className="modal-state-subtitle">for {selectedState}</p>}
-                        <button 
-                            className="modal-close-btn" 
+                        <h2>
+                            Policy Changes in {selectedPolicy.year}
+                            {selectedState && <span className="modal-state-subtitle">&nbsp;&nbsp;for {selectedState}</span>}
+                        </h2>
+                        <button
+                            className="modal-close-btn"
                             onClick={handleBackToTimeline}
                             aria-label="Close modal"
                         >
                             ×
                         </button>
                     </div>
-                    
+
                     <div className="policy-modal-body" ref={modalBodyRef}>
                         <div className="policy-summary">
-                            <h3>{selectedPolicy.policies.length} Policy Changes</h3>
+                            <h3>{selectedPolicy.policies.length} Policy Change{selectedPolicy.policies.length === 1 ? '' : 's'}</h3>
                             <p>Implemented in {selectedPolicy.year}</p>
                         </div>
-                        
+
                         <div className="policy-changes-list">
                             {selectedPolicy.policies.map((policy, index) => {
-                                const policyId = policy['Law ID'] || `policy-${index}`;
+                                const policyId = policy.law_id || `policy-${index}`;
                                 const isExpanded = expandedPolicies.has(policyId);
-                                const hasContent = policy['Content'] && policy['Content'].trim().length > 0;
-                                
+                                const hasContent = policy.original_content && policy.original_content.trim().length > 0;
+                                const geminiAnalysis = getGeminiAnalysis(policy.law_id);
+
                                 return (
                                     <div key={policyId} className="policy-change-item">
                                         <div className="policy-change-header">
                                             <div className="policy-change-title">
-                                                {policy['Law Class'] || 'Unknown Law Class'}
+                                                {policy.law_class || 'Unknown Law Class'}
                                             </div>
                                             <div className="policy-change-meta">
-                                                <span className="policy-state">{policy.State}</span>
-                                                <span 
+                                                <span className="policy-state">{policy.state}</span>
+                                                <span
                                                     className="policy-effect-badge"
-                                                    style={{ 
-                                                        backgroundColor: getPolicyEffectColor(policy.Effect),
+                                                    style={{
+                                                        backgroundColor: getPolicyEffectColor(policy.effect),
                                                         color: 'white'
                                                     }}
                                                 >
-                                                    {policy.Effect || 'Unknown'}
+                                                    {policy.effect || 'Unknown'}
                                                 </span>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="policy-change-date">
-                                            Effective: {formatPolicyDate(
-                                                policy['Effective Date Year'],
-                                                policy['Effective Date Month'],
-                                                policy['Effective Date Day']
-                                            )}
+                                            Effective: {formatPolicyDate(policy.effective_date)}
                                         </div>
-                                        
+
+                                        {/* Gemini Policy Summary & Analysis */}
+                                        {geminiAnalysis && (
+                                            <div className="gemini-policy-analysis">
+                                                <h4 className="gemini-analysis-title">Gemini Policy Summary & Analysis</h4>
+
+                                                {geminiAnalysis.human_explanation && (
+                                                    <div className="gemini-human-explanation">
+                                                        <h5>Policy Explanation</h5>
+                                                        <div className="analysis-content">
+                                                            {geminiAnalysis.human_explanation.split('\n').map((paragraph, idx) => (
+                                                                <p key={idx}>{paragraph}</p>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {geminiAnalysis.mass_shooting_analysis && (
+                                                    <div className="gemini-mass-shooting-analysis">
+                                                        <h5>Mass Shooting Impact Analysis</h5>
+                                                        <div className="analysis-content">
+                                                            {geminiAnalysis.mass_shooting_analysis.split('\n').map((paragraph, idx) => (
+                                                                <p key={idx}>{paragraph}</p>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {geminiAnalysis.state_mass_shooting_stats && (
+                                                    <div className="gemini-stats">
+                                                        <h5>State Mass Shooting Statistics (2019-2025)</h5>
+                                                        <div className="stats-grid">
+                                                            <div className="stat-item">
+                                                                <span className="stat-label">Total Incidents:</span>
+                                                                <span className="stat-value">{geminiAnalysis.state_mass_shooting_stats.total_2019_2025}</span>
+                                                            </div>
+                                                            <div className="stat-item">
+                                                                <span className="stat-label">Avg per Year:</span>
+                                                                <span className="stat-value">{geminiAnalysis.state_mass_shooting_stats.avg_per_year.toFixed(1)}</span>
+                                                            </div>
+                                                            <div className="stat-item">
+                                                                <span className="stat-label">Total Killed:</span>
+                                                                <span className="stat-value">{geminiAnalysis.state_mass_shooting_stats.total_victims_killed}</span>
+                                                            </div>
+                                                            <div className="stat-item">
+                                                                <span className="stat-label">Total Injured:</span>
+                                                                <span className="stat-value">{geminiAnalysis.state_mass_shooting_stats.total_victims_injured}</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        )}
+
                                         {hasContent && (
                                             <div className="policy-change-description">
                                                 {isExpanded ? (
                                                     <div className="policy-description-full">
-                                                        {policy['Content']}
+                                                        {policy.original_content}
                                                     </div>
                                                 ) : (
                                                     <div className="policy-description-preview">
-                                                        {policy['Content'].length > 150 
-                                                            ? `${policy['Content'].substring(0, 150)}...`
-                                                            : policy['Content']
+                                                        {policy.original_content.length > 150
+                                                            ? `${policy.original_content.substring(0, 150)}...`
+                                                            : policy.original_content
                                                         }
                                                     </div>
                                                 )}
-                                                
-                                                {policy['Content'].length > 150 && (
-                                                    <button 
+
+                                                {policy.original_content.length > 150 && (
+                                                    <button
                                                         className="see-more-btn"
                                                         onClick={() => togglePolicyExpansion(policyId)}
                                                     >
@@ -409,7 +585,7 @@ const PolicyTimelinePopup = ({
                                                 )}
                                             </div>
                                         )}
-                                        
+
                                         {!hasContent && (
                                             <div className="policy-no-description">
                                                 No additional details available for this policy change.
@@ -429,7 +605,7 @@ const PolicyTimelinePopup = ({
         <>
             {/* Policy Modal */}
             <PolicyModal />
-            
+
             {/* Main Timeline Popup */}
             <div
                 className={`policy-timeline-popup ${isResizing ? 'resizing' : ''}`}
@@ -448,19 +624,18 @@ const PolicyTimelinePopup = ({
                         </h3>
                         <span className="current-year-display">{currentYear}</span>
                     </div>
-                    <div className="timeline-controls">
+                    <div className="timeline-header-controls">
                         <button
                             className={`play-pause-btn ${isPlaying ? 'playing' : 'paused'}`}
                             onClick={handlePlayPause}
                             title={isPlaying ? 'Pause timeline' : 'Play timeline'}
                         >
-                            {isPlaying ? '⏸️' : '▶️'}
-                            <span>{isPlaying ? 'Pause' : 'Play'}</span>
+                            {isPlaying ? '⏸' : '▶'}
+                        </button>
+                        <button className="close-timeline-btn" onClick={onClose} aria-label="Close timeline">
+                            ×
                         </button>
                     </div>
-                    <button className="close-timeline-btn" onClick={onClose} aria-label="Close timeline">
-                        ×
-                    </button>
                 </div>
 
                 <div className="timeline-container">
@@ -480,10 +655,10 @@ const PolicyTimelinePopup = ({
                                 if (yearNum < minYear || yearNum > maxYear) return null;
 
                                 const restrictivePolicies = policies.filter(p =>
-                                    p.Effect && p.Effect.toLowerCase() === 'restrictive'
+                                    p.effect && p.effect.toLowerCase() === 'restrictive'
                                 );
                                 const permissivePolicies = policies.filter(p =>
-                                    p.Effect && p.Effect.toLowerCase() === 'permissive'
+                                    p.effect && p.effect.toLowerCase() === 'permissive'
                                 );
 
                                 return (
@@ -492,7 +667,7 @@ const PolicyTimelinePopup = ({
                                         className="policy-marker"
                                         style={{ left: `${getPolicyMarkerPosition(yearNum)}%` }}
                                         onClick={(e) => handlePolicyMarkerClick(yearNum, policies, e)}
-                                        title={`${policies.length} policy changes in ${year} - Click to view details`}
+                                        title={`${policies.length} policy change${policies.length === 1 ? '' : 's'} in ${year} - Click to view details`}
                                     >
                                         <div className="policy-marker-dot">
                                             <div className="policy-count">{policies.length}</div>
@@ -518,8 +693,8 @@ const PolicyTimelinePopup = ({
 
                         {/* Current year indicator */}
                         <div
-                            className="current-year-indicator"
-                            style={{ left: `${getPolicyMarkerPosition(currentYear)}%` }}
+                            className={`current-year-indicator ${(isDragging || isPlaying) ? 'no-transition' : ''}`}
+                            style={{ left: `${continuousPosition}%` }}
                             onMouseDown={handleIndicatorDrag}
                         >
                             <div className="indicator-line"></div>

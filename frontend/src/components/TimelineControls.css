@@ -25,7 +25,7 @@
 }
 
 .minimalist-timeline .play-pause-btn {
-    background: rgba(74, 144, 226, 0.8);
+    background: rgba(156, 163, 175, 0.8);
     border: none;
     color: white;
     width: 36px;
@@ -41,7 +41,7 @@
 }
 
 .minimalist-timeline .play-pause-btn:hover {
-    background: rgba(74, 144, 226, 1);
+    background: rgba(156, 163, 175, 1);
     transform: scale(1.05);
 }
 
@@ -69,7 +69,7 @@
     appearance: none;
     width: 18px;
     height: 18px;
-    background: #4a90e2;
+    background: #9ca3af;
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid white;
@@ -79,7 +79,7 @@
 .minimalist-timeline .timeline-slider::-moz-range-thumb {
     width: 18px;
     height: 18px;
-    background: #4a90e2;
+    background: #9ca3af;
     border-radius: 50%;
     cursor: pointer;
     border: 2px solid white;
@@ -121,7 +121,7 @@
 .current-year {
     font-size: 20px;
     font-weight: bold;
-    color: #2c5aa0;
+    color: #4b5563;
     line-height: 1;
     display: flex;
     align-items: baseline;
@@ -129,7 +129,7 @@
 
 .year-progress {
     font-size: 14px;
-    color: #4a90e2;
+    color: #9ca3af;
     margin-left: 2px;
     opacity: 0.8;
 }
@@ -149,8 +149,15 @@
 }
 
 @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
 }
 
 /* Year Statistics */
@@ -161,7 +168,7 @@
     padding: 8px 12px;
     background: rgba(44, 90, 160, 0.1);
     border-radius: 6px;
-    border-left: 3px solid #2c5aa0;
+    border-left: 3px solid #4b5563;
 }
 
 .year-stats .stat {
@@ -173,7 +180,7 @@
 .year-stats .stat strong {
     display: block;
     font-size: 14px;
-    color: #2c5aa0;
+    color: #4b5563;
     font-weight: 600;
 }
 
@@ -186,7 +193,7 @@
 }
 
 .nav-button {
-    background: #2c5aa0;
+    background: #4b5563;
     color: white;
     border: none;
     border-radius: 4px;
@@ -246,7 +253,7 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #2c5aa0;
+    background: #4b5563;
     cursor: pointer;
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -262,7 +269,7 @@
     width: 18px;
     height: 18px;
     border-radius: 50%;
-    background: #2c5aa0;
+    background: #4b5563;
     cursor: pointer;
     border: 2px solid white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -301,7 +308,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    background: #2c5aa0;
+    background: #4b5563;
     color: white;
     border: none;
     border-radius: 6px;
@@ -359,7 +366,7 @@
 }
 
 .speed-selector:focus {
-    border-color: #2c5aa0;
+    border-color: #4b5563;
     box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.2);
 }
 
@@ -407,14 +414,14 @@
 }
 
 .year-btn:hover {
-    border-color: #2c5aa0;
+    border-color: #4b5563;
     background: rgba(44, 90, 160, 0.1);
 }
 
 .year-btn.active {
-    background: #2c5aa0;
+    background: #4b5563;
     color: white;
-    border-color: #2c5aa0;
+    border-color: #4b5563;
 }
 
 .year-btn.pause-point {
@@ -459,7 +466,7 @@
 
 .progress-fill {
     height: 100%;
-    background: linear-gradient(90deg, #2c5aa0, #4a90e2);
+    background: linear-gradient(90deg, #4b5563, #9ca3af);
     border-radius: 2px;
     transition: width 0.3s ease;
 }
@@ -486,43 +493,43 @@
         max-width: 100%;
         padding: 12px;
     }
-    
+
     .timeline-header {
         flex-direction: column;
         align-items: flex-start;
         gap: 4px;
     }
-    
+
     .year-display {
         align-items: flex-start;
     }
-    
+
     .year-stats {
         flex-direction: column;
         gap: 4px;
     }
-    
+
     .year-stats .stat {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    
+
     .year-stats .stat strong {
         display: inline;
         margin-left: 8px;
     }
-    
+
     .playback-controls {
         flex-direction: column;
         gap: 8px;
         align-items: stretch;
     }
-    
+
     .speed-controls {
         justify-content: center;
     }
-    
+
     .year-buttons {
         justify-content: center;
     }
@@ -530,8 +537,15 @@
 
 /* Animation for smooth transitions */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .timeline-controls {

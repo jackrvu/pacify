@@ -3,7 +3,7 @@
 import React from 'react';
 import './Controls.css';
 
-function Controls({ 
+function Controls({
     onToggleTimeline,
     timelineMode = false,
     currentYear = 2025,
@@ -23,11 +23,11 @@ function Controls({
             <div className="current-year-badge">
                 {currentYear}
             </div>
-            
+
             {/* View Mode Toggle */}
             <div className="view-mode-section">
                 <div className="view-mode-label">View Mode:</div>
-                <div 
+                <div
                     className={`view-toggle ${show3DView ? 'active' : ''}`}
                     onClick={() => onToggle3DView && onToggle3DView(!show3DView)}
                     title={show3DView ? 'Switch to Heatmap View' : 'Switch to 3D Globe View'}

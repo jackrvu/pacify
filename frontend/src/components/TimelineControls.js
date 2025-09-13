@@ -4,7 +4,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './TimelineControls.css';
 
-const TimelineControls = ({ 
+const TimelineControls = ({
     availableYears = [],
     currentYear,
     onYearChange,
@@ -17,7 +17,7 @@ const TimelineControls = ({
     const [pausePoints, setPausePoints] = useState(new Set()); // Years to pause on
     const [currentDecimalYear, setCurrentDecimalYear] = useState(currentYear);
     const [isPaused, setIsPaused] = useState(false);
-    
+
     // Refs for animation
     const animationRef = useRef(null);
     const lastTimestampRef = useRef(0);
@@ -39,11 +39,11 @@ const TimelineControls = ({
         const currentIndex = availableYears.indexOf(currentIntYear);
         const nextIndex = (currentIndex + 1) % availableYears.length;
         const nextYear = availableYears[nextIndex];
-        
+
         currentDecimalYearRef.current = nextYear;
         setCurrentDecimalYear(nextYear);
         onYearChange(nextYear);
-        
+
         // Schedule next increment if still playing
         setTimeout(() => {
             if (isPlayingRef.current) {
@@ -55,13 +55,13 @@ const TimelineControls = ({
     // Start simple year increment
     const startAutoPlay = useCallback(() => {
         if (availableYears.length === 0) return;
-        
+
         setIsPlaying(true);
         isPlayingRef.current = true;
         setIsPaused(false);
-        
+
         console.log('Starting year increment from year:', Math.floor(currentDecimalYearRef.current));
-        
+
         // Start incrementing immediately
         incrementYear();
     }, [availableYears, incrementYear]);
@@ -182,14 +182,14 @@ const TimelineControls = ({
 
             {/* Minimalist Timeline Controls */}
             <div className="minimalist-timeline">
-                <button 
+                <button
                     className={`play-pause-btn ${isPlaying ? 'playing' : 'paused'}`}
                     onClick={handlePlayPause}
                     title={isPlaying ? 'Pause timeline' : 'Play timeline'}
                 >
                     {isPlaying ? '⏸️' : '▶️'}
                 </button>
-                
+
                 <input
                     type="range"
                     min={minYear}
@@ -199,7 +199,7 @@ const TimelineControls = ({
                     className="timeline-slider"
                     title={`Year: ${displayYear}`}
                 />
-                
+
                 <div className="year-range-display">
                     {minYear} - {maxYear}
                 </div>

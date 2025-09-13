@@ -6,9 +6,9 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import './PolicyImpactVisualization.css';
 
-const PolicyImpactVisualization = ({ 
-    isVisible, 
-    onClose, 
+const PolicyImpactVisualization = ({
+    isVisible,
+    onClose,
     selectedPolicy = null,
     availablePolicyAnalyses = []
 }) => {
@@ -26,44 +26,44 @@ const PolicyImpactVisualization = ({
                 // Load ULTIMATE comprehensive analysis index
                 const response = await fetch('/data/ultimate_policy_analysis_index.json');
                 const indexData = await response.json();
-                
+
                 console.log(`🎉 Loaded ${indexData.total_analyses} policy analyses!`);
                 console.log(`📊 Policy types: ${indexData.policy_types ? indexData.policy_types.length : 'N/A'}`);
                 console.log(`🗺️ States covered: ${indexData.states ? indexData.states.length : 'N/A'}`);
                 console.log(`📈 Raw analyses array:`, indexData.analyses ? indexData.analyses.length : 'No analyses array');
-                
+
                 // Ensure we have analyses array
                 if (!indexData.analyses || !Array.isArray(indexData.analyses)) {
                     console.error('❌ No analyses array found in data:', indexData);
                     window.policyAnalyses = [];
                     return;
                 }
-                
+
                 // Convert to our format with additional metadata
                 const analyses = indexData.analyses.map(analysis => ({
                     ...analysis,
                     name: `${analysis.state} ${analysis.policy_type} (${analysis.year})`,
                     significance: analysis.significance === true || analysis.significance === 'True' || analysis.significance === true
                 }));
-                
+
                 console.log(`✅ Processed ${analyses.length} analyses for display`);
-                
+
                 // Set default selection to the most impactful analysis
                 if (analyses.length > 0 && !selectedAnalysis) {
                     // Find the analysis with highest absolute impact
-                    const topAnalysis = analyses.reduce((prev, current) => 
+                    const topAnalysis = analyses.reduce((prev, current) =>
                         Math.abs(current.impact || 0) > Math.abs(prev.impact || 0) ? current : prev
                     );
                     setSelectedAnalysis(topAnalysis);
                 }
-                
+
                 // Store analyses for filtering/sorting
                 window.policyAnalyses = analyses;
                 console.log(`🚀 Stored ${analyses.length} analyses in window.policyAnalyses`);
-                
+
                 // Trigger state update
                 setAvailableAnalyses(analyses);
-                
+
                 /* Old hardcoded analyses - replaced with dynamic loading
                 const analyses = [
                     // Background Check Policies
@@ -192,28 +192,28 @@ const PolicyImpactVisualization = ({
                     }
                 ];
                 */
-                
+
             } catch (error) {
                 console.error('❌ Error loading policy analyses:', error);
                 console.error('Fetch error details:', error.message);
-                
+
                 // Fallback to empty array if loading fails
                 window.policyAnalyses = [];
                 setAvailableAnalyses([]);
-                
+
                 // Try to load the old index as fallback
                 try {
                     console.log('🔄 Trying fallback to policy_analysis_index.json...');
                     const fallbackResponse = await fetch('/data/policy_analysis_index.json');
                     const fallbackData = await fallbackResponse.json();
-                    
+
                     if (fallbackData.analyses) {
                         const fallbackAnalyses = fallbackData.analyses.map(analysis => ({
                             ...analysis,
                             name: `${analysis.state} ${analysis.policy_type} (${analysis.year})`,
                             significance: analysis.significance === true || analysis.significance === 'True'
                         }));
-                        
+
                         window.policyAnalyses = fallbackAnalyses;
                         setAvailableAnalyses(fallbackAnalyses);
                         console.log(`✅ Loaded ${fallbackAnalyses.length} analyses from fallback`);
@@ -231,7 +231,7 @@ const PolicyImpactVisualization = ({
 
     // Available analyses list - dynamically loaded from index
     const [availableAnalyses, setAvailableAnalyses] = useState([]);
-    
+
     // Update available analyses when data loads
     useEffect(() => {
         const checkForAnalyses = () => {
@@ -244,7 +244,7 @@ const PolicyImpactVisualization = ({
                 setTimeout(checkForAnalyses, 100);
             }
         };
-        
+
         if (isVisible) {
             checkForAnalyses();
         }
@@ -253,14 +253,14 @@ const PolicyImpactVisualization = ({
     // Filter and sort analyses
     const filteredAndSortedAnalyses = useMemo(() => {
         let filtered = availableAnalyses;
-        
+
         // Filter by policy type
         if (filterPolicyType !== 'all') {
-            filtered = filtered.filter(analysis => 
+            filtered = filtered.filter(analysis =>
                 analysis.policy_type && analysis.policy_type.toLowerCase().includes(filterPolicyType.toLowerCase())
             );
         }
-        
+
         // Sort analyses
         filtered = [...filtered].sort((a, b) => {
             switch (sortBy) {
@@ -276,7 +276,7 @@ const PolicyImpactVisualization = ({
                     return 0;
             }
         });
-        
+
         return filtered;
     }, [filterPolicyType, sortBy]);
 
@@ -292,21 +292,21 @@ const PolicyImpactVisualization = ({
                 setLoading(true);
                 console.log(`📥 Loading analysis data for: ${selectedAnalysis.name}`);
                 console.log(`📄 File path: /data/${selectedAnalysis.file}`);
-                
+
                 const response = await fetch(`/data/${selectedAnalysis.file}`);
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
-                
+
                 const data = await response.json();
                 console.log(`✅ Successfully loaded data for ${selectedAnalysis.name}:`, data);
-                
+
                 // Validate data structure
                 if (!data.time_series_data || !data.impact_summary) {
                     console.warn('⚠️ Data structure incomplete:', data);
                 }
-                
+
                 setAnalysisData(data);
                 setLoading(false);
             } catch (error) {
@@ -327,7 +327,7 @@ const PolicyImpactVisualization = ({
             console.log('📊 No analysis data for timeline');
             return [];
         }
-        
+
         console.log('📊 Preparing timeline data from:', analysisData);
 
         try {
@@ -353,7 +353,7 @@ const PolicyImpactVisualization = ({
 
             const timelineResult = [...beforeData, implementationMarker, ...afterData].sort((a, b) => a.year - b.year);
             console.log('📈 Timeline data prepared:', timelineResult);
-            
+
             return timelineResult;
         } catch (error) {
             console.error('❌ Error preparing timeline data:', error);
@@ -436,8 +436,8 @@ const PolicyImpactVisualization = ({
                 <div className="analysis-filters">
                     <div className="filter-section">
                         <label>Policy Type:</label>
-                        <select 
-                            value={filterPolicyType} 
+                        <select
+                            value={filterPolicyType}
                             onChange={(e) => setFilterPolicyType(e.target.value)}
                         >
                             <option value="all">All Policies ({availableAnalyses.length})</option>
@@ -453,11 +453,11 @@ const PolicyImpactVisualization = ({
                             <option value="untraceable">Untraceable Firearms</option>
                         </select>
                     </div>
-                    
+
                     <div className="filter-section">
                         <label>Sort by:</label>
-                        <select 
-                            value={sortBy} 
+                        <select
+                            value={sortBy}
                             onChange={(e) => setSortBy(e.target.value)}
                         >
                             <option value="impact">Highest Impact</option>
@@ -487,9 +487,9 @@ const PolicyImpactVisualization = ({
                             <p>Try selecting "All Policies" or a different filter.</p>
                         </div>
                     )}
-                    
+
                     {filteredAndSortedAnalyses.map((analysis) => (
-                        <div 
+                        <div
                             key={analysis.id}
                             className={`analysis-card ${selectedAnalysis?.id === analysis.id ? 'selected' : ''} ${analysis.category}`}
                             onClick={() => setSelectedAnalysis(analysis)}
@@ -502,7 +502,7 @@ const PolicyImpactVisualization = ({
                                     {(analysis.impact || 0) > 0 ? '+' : ''}{(analysis.impact || 0).toFixed(1)}%
                                 </div>
                             </div>
-                            
+
                             <div className="card-content">
                                 <h3>{analysis.state}</h3>
                                 <p className="policy-description">{analysis.name}</p>
@@ -513,10 +513,10 @@ const PolicyImpactVisualization = ({
                                     )}
                                 </div>
                             </div>
-                            
+
                             <div className="impact-indicator">
                                 <div className={`impact-bar ${(analysis.impact || 0) < 0 ? 'reduction' : 'increase'}`}>
-                                    <div 
+                                    <div
                                         className="impact-fill"
                                         style={{ width: `${Math.min(Math.abs(analysis.impact || 0), 100)}%` }}
                                     ></div>
@@ -531,19 +531,19 @@ const PolicyImpactVisualization = ({
 
                 {/* View Mode Selector */}
                 <div className="view-mode-selector">
-                    <button 
+                    <button
                         className={viewMode === 'timeline' ? 'active' : ''}
                         onClick={() => setViewMode('timeline')}
                     >
                         Timeline View
                     </button>
-                    <button 
+                    <button
                         className={viewMode === 'comparison' ? 'active' : ''}
                         onClick={() => setViewMode('comparison')}
                     >
                         State Comparison
                     </button>
-                    <button 
+                    <button
                         className={viewMode === 'summary' ? 'active' : ''}
                         onClick={() => setViewMode('summary')}
                     >
@@ -585,7 +585,7 @@ const PolicyImpactVisualization = ({
                                             </p>
                                             {selectedAnalysis && (
                                                 <p style={{ fontSize: '0.8rem', color: '#6b7280', marginTop: '10px' }}>
-                                                    Analysis: {selectedAnalysis.name}<br/>
+                                                    Analysis: {selectedAnalysis.name}<br />
                                                     File: {selectedAnalysis.file}
                                                 </p>
                                             )}
@@ -594,30 +594,30 @@ const PolicyImpactVisualization = ({
                                         <div className="chart-container">
                                             <ResponsiveContainer width="100%" height={400}>
                                                 <LineChart data={timelineData}>
-                                                <CartesianGrid strokeDasharray="3 3" />
-                                                <XAxis 
-                                                    dataKey="year" 
-                                                    domain={['dataMin', 'dataMax']}
-                                                />
-                                                <YAxis 
-                                                    label={{ value: 'Incidents per 100k', angle: -90, position: 'insideLeft' }}
-                                                />
-                                                <Tooltip content={<CustomTooltip />} />
-                                                <Legend />
-                                                <Line 
-                                                    type="monotone" 
-                                                    dataKey="incident_rate" 
-                                                    stroke="#2563eb" 
-                                                    strokeWidth={3}
-                                                    dot={(props) => {
-                                                        if (props.payload.period_type === 'implementation') {
-                                                            return <circle cx={props.cx} cy={props.cy} r={6} fill="#dc3545" stroke="#dc3545" strokeWidth={2} />;
-                                                        }
-                                                        return <circle cx={props.cx} cy={props.cy} r={4} fill="#2563eb" />;
-                                                    }}
-                                                    connectNulls={false}
-                                                    name="Incident Rate"
-                                                />
+                                                    <CartesianGrid strokeDasharray="3 3" />
+                                                    <XAxis
+                                                        dataKey="year"
+                                                        domain={['dataMin', 'dataMax']}
+                                                    />
+                                                    <YAxis
+                                                        label={{ value: 'Incidents per 100k', angle: -90, position: 'insideLeft' }}
+                                                    />
+                                                    <Tooltip content={<CustomTooltip />} />
+                                                    <Legend />
+                                                    <Line
+                                                        type="monotone"
+                                                        dataKey="incident_rate"
+                                                        stroke="#2563eb"
+                                                        strokeWidth={3}
+                                                        dot={(props) => {
+                                                            if (props.payload.period_type === 'implementation') {
+                                                                return <circle cx={props.cx} cy={props.cy} r={6} fill="#dc3545" stroke="#dc3545" strokeWidth={2} />;
+                                                            }
+                                                            return <circle cx={props.cx} cy={props.cy} r={4} fill="#2563eb" />;
+                                                        }}
+                                                        connectNulls={false}
+                                                        name="Incident Rate"
+                                                    />
                                                 </LineChart>
                                             </ResponsiveContainer>
                                         </div>
@@ -665,7 +665,7 @@ const PolicyImpactVisualization = ({
                                             </div>
                                             <div className="impact-metric">
                                                 <span className="metric-label">Change:</span>
-                                                <span 
+                                                <span
                                                     className="metric-value"
                                                     style={{ color: getChangeColor(analysisData.impact_summary.change_percent) }}
                                                 >
@@ -691,7 +691,7 @@ const PolicyImpactVisualization = ({
                                             {analysisData.diff_in_diff && isFinite(analysisData.diff_in_diff) && (
                                                 <div className="impact-metric">
                                                     <span className="metric-label">Diff-in-Diff:</span>
-                                                    <span 
+                                                    <span
                                                         className="metric-value"
                                                         style={{ color: getChangeColor(analysisData.diff_in_diff) }}
                                                     >
@@ -719,11 +719,11 @@ const PolicyImpactVisualization = ({
                                     <div className="interpretation">
                                         <h4>Interpretation</h4>
                                         <p>
-                                            {analysisData.impact_summary.change_percent < 0 
+                                            {analysisData.impact_summary.change_percent < 0
                                                 ? `The ${analysisData.policy_info.policy_type} in ${analysisData.policy_info.state} was associated with a ${Math.abs(analysisData.impact_summary.change_percent).toFixed(1)}% decrease in gun violence incidents.`
                                                 : analysisData.impact_summary.change_percent > 0
-                                                ? `The ${analysisData.policy_info.policy_type} in ${analysisData.policy_info.state} was associated with a ${analysisData.impact_summary.change_percent.toFixed(1)}% increase in gun violence incidents.`
-                                                : `The ${analysisData.policy_info.policy_type} in ${analysisData.policy_info.state} showed no significant change in gun violence incidents.`
+                                                    ? `The ${analysisData.policy_info.policy_type} in ${analysisData.policy_info.state} was associated with a ${analysisData.impact_summary.change_percent.toFixed(1)}% increase in gun violence incidents.`
+                                                    : `The ${analysisData.policy_info.policy_type} in ${analysisData.policy_info.state} showed no significant change in gun violence incidents.`
                                             }
                                         </p>
                                         {analysisData.impact_summary.statistically_significant && (

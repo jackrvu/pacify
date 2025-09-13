@@ -5,7 +5,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Papa from 'papaparse';
 import './IncidentsPanel.css';
 
-function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPanelStateChange }) {
+function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPanelStateChange, isVisible = false }) {
     const [nearbyIncidents, setNearbyIncidents] = useState([]);
     const [displayedIncidentCount, setDisplayedIncidentCount] = useState(20);
     const [loadingMoreIncidents, setLoadingMoreIncidents] = useState(false);
@@ -244,6 +244,11 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
         }
     }, [isPanelMinimized, onPanelStateChange]);
 
+    // Don't render if not visible
+    if (!isVisible) {
+        return null;
+    }
+
     return (
         <>
             {/* Restore button for mobile when panel is minimized */}
@@ -333,10 +338,10 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
                                                 </div>
                                             </div>
                                             <div className="incident-title">
-                                                {incident.County_Name ? 
-                                                    `${incident.County_Name}, ${incident.State}` : 
-                                                    incident['City Or County'] ? 
-                                                        `${incident['City Or County']}, ${incident.State}` : 
+                                                {incident.County_Name ?
+                                                    `${incident.County_Name}, ${incident.State}` :
+                                                    incident['City Or County'] ?
+                                                        `${incident['City Or County']}, ${incident.State}` :
                                                         incident.State
                                                 }
                                             </div>
@@ -348,9 +353,9 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
                                             <div className="incident-address">
                                                 {incident.Coordinate_Display ? (
                                                     incident.Google_Maps_Link ? (
-                                                        <a 
-                                                            href={incident.Google_Maps_Link} 
-                                                            target="_blank" 
+                                                        <a
+                                                            href={incident.Google_Maps_Link}
+                                                            target="_blank"
                                                             rel="noopener noreferrer"
                                                             style={{ color: '#007bff', textDecoration: 'underline' }}
                                                         >

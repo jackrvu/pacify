@@ -1,5 +1,5 @@
 // Custom hook for loading and managing gun violence incident data across multiple datasets
-// Handles data from 1985-2018 (historical), 2019-2025 (recent), and 2025 (current)
+// Handles data from 2019-2025 (recent) and 2025 (current)
 // Normalizes different data formats and provides year-based filtering
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import Papa from 'papaparse';
@@ -16,15 +16,13 @@ const useTimelineData = () => {
                 setLoading(true);
                 setError(null);
 
-                // Load all three datasets (now with county information)
-                const [historicalResponse, recentResponse, currentResponse] = await Promise.all([
-                    fetch('/data/US_gun_deaths_1985-2018_with_coordinates_with_counties.csv'),
+                // Load only recent and current datasets (2019-2025)
+                const [recentResponse, currentResponse] = await Promise.all([
                     fetch('/data/gun_incidents_2019-2025_incident_level.csv'), // This one was updated in place
                     fetch('/data/2025_with_locations_with_counties.csv')
                 ]);
 
-                const [historicalText, recentText, currentText] = await Promise.all([
-                    historicalResponse.text(),
+                const [recentText, currentText] = await Promise.all([
                     recentResponse.text(),
                     currentResponse.text()
                 ]);
@@ -44,35 +42,12 @@ const useTimelineData = () => {
                     });
                 };
 
-                const [historicalData, recentData, currentData] = await Promise.all([
-                    parseDataset(historicalText),
+                const [recentData, currentData] = await Promise.all([
                     parseDataset(recentText),
                     parseDataset(currentText)
                 ]);
 
                 // Normalize data formats
-                const normalizeHistoricalData = (data) => {
-                    return data.map(item => ({
-                        id: item.incident_id || `hist_${Math.random()}`,
-                        year: parseInt(item.year),
-                        month: parseInt(item.month),
-                        latitude: parseFloat(item.Latitude),
-                        longitude: parseFloat(item.Longitude),
-                        casualties: 1, // Historical data is per victim
-                        killed: 1,
-                        injured: 0,
-                        state: item.state,
-                        source: 'historical',
-                        originalData: item
-                    })).filter(item =>
-                        !isNaN(item.year) &&
-                        !isNaN(item.latitude) &&
-                        !isNaN(item.longitude) &&
-                        item.latitude !== 0 &&
-                        item.longitude !== 0
-                    );
-                };
-
                 const normalizeRecentData = (data) => {
                     return data.map(item => {
                         const killed = parseInt(item['Victims Killed'] || 0);
@@ -134,20 +109,17 @@ const useTimelineData = () => {
                     );
                 };
 
-                // Normalize all datasets
-                const normalizedHistorical = normalizeHistoricalData(historicalData);
+                // Normalize datasets (2019-2025 only)
                 const normalizedRecent = normalizeRecentData(recentData);
                 const normalizedCurrent = normalizeCurrentData(currentData);
 
                 // Combine all data
                 const combinedData = [
-                    ...normalizedHistorical,
                     ...normalizedRecent,
                     ...normalizedCurrent
                 ];
 
                 console.log('Timeline data loaded:', {
-                    historical: normalizedHistorical.length,
                     recent: normalizedRecent.length,
                     current: normalizedCurrent.length,
                     total: combinedData.length

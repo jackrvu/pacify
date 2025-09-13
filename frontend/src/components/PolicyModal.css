@@ -113,7 +113,7 @@
     background: rgba(255, 255, 255, 0.05);
     padding: 16px;
     border-radius: 12px;
-    border-left: 4px solid #4a90e2;
+    border-left: 4px solid #9ca3af;
     transition: all 0.2s ease;
 }
 
@@ -164,7 +164,7 @@
     font-size: 1.3rem;
     color: #ffffff;
     font-weight: 600;
-    border-bottom: 2px solid #4a90e2;
+    border-bottom: 2px solid #9ca3af;
     padding-bottom: 8px;
 }
 
@@ -211,7 +211,7 @@
 }
 
 .policy-modal-close-btn {
-    background: linear-gradient(135deg, #4a90e2, #357abd);
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
     color: white;
     border: none;
     padding: 12px 24px;
@@ -220,13 +220,13 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 4px 12px rgba(156, 163, 175, 0.3);
 }
 
 .policy-modal-close-btn:hover {
-    background: linear-gradient(135deg, #357abd, #2968a3);
+    background: linear-gradient(135deg, #6b7280, #4b5563);
     transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 6px 16px rgba(156, 163, 175, 0.4);
 }
 
 .policy-modal-close-btn:active {

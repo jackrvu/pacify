@@ -8,7 +8,7 @@ import './Violence3DPlot.css';
 function Violence3DSurface({ incidents, enabled = true }) {
     const canvasRef = useRef(null);
     const animationRef = useRef(null);
-    
+
     // Process incident data into a grid for 3D surface
     const surfaceData = useMemo(() => {
         if (!enabled || !incidents || incidents.length === 0) return null;
@@ -16,7 +16,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
         // Create a grid for the surface (e.g., 50x50 points)
         const gridSize = 50;
         const grid = Array(gridSize).fill().map(() => Array(gridSize).fill(0));
-        
+
         // Filter incidents with valid coordinates
         const validIncidents = incidents.filter(incident => {
             const lat = parseFloat(incident.Latitude);
@@ -35,7 +35,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
             // Convert lat/lng to grid coordinates
             const gridX = Math.floor(((lng + 180) / 360) * gridSize);
             const gridY = Math.floor(((lat + 90) / 180) * gridSize);
-            
+
             if (gridX >= 0 && gridX < gridSize && gridY >= 0 && gridY < gridSize) {
                 grid[gridY][gridX] += casualties;
             }
@@ -44,12 +44,12 @@ function Violence3DSurface({ incidents, enabled = true }) {
         // Apply smoothing to create continuous surface
         const smoothedGrid = Array(gridSize).fill().map(() => Array(gridSize).fill(0));
         const smoothingRadius = 2;
-        
+
         for (let y = 0; y < gridSize; y++) {
             for (let x = 0; x < gridSize; x++) {
                 let sum = 0;
                 let count = 0;
-                
+
                 for (let dy = -smoothingRadius; dy <= smoothingRadius; dy++) {
                     for (let dx = -smoothingRadius; dx <= smoothingRadius; dx++) {
                         const nx = x + dx;
@@ -62,7 +62,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
                         }
                     }
                 }
-                
+
                 smoothedGrid[y][x] = count > 0 ? sum / count : 0;
             }
         }
@@ -75,7 +75,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
 
         const canvas = canvasRef.current;
         const ctx = canvas.getContext('2d');
-        
+
         // Set canvas size
         canvas.width = canvas.offsetWidth * 2;
         canvas.height = canvas.offsetHeight * 2;
@@ -114,7 +114,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
 
         function drawSurface() {
             ctx.clearRect(0, 0, canvas.width / 2, canvas.height / 2);
-            
+
             const gridSize = surfaceData.length;
             const cellSize = 4;
             const maxHeight = 50;
@@ -144,7 +144,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
                     // Calculate color based on height
                     const avgHeight = (z1 + z2 + z3 + z4) / 4;
                     const intensity = avgHeight / maxHeight;
-                    
+
                     // Color gradient: blue (low) -> green -> yellow -> red (high)
                     let color;
                     if (intensity < 0.25) {
@@ -181,7 +181,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
             // Draw wireframe
             ctx.strokeStyle = 'rgba(0, 0, 0, 0.3)';
             ctx.lineWidth = 0.5;
-            
+
             for (let y = 0; y < gridSize; y += 2) {
                 for (let x = 0; x < gridSize; x += 2) {
                     const x1 = (x - gridSize / 2) * cellSize;
@@ -194,7 +194,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
                         const x2 = x1 + cellSize * 2;
                         const z2 = (surfaceData[y][x + 1] / maxValue) * maxHeight;
                         const p2 = project3D(x2, y1, z2);
-                        
+
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
@@ -205,7 +205,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
                         const y2 = y1 + cellSize * 2;
                         const z2 = (surfaceData[y + 1][x] / maxValue) * maxHeight;
                         const p2 = project3D(x1, y2, z2);
-                        
+
                         ctx.beginPath();
                         ctx.moveTo(p1.x, p1.y);
                         ctx.lineTo(p2.x, p2.y);
@@ -240,10 +240,10 @@ function Violence3DSurface({ incidents, enabled = true }) {
             if (isMouseDown) {
                 const deltaX = e.clientX - lastMouseX;
                 const deltaY = e.clientY - lastMouseY;
-                
+
                 rotationY += deltaX * 0.01;
                 rotationX += deltaY * 0.01;
-                
+
                 lastMouseX = e.clientX;
                 lastMouseY = e.clientY;
             }
@@ -276,7 +276,7 @@ function Violence3DSurface({ incidents, enabled = true }) {
     }
 
     return (
-        <canvas 
+        <canvas
             ref={canvasRef}
             className="violence-3d-canvas"
             style={{ width: '100%', height: '100%' }}
@@ -297,10 +297,10 @@ function Violence3DPlot({ incidents, enabled = true }) {
                 <h2>3D Violence Surface Visualization</h2>
                 <p>Surface height = Violence intensity</p>
             </div>
-            
+
             {/* 3D Surface Canvas */}
             <Violence3DSurface incidents={incidents} enabled={enabled} />
-            
+
             {/* Legend */}
             <div className="violence-3d-legend">
                 <h4>3D Surface Legend</h4>

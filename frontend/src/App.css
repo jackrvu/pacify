@@ -232,6 +232,57 @@ body {
     opacity: 0.8;
 }
 
+/* Grim Hospital Map Theme */
+.grim-hospital-map {
+    filter: grayscale(100%) contrast(0.6) brightness(0.4) sepia(10%) hue-rotate(180deg) saturate(0.3);
+    opacity: 0.8;
+}
+
+/* Additional grim styling for map container */
+.leaflet-container {
+    background-color: #2c2c2c !important;
+}
+
+/* Style map controls to match grim theme */
+.leaflet-control-zoom a {
+    background-color: #3a3a3a !important;
+    border-color: #555 !important;
+    color: #ccc !important;
+}
+
+.leaflet-control-zoom a:hover {
+    background-color: #4a4a4a !important;
+    color: #fff !important;
+}
+
+.leaflet-control-attribution {
+    background-color: rgba(40, 40, 40, 0.8) !important;
+    color: #999 !important;
+}
+
+.leaflet-control-attribution a {
+    color: #bbb !important;
+}
+
+/* Style popup to match grim theme */
+.leaflet-popup-content-wrapper {
+    background-color: #2a2a2a !important;
+    color: #ccc !important;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.6) !important;
+}
+
+.leaflet-popup-tip {
+    background-color: #2a2a2a !important;
+}
+
+.leaflet-popup-close-button {
+    color: #ccc !important;
+}
+
+.leaflet-popup-close-button:hover {
+    color: #fff !important;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .header {
@@ -298,38 +349,6 @@ body {
     color: rgba(255, 255, 255, 0.8);
 }
 
-/* Policy Impact Button */
-.policy-impact-button {
-    background: linear-gradient(135deg, #404040 0%, #2d2d2d 100%);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    padding: 12px 16px;
-    margin-top: 10px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(64, 64, 64, 0.3);
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    min-width: 140px;
-}
-
-.policy-impact-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(64, 64, 64, 0.4);
-}
-
-.policy-impact-icon {
-    font-size: 1.2rem;
-}
-
-.policy-impact-label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    text-align: center;
-    flex: 1;
-}
 
 /* Current View Indicator */
 .current-view-indicator {
@@ -360,16 +379,8 @@ body {
     letter-spacing: 0.5px;
 }
 
-/* Responsive design for policy impact button */
+/* Responsive design */
 @media (max-width: 768px) {
-    .policy-impact-button {
-        padding: 10px 12px;
-        min-width: 120px;
-    }
-
-    .policy-impact-label {
-        font-size: 0.8rem;
-    }
 
     .current-view-indicator {
         padding: 6px 10px;

@@ -5,7 +5,7 @@
     left: 0;
     right: 0;
     background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
-    border-top: 3px solid #4a90e2;
+    border-top: 3px solid #9ca3af;
     border-radius: 12px 12px 0 0;
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
     z-index: 1000;
@@ -31,11 +31,11 @@
 }
 
 .resize-handle-top:hover {
-    background: #4a90e2;
+    background: #9ca3af;
 }
 
 .policy-timeline-popup.resizing .resize-handle-top {
-    background: #4a90e2;
+    background: #9ca3af;
 }
 
 .timeline-popup-header {
@@ -60,7 +60,7 @@
     color: #ffffff;
 }
 
-.timeline-controls {
+.timeline-header-controls {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -69,23 +69,25 @@
 .play-pause-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: linear-gradient(135deg, #4a90e2, #357abd);
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
     border: none;
-    border-radius: 8px;
+    border-radius: 50%;
     color: white;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
 }
 
 .play-pause-btn:hover {
-    background: linear-gradient(135deg, #357abd, #2c5aa0);
+    background: linear-gradient(135deg, #6b7280, #4b5563);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 4px 12px rgba(156, 163, 175, 0.4);
 }
 
 .play-pause-btn.playing {
@@ -99,13 +101,13 @@
 }
 
 .current-year-display {
-    background: linear-gradient(135deg, #4a90e2, #357abd);
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
     padding: 6px 12px;
     border-radius: 8px;
     font-weight: 700;
     font-size: 1.1rem;
     color: white;
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
 }
 
 .close-timeline-btn {
@@ -173,6 +175,11 @@
     z-index: 2;
     cursor: grab;
     user-select: none;
+    transition: left 0.3s ease-out;
+}
+
+.current-year-indicator.no-transition {
+    transition: none;
 }
 
 .current-year-indicator:active {
@@ -182,10 +189,10 @@
 .indicator-line {
     width: 2px;
     height: 60px;
-    background: linear-gradient(to bottom, #4a90e2, #357abd);
+    background: linear-gradient(to bottom, #9ca3af, #6b7280);
     margin: 0 auto;
     border-radius: 1px;
-    box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+    box-shadow: 0 0 8px rgba(156, 163, 175, 0.5);
 }
 
 .indicator-label {
@@ -193,14 +200,14 @@
     top: -25px;
     left: 50%;
     transform: translateX(-50%);
-    background: linear-gradient(135deg, #4a90e2, #357abd);
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
     color: white;
     padding: 4px 8px;
     border-radius: 6px;
     font-size: 11px;
     font-weight: 700;
     white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
 }
 
 .timeline-slider {
@@ -220,26 +227,26 @@
     appearance: none;
     width: 24px;
     height: 24px;
-    background: linear-gradient(135deg, #4a90e2, #357abd);
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 4px 12px rgba(156, 163, 175, 0.4);
     border: 3px solid white;
     transition: all 0.2s ease;
 }
 
 .timeline-slider::-webkit-slider-thumb:hover {
     transform: scale(1.2);
-    box-shadow: 0 6px 16px rgba(74, 144, 226, 0.6);
+    box-shadow: 0 6px 16px rgba(156, 163, 175, 0.6);
 }
 
 .timeline-slider::-moz-range-thumb {
     width: 24px;
     height: 24px;
-    background: linear-gradient(135deg, #4a90e2, #357abd);
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
     border-radius: 50%;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 4px 12px rgba(156, 163, 175, 0.4);
     border: 3px solid white;
     transition: all 0.2s ease;
 }
@@ -373,7 +380,7 @@
     margin: 4px 0;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 8px;
-    border-left: 3px solid #4a90e2;
+    border-left: 3px solid #9ca3af;
     transition: all 0.2s ease;
     cursor: pointer;
 }
@@ -381,7 +388,7 @@
 .policy-detail-item:hover {
     background: rgba(255, 255, 255, 0.1);
     transform: translateX(4px);
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.2);
 }
 
 .policy-detail-header {
@@ -648,15 +655,16 @@
     font-weight: 700;
     color: #ffffff;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: baseline;
+    gap: 0;
 }
 
 .modal-state-subtitle {
     margin: 0;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: #cccccc;
     font-weight: 400;
+    display: inline;
 }
 
 .modal-close-btn {
@@ -791,7 +799,7 @@
 }
 
 .see-more-btn {
-    background: linear-gradient(135deg, #4a90e2, #357abd);
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
     border: none;
     color: white;
     padding: 8px 16px;
@@ -800,19 +808,19 @@
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s ease;
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
     margin-top: 8px;
 }
 
 .see-more-btn:hover {
-    background: linear-gradient(135deg, #357abd, #2c5aa0);
+    background: linear-gradient(135deg, #6b7280, #4b5563);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    box-shadow: 0 4px 12px rgba(156, 163, 175, 0.4);
 }
 
 .see-more-btn:active {
     transform: translateY(0);
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
 }
 
 .policy-no-description {
@@ -917,4 +925,151 @@
 .policy-timeline-popup::-webkit-scrollbar-thumb:hover,
 .policy-modal-body::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.5);
+}
+
+/* Gemini Policy Analysis Styles */
+.gemini-policy-analysis {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%);
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 16px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.gemini-policy-analysis::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    border-radius: 12px 12px 0 0;
+}
+
+.gemini-analysis-title {
+    color: #60a5fa;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.gemini-analysis-title::before {
+    content: '🤖';
+    font-size: 1.2rem;
+}
+
+.gemini-human-explanation,
+.gemini-mass-shooting-analysis {
+    margin-bottom: 20px;
+}
+
+.gemini-human-explanation h5,
+.gemini-mass-shooting-analysis h5,
+.gemini-stats h5 {
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 6px;
+}
+
+.analysis-content {
+    color: #cbd5e1;
+    line-height: 1.6;
+    font-size: 0.9rem;
+}
+
+.analysis-content p {
+    margin: 0 0 12px 0;
+    padding-left: 16px;
+    position: relative;
+}
+
+.analysis-content p:before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: #60a5fa;
+    font-weight: bold;
+}
+
+.analysis-content p:last-child {
+    margin-bottom: 0;
+}
+
+/* Stats Grid */
+.gemini-stats {
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(59, 130, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.8rem;
+    color: #9ca3af;
+    font-weight: 500;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-value {
+    display: block;
+    font-size: 1.2rem;
+    color: #60a5fa;
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(96, 165, 250, 0.3);
+}
+
+/* Responsive adjustments for Gemini analysis */
+@media (max-width: 768px) {
+    .gemini-policy-analysis {
+        padding: 16px;
+        margin: 12px 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+
+    .stat-item {
+        padding: 8px;
+    }
+
+    .analysis-content {
+        font-size: 0.85rem;
+    }
 }

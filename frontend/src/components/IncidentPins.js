@@ -178,10 +178,10 @@ const IncidentPins = ({ incidents }) => {
                                 }}>
                                     <div>
                                         <strong style={{ color: '#333' }}>
-                                            {incident.County_Name ? 
-                                                `${incident.County_Name}, ${incident.State}` : 
-                                                incident['City Or County'] ? 
-                                                    `${incident['City Or County']}, ${incident.State}` : 
+                                            {incident.County_Name ?
+                                                `${incident.County_Name}, ${incident.State}` :
+                                                incident['City Or County'] ?
+                                                    `${incident['City Or County']}, ${incident.State}` :
                                                     incident.State
                                             }
                                         </strong>
@@ -208,12 +208,12 @@ const IncidentPins = ({ incidents }) => {
                                 </div>
 
                                 <div className="incident-address">
-                                    <div><strong>Coordinates:</strong> 
+                                    <div><strong>Coordinates:</strong>
                                         {incident.Coordinate_Display ? (
                                             incident.Google_Maps_Link ? (
-                                                <a 
-                                                    href={incident.Google_Maps_Link} 
-                                                    target="_blank" 
+                                                <a
+                                                    href={incident.Google_Maps_Link}
+                                                    target="_blank"
                                                     rel="noopener noreferrer"
                                                     style={{ color: '#007bff', textDecoration: 'underline', marginLeft: '5px' }}
                                                 >

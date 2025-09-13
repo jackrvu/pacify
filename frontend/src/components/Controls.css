@@ -82,13 +82,13 @@
 }
 
 .timeline-toggle-btn.active {
-    background: linear-gradient(135deg, #4a90e2, #357abd);
-    border-color: #4a90e2;
-    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    border-color: #9ca3af;
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
 }
 
 .timeline-toggle-btn.active:hover {
-    background: linear-gradient(135deg, #357abd, #2c5aa0);
+    background: linear-gradient(135deg, #6b7280, #4b5563);
 }
 
 .timeline-icon {
@@ -177,11 +177,11 @@
         font-size: 11px;
         min-width: 80px;
     }
-    
+
     .view-toggle-icon {
         font-size: 14px;
     }
-    
+
     .view-toggle-label {
         font-size: 10px;
     }

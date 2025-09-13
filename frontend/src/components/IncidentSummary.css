@@ -1,0 +1,159 @@
+/* Incident Summary Widget Styles */
+.incident-summary-widget {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    min-width: 200px;
+    max-width: 280px;
+    transition: all 0.3s ease;
+}
+
+.incident-summary-widget:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+.summary-content {
+    padding: 16px;
+}
+
+.summary-header {
+    margin-bottom: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 8px;
+}
+
+.summary-header h4 {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    text-align: center;
+}
+
+.summary-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 12px;
+    gap: 12px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.stat-number {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #9ca3af;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #cccccc;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.view-incidents-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
+}
+
+.view-incidents-btn:hover {
+    background: linear-gradient(135deg, #6b7280, #4b5563);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(156, 163, 175, 0.4);
+}
+
+.view-incidents-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .incident-summary-widget {
+        top: 10px;
+        right: 10px;
+        min-width: 160px;
+        max-width: 200px;
+    }
+
+    .summary-content {
+        padding: 12px;
+    }
+
+    .summary-header h4 {
+        font-size: 0.9rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    .view-incidents-btn {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+    }
+}
+
+/* Animation for state changes */
+.stat-number {
+    animation: countUp 0.5s ease-out;
+}
+
+@keyframes countUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Special styling when no incidents */
+.incident-summary-widget .summary-stats:empty+.view-incidents-btn {
+    display: none;
+}
+
+/* Accessibility improvements */
+.view-incidents-btn:focus {
+    outline: 2px solid #9ca3af;
+    outline-offset: 2px;
+}
+
+.incident-summary-widget:focus-within {
+    border-color: rgba(156, 163, 175, 0.5);
+}

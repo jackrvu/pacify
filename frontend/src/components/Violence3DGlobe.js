@@ -35,14 +35,14 @@ function Violence3DGlobe({ incidents, enabled = true }) {
                     type: 'FeatureCollection',
                     features: [{
                         type: 'Feature',
-                        properties: { 
-                            NAME: 'United States of America', 
-                            ISO_A2: 'US' 
+                        properties: {
+                            NAME: 'United States of America',
+                            ISO_A2: 'US'
                         },
                         geometry: {
                             type: 'Polygon',
                             coordinates: [[
-                                [-125, 49], [-66, 49], [-66, 25], [-97, 25], 
+                                [-125, 49], [-66, 49], [-66, 25], [-97, 25],
                                 [-97, 30], [-106, 30], [-114, 32], [-125, 32], [-125, 49]
                             ]]
                         }
@@ -71,23 +71,23 @@ function Violence3DGlobe({ incidents, enabled = true }) {
             try {
                 const response = await fetch('/data/county_incident_summary.csv');
                 const csvText = await response.text();
-                
+
                 // Parse CSV data - same logic as 2D
                 const lines = csvText.split('\n');
                 const headers = lines[0].split(',');
                 const countyData = {};
-                
+
                 for (let i = 1; i < lines.length; i++) {
                     const line = lines[i].trim();
                     if (!line) continue;
-                    
+
                     const values = line.split(',');
                     if (values.length >= headers.length) {
                         const countyName = values[0];
                         const stateFips = values[1];
                         const totalCases = parseInt(values[2]) || 0;
                         const cases90Days = parseInt(values[3]) || 0;
-                        
+
                         const countyKey = `${countyName}_${stateFips}`;
                         countyData[countyKey] = {
                             totalCases,
@@ -95,7 +95,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
                         };
                     }
                 }
-                
+
                 setCaseData(countyData);
             } catch (error) {
                 console.error('Error loading case data:', error);
@@ -111,7 +111,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
         if (!enabled || !safeIncidents || safeIncidents.length === 0) return {};
 
         const violenceByCountry = {};
-        
+
         safeIncidents.forEach(incident => {
             const killed = parseInt(incident['Victims Killed'] || 0);
             const injured = parseInt(incident['Victims Injured'] || 0);
@@ -120,7 +120,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
             if (casualties > 0) {
                 // All incidents are in the US
                 const country = 'United States of America';
-                
+
                 if (!violenceByCountry[country]) {
                     violenceByCountry[country] = {
                         totalCasualties: 0,
@@ -146,7 +146,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
     // County color scale - same as 2D version (red gradient)
     const countyColorScale = useMemo(() => {
         if (!caseData || Object.keys(caseData).length === 0) return null;
-        
+
         const maxCases = Math.max(...Object.values(caseData).map(d => d.totalCases), 1);
         return scaleLinear()
             .domain([0, maxCases])
@@ -157,7 +157,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
     // County opacity scale - same as 2D version
     const countyOpacityScale = useMemo(() => {
         if (!caseData || Object.keys(caseData).length === 0) return null;
-        
+
         const maxCases = Math.max(...Object.values(caseData).map(d => d.totalCases), 1);
         return scaleLinear()
             .domain([0, maxCases])
@@ -263,7 +263,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
     // Handle point click to create ripple rings
     const handlePointClick = (point) => {
         setSelectedLocation(point);
-        
+
         // Create ripple ring
         const newRing = {
             lat: point.lat,
@@ -273,9 +273,9 @@ function Violence3DGlobe({ incidents, enabled = true }) {
             repeatPeriod: 2000,
             color: getViolenceColor(point.intensity)
         };
-        
+
         setRings(prev => [...prev, newRing]);
-        
+
         // Remove ring after animation
         setTimeout(() => {
             setRings(prev => prev.filter(ring => ring !== newRing));
@@ -325,7 +325,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
             <Globe
                 ref={globeRef}
                 {...globeConfig}
-                
+
                 // Combined layer with hover - optimized performance
                 polygonsData={[
                     ...countries.features,
@@ -396,7 +396,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
                 }}
                 onPolygonHover={setHoverD}
                 polygonsTransitionDuration={200} // Faster transitions
-                
+
                 // Minimal points for performance
                 pointsData={pointsData && pointsData.length > 0 ? pointsData.slice(0, 5) : []}
                 pointLat="lat"
@@ -407,7 +407,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
                 pointResolution={4}
                 pointLabel={d => `${d.state}: ${d.casualties} casualties`}
                 onPointClick={handlePointClick}
-                
+
                 // Minimal ripple rings
                 ringsData={rings}
                 ringLat="lat"
@@ -437,7 +437,7 @@ function Violence3DGlobe({ incidents, enabled = true }) {
                             <span className="stat-value">{(selectedLocation.intensity * 100).toFixed(1)}%</span>
                         </div>
                     </div>
-                    <button 
+                    <button
                         className="close-button"
                         onClick={() => setSelectedLocation(null)}
                     >

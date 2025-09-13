@@ -12,9 +12,9 @@ import IncidentHeatmap from './components/IncidentHeatmap';
 import Violence3DGlobe from './components/Violence3DGlobe';
 import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
+import IncidentSummary from './components/IncidentSummary';
 import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
-import PolicyImpactVisualization from './components/PolicyImpactVisualization';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
@@ -32,13 +32,13 @@ function App() {
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
     const [showPinsLayer, setShowPinsLayer] = useState(false); // Disable pins by default
-    
+
     // State for 3D view toggle
     const [show3DView, setShow3DView] = useState(false);
 
     // Timeline state
     const [timelineMode, setTimelineMode] = useState(true); // Start in timeline mode to get full dataset
-    const [currentYear, setCurrentYear] = useState(1995);
+    const [currentYear, setCurrentYear] = useState(2019);
 
     // Legacy state for backward compatibility
     const [incidents, setIncidents] = useState([]); // Gun violence incident data
@@ -65,8 +65,7 @@ function App() {
     // State for policy timeline popup
     const [showPolicyTimeline, setShowPolicyTimeline] = useState(false);
 
-    // State for policy impact visualization
-    const [showPolicyImpact, setShowPolicyImpact] = useState(false);
+
 
     // Detect mobile device on mount and window resize
     useEffect(() => {
@@ -225,6 +224,7 @@ function App() {
         // This handler is kept for backward compatibility but is no longer needed
     };
 
+
     // Show loading screen while CSV data loads
     if (loading) {
         return (
@@ -243,8 +243,8 @@ function App() {
             <div className="map-container">
                 {/* Conditional rendering: 3D globe or 2D map */}
                 {show3DView ? (
-                    <Violence3DGlobe 
-                        incidents={incidents} 
+                    <Violence3DGlobe
+                        incidents={incidents}
                         enabled={show3DView}
                     />
                 ) : (
@@ -255,10 +255,11 @@ function App() {
                         zoomControl={true}
                         attributionControl={true}
                     >
-                        {/* Base map tiles - Esri World Street Map */}
+                        {/* Base map tiles - Grim Hospital Gray Theme */}
                         <TileLayer
-                            //attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-                            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                            className="grim-hospital-map"
                         />
 
                         {/* County choropleth layer - shows data density by county */}
@@ -295,11 +296,6 @@ function App() {
                         show3DView={show3DView}
                     />
 
-                    {/* Policy Impact Button */}
-                    <div className="policy-impact-button" onClick={() => setShowPolicyImpact(true)}>
-                        <div className="policy-impact-icon">📊</div>
-                        <div className="policy-impact-label">Policy Impact</div>
-                    </div>
 
                     {/* Current View Indicator */}
                     <div className="current-view-indicator">
@@ -314,13 +310,14 @@ function App() {
                 </div>
             </div>
 
-            {/* Incidents panel */}
-            <IncidentsPanel
-                cursorPosition={cursorPosition}
+            {/* Compact incident summary */}
+            <IncidentSummary
                 incidents={incidents}
+                currentYear={currentYear}
+                selectedState={selectedState}
+                cursorPosition={cursorPosition}
                 onMapClick={mapClickCount}
                 isMobile={isMobile}
-                onPanelStateChange={setIsPanelMinimized}
             />
 
             {/* Policy Timeline Popup */}
@@ -334,13 +331,6 @@ function App() {
                 selectedState={selectedState}
             />
 
-            {/* Policy Impact Visualization */}
-            <PolicyImpactVisualization
-                isVisible={showPolicyImpact}
-                onClose={() => setShowPolicyImpact(false)}
-                selectedPolicy={null}
-                availablePolicyAnalyses={[]}
-            />
 
         </div>
     );
