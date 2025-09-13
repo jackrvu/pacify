@@ -2,7 +2,7 @@
 // Provides intelligent analysis of gun policies using Google's Gemini API
 
 const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyBvOkBwJcE2lQjf8nM3pO7rS9tU1vW4xY6'; // Replace with actual API key
-const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent';
 
 // Analyze policy with Gemini
 export const analyzePolicyWithGemini = async (policy, question = null) => {
@@ -92,14 +92,31 @@ Please provide a focused analysis addressing this specific question while consid
     } else {
         return `${basePrompt}
 
-Please provide:
-1. A concise summary of what this policy does
-2. Potential implications for public safety
-3. How this might relate to mass shooting trends in the state
-4. Key considerations for policymakers
-5. Any notable constitutional or legal aspects
+IMPORTANT: You MUST format your response using these exact section headers:
 
-Keep your response informative but concise (under 500 words).`;
+## Policy Summary
+## Constitutional Analysis  
+## Safety Impact
+## State Context
+## Key Takeaways
+
+For each section:
+- Use bullet points (•) for lists
+- Keep each section to 2-3 sentences maximum
+- Be purposeful and actionable
+- Do NOT write long paragraphs
+- Do NOT use bold text or other formatting
+
+Example format:
+## Policy Summary
+• Meaningful overview of what this policy does
+• Key mechanism of the law
+
+## Constitutional Analysis
+• Second Amendment considerations
+• Due Process implications
+
+Follow this exact structure.`;
     }
 };
 

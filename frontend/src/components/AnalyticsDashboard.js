@@ -5,6 +5,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import './AnalyticsDashboard.css';
 import { getBookmarkedPolicies, unbookmarkPolicy, addAnnotation, updateAnnotation, removeAnnotation } from '../utils/bookmarkService';
 import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
+import VisualAnalysisResponse from './VisualAnalysisResponse';
 
 // Utility function for consistent timestamp generation
 const getCurrentTimestamp = () => {
@@ -463,14 +464,14 @@ const AnalyticsDashboard = ({
                                 <div className="policy-header">
                                     <h3>{currentPolicy.law_class}</h3>
                                     <div className="policy-meta">
+                                        <span className="policy-date">
+                                            {formatDateForDisplay(currentPolicy.effective_date)}
+                                        </span>
                                         <span className="policy-state">{currentPolicy.state}</span>
                                         <span
                                             className={`policy-effect ${currentPolicy.effect?.toLowerCase()}`}
                                         >
                                             {currentPolicy.effect}
-                                        </span>
-                                        <span className="policy-date">
-                                            {formatDateForDisplay(currentPolicy.effective_date)}
                                         </span>
                                     </div>
                                 </div>
@@ -674,9 +675,7 @@ const AnalyticsDashboard = ({
                                         {geminiResponse && (
                                             <div className="gemini-response">
                                                 <h4>AI Analysis:</h4>
-                                                <div className="gemini-response-content">
-                                                    {geminiResponse}
-                                                </div>
+                                                <VisualAnalysisResponse analysis={geminiResponse} />
                                                 <button
                                                     onClick={() => setGeminiResponse('')}
                                                     className="clear-response-btn"
