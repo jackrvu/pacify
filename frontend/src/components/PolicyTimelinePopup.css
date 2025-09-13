@@ -649,6 +649,13 @@
     background: rgba(0, 0, 0, 0.3);
 }
 
+.policy-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+
 .policy-modal-header h2 {
     margin: 0;
     font-size: 1.8rem;
@@ -665,6 +672,34 @@
     color: #cccccc;
     font-weight: 400;
     display: inline;
+}
+
+
+.policy-bookmark-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffd700;
+    font-size: 20px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.policy-bookmark-btn:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.policy-bookmark-btn.bookmarked {
+    background: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
 }
 
 .modal-close-btn {
@@ -744,6 +779,14 @@
     gap: 16px;
 }
 
+.policy-change-title-section {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1;
+    gap: 8px;
+}
+
 .policy-change-title {
     font-size: 1.2rem;
     font-weight: 600;
@@ -758,12 +801,32 @@
     align-items: flex-end;
     gap: 8px;
     flex-shrink: 0;
+    align-self: flex-start;
 }
 
 .policy-state {
     font-size: 0.9rem;
     color: #cccccc;
     font-weight: 500;
+}
+
+.view-details-btn {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    border: none;
+    border-radius: 6px;
+    padding: 0.4rem 0.8rem;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.view-details-btn:hover {
+    background: linear-gradient(135deg, #1976D2, #1565C0);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
 }
 
 .policy-effect-badge {

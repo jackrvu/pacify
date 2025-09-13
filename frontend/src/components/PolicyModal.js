@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './PolicyModal.css';
+import { bookmarkPolicy, unbookmarkPolicy, isPolicyBookmarked, addAnnotation } from '../utils/bookmarkService';
+import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
 
 const PolicyModal = ({
     isOpen,
@@ -7,6 +9,22 @@ const PolicyModal = ({
     policy,
     year
 }) => {
+    const [isBookmarked, setIsBookmarked] = useState(false);
+    const [showAnnotations, setShowAnnotations] = useState(false);
+    const [newAnnotation, setNewAnnotation] = useState('');
+    const [annotationType, setAnnotationType] = useState('note');
+    const [geminiLoading, setGeminiLoading] = useState(false);
+    const [geminiResponse, setGeminiResponse] = useState('');
+    const [showGeminiPanel, setShowGeminiPanel] = useState(false);
+    const [geminiQuestion, setGeminiQuestion] = useState('');
+
+    // Check if policy is bookmarked when modal opens
+    useEffect(() => {
+        if (isOpen && policy) {
+            setIsBookmarked(isPolicyBookmarked(policy.law_id || policy['Law ID']));
+        }
+    }, [isOpen, policy]);
+
     if (!isOpen || !policy) return null;
 
     const formatPolicyDate = (year, month, day) => {
@@ -38,6 +56,95 @@ const PolicyModal = ({
         }
     };
 
+    // Bookmark handlers
+    const handleBookmark = () => {
+        const policyData = {
+            law_id: policy.law_id || policy['Law ID'],
+            state: policy.state || policy.State,
+            law_class: policy.law_class || policy['Law Class'],
+            effect: policy.effect || policy.Effect,
+            effective_date: policy.effective_date || `${policy['Effective Date Year']}-${policy['Effective Date Month']}-${policy['Effective Date Day']}`,
+            original_content: policy.original_content || policy.Content,
+            human_explanation: policy.human_explanation || policy['Additional Context and Notes'],
+            mass_shooting_analysis: policy.mass_shooting_analysis,
+            state_mass_shooting_stats: policy.state_mass_shooting_stats
+        };
+
+        const result = bookmarkPolicy(policyData);
+        if (result.success) {
+            setIsBookmarked(true);
+        } else {
+            alert(result.message);
+        }
+    };
+
+    const handleUnbookmark = () => {
+        const result = unbookmarkPolicy(policy.law_id || policy['Law ID']);
+        if (result.success) {
+            setIsBookmarked(false);
+        } else {
+            alert(result.message);
+        }
+    };
+
+    // Annotation handlers
+    const handleAddAnnotation = () => {
+        if (!newAnnotation.trim()) return;
+
+        const result = addAnnotation(policy.law_id || policy['Law ID'], {
+            content: newAnnotation,
+            type: annotationType,
+            gemini_response: geminiResponse || null
+        });
+
+        if (result.success) {
+            setNewAnnotation('');
+            setGeminiResponse('');
+            alert('Annotation added successfully!');
+        } else {
+            alert(result.message);
+        }
+    };
+
+    // Gemini handlers
+    const handleGeminiAnalysis = async (insightType = null) => {
+        if (!isGeminiAvailable()) {
+            alert('Gemini API is not configured. Please set up your API key to use AI analysis.');
+            return;
+        }
+
+        setGeminiLoading(true);
+        setGeminiResponse('');
+
+        try {
+            const policyData = {
+                law_id: policy.law_id || policy['Law ID'],
+                state: policy.state || policy.State,
+                law_class: policy.law_class || policy['Law Class'],
+                effect: policy.effect || policy.Effect,
+                effective_date: policy.effective_date || `${policy['Effective Date Year']}-${policy['Effective Date Month']}-${policy['Effective Date Day']}`,
+                original_content: policy.original_content || policy.Content,
+                human_explanation: policy.human_explanation || policy['Additional Context and Notes'],
+                mass_shooting_analysis: policy.mass_shooting_analysis,
+                state_mass_shooting_stats: policy.state_mass_shooting_stats
+            };
+
+            const result = insightType 
+                ? await getPolicyInsights(policyData, insightType)
+                : await analyzePolicyWithGemini(policyData, geminiQuestion || null);
+
+            if (result.success) {
+                setGeminiResponse(result.analysis);
+            } else {
+                alert(result.message);
+            }
+        } catch (error) {
+            alert('Failed to analyze policy: ' + error.message);
+        } finally {
+            setGeminiLoading(false);
+        }
+    };
+
     return (
         <div className="policy-modal-overlay" onClick={handleOverlayClick}>
             <div className="policy-modal">
@@ -57,13 +164,22 @@ const PolicyModal = ({
                             </span>
                         </div>
                     </div>
-                    <button
-                        className="policy-modal-close"
-                        onClick={onClose}
-                        aria-label="Close policy details"
-                    >
-                        ×
-                    </button>
+                    <div className="policy-modal-actions">
+                        <button
+                            className={`bookmark-btn ${isBookmarked ? 'bookmarked' : ''}`}
+                            onClick={isBookmarked ? handleUnbookmark : handleBookmark}
+                            title={isBookmarked ? 'Remove bookmark' : 'Bookmark policy'}
+                        >
+                            {isBookmarked ? '★' : '☆'}
+                        </button>
+                        <button
+                            className="policy-modal-close"
+                            onClick={onClose}
+                            aria-label="Close policy details"
+                        >
+                            ×
+                        </button>
+                    </div>
                 </div>
 
                 <div className="policy-modal-content">
@@ -172,6 +288,122 @@ const PolicyModal = ({
                             </div>
                         )}
                 </div>
+
+                {/* Bookmark Controls */}
+                {isBookmarked && (
+                    <div className="bookmark-controls">
+                        <div className="bookmark-controls-header">
+                            <h3>📚 Bookmarked Policy</h3>
+                            <div className="bookmark-controls-buttons">
+                                <button
+                                    className={`control-btn ${showAnnotations ? 'active' : ''}`}
+                                    onClick={() => setShowAnnotations(!showAnnotations)}
+                                >
+                                    📝 Annotations
+                                </button>
+                                <button
+                                    className={`control-btn ${showGeminiPanel ? 'active' : ''}`}
+                                    onClick={() => setShowGeminiPanel(!showGeminiPanel)}
+                                >
+                                    🤖 AI Analysis
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Annotations Panel */}
+                        {showAnnotations && (
+                            <div className="annotations-panel">
+                                <div className="annotation-input">
+                                    <select
+                                        value={annotationType}
+                                        onChange={(e) => setAnnotationType(e.target.value)}
+                                        className="annotation-type-select"
+                                    >
+                                        <option value="note">📝 Note</option>
+                                        <option value="question">❓ Question</option>
+                                        <option value="insight">💡 Insight</option>
+                                    </select>
+                                    <textarea
+                                        value={newAnnotation}
+                                        onChange={(e) => setNewAnnotation(e.target.value)}
+                                        placeholder="Add your annotation..."
+                                        className="annotation-textarea"
+                                        rows="3"
+                                    />
+                                    <button
+                                        onClick={handleAddAnnotation}
+                                        className="add-annotation-btn"
+                                        disabled={!newAnnotation.trim()}
+                                    >
+                                        Add Annotation
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Gemini Analysis Panel */}
+                        {showGeminiPanel && (
+                            <div className="gemini-panel">
+                                <div className="gemini-controls">
+                                    <div className="gemini-quick-actions">
+                                        <button
+                                            onClick={() => handleGeminiAnalysis('safety_impact')}
+                                            disabled={geminiLoading}
+                                            className="gemini-btn"
+                                        >
+                                            🛡️ Safety Impact
+                                        </button>
+                                        <button
+                                            onClick={() => handleGeminiAnalysis('constitutional')}
+                                            disabled={geminiLoading}
+                                            className="gemini-btn"
+                                        >
+                                            ⚖️ Constitutional
+                                        </button>
+                                        <button
+                                            onClick={() => handleGeminiAnalysis('effectiveness')}
+                                            disabled={geminiLoading}
+                                            className="gemini-btn"
+                                        >
+                                            📊 Effectiveness
+                                        </button>
+                                    </div>
+                                    <div className="gemini-custom-question">
+                                        <input
+                                            type="text"
+                                            value={geminiQuestion}
+                                            onChange={(e) => setGeminiQuestion(e.target.value)}
+                                            placeholder="Ask a specific question about this policy..."
+                                            className="gemini-question-input"
+                                        />
+                                        <button
+                                            onClick={() => handleGeminiAnalysis()}
+                                            disabled={geminiLoading || !geminiQuestion.trim()}
+                                            className="gemini-ask-btn"
+                                        >
+                                            {geminiLoading ? '⏳ Analyzing...' : '🤖 Ask Gemini'}
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                {geminiResponse && (
+                                    <div className="gemini-response">
+                                        <h4>AI Analysis:</h4>
+                                        <div className="gemini-response-content">
+                                            {geminiResponse}
+                                        </div>
+                                        <button
+                                            onClick={() => setGeminiResponse('')}
+                                            className="clear-response-btn"
+                                        >
+                                            Clear Response
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
 
                 <div className="policy-modal-footer">
                     <button

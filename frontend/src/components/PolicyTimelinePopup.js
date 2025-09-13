@@ -3,6 +3,7 @@
 // Supports auto-play, manual scrubbing, and detailed policy information display
 import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import './PolicyTimelinePopup.css';
+import { bookmarkPolicy, unbookmarkPolicy, isPolicyBookmarked } from '../utils/bookmarkService';
 
 const PolicyTimelinePopup = ({
     isVisible,
@@ -11,7 +12,8 @@ const PolicyTimelinePopup = ({
     currentYear,
     onYearChange,
     onPolicyClick,
-    selectedState = null
+    selectedState = null,
+    onViewPolicyDetails = null
 }) => {
     const [policyData, setPolicyData] = useState([]);
     const [loadingPolicy, setLoadingPolicy] = useState(false);
@@ -458,9 +460,60 @@ const PolicyTimelinePopup = ({
 
     if (!isVisible) return null;
 
+
     // Policy modal overlay
     const PolicyModal = () => {
         if (!showPolicyModal || !selectedPolicy) return null;
+
+        // Individual policy bookmark component
+        const PolicyBookmarkButton = ({ policy }) => {
+            const [bookmarkState, setBookmarkState] = useState(isPolicyBookmarked(policy.law_id));
+            
+            // Update bookmark state when policy changes
+            useEffect(() => {
+                setBookmarkState(isPolicyBookmarked(policy.law_id));
+            }, [policy.law_id]);
+
+            const handleBookmarkClick = (e) => {
+                e.stopPropagation();
+                if (bookmarkState) {
+                    const result = unbookmarkPolicy(policy.law_id);
+                    if (result.success) {
+                        setBookmarkState(false);
+                    } else {
+                        alert(result.message);
+                    }
+                } else {
+                    const policyData = {
+                        law_id: policy.law_id,
+                        state: policy.state,
+                        law_class: policy.law_class,
+                        effect: policy.effect,
+                        effective_date: policy.effective_date,
+                        original_content: policy.original_content,
+                        human_explanation: policy.human_explanation,
+                        mass_shooting_analysis: policy.mass_shooting_analysis,
+                        state_mass_shooting_stats: policy.state_mass_shooting_stats
+                    };
+                    const result = bookmarkPolicy(policyData);
+                    if (result.success) {
+                        setBookmarkState(true);
+                    } else {
+                        alert(result.message);
+                    }
+                }
+            };
+
+            return (
+                <button
+                    className={`policy-bookmark-btn ${bookmarkState ? 'bookmarked' : ''}`}
+                    onClick={handleBookmarkClick}
+                    title={bookmarkState ? 'Remove bookmark' : 'Bookmark policy'}
+                >
+                    {bookmarkState ? '★' : '☆'}
+                </button>
+            );
+        };
 
         return (
             <div className="policy-modal-overlay" onClick={handleBackToTimeline}>
@@ -495,11 +548,10 @@ const PolicyTimelinePopup = ({
                                 return (
                                     <div key={policyId} className="policy-change-item">
                                         <div className="policy-change-header">
-                                            <div className="policy-change-title">
-                                                {capitalizePolicyName(policy.law_class)}
-                                            </div>
-                                            <div className="policy-change-meta">
-                                                <span className="policy-state">{policy.state}</span>
+                                            <div className="policy-change-title-section">
+                                                <div className="policy-change-title">
+                                                    {capitalizePolicyName(policy.law_class)}
+                                                </div>
                                                 <span
                                                     className="policy-effect-badge"
                                                     style={{
@@ -509,6 +561,10 @@ const PolicyTimelinePopup = ({
                                                 >
                                                     {policy.effect || 'Unknown'}
                                                 </span>
+                                            </div>
+                                            <div className="policy-change-meta">
+                                                <PolicyBookmarkButton policy={policy} />
+                                                <span className="policy-state">{policy.state}</span>
                                             </div>
                                         </div>
 
@@ -681,7 +737,6 @@ const PolicyTimelinePopup = ({
                                         <div className="policy-marker-dot">
                                             <div className="policy-count">{policies.length}</div>
                                         </div>
-                                        <div className="policy-marker-year">{year}</div>
                                     </div>
                                 );
                             })}
@@ -689,7 +744,7 @@ const PolicyTimelinePopup = ({
 
                         {/* Year labels */}
                         <div className="year-labels">
-                            {availableYears.filter((_, index) => index % 3 === 0).map(year => (
+                            {availableYears.map(year => (
                                 <div
                                     key={year}
                                     className="year-label"

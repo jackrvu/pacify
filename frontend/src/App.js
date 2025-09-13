@@ -1,7 +1,7 @@
 // Main App component for Pacify - Gun Violence Data Visualization
 // Uses Leaflet for mapping with county choropleth and incident heatmap layers
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import Papa from 'papaparse';
@@ -15,6 +15,7 @@ import IncidentSummary from './components/IncidentSummary';
 import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
 import StateGunViolencePanel from './components/StateGunViolencePanel';
+import ResizableTab from './components/ResizableTab';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
@@ -28,6 +29,9 @@ L.Icon.Default.mergeOptions({
 });
 
 function App() {
+    // Map reference for fly-to functionality
+    const mapRef = useRef(null);
+    
     // State for controlling map layer visibility
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
@@ -62,12 +66,17 @@ function App() {
 
     // State for policy timeline popup
     const [showPolicyTimeline, setShowPolicyTimeline] = useState(false);
+    
+    // State for analytics dashboard
+    const [showAnalyticsDashboard, setShowAnalyticsDashboard] = useState(false);
+    const [selectedPolicyForDashboard, setSelectedPolicyForDashboard] = useState(null);
 
     // State for gun violence context panel
     const [stateContextData, setStateContextData] = useState([]);
     const [hoveredState, setHoveredState] = useState(null);
     const [showStateContextPanel, setShowStateContextPanel] = useState(false);
     const [panelKey, setPanelKey] = useState(0); // Key to force panel recreation
+
 
 
 
@@ -268,6 +277,75 @@ function App() {
         // This handler is kept for backward compatibility but is no longer needed
     };
 
+    const handleViewPolicyDetails = (policy) => {
+        setSelectedPolicyForDashboard(policy);
+        setShowAnalyticsDashboard(true);
+    };
+
+    // Fly to location function for annotations
+    const handleFlyToLocation = (stateName) => {
+        if (mapRef.current) {
+            // State coordinates mapping (approximate center coordinates)
+            const stateCoordinates = {
+                'alabama': [32.806671, -86.791130],
+                'alaska': [61.370716, -152.404419],
+                'arizona': [33.729759, -111.431221],
+                'arkansas': [34.969704, -92.373123],
+                'california': [36.116203, -119.681564],
+                'colorado': [39.059811, -105.311104],
+                'connecticut': [41.597782, -72.755371],
+                'delaware': [39.318523, -75.507141],
+                'florida': [27.766279, -82.640371],
+                'georgia': [33.040619, -83.643074],
+                'hawaii': [21.094318, -157.498337],
+                'idaho': [44.240459, -114.478828],
+                'illinois': [40.349457, -88.986137],
+                'indiana': [39.849426, -86.258278],
+                'iowa': [42.011539, -93.210526],
+                'kansas': [38.526600, -96.726486],
+                'kentucky': [37.668140, -84.670067],
+                'louisiana': [31.169546, -91.867805],
+                'maine': [44.323535, -69.765261],
+                'maryland': [39.063946, -76.802101],
+                'massachusetts': [42.230171, -71.530106],
+                'michigan': [43.326618, -84.536095],
+                'minnesota': [45.694454, -93.900192],
+                'mississippi': [32.741646, -89.678696],
+                'missouri': [38.456085, -92.288368],
+                'montana': [47.052632, -110.454353],
+                'nebraska': [41.125370, -98.268082],
+                'nevada': [38.313515, -117.055374],
+                'new hampshire': [43.452492, -71.563896],
+                'new jersey': [40.298904, -74.521011],
+                'new mexico': [34.840515, -106.248482],
+                'new york': [42.165726, -74.948051],
+                'north carolina': [35.630066, -79.806419],
+                'north dakota': [47.528912, -99.784012],
+                'ohio': [40.388783, -82.764915],
+                'oklahoma': [35.565342, -96.928917],
+                'oregon': [44.572021, -122.070938],
+                'pennsylvania': [41.203322, -77.194525],
+                'rhode island': [41.82355, -71.422132],
+                'south carolina': [33.856892, -80.945007],
+                'south dakota': [44.299782, -99.438828],
+                'tennessee': [35.747845, -86.692345],
+                'texas': [31.054487, -97.563461],
+                'utah': [40.150032, -111.862434],
+                'vermont': [44.045876, -72.710686],
+                'virginia': [37.769337, -78.169968],
+                'washington': [47.400902, -121.490494],
+                'west virginia': [38.491226, -80.954453],
+                'wisconsin': [44.268543, -89.616508],
+                'wyoming': [42.755966, -107.302490]
+            };
+
+            const coordinates = stateCoordinates[stateName.toLowerCase()];
+            if (coordinates) {
+                mapRef.current.flyTo(coordinates, 6); // Zoom level 6 for state view
+            }
+        }
+    };
+
 
     // Show loading screen while CSV data loads
     if (loading) {
@@ -286,6 +364,7 @@ function App() {
         <div className="App">
             <div className="map-container">
                 <MapContainer
+                    ref={mapRef}
                     center={[39.8283, -98.5795]} // Geographic center of US
                     zoom={4}
                     style={{ height: '100vh', width: '100vw' }}
@@ -354,6 +433,7 @@ function App() {
                 onYearChange={handleYearChange}
                 onPolicyClick={handlePolicyClick}
                 selectedState={selectedState}
+                onViewPolicyDetails={handleViewPolicyDetails}
             />
 
             {/* State Gun Violence Context Panel */}
@@ -361,6 +441,22 @@ function App() {
                 key={panelKey}
                 stateData={getStateContextData()}
                 isVisible={showStateContextPanel && hoveredState}
+            />
+
+            {/* Resizable Analytics Tab */}
+            <ResizableTab
+                incidents={incidents}
+                timelineData={timelineData}
+                availableYears={availableYears}
+                getDataForYear={getDataForYear}
+                getYearStats={getYearStats}
+                selectedPolicyForDashboard={selectedPolicyForDashboard}
+                showAnalyticsDashboard={showAnalyticsDashboard}
+                onCloseAnalyticsDashboard={() => {
+                    setShowAnalyticsDashboard(false);
+                    setSelectedPolicyForDashboard(null);
+                }}
+                onFlyToLocation={handleFlyToLocation}
             />
 
         </div>

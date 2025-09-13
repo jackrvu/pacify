@@ -38,6 +38,12 @@
     background: rgba(0, 0, 0, 0.3);
 }
 
+.policy-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .policy-modal-title h2 {
     margin: 0 0 12px 0;
     font-size: 1.6rem;
@@ -74,6 +80,33 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.bookmark-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #ffd700;
+    font-size: 24px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.bookmark-btn:hover {
+    background: rgba(255, 215, 0, 0.2);
+    transform: scale(1.05);
+}
+
+.bookmark-btn.bookmarked {
+    background: rgba(255, 215, 0, 0.3);
+    color: #ffd700;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
 .policy-modal-close {
     background: rgba(255, 255, 255, 0.1);
     border: none;
@@ -88,7 +121,6 @@
     justify-content: center;
     transition: all 0.2s ease;
     flex-shrink: 0;
-    margin-left: 16px;
 }
 
 .policy-modal-close:hover {
@@ -231,6 +263,244 @@
 
 .policy-modal-close-btn:active {
     transform: translateY(0);
+}
+
+/* Bookmark Controls */
+.bookmark-controls {
+    margin: 20px 0;
+    padding: 20px;
+    background: rgba(255, 215, 0, 0.1);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.bookmark-controls-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.bookmark-controls-header h3 {
+    margin: 0;
+    color: #ffd700;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.bookmark-controls-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.control-btn.active {
+    background: rgba(255, 215, 0, 0.3);
+    border-color: rgba(255, 215, 0, 0.5);
+    color: #ffd700;
+}
+
+/* Annotations Panel */
+.annotations-panel {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.annotation-input {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.annotation-type-select {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.annotation-type-select option {
+    background: #2a2a2a;
+    color: white;
+}
+
+.annotation-textarea {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+}
+
+.annotation-textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.add-annotation-btn {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    align-self: flex-start;
+}
+
+.add-annotation-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #20c997, #17a2b8);
+    transform: translateY(-1px);
+}
+
+.add-annotation-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Gemini Panel */
+.gemini-panel {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gemini-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.gemini-quick-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.gemini-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.gemini-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.gemini-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.gemini-custom-question {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.gemini-question-input {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+}
+
+.gemini-question-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.gemini-ask-btn {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.gemini-ask-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #0056b3, #004085);
+    transform: translateY(-1px);
+}
+
+.gemini-ask-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.gemini-response {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 123, 255, 0.2);
+}
+
+.gemini-response h4 {
+    margin: 0 0 12px 0;
+    color: #007bff;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.gemini-response-content {
+    color: #e0e0e0;
+    line-height: 1.6;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+}
+
+.clear-response-btn {
+    background: rgba(220, 53, 69, 0.2);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+    color: #dc3545;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-response-btn:hover {
+    background: rgba(220, 53, 69, 0.3);
 }
 
 /* Mobile responsiveness */

@@ -1,0 +1,271 @@
+/* ResizableTab.css - Styling for the resizable side tab */
+
+.resizable-tab-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Tab Button */
+.tab-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 80px;
+    background: #1a1a1a;
+    border-radius: 0 12px 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    pointer-events: all;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3), 
+                0 0 0 1px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.tab-button:hover {
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+}
+
+.tab-button.expanded {
+    background: linear-gradient(135deg,
+        #404040 0%,
+        #4a4a4a 25%,
+        #555555 50%,
+        #4a4a4a 75%,
+        #404040 100%);
+    transform: translateY(-50%) translateX(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tab-icon {
+    font-size: 1.2rem;
+    color: #ff6b35;
+    font-weight: bold;
+}
+
+/* Tab Content */
+.tab-content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    background: white;
+    box-shadow: 2px 0 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    pointer-events: all;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease, width 0.3s ease;
+    z-index: 1000;
+}
+
+.tab-content.expanded {
+    transform: translateX(0);
+    width: 100vw !important;
+}
+
+/* Resize Handle */
+.resize-handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 8px;
+    height: 100%;
+    background: #2d2d2d;
+    cursor: col-resize;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, opacity 0.3s ease;
+    z-index: 1002;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tab-content.expanded .resize-handle {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.resize-handle:hover,
+.resize-handle.active {
+    background: #404040;
+}
+
+.resize-grip {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.grip-line {
+    width: 2px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 1px;
+}
+
+.resize-handle:hover .grip-line,
+.resize-handle.active .grip-line {
+    background: white;
+}
+
+
+/* Dashboard Content */
+.tab-dashboard {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Overlay */
+.tab-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(2px);
+    pointer-events: all;
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+    .tab-button {
+        width: 30px;
+        height: 70px;
+        border-radius: 0 10px 10px 0;
+    }
+    
+    .tab-icon {
+        font-size: 0.9rem;
+    }
+    
+    .resize-handle {
+        width: 12px;
+    }
+    
+    .grip-line {
+        width: 3px;
+        height: 15px;
+    }
+    
+}
+
+/* Tablet optimizations */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .tab-button {
+        width: 32px;
+        height: 75px;
+        border-radius: 0 11px 11px 0;
+    }
+    
+    .tab-icon {
+        font-size: 1rem;
+    }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+    .tab-button {
+        background: #000;
+        border: 2px solid #fff;
+    }
+    
+    .tab-button.expanded {
+        background: #00ff00;
+        color: #000;
+    }
+    
+    .resize-handle {
+        background: #000;
+        border: 1px solid #fff;
+    }
+    
+    .grip-line {
+        background: #fff;
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .tab-button,
+    .tab-content,
+    .tab-overlay {
+        transition: none;
+    }
+    
+    .tab-overlay {
+        animation: none;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .tab-content {
+        background: #1a1a1a;
+        color: white;
+    }
+    
+    .resize-handle {
+        background: #333;
+    }
+    
+    .grip-line {
+        background: #666;
+    }
+    
+    .resize-handle:hover .grip-line,
+    .resize-handle.active .grip-line {
+        background: white;
+    }
+}
+
+/* Focus styles for accessibility */
+.tab-button:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+.resize-handle:focus {
+    outline: 2px solid #667eea;
+    outline-offset: -2px;
+}
+
+/* Loading state */
+.tab-content.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f5f5f5;
+}
+
+.tab-content.loading::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
