@@ -32,7 +32,8 @@ function App() {
             try {
                 setLoading(true);
                 // Fetch CSV from public directory
-                const response = await fetch('/data/2025_deaths.csv');
+
+                const response = await fetch('/data/2025_with_locations.csv');
                 const csvText = await response.text();
 
                 // Parse CSV with headers using PapaParse library
