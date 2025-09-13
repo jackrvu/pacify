@@ -8,6 +8,7 @@ import Papa from 'papaparse';
 import MapLayer from './components/MapLayer';
 import Controls from './components/Controls';
 import IncidentPins from './components/IncidentPins';
+import IncidentHeatmap from './components/IncidentHeatmap';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -22,13 +23,9 @@ L.Icon.Default.mergeOptions({
 function App() {
     // State for controlling map layer visibility
     const [showCountyLayer, setShowCountyLayer] = useState(true);
-<<<<<<< HEAD
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
-    const [incidents, setIncidents] = useState([]); // Gun violence incident data
-=======
     const [showPinsLayer, setShowPinsLayer] = useState(true);
-    const [incidents, setIncidents] = useState([]);
->>>>>>> 0891af6 (Push latest changes to main)
+    const [incidents, setIncidents] = useState([]); // Gun violence incident data
     const [loading, setLoading] = useState(true);
 
     // Load CSV data on component mount
@@ -68,6 +65,10 @@ function App() {
         setShowCountyLayer(enabled);
     };
 
+    const handleToggleHeatMapLayer = (enabled) => {
+        setShowHeatMapLayer(enabled);
+    };
+
     const handleTogglePinsLayer = (enabled) => {
         setShowPinsLayer(enabled);
     };
@@ -103,14 +104,14 @@ function App() {
                         <MapLayer enabled={showCountyLayer} />
                     )}
 
-<<<<<<< HEAD
                     {/* Heatmap layer - shows incident clustering */}
                     {showHeatMapLayer && (
                         <IncidentHeatmap incidents={incidents} />
-=======
+                    )}
+
+                    {/* Pins layer - shows individual incident markers */}
                     {showPinsLayer && (
                         <IncidentPins incidents={incidents} />
->>>>>>> 0891af6 (Push latest changes to main)
                     )}
                 </MapContainer>
 
@@ -118,6 +119,7 @@ function App() {
                 <div className="controls-overlay">
                     <Controls
                         onToggleCountyLayer={handleToggleCountyLayer}
+                        onToggleHeatMapLayer={handleToggleHeatMapLayer}
                         onTogglePinsLayer={handleTogglePinsLayer}
                     />
                 </div>
