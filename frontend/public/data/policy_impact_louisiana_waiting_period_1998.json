@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Louisiana",
+    "policy_type": "waiting period",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 13.39,
+    "after_rate": 9.66,
+    "change_percent": -27.88,
+    "statistically_significant": "True",
+    "p_value": 0.009684
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1996,
+        "incident_rate": 14.01198539917885
+      },
+      {
+        "year": 1997,
+        "incident_rate": 12.769143205662896
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 8.129740139845993
+      },
+      {
+        "year": 2000,
+        "incident_rate": 9.586408820962037
+      },
+      {
+        "year": 2001,
+        "incident_rate": 9.038512017313003
+      },
+      {
+        "year": 2002,
+        "incident_rate": 10.562827701872859
+      },
+      {
+        "year": 2003,
+        "incident_rate": 10.966291305193874
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.49944833046818377,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 5.281951110245217,
+      "after_rate": 4.495804137168031,
+      "change_percent": -14.883647286176572
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 7.041396312969145,
+      "after_rate": 3.579422198099367,
+      "change_percent": -49.16601709370293
+    }
+  ],
+  "diff_in_diff": 26.8
+}

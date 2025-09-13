@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "California",
+    "policy_type": "waiting period",
+    "implementation_year": 1997
+  },
+  "impact_summary": {
+    "before_rate": 7.3,
+    "after_rate": 4.55,
+    "change_percent": -37.62,
+    "statistically_significant": "True",
+    "p_value": 0.003695
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1995,
+        "incident_rate": 8.148616547127528
+      },
+      {
+        "year": 1996,
+        "incident_rate": 6.450671213096171
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1998,
+        "incident_rate": 4.532227396615418
+      },
+      {
+        "year": 1999,
+        "incident_rate": 4.020624472944852
+      },
+      {
+        "year": 2000,
+        "incident_rate": 4.431978598014759
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.684996781979416
+      },
+      {
+        "year": 2002,
+        "incident_rate": 5.096015928375006
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 5.075895284950478,
+      "after_rate": 3.9738975907741456,
+      "change_percent": -21.710410327881384
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 5.251802356802118,
+      "after_rate": 4.6996046088077055,
+      "change_percent": -10.514442670890077
+    },
+    {
+      "state": "Texas",
+      "before_rate": 4.354080650537,
+      "after_rate": 3.232349848696587,
+      "change_percent": -25.7627474516823
+    }
+  ],
+  "diff_in_diff": -18.3
+}

@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Pennsylvania",
+    "policy_type": "required reporting of lost or stolen firearms",
+    "implementation_year": 2008
+  },
+  "impact_summary": {
+    "before_rate": 4.68,
+    "after_rate": 4.15,
+    "change_percent": -11.42,
+    "statistically_significant": "True",
+    "p_value": 0.035439
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2005,
+        "incident_rate": 4.545682454520726
+      },
+      {
+        "year": 2006,
+        "incident_rate": 4.92819357644243
+      },
+      {
+        "year": 2007,
+        "incident_rate": 4.577199473583141
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2009,
+        "incident_rate": 4.13281945167468
+      },
+      {
+        "year": 2010,
+        "incident_rate": 3.911511843983437
+      },
+      {
+        "year": 2011,
+        "incident_rate": 4.030030738464392
+      },
+      {
+        "year": 2012,
+        "incident_rate": 4.521551130254173
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.589276870538975,
+      "after_rate": 4.170670842772822,
+      "change_percent": -9.121394057817902
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 5.520318093945914,
+      "after_rate": 1.89789119601746,
+      "change_percent": -65.61989429379331
+    }
+  ],
+  "diff_in_diff": null
+}

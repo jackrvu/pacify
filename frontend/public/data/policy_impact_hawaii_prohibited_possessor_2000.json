@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Hawaii",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2000
+  },
+  "impact_summary": {
+    "before_rate": 1.08,
+    "after_rate": 0.75,
+    "change_percent": -31.22,
+    "statistically_significant": "False",
+    "p_value": 0.112425
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1997,
+        "incident_rate": 1.3104309652072068
+      },
+      {
+        "year": 1998,
+        "incident_rate": 0.7310183376388607
+      },
+      {
+        "year": 1999,
+        "incident_rate": 1.2083655991451274
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2001,
+        "incident_rate": 0.8718257913709136
+      },
+      {
+        "year": 2002,
+        "incident_rate": 0.8648432049411693
+      },
+      {
+        "year": 2003,
+        "incident_rate": 0.7019767464727312
+      },
+      {
+        "year": 2004,
+        "incident_rate": 0.5416780024396063
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 3.8036423953544953,
+      "after_rate": 4.145969371551324,
+      "change_percent": 8.999977932071717
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 4.517572641218382,
+      "after_rate": 5.047518448670086,
+      "change_percent": 11.730764495438834
+    },
+    {
+      "state": "Texas",
+      "before_rate": 3.4953466422184185,
+      "after_rate": 3.300249865797302,
+      "change_percent": -5.581614540447785
+    }
+  ],
+  "diff_in_diff": -36.27
+}

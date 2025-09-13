@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Missouri",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2008
+  },
+  "impact_summary": {
+    "before_rate": 4.73,
+    "after_rate": 5.0,
+    "change_percent": 5.72,
+    "statistically_significant": "False",
+    "p_value": 0.366606
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2005,
+        "incident_rate": 5.156959732781493
+      },
+      {
+        "year": 2006,
+        "incident_rate": 4.276043414171403
+      },
+      {
+        "year": 2007,
+        "incident_rate": 4.757969495045538
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2009,
+        "incident_rate": 4.878128594330598
+      },
+      {
+        "year": 2010,
+        "incident_rate": 5.431404296348386
+      },
+      {
+        "year": 2011,
+        "incident_rate": 4.822466094868469
+      },
+      {
+        "year": 2012,
+        "incident_rate": 4.872183180630109
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.589276870538975,
+      "after_rate": 4.170670842772822,
+      "change_percent": -9.121394057817902
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 5.520318093945914,
+      "after_rate": 1.89789119601746,
+      "change_percent": -65.61989429379331
+    }
+  ],
+  "diff_in_diff": null
+}

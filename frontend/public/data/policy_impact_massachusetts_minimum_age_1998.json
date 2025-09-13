@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Massachusetts",
+    "policy_type": "minimum age",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 1.15,
+    "after_rate": 1.12,
+    "change_percent": -2.3,
+    "statistically_significant": "False",
+    "p_value": 0.868206
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1996,
+        "incident_rate": 1.2875174057246386
+      },
+      {
+        "year": 1997,
+        "incident_rate": 1.004396573892905
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 1.1386101562528665
+      },
+      {
+        "year": 2000,
+        "incident_rate": 0.8303988229169761
+      },
+      {
+        "year": 2001,
+        "incident_rate": 1.2190676145429378
+      },
+      {
+        "year": 2002,
+        "incident_rate": 1.291013639107079
+      },
+      {
+        "year": 2003,
+        "incident_rate": 1.1186348729147186
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 4.538928262426273,
+      "after_rate": 4.120776353647523,
+      "change_percent": -9.21256923666883
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 4.502321170030201,
+      "after_rate": 4.774067100220817,
+      "change_percent": 6.035685148351898
+    },
+    {
+      "state": "Texas",
+      "before_rate": 3.858653165767795,
+      "after_rate": 3.164215307784124,
+      "change_percent": -17.99689757411746
+    }
+  ],
+  "diff_in_diff": 4.75
+}

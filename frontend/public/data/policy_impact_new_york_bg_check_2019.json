@@ -1,0 +1,65 @@
+{
+  "policy_info": {
+    "state": "New York",
+    "policy_type": "background_check",
+    "implementation_year": 2019
+  },
+  "impact_summary": {
+    "before_rate": 1.65,
+    "after_rate": 0.17,
+    "change_percent": -89.58,
+    "statistically_significant": "True",
+    "p_value": 0.00049
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2016,
+        "incident_rate": 1.9352590627322752
+      },
+      {
+        "year": 2017,
+        "incident_rate": 1.481517230336813
+      },
+      {
+        "year": 2018,
+        "incident_rate": 1.541286018350491
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2020,
+        "incident_rate": 0.18810718089757716
+      },
+      {
+        "year": 2021,
+        "incident_rate": 0.18188380528956138
+      },
+      {
+        "year": 2022,
+        "incident_rate": 0.1464552949996708
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.14757741765260504,
+      "change_percent": null
+    },
+    {
+      "state": "Georgia",
+      "before_rate": 5.025845094438518,
+      "after_rate": 0.21299248160438913,
+      "change_percent": -95.76205637853658
+    },
+    {
+      "state": "South Carolina",
+      "before_rate": 5.859760767614755,
+      "after_rate": 0.37524238278610894,
+      "change_percent": -93.59628493948136
+    }
+  ],
+  "diff_in_diff": null
+}

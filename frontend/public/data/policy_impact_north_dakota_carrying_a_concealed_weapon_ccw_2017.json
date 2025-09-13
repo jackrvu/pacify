@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "North Dakota",
+    "policy_type": "carrying a concealed weapon (ccw)",
+    "implementation_year": 2017
+  },
+  "impact_summary": {
+    "before_rate": 0.97,
+    "after_rate": 0.69,
+    "change_percent": -28.78,
+    "statistically_significant": "False",
+    "p_value": 0.708907
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2014,
+        "incident_rate": 0.803888621488737
+      },
+      {
+        "year": 2015,
+        "incident_rate": 1.0640764067512403
+      },
+      {
+        "year": 2016,
+        "incident_rate": 1.0564133050565296
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2018,
+        "incident_rate": 2.0828270436408656
+      },
+      {
+        "year": 2019,
+        "incident_rate": 0.0
+      },
+      {
+        "year": 2020,
+        "incident_rate": 0.0
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 1.2086388439889868,
+      "after_rate": 0.5159441816579177,
+      "change_percent": -57.311964262616485
+    },
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.6265490004909605,
+      "after_rate": 0.34358098114959096,
+      "change_percent": -45.16295120088569
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 5.278905143252236,
+      "after_rate": 2.3128378181338456,
+      "change_percent": -56.187168449309375
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.9646909111964019,
+      "after_rate": 0.3387633587610089,
+      "change_percent": -64.88374101701889
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 2.981636145337149,
+      "after_rate": 0.8398142635452269,
+      "change_percent": -71.83377774452539
+    }
+  ],
+  "diff_in_diff": 30.3
+}

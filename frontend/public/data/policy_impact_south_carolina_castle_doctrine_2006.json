@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "South Carolina",
+    "policy_type": "castle doctrine",
+    "implementation_year": 2006
+  },
+  "impact_summary": {
+    "before_rate": 4.37,
+    "after_rate": 4.43,
+    "change_percent": 1.32,
+    "statistically_significant": "False",
+    "p_value": 0.837609
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2003,
+        "incident_rate": 4.257836457909843
+      },
+      {
+        "year": 2004,
+        "incident_rate": 4.290276688524196
+      },
+      {
+        "year": 2005,
+        "incident_rate": 4.562332222756526
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2007,
+        "incident_rate": 5.007900527276581
+      },
+      {
+        "year": 2008,
+        "incident_rate": 4.479066156510985
+      },
+      {
+        "year": 2009,
+        "incident_rate": 4.212258655901813
+      },
+      {
+        "year": 2010,
+        "incident_rate": 4.012491031636128
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 1.4090128210520827,
+      "after_rate": 1.5998781571980716,
+      "change_percent": 13.546032604832753
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 7.155948783800699,
+      "after_rate": 6.253229981844229,
+      "change_percent": -12.614942186282867
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 3.10657273608682,
+      "after_rate": 2.85723555719625,
+      "change_percent": -8.026117527981851
+    }
+  ],
+  "diff_in_diff": 3.69
+}

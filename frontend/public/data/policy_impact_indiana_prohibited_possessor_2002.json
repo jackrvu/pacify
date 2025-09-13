@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Indiana",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2002
+  },
+  "impact_summary": {
+    "before_rate": 3.79,
+    "after_rate": 3.69,
+    "change_percent": -2.55,
+    "statistically_significant": "False",
+    "p_value": 0.702708
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1999,
+        "incident_rate": 3.9391468269336793
+      },
+      {
+        "year": 2000,
+        "incident_rate": 3.3244486700052995
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.096512630027101
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2003,
+        "incident_rate": 3.8139526031491813
+      },
+      {
+        "year": 2004,
+        "incident_rate": 3.352391700063392
+      },
+      {
+        "year": 2005,
+        "incident_rate": 3.8366239964042035
+      },
+      {
+        "year": 2006,
+        "incident_rate": 3.757834519664481
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.453051035755043,
+      "after_rate": 4.409315081438484,
+      "change_percent": -0.9821570416639804
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 2.9723107803545936,
+      "after_rate": 4.6738057215144355,
+      "change_percent": 57.24485314274086
+    }
+  ],
+  "diff_in_diff": null
+}

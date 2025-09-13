@@ -1,0 +1,65 @@
+{
+  "policy_info": {
+    "state": "Colorado",
+    "policy_type": "background_check",
+    "implementation_year": 2021
+  },
+  "impact_summary": {
+    "before_rate": 1.07,
+    "after_rate": 0.2,
+    "change_percent": -81.49,
+    "statistically_significant": "False",
+    "p_value": 0.402967
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2018,
+        "incident_rate": 2.933487816586757
+      },
+      {
+        "year": 2019,
+        "incident_rate": 0.08720983975114852
+      },
+      {
+        "year": 2020,
+        "incident_rate": 0.19051861592035907
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2022,
+        "incident_rate": 0.2220496689048474
+      },
+      {
+        "year": 2023,
+        "incident_rate": 0.2714182044987753
+      },
+      {
+        "year": 2024,
+        "incident_rate": 0.1010887597738021
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Texas",
+      "before_rate": 1.2206208991592462,
+      "after_rate": 0.1636940609239572,
+      "change_percent": -86.58927919088487
+    },
+    {
+      "state": "Florida",
+      "before_rate": 0.07599794755437382,
+      "after_rate": 0.1409641313884983,
+      "change_percent": 85.48412940710472
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 0.1666109021874119,
+      "after_rate": 0.3375071997018176,
+      "change_percent": 102.57209778635816
+    }
+  ],
+  "diff_in_diff": -115.31
+}

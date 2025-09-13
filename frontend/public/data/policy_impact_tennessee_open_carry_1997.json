@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Tennessee",
+    "policy_type": "open carry",
+    "implementation_year": 1997
+  },
+  "impact_summary": {
+    "before_rate": 5.45,
+    "after_rate": 4.62,
+    "change_percent": -15.2,
+    "statistically_significant": "True",
+    "p_value": 0.021717
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1995,
+        "incident_rate": 5.700311307155048
+      },
+      {
+        "year": 1996,
+        "incident_rate": 5.200163800637839
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1998,
+        "incident_rate": 5.079900993037518
+      },
+      {
+        "year": 1999,
+        "incident_rate": 4.359666353682204
+      },
+      {
+        "year": 2000,
+        "incident_rate": 4.59339039053308
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.406096363049843
+      },
+      {
+        "year": 2002,
+        "incident_rate": 4.668816847771948
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "California",
+      "before_rate": 7.29964388011185,
+      "after_rate": 4.55316863558589,
+      "change_percent": -37.62478402554449
+    },
+    {
+      "state": "New York",
+      "before_rate": 5.412534745807655,
+      "after_rate": 3.083363416296509,
+      "change_percent": -43.032912284124066
+    },
+    {
+      "state": "Connecticut",
+      "before_rate": 3.4302175780246436,
+      "after_rate": 2.2479058759647716,
+      "change_percent": -34.46754251491909
+    }
+  ],
+  "diff_in_diff": 23.17
+}

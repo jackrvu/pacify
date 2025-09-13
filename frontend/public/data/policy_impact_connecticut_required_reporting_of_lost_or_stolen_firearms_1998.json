@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Connecticut",
+    "policy_type": "required reporting of lost or stolen firearms",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 3.14,
+    "after_rate": 2.0,
+    "change_percent": -36.28,
+    "statistically_significant": "False",
+    "p_value": 0.050892
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1996,
+        "incident_rate": 3.599825518856985
+      },
+      {
+        "year": 1997,
+        "incident_rate": 2.677343413309605
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 2.5358677095191577
+      },
+      {
+        "year": 2000,
+        "incident_rate": 1.902543443902365
+      },
+      {
+        "year": 2001,
+        "incident_rate": 2.4949194420067378
+      },
+      {
+        "year": 2002,
+        "incident_rate": 1.6182282017134884
+      },
+      {
+        "year": 2003,
+        "incident_rate": 1.4479812739909879
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 4.538928262426273,
+      "after_rate": 4.120776353647523,
+      "change_percent": -9.21256923666883
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 4.502321170030201,
+      "after_rate": 4.774067100220817,
+      "change_percent": 6.035685148351898
+    },
+    {
+      "state": "Texas",
+      "before_rate": 3.858653165767795,
+      "after_rate": 3.164215307784124,
+      "change_percent": -17.99689757411746
+    }
+  ],
+  "diff_in_diff": -29.22
+}

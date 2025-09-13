@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Connecticut",
+    "policy_type": "waiting period",
+    "implementation_year": 2013
+  },
+  "impact_summary": {
+    "before_rate": 2.58,
+    "after_rate": 1.65,
+    "change_percent": -36.22,
+    "statistically_significant": "True",
+    "p_value": 0.019534
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2010,
+        "incident_rate": 2.5346441725763236
+      },
+      {
+        "year": 2011,
+        "incident_rate": 2.6636915970197537
+      },
+      {
+        "year": 2012,
+        "incident_rate": 2.555808325064187
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2014,
+        "incident_rate": 1.5921288152680704
+      },
+      {
+        "year": 2015,
+        "incident_rate": 2.0978603215630187
+      },
+      {
+        "year": 2016,
+        "incident_rate": 1.2553575350014907
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.5157461305921799,
+      "after_rate": 0.6265490004909605,
+      "change_percent": 21.483994416314232
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 3.5776671213913094,
+      "after_rate": 3.156637711091477,
+      "change_percent": -11.768266750767445
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.2232874281245898,
+      "after_rate": 0.9646909111964019,
+      "change_percent": -21.13947311014548
+    },
+    {
+      "state": "Georgia",
+      "before_rate": 3.898684737496632,
+      "after_rate": 4.648072915175601,
+      "change_percent": 19.221563889778775
+    },
+    {
+      "state": "Vermont",
+      "before_rate": 0.5527945088860717,
+      "after_rate": 0.9131682837751387,
+      "change_percent": 65.1912725427123
+    }
+  ],
+  "diff_in_diff": -50.82
+}

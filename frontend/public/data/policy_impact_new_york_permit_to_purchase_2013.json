@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "New York",
+    "policy_type": "permit to purchase",
+    "implementation_year": 2013
+  },
+  "impact_summary": {
+    "before_rate": 2.32,
+    "after_rate": 1.88,
+    "change_percent": -18.95,
+    "statistically_significant": "False",
+    "p_value": 0.07515
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2010,
+        "incident_rate": 2.6454235683671716
+      },
+      {
+        "year": 2011,
+        "incident_rate": 2.250566170374877
+      },
+      {
+        "year": 2012,
+        "incident_rate": 2.076562322575841
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2014,
+        "incident_rate": 1.7361831881547614
+      },
+      {
+        "year": 2015,
+        "incident_rate": 1.9800755883955492
+      },
+      {
+        "year": 2016,
+        "incident_rate": 1.9352590627322752
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 1.5007116616416745,
+      "after_rate": 1.2086388439889868,
+      "change_percent": -19.46228746787909
+    },
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.5157461305921799,
+      "after_rate": 0.6265490004909605,
+      "change_percent": 21.483994416314232
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 5.09143606558056,
+      "after_rate": 5.278905143252236,
+      "change_percent": 3.6820471720938506
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.2232874281245898,
+      "after_rate": 0.9646909111964019,
+      "change_percent": -21.13947311014548
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 3.067141444696754,
+      "after_rate": 2.981636145337149,
+      "change_percent": -2.7877846816438194
+    }
+  ],
+  "diff_in_diff": -15.3
+}

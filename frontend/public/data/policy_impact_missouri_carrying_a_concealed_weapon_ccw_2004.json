@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Missouri",
+    "policy_type": "carrying a concealed weapon (ccw)",
+    "implementation_year": 2004
+  },
+  "impact_summary": {
+    "before_rate": 4.09,
+    "after_rate": 5.12,
+    "change_percent": 25.32,
+    "statistically_significant": "False",
+    "p_value": 0.123516
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2001,
+        "incident_rate": 4.4672770448756856
+      },
+      {
+        "year": 2002,
+        "incident_rate": 4.22838761594562
+      },
+      {
+        "year": 2003,
+        "incident_rate": 3.5719835111232867
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2005,
+        "incident_rate": 5.156959732781493
+      },
+      {
+        "year": 2006,
+        "incident_rate": 4.276043414171403
+      },
+      {
+        "year": 2007,
+        "incident_rate": 4.757969495045538
+      },
+      {
+        "year": 2008,
+        "incident_rate": 6.307224585383845
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "California",
+      "before_rate": 4.977091811495708,
+      "after_rate": 4.857622924654397,
+      "change_percent": -2.4003753871964113
+    },
+    {
+      "state": "New York",
+      "before_rate": 3.0317450924972627,
+      "after_rate": 2.5370767410730295,
+      "change_percent": -16.316290991891158
+    },
+    {
+      "state": "Connecticut",
+      "before_rate": 1.8537096392370713,
+      "after_rate": 1.9890760416182842,
+      "change_percent": 7.302459862965673
+    }
+  ],
+  "diff_in_diff": 29.12
+}

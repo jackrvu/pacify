@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Illinois",
+    "policy_type": "firearms in college/university",
+    "implementation_year": 2013
+  },
+  "impact_summary": {
+    "before_rate": 3.28,
+    "after_rate": 4.4,
+    "change_percent": 34.09,
+    "statistically_significant": "False",
+    "p_value": 0.364071
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2010,
+        "incident_rate": 3.0044565557277294
+      },
+      {
+        "year": 2011,
+        "incident_rate": 3.2652190872930396
+      },
+      {
+        "year": 2012,
+        "incident_rate": 3.579989496810196
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2014,
+        "incident_rate": 3.1284669095925137
+      },
+      {
+        "year": 2015,
+        "incident_rate": 3.5263468440573127
+      },
+      {
+        "year": 2016,
+        "incident_rate": 6.552239209056542
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.5157461305921799,
+      "after_rate": 0.6265490004909605,
+      "change_percent": 21.483994416314232
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 3.5776671213913094,
+      "after_rate": 3.156637711091477,
+      "change_percent": -11.768266750767445
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.2232874281245898,
+      "after_rate": 0.9646909111964019,
+      "change_percent": -21.13947311014548
+    },
+    {
+      "state": "Georgia",
+      "before_rate": 3.898684737496632,
+      "after_rate": 4.648072915175601,
+      "change_percent": 19.221563889778775
+    },
+    {
+      "state": "Vermont",
+      "before_rate": 0.5527945088860717,
+      "after_rate": 0.9131682837751387,
+      "change_percent": 65.1912725427123
+    }
+  ],
+  "diff_in_diff": 19.49
+}

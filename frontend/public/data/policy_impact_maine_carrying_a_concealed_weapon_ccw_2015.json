@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Maine",
+    "policy_type": "carrying a concealed weapon (ccw)",
+    "implementation_year": 2015
+  },
+  "impact_summary": {
+    "before_rate": 1.03,
+    "after_rate": 1.05,
+    "change_percent": 1.79,
+    "statistically_significant": "False",
+    "p_value": 0.920298
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2012,
+        "incident_rate": 1.1384667224901934
+      },
+      {
+        "year": 2013,
+        "incident_rate": 1.205425964002235
+      },
+      {
+        "year": 2014,
+        "incident_rate": 0.7478862811626601
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2016,
+        "incident_rate": 0.9582485334979185
+      },
+      {
+        "year": 2017,
+        "incident_rate": 1.2441344203284048
+      },
+      {
+        "year": 2018,
+        "incident_rate": 0.9446425705476439
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 1.131086931270773,
+      "after_rate": 1.3224537071907652,
+      "change_percent": 16.918838917623436
+    },
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.5599943219144219,
+      "after_rate": 0.8149835186036304,
+      "change_percent": 45.53424681476964
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 4.553879313615375,
+      "after_rate": 6.299505027129487,
+      "change_percent": 38.33271795971775
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 3.0872256712440325,
+      "after_rate": 2.714543996667498,
+      "change_percent": -12.07173411545125
+    },
+    {
+      "state": "Vermont",
+      "before_rate": 0.7622892772956528,
+      "after_rate": 0.6890767134137185,
+      "change_percent": -9.60430194448858
+    }
+  ],
+  "diff_in_diff": -14.04
+}

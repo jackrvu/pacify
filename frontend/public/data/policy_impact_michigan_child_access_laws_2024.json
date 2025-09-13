@@ -1,0 +1,65 @@
+{
+  "policy_info": {
+    "state": "Michigan",
+    "policy_type": "child access laws",
+    "implementation_year": 2024
+  },
+  "impact_summary": {
+    "before_rate": 0.19,
+    "after_rate": 0.1,
+    "change_percent": -48.31,
+    "statistically_significant": false,
+    "p_value": null
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2022,
+        "incident_rate": 0.2358077472853843
+      },
+      {
+        "year": 2023,
+        "incident_rate": 0.13661144223242394
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2025,
+        "incident_rate": 0.09625968427833322
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.03555031979293725,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 0.2629721077413784,
+      "after_rate": 0.19572975279863492,
+      "change_percent": -25.570147161338276
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 0.2642453168550108,
+      "after_rate": 0.11538175824382688,
+      "change_percent": -56.335363056921885
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.07017385478489994,
+      "after_rate": 0.06922464322259211,
+      "change_percent": -1.3526570048309254
+    },
+    {
+      "state": "Florida",
+      "before_rate": 0.1391829080016825,
+      "after_rate": 0.04485909491264177,
+      "change_percent": -67.76968123693787
+    }
+  ],
+  "diff_in_diff": 1.9
+}

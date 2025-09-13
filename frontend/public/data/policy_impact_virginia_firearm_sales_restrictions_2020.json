@@ -1,0 +1,73 @@
+{
+  "policy_info": {
+    "state": "Virginia",
+    "policy_type": "firearm sales restrictions",
+    "implementation_year": 2020
+  },
+  "impact_summary": {
+    "before_rate": 1.93,
+    "after_rate": 0.16,
+    "change_percent": -91.71,
+    "statistically_significant": "False",
+    "p_value": 0.281936
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2018,
+        "incident_rate": 3.74828734787891
+      },
+      {
+        "year": 2019,
+        "incident_rate": 0.11667286444006494
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2021,
+        "incident_rate": 0.18408127807584432
+      },
+      {
+        "year": 2022,
+        "incident_rate": 0.21708746877620366
+      },
+      {
+        "year": 2023,
+        "incident_rate": 0.07943125178480819
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.5153714717243865,
+      "after_rate": 0.04772992289975289,
+      "change_percent": -90.7387339970424
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 3.1181769270871267,
+      "after_rate": 0.24716191332280493,
+      "change_percent": -92.07351221235244
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 0.14044791014728708,
+      "after_rate": 0.3211068655019248,
+      "change_percent": 128.6305756811771
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.47232128527382194,
+      "after_rate": 0.04678256985659996,
+      "change_percent": -90.09518069263417
+    },
+    {
+      "state": "Florida",
+      "before_rate": 0.03506734383276755,
+      "after_rate": 0.1404319042511088,
+      "change_percent": 300.4634765633054
+    }
+  ],
+  "diff_in_diff": -122.95
+}

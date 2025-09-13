@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Wisconsin",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2002
+  },
+  "impact_summary": {
+    "before_rate": 2.38,
+    "after_rate": 2.26,
+    "change_percent": -5.01,
+    "statistically_significant": "False",
+    "p_value": 0.694003
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1999,
+        "incident_rate": 2.6455334537537465
+      },
+      {
+        "year": 2000,
+        "incident_rate": 2.2294135694515638
+      },
+      {
+        "year": 2001,
+        "incident_rate": 2.2505537558946997
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2003,
+        "incident_rate": 2.484416756852696
+      },
+      {
+        "year": 2004,
+        "incident_rate": 1.8916155555200722
+      },
+      {
+        "year": 2005,
+        "incident_rate": 2.767836730907582
+      },
+      {
+        "year": 2006,
+        "incident_rate": 1.8810663321707364
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.453051035755043,
+      "after_rate": 4.409315081438484,
+      "change_percent": -0.9821570416639804
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 2.9723107803545936,
+      "after_rate": 4.6738057215144355,
+      "change_percent": 57.24485314274086
+    }
+  ],
+  "diff_in_diff": null
+}

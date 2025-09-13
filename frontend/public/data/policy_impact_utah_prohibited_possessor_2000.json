@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Utah",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2000
+  },
+  "impact_summary": {
+    "before_rate": 1.29,
+    "after_rate": 1.08,
+    "change_percent": -16.16,
+    "statistically_significant": "False",
+    "p_value": 0.177404
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1997,
+        "incident_rate": 1.4572555131531766
+      },
+      {
+        "year": 1998,
+        "incident_rate": 1.2645481129947704
+      },
+      {
+        "year": 1999,
+        "incident_rate": 1.1466704577120894
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2001,
+        "incident_rate": 1.3396833987990073
+      },
+      {
+        "year": 2002,
+        "incident_rate": 1.0841464142334374
+      },
+      {
+        "year": 2003,
+        "incident_rate": 0.9714485390180031
+      },
+      {
+        "year": 2004,
+        "incident_rate": 0.9293696266739558
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.9344352555241064,
+      "after_rate": 4.322531203147964,
+      "change_percent": -12.400690670550702
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 3.7737370217130572,
+      "after_rate": 4.438367330293318,
+      "change_percent": 17.611993224651293
+    }
+  ],
+  "diff_in_diff": null
+}

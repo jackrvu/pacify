@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "New Jersey",
+    "policy_type": "required reporting of lost or stolen firearms",
+    "implementation_year": 2008
+  },
+  "impact_summary": {
+    "before_rate": 3.29,
+    "after_rate": 2.97,
+    "change_percent": -9.92,
+    "statistically_significant": "False",
+    "p_value": 0.1102
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2005,
+        "incident_rate": 3.3679552598610054
+      },
+      {
+        "year": 2006,
+        "incident_rate": 3.4611687824553523
+      },
+      {
+        "year": 2007,
+        "incident_rate": 3.055534138985167
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2009,
+        "incident_rate": 2.670945946002214
+      },
+      {
+        "year": 2010,
+        "incident_rate": 2.9170838299118707
+      },
+      {
+        "year": 2011,
+        "incident_rate": 3.1710333446061343
+      },
+      {
+        "year": 2012,
+        "incident_rate": 3.1133071595722566
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 4.412557645968455,
+      "after_rate": 3.907619339432837,
+      "change_percent": -11.443211557744895
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 5.26562299740933,
+      "after_rate": 3.5051158919577174,
+      "change_percent": -33.43397554890991
+    },
+    {
+      "state": "Texas",
+      "before_rate": 3.651308347504798,
+      "after_rate": 3.058015610668554,
+      "change_percent": -16.24877113546665
+    }
+  ],
+  "diff_in_diff": 10.46
+}

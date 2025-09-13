@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "New York",
+    "policy_type": "firearm sales restrictions",
+    "implementation_year": 2000
+  },
+  "impact_summary": {
+    "before_rate": 3.32,
+    "after_rate": 2.98,
+    "change_percent": -10.08,
+    "statistically_significant": "False",
+    "p_value": 0.20574
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1997,
+        "incident_rate": 3.8350689286564577
+      },
+      {
+        "year": 1998,
+        "incident_rate": 3.1304386518664864
+      },
+      {
+        "year": 1999,
+        "incident_rate": 2.982880575718969
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2001,
+        "incident_rate": 2.9975192730901474
+      },
+      {
+        "year": 2002,
+        "incident_rate": 2.9905031769818367
+      },
+      {
+        "year": 2003,
+        "incident_rate": 3.1072128274198034
+      },
+      {
+        "year": 2004,
+        "incident_rate": 2.831864861781923
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 1.0632470443112634,
+      "after_rate": 1.305265494384153,
+      "change_percent": 22.762202948766372
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 6.701957186940409,
+      "after_rate": 6.652806610435613,
+      "change_percent": -0.7333764620366704
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 2.0709585714148315,
+      "after_rate": 2.6472241332603583,
+      "change_percent": 27.826030409282176
+    }
+  ],
+  "diff_in_diff": -26.7
+}

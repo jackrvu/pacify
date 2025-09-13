@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Texas",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2008
+  },
+  "impact_summary": {
+    "before_rate": 3.65,
+    "after_rate": 3.06,
+    "change_percent": -16.25,
+    "statistically_significant": "True",
+    "p_value": 0.021797
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2005,
+        "incident_rate": 3.576737135138537
+      },
+      {
+        "year": 2006,
+        "incident_rate": 3.6554871825227973
+      },
+      {
+        "year": 2007,
+        "incident_rate": 3.721700724853059
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2009,
+        "incident_rate": 3.4199089332783745
+      },
+      {
+        "year": 2010,
+        "incident_rate": 3.169119608593142
+      },
+      {
+        "year": 2011,
+        "incident_rate": 2.7389898463773408
+      },
+      {
+        "year": 2012,
+        "incident_rate": 2.904044054425359
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.589276870538975,
+      "after_rate": 4.170670842772822,
+      "change_percent": -9.121394057817902
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 5.520318093945914,
+      "after_rate": 1.89789119601746,
+      "change_percent": -65.61989429379331
+    }
+  ],
+  "diff_in_diff": null
+}

@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "South Dakota",
+    "policy_type": "firearm removal at scene of domestic violence",
+    "implementation_year": 2017
+  },
+  "impact_summary": {
+    "before_rate": 1.01,
+    "after_rate": 0.53,
+    "change_percent": -47.36,
+    "statistically_significant": "False",
+    "p_value": 0.378019
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2014,
+        "incident_rate": 0.9418113777703786
+      },
+      {
+        "year": 2015,
+        "incident_rate": 1.1687244817409619
+      },
+      {
+        "year": 2016,
+        "incident_rate": 0.9282461933168957
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2018,
+        "incident_rate": 1.4869826190101791
+      },
+      {
+        "year": 2019,
+        "incident_rate": 0.0
+      },
+      {
+        "year": 2020,
+        "incident_rate": 0.11278191248800282
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.6265490004909605,
+      "after_rate": 0.34358098114959096,
+      "change_percent": -45.16295120088569
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.794711401960251,
+      "after_rate": 2.1704280844577313,
+      "change_percent": -54.732873315996
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 0.03437611785116824,
+      "after_rate": 0.1666109021874119,
+      "change_percent": 384.6704997601985
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.9646909111964019,
+      "after_rate": 0.3387633587610089,
+      "change_percent": -64.88374101701889
+    },
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.07599794755437382,
+      "change_percent": null
+    }
+  ],
+  "diff_in_diff": null
+}

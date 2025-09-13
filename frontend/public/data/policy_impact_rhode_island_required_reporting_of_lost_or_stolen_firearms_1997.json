@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Rhode Island",
+    "policy_type": "required reporting of lost or stolen firearms",
+    "implementation_year": 1997
+  },
+  "impact_summary": {
+    "before_rate": 1.71,
+    "after_rate": 2.26,
+    "change_percent": 32.56,
+    "statistically_significant": "False",
+    "p_value": 0.445353
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1995,
+        "incident_rate": 2.3195765049764447
+      },
+      {
+        "year": 1996,
+        "incident_rate": 1.0952670653649077
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1998,
+        "incident_rate": 1.4002847020079008
+      },
+      {
+        "year": 1999,
+        "incident_rate": 1.9229448500474624
+      },
+      {
+        "year": 2000,
+        "incident_rate": 3.390743063752942
+      },
+      {
+        "year": 2001,
+        "incident_rate": 1.8918938374746086
+      },
+      {
+        "year": 2002,
+        "incident_rate": 2.71084864507708
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 5.075895284950478,
+      "after_rate": 3.9738975907741456,
+      "change_percent": -21.710410327881384
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 5.251802356802118,
+      "after_rate": 4.6996046088077055,
+      "change_percent": -10.514442670890077
+    },
+    {
+      "state": "Texas",
+      "before_rate": 4.354080650537,
+      "after_rate": 3.232349848696587,
+      "change_percent": -25.7627474516823
+    }
+  ],
+  "diff_in_diff": 51.89
+}

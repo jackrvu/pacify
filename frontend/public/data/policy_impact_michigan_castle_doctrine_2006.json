@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Michigan",
+    "policy_type": "castle doctrine",
+    "implementation_year": 2006
+  },
+  "impact_summary": {
+    "before_rate": 4.82,
+    "after_rate": 4.42,
+    "change_percent": -8.24,
+    "statistically_significant": "False",
+    "p_value": 0.085915
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2003,
+        "incident_rate": 4.851389751968686
+      },
+      {
+        "year": 2004,
+        "incident_rate": 4.958999748514538
+      },
+      {
+        "year": 2005,
+        "incident_rate": 4.641921612972873
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2007,
+        "incident_rate": 4.6252301762648615
+      },
+      {
+        "year": 2008,
+        "incident_rate": 4.002553334927025
+      },
+      {
+        "year": 2009,
+        "incident_rate": 4.576663038862811
+      },
+      {
+        "year": 2010,
+        "incident_rate": 4.4779384096059465
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 1.4090128210520827,
+      "after_rate": 1.5998781571980716,
+      "change_percent": 13.546032604832753
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 7.155948783800699,
+      "after_rate": 6.253229981844229,
+      "change_percent": -12.614942186282867
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 3.10657273608682,
+      "after_rate": 2.85723555719625,
+      "change_percent": -8.026117527981851
+    }
+  ],
+  "diff_in_diff": -5.87
+}

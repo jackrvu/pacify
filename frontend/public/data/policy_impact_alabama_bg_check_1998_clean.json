@@ -1,0 +1,59 @@
+{
+  "policy_info": {
+    "state": "Alabama",
+    "policy_type": "background_check",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 7.52,
+    "after_rate": 2.97,
+    "change_percent": -60.5,
+    "statistically_significant": "True",
+    "p_value": 0.041046
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1995,
+        "incident_rate": 8.492097406745659
+      },
+      {
+        "year": 1996,
+        "incident_rate": 7.51160208566933
+      },
+      {
+        "year": 1997,
+        "incident_rate": 6.57119054026896
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 0.2800002808496151
+      },
+      {
+        "year": 2000,
+        "incident_rate": 3.4946585440186984
+      },
+      {
+        "year": 2001,
+        "incident_rate": 5.142273516195467
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Texas",
+      "before_rate": 4.148643985759086,
+      "after_rate": 3.0713751149472137,
+      "change_percent": -25.966770696877767
+    },
+    {
+      "state": "Florida",
+      "before_rate": 1.484783987020596,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    }
+  ],
+  "diff_in_diff": 2.48
+}

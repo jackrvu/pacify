@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Nevada",
+    "policy_type": "gun trafficking",
+    "implementation_year": 2003
+  },
+  "impact_summary": {
+    "before_rate": 3.96,
+    "after_rate": 4.73,
+    "change_percent": 19.45,
+    "statistically_significant": "False",
+    "p_value": 0.084759
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2000,
+        "incident_rate": 3.2584659702518386
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.346694851141338
+      },
+      {
+        "year": 2002,
+        "incident_rate": 4.275027817569156
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2004,
+        "incident_rate": 4.243901391823806
+      },
+      {
+        "year": 2005,
+        "incident_rate": 4.822521266446053
+      },
+      {
+        "year": 2006,
+        "incident_rate": 5.070773304370295
+      },
+      {
+        "year": 2007,
+        "incident_rate": 4.783681690707718
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.556101200451624,
+      "after_rate": 4.382997870645979,
+      "change_percent": -3.7993741181272784
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 4.298476616009697,
+      "after_rate": 5.047992859345624,
+      "change_percent": 17.43678773415562
+    }
+  ],
+  "diff_in_diff": null
+}

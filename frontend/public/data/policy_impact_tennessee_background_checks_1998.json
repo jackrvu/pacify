@@ -1,0 +1,63 @@
+{
+  "policy_info": {
+    "state": "Tennessee",
+    "policy_type": "background checks",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 5.28,
+    "after_rate": 4.5,
+    "change_percent": -14.88,
+    "statistically_significant": "True",
+    "p_value": 0.000726
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1996,
+        "incident_rate": 5.200163800637839
+      },
+      {
+        "year": 1997,
+        "incident_rate": 5.363738419852596
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 4.359666353682204
+      },
+      {
+        "year": 2000,
+        "incident_rate": 4.59339039053308
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.406096363049843
+      },
+      {
+        "year": 2002,
+        "incident_rate": 4.668816847771948
+      },
+      {
+        "year": 2003,
+        "incident_rate": 4.451050730803074
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.49944833046818377,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 7.041396312969145,
+      "after_rate": 3.579422198099367,
+      "change_percent": -49.16601709370293
+    }
+  ],
+  "diff_in_diff": 59.7
+}

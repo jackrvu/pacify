@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Arizona",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2009
+  },
+  "impact_summary": {
+    "before_rate": 5.11,
+    "after_rate": 3.55,
+    "change_percent": -30.5,
+    "statistically_significant": "True",
+    "p_value": 0.000609
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2006,
+        "incident_rate": 5.425805761346394
+      },
+      {
+        "year": 2007,
+        "incident_rate": 5.184044886058492
+      },
+      {
+        "year": 2008,
+        "incident_rate": 4.732263902020208
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2010,
+        "incident_rate": 3.834069379930213
+      },
+      {
+        "year": 2011,
+        "incident_rate": 3.4920383303426155
+      },
+      {
+        "year": 2012,
+        "incident_rate": 3.4068936539010997
+      },
+      {
+        "year": 2013,
+        "incident_rate": 3.4847414776207426
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.289175697231793,
+      "after_rate": 3.9078187329312657,
+      "change_percent": -8.891148118428747
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 5.816271487547268,
+      "after_rate": 0.6685979782415449,
+      "change_percent": -88.50469790357923
+    }
+  ],
+  "diff_in_diff": null
+}

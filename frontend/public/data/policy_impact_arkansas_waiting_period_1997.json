@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Arkansas",
+    "policy_type": "waiting period",
+    "implementation_year": 1997
+  },
+  "impact_summary": {
+    "before_rate": 6.72,
+    "after_rate": 4.16,
+    "change_percent": -38.11,
+    "statistically_significant": "True",
+    "p_value": 0.011403
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1995,
+        "incident_rate": 7.687640925828634
+      },
+      {
+        "year": 1996,
+        "incident_rate": 5.747154034864842
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1998,
+        "incident_rate": 4.945541533547996
+      },
+      {
+        "year": 1999,
+        "incident_rate": 3.8538946165799404
+      },
+      {
+        "year": 2000,
+        "incident_rate": 4.324473527009411
+      },
+      {
+        "year": 2001,
+        "incident_rate": 3.4852662941151387
+      },
+      {
+        "year": 2002,
+        "incident_rate": 4.179217020013589
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 2.227175980530894,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 5.450237553896443,
+      "after_rate": 4.62157418961492,
+      "change_percent": -15.204169654753876
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 8.001849746207494,
+      "after_rate": 3.529090074579861,
+      "change_percent": -55.89657158643243
+    }
+  ],
+  "diff_in_diff": 18.93
+}

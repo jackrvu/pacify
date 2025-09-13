@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Iowa",
+    "policy_type": "castle doctrine",
+    "implementation_year": 2017
+  },
+  "impact_summary": {
+    "before_rate": 1.33,
+    "after_rate": 0.26,
+    "change_percent": -80.15,
+    "statistically_significant": "True",
+    "p_value": 0.011019
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2014,
+        "incident_rate": 0.9815554277109421
+      },
+      {
+        "year": 2015,
+        "incident_rate": 1.591577716324941
+      },
+      {
+        "year": 2016,
+        "incident_rate": 1.4188794372041025
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2018,
+        "incident_rate": 0.5722089856473119
+      },
+      {
+        "year": 2019,
+        "incident_rate": 0.0946958811427072
+      },
+      {
+        "year": 2020,
+        "incident_rate": 0.12537734663294434
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 1.2086388439889868,
+      "after_rate": 0.5159441816579177,
+      "change_percent": -57.311964262616485
+    },
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.6265490004909605,
+      "after_rate": 0.34358098114959096,
+      "change_percent": -45.16295120088569
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 5.278905143252236,
+      "after_rate": 2.3128378181338456,
+      "change_percent": -56.187168449309375
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.9646909111964019,
+      "after_rate": 0.3387633587610089,
+      "change_percent": -64.88374101701889
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 2.981636145337149,
+      "after_rate": 0.8398142635452269,
+      "change_percent": -71.83377774452539
+    }
+  ],
+  "diff_in_diff": -21.08
+}

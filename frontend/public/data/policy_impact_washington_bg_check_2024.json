@@ -1,0 +1,57 @@
+{
+  "policy_info": {
+    "state": "Washington",
+    "policy_type": "background_check",
+    "implementation_year": 2024
+  },
+  "impact_summary": {
+    "before_rate": 0.14,
+    "after_rate": 0.08,
+    "change_percent": -48.07,
+    "statistically_significant": false,
+    "p_value": null
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2021,
+        "incident_rate": 0.10310317397995582
+      },
+      {
+        "year": 2022,
+        "incident_rate": 0.1535871245529815
+      },
+      {
+        "year": 2023,
+        "incident_rate": 0.17795648221956625
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2025,
+        "incident_rate": 0.07523543202740254
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Texas",
+      "before_rate": 0.19394244349222325,
+      "after_rate": 0.07624579578299373,
+      "change_percent": -60.686379726853836
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 0.12398627814018408,
+      "after_rate": 0.05404087560231276,
+      "change_percent": -56.413825454771796
+    },
+    {
+      "state": "Nevada",
+      "before_rate": 0.15883208469452306,
+      "after_rate": 0.09336267647564822,
+      "change_percent": -41.219258907789424
+    }
+  ],
+  "diff_in_diff": 4.7
+}

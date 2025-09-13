@@ -1,0 +1,65 @@
+{
+  "policy_info": {
+    "state": "Ohio",
+    "policy_type": "concealed_carry",
+    "implementation_year": 2022
+  },
+  "impact_summary": {
+    "before_rate": 0.2,
+    "after_rate": 0.18,
+    "change_percent": -9.16,
+    "statistically_significant": "False",
+    "p_value": 0.786048
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2019,
+        "incident_rate": 0.11948602032782343
+      },
+      {
+        "year": 2020,
+        "incident_rate": 0.2118743181884441
+      },
+      {
+        "year": 2021,
+        "incident_rate": 0.2777299900781988
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2023,
+        "incident_rate": 0.2739217433974007
+      },
+      {
+        "year": 2024,
+        "incident_rate": 0.14015032720636378
+      },
+      {
+        "year": 2025,
+        "incident_rate": 0.13920245059723863
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "California",
+      "before_rate": 0.11215527448613653,
+      "after_rate": 0.08710675785649613,
+      "change_percent": -22.333783894164192
+    },
+    {
+      "state": "New York",
+      "before_rate": 0.1382855824178343,
+      "after_rate": 0.07069278116903537,
+      "change_percent": -48.879138422807614
+    },
+    {
+      "state": "Connecticut",
+      "before_rate": 0.11099493276492366,
+      "after_rate": 0.06282470084451093,
+      "change_percent": -43.39858651244245
+    }
+  ],
+  "diff_in_diff": 29.04
+}

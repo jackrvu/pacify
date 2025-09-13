@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Missouri",
+    "policy_type": "open carry",
+    "implementation_year": 2012
+  },
+  "impact_summary": {
+    "before_rate": 5.04,
+    "after_rate": 5.64,
+    "change_percent": 11.78,
+    "statistically_significant": "False",
+    "p_value": 0.421722
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2009,
+        "incident_rate": 4.878128594330598
+      },
+      {
+        "year": 2010,
+        "incident_rate": 5.431404296348386
+      },
+      {
+        "year": 2011,
+        "incident_rate": 4.822466094868469
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2013,
+        "incident_rate": 4.717533810980577
+      },
+      {
+        "year": 2014,
+        "incident_rate": 5.340039821401307
+      },
+      {
+        "year": 2015,
+        "incident_rate": 6.856575868488601
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.3899120264209864,
+      "after_rate": 0.5048227721146947,
+      "change_percent": 29.470941624570386
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.0507974537745046,
+      "after_rate": 1.047083388031174,
+      "change_percent": -0.35345210725335185
+    },
+    {
+      "state": "California",
+      "before_rate": 3.6000349018668345,
+      "after_rate": 3.4635332043308793,
+      "change_percent": -3.7916770602743566
+    },
+    {
+      "state": "Connecticut",
+      "before_rate": 2.403794579469721,
+      "after_rate": 1.8034935264221519,
+      "change_percent": -24.973059602289148
+    },
+    {
+      "state": "New York",
+      "before_rate": 2.4346816095460144,
+      "after_rate": 1.8390913005473173,
+      "change_percent": -24.462759593019413
+    }
+  ],
+  "diff_in_diff": 16.6
+}

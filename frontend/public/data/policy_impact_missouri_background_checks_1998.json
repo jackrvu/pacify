@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Missouri",
+    "policy_type": "background checks",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 5.18,
+    "after_rate": 4.12,
+    "change_percent": -20.37,
+    "statistically_significant": "True",
+    "p_value": 0.010767
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1996,
+        "incident_rate": 5.314690505942399
+      },
+      {
+        "year": 1997,
+        "incident_rate": 5.0395304422511495
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 4.048698946620481
+      },
+      {
+        "year": 2000,
+        "incident_rate": 4.297221832949385
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.4672770448756856
+      },
+      {
+        "year": 2002,
+        "incident_rate": 4.22838761594562
+      },
+      {
+        "year": 2003,
+        "incident_rate": 3.5719835111232867
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.49944833046818377,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 5.281951110245217,
+      "after_rate": 4.495804137168031,
+      "change_percent": -14.883647286176572
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 7.041396312969145,
+      "after_rate": 3.579422198099367,
+      "change_percent": -49.16601709370293
+    }
+  ],
+  "diff_in_diff": 34.32
+}

@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "North Carolina",
+    "policy_type": "local laws preempted by state",
+    "implementation_year": 1996
+  },
+  "impact_summary": {
+    "before_rate": 2.65,
+    "after_rate": 4.01,
+    "change_percent": 51.28,
+    "statistically_significant": "False",
+    "p_value": 0.380872
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1994,
+        "incident_rate": 0.0
+      },
+      {
+        "year": 1995,
+        "incident_rate": 5.306243947819489
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1997,
+        "incident_rate": 4.212979695571073
+      },
+      {
+        "year": 1998,
+        "incident_rate": 4.178120525513156
+      },
+      {
+        "year": 1999,
+        "incident_rate": 4.020304575660331
+      },
+      {
+        "year": 2000,
+        "incident_rate": 4.065550630469553
+      },
+      {
+        "year": 2001,
+        "incident_rate": 3.5907835275670785
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 0.8829404211669956,
+      "after_rate": 1.047841514078741,
+      "change_percent": 18.67635561341649
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 4.287500094678206,
+      "after_rate": 6.465498651316284,
+      "change_percent": 50.798799033065556
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 1.56588049744187,
+      "after_rate": 2.0725910889701114,
+      "change_percent": 32.3594675555407
+    }
+  ],
+  "diff_in_diff": 17.33
+}

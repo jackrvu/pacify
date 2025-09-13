@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Oregon",
+    "policy_type": "firearm removal at scene of domestic violence",
+    "implementation_year": 2019
+  },
+  "impact_summary": {
+    "before_rate": 1.38,
+    "after_rate": 0.12,
+    "change_percent": -91.54,
+    "statistically_significant": "True",
+    "p_value": 4.7e-05
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2016,
+        "incident_rate": 1.3111210546531897
+      },
+      {
+        "year": 2017,
+        "incident_rate": 1.4945976475924
+      },
+      {
+        "year": 2018,
+        "incident_rate": 1.3403752769679669
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2020,
+        "incident_rate": 0.047200357967514824
+      },
+      {
+        "year": 2021,
+        "incident_rate": 0.16405288270735047
+      },
+      {
+        "year": 2022,
+        "incident_rate": 0.13964602948968882
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.8149835186036304,
+      "after_rate": 0.024029709704461392,
+      "change_percent": -97.05150973535842
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 6.063579640784519,
+      "after_rate": 0.23959857553705133,
+      "change_percent": -96.0485622399436
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 0.0270596345594248,
+      "after_rate": 0.32260790194058653,
+      "change_percent": 1092.2108601729917
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.0490085081246556,
+      "after_rate": 0.023882501911794276,
+      "change_percent": -97.72332619546721
+    },
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.14757741765260504,
+      "change_percent": null
+    }
+  ],
+  "diff_in_diff": null
+}

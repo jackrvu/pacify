@@ -13,6 +13,7 @@ import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
 import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
+import PolicyImpactVisualization from './components/PolicyImpactVisualization';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
@@ -59,6 +60,9 @@ function App() {
 
     // State for policy timeline popup
     const [showPolicyTimeline, setShowPolicyTimeline] = useState(false);
+
+    // State for policy impact visualization
+    const [showPolicyImpact, setShowPolicyImpact] = useState(false);
 
     // Detect mobile device on mount and window resize
     useEffect(() => {
@@ -272,6 +276,12 @@ function App() {
                         availableYears={availableYears}
                     />
 
+                    {/* Policy Impact Button */}
+                    <div className="policy-impact-button" onClick={() => setShowPolicyImpact(true)}>
+                        <div className="policy-impact-icon">📊</div>
+                        <div className="policy-impact-label">Policy Impact</div>
+                    </div>
+
                 </div>
             </div>
 
@@ -295,6 +305,13 @@ function App() {
                 selectedState={selectedState}
             />
 
+            {/* Policy Impact Visualization */}
+            <PolicyImpactVisualization
+                isVisible={showPolicyImpact}
+                onClose={() => setShowPolicyImpact(false)}
+                selectedPolicy={null}
+                availablePolicyAnalyses={[]}
+            />
 
         </div>
     );

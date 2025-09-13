@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Kansas",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2011
+  },
+  "impact_summary": {
+    "before_rate": 2.54,
+    "after_rate": 2.16,
+    "change_percent": -15.11,
+    "statistically_significant": "False",
+    "p_value": 0.269988
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2008,
+        "incident_rate": 2.1552540366719
+      },
+      {
+        "year": 2009,
+        "incident_rate": 2.9502188479716973
+      },
+      {
+        "year": 2010,
+        "incident_rate": 2.5254111259512566
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2012,
+        "incident_rate": 1.9110401989397174
+      },
+      {
+        "year": 2013,
+        "incident_rate": 2.541228861253013
+      },
+      {
+        "year": 2014,
+        "incident_rate": 2.0252343921012392
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.28779659506498395,
+      "after_rate": 0.5599943219144219,
+      "change_percent": 94.57989827432677
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.092399841949166,
+      "after_rate": 3.9817477599103666,
+      "change_percent": -2.7038433758246088
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 4.4428489688250865,
+      "after_rate": 0.02092962380503365,
+      "change_percent": -99.52891435311228
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.9054642717277169,
+      "after_rate": 1.030592989218363,
+      "change_percent": 13.81928822568425
+    },
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    }
+  ],
+  "diff_in_diff": null
+}

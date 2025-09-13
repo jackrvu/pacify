@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Missouri",
+    "policy_type": "gun trafficking",
+    "implementation_year": 2017
+  },
+  "impact_summary": {
+    "before_rate": 6.49,
+    "after_rate": 2.85,
+    "change_percent": -56.15,
+    "statistically_significant": "False",
+    "p_value": 0.232068
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2014,
+        "incident_rate": 5.340039821401307
+      },
+      {
+        "year": 2015,
+        "incident_rate": 6.856575868488601
+      },
+      {
+        "year": 2016,
+        "incident_rate": 7.272078998128267
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2018,
+        "incident_rate": 7.888980195196416
+      },
+      {
+        "year": 2019,
+        "incident_rate": 0.292532416760364
+      },
+      {
+        "year": 2020,
+        "incident_rate": 0.3550368431414951
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.6265490004909605,
+      "after_rate": 0.34358098114959096,
+      "change_percent": -45.16295120088569
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.794711401960251,
+      "after_rate": 2.1704280844577313,
+      "change_percent": -54.732873315996
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 0.03437611785116824,
+      "after_rate": 0.1666109021874119,
+      "change_percent": 384.6704997601985
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.9646909111964019,
+      "after_rate": 0.3387633587610089,
+      "change_percent": -64.88374101701889
+    },
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.07599794755437382,
+      "change_percent": null
+    }
+  ],
+  "diff_in_diff": null
+}

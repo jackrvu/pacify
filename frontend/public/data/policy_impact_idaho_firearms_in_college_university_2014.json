@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Idaho",
+    "policy_type": "firearms in college/university",
+    "implementation_year": 2014
+  },
+  "impact_summary": {
+    "before_rate": 0.86,
+    "after_rate": 1.14,
+    "change_percent": 31.67,
+    "statistically_significant": "False",
+    "p_value": 0.114569
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2011,
+        "incident_rate": 0.8124220152480678
+      },
+      {
+        "year": 2012,
+        "incident_rate": 0.9791972064835407
+      },
+      {
+        "year": 2013,
+        "incident_rate": 0.8004620697028809
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2015,
+        "incident_rate": 1.2959664582243606
+      },
+      {
+        "year": 2016,
+        "incident_rate": 0.8950492983979302
+      },
+      {
+        "year": 2017,
+        "incident_rate": 1.2218931433185227
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 1.2873480906726658,
+      "after_rate": 1.2681937811189405,
+      "change_percent": -1.487888916176253
+    },
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.5128733409360158,
+      "after_rate": 0.6469314739377164,
+      "change_percent": 26.138643267563648
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 4.899153795333299,
+      "after_rate": 6.1776008418418975,
+      "change_percent": 26.09526256812731
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.2655745486359584,
+      "after_rate": 1.1301069575849836,
+      "change_percent": -10.70403882544749
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 3.1890578553271567,
+      "after_rate": 2.9318235134002086,
+      "change_percent": -8.066154757815113
+    }
+  ],
+  "diff_in_diff": 25.27
+}

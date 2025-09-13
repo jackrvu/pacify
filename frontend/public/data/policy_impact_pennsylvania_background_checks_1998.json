@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Pennsylvania",
+    "policy_type": "background checks",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 4.68,
+    "after_rate": 3.77,
+    "change_percent": -19.6,
+    "statistically_significant": "True",
+    "p_value": 0.000518
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1996,
+        "incident_rate": 4.492410156233824
+      },
+      {
+        "year": 1997,
+        "incident_rate": 4.8765887103323085
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 3.741670354315716
+      },
+      {
+        "year": 2000,
+        "incident_rate": 3.791699076452994
+      },
+      {
+        "year": 2001,
+        "incident_rate": 3.849790437899381
+      },
+      {
+        "year": 2002,
+        "incident_rate": 3.6517675197154524
+      },
+      {
+        "year": 2003,
+        "incident_rate": 3.797342815039367
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.49944833046818377,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 5.281951110245217,
+      "after_rate": 4.495804137168031,
+      "change_percent": -14.883647286176572
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 7.041396312969145,
+      "after_rate": 3.579422198099367,
+      "change_percent": -49.16601709370293
+    }
+  ],
+  "diff_in_diff": 35.09
+}

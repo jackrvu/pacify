@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "California",
+    "policy_type": "background checks",
+    "implementation_year": 2012
+  },
+  "impact_summary": {
+    "before_rate": 3.6,
+    "after_rate": 3.46,
+    "change_percent": -3.79,
+    "statistically_significant": "False",
+    "p_value": 0.419666
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2009,
+        "incident_rate": 3.855451549806082
+      },
+      {
+        "year": 2010,
+        "incident_rate": 3.5435969613940523
+      },
+      {
+        "year": 2011,
+        "incident_rate": 3.40105619440037
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2013,
+        "incident_rate": 3.4759852435850007
+      },
+      {
+        "year": 2014,
+        "incident_rate": 3.3344230152064696
+      },
+      {
+        "year": 2015,
+        "incident_rate": 3.5801913542011667
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.3899120264209864,
+      "after_rate": 0.5048227721146947,
+      "change_percent": 29.470941624570386
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 3.5378566379765903,
+      "after_rate": 3.0810324172732226,
+      "change_percent": -12.912457101841177
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.0507974537745046,
+      "after_rate": 1.047083388031174,
+      "change_percent": -0.35345210725335185
+    },
+    {
+      "state": "Georgia",
+      "before_rate": 3.8784134840904705,
+      "after_rate": 4.305902383855098,
+      "change_percent": 11.022262105838307
+    },
+    {
+      "state": "Vermont",
+      "before_rate": 0.3880674180558437,
+      "after_rate": 0.9735610176247155,
+      "change_percent": 150.87419668007735
+    }
+  ],
+  "diff_in_diff": -39.41
+}

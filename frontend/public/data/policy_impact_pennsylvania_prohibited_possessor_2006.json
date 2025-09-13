@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Pennsylvania",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2006
+  },
+  "impact_summary": {
+    "before_rate": 4.13,
+    "after_rate": 4.26,
+    "change_percent": 3.13,
+    "statistically_significant": "False",
+    "p_value": 0.632437
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2003,
+        "incident_rate": 3.797342815039367
+      },
+      {
+        "year": 2004,
+        "incident_rate": 4.053212233051805
+      },
+      {
+        "year": 2005,
+        "incident_rate": 4.545682454520726
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2007,
+        "incident_rate": 4.577199473583141
+      },
+      {
+        "year": 2008,
+        "incident_rate": 4.424677266391061
+      },
+      {
+        "year": 2009,
+        "incident_rate": 4.13281945167468
+      },
+      {
+        "year": 2010,
+        "incident_rate": 3.911511843983437
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.344387577171106,
+      "after_rate": 4.155745353370138,
+      "change_percent": -4.342205211897879
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 4.407634673153425,
+      "after_rate": 4.886744079854535,
+      "change_percent": 10.869989058288548
+    }
+  ],
+  "diff_in_diff": null
+}

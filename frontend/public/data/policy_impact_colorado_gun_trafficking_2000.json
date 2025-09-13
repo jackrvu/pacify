@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Colorado",
+    "policy_type": "gun trafficking",
+    "implementation_year": 2000
+  },
+  "impact_summary": {
+    "before_rate": 2.0,
+    "after_rate": 2.06,
+    "change_percent": 3.02,
+    "statistically_significant": "False",
+    "p_value": 0.802391
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1997,
+        "incident_rate": 1.940486498701241
+      },
+      {
+        "year": 1998,
+        "incident_rate": 2.0267937863867984
+      },
+      {
+        "year": 1999,
+        "incident_rate": 2.030465905577737
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2001,
+        "incident_rate": 1.5781661589292615
+      },
+      {
+        "year": 2002,
+        "incident_rate": 1.9816789673430315
+      },
+      {
+        "year": 2003,
+        "incident_rate": 2.1821861899865707
+      },
+      {
+        "year": 2004,
+        "incident_rate": 2.496558439578825
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.9344352555241064,
+      "after_rate": 4.322531203147964,
+      "change_percent": -12.400690670550702
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 3.7737370217130572,
+      "after_rate": 4.438367330293318,
+      "change_percent": 17.611993224651293
+    }
+  ],
+  "diff_in_diff": null
+}

@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Texas",
+    "policy_type": "carrying a concealed weapon (ccw)",
+    "implementation_year": 1996
+  },
+  "impact_summary": {
+    "before_rate": 2.36,
+    "after_rate": 3.34,
+    "change_percent": 41.47,
+    "statistically_significant": "False",
+    "p_value": 0.47947
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1994,
+        "incident_rate": 0.0
+      },
+      {
+        "year": 1995,
+        "incident_rate": 4.728625625741665
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1997,
+        "incident_rate": 3.7377706562032555
+      },
+      {
+        "year": 1998,
+        "incident_rate": 3.7717335147970292
+      },
+      {
+        "year": 1999,
+        "incident_rate": 2.976535755654971
+      },
+      {
+        "year": 2000,
+        "incident_rate": 3.0321002509050987
+      },
+      {
+        "year": 2001,
+        "incident_rate": 3.20548933828157
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "California",
+      "before_rate": 4.074308273563764,
+      "after_rate": 4.664417537910047,
+      "change_percent": 14.483667526466274
+    },
+    {
+      "state": "New York",
+      "before_rate": 2.976113611649068,
+      "after_rate": 3.2522765666314335,
+      "change_percent": 9.279314939504047
+    },
+    {
+      "state": "Connecticut",
+      "before_rate": 1.630304818596151,
+      "after_rate": 2.459728918283995,
+      "change_percent": 50.875400123153526
+    }
+  ],
+  "diff_in_diff": 16.59
+}

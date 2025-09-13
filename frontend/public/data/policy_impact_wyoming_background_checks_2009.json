@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Wyoming",
+    "policy_type": "background checks",
+    "implementation_year": 2009
+  },
+  "impact_summary": {
+    "before_rate": 1.08,
+    "after_rate": 1.24,
+    "change_percent": 15.0,
+    "statistically_significant": "False",
+    "p_value": 0.520643
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2006,
+        "incident_rate": 0.9609478445134574
+      },
+      {
+        "year": 2007,
+        "incident_rate": 1.5256764897709807
+      },
+      {
+        "year": 2008,
+        "incident_rate": 0.7570086949791602
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2010,
+        "incident_rate": 0.9320160814528373
+      },
+      {
+        "year": 2011,
+        "incident_rate": 1.4800853033103754
+      },
+      {
+        "year": 2012,
+        "incident_rate": 1.2854713326817733
+      },
+      {
+        "year": 2013,
+        "incident_rate": 1.2760093985821177
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.289175697231793,
+      "after_rate": 3.9078187329312657,
+      "change_percent": -8.891148118428747
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 5.816271487547268,
+      "after_rate": 0.6685979782415449,
+      "change_percent": -88.50469790357923
+    }
+  ],
+  "diff_in_diff": null
+}

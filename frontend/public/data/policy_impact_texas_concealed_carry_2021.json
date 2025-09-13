@@ -1,0 +1,65 @@
+{
+  "policy_info": {
+    "state": "Texas",
+    "policy_type": "concealed_carry",
+    "implementation_year": 2021
+  },
+  "impact_summary": {
+    "before_rate": 1.22,
+    "after_rate": 0.16,
+    "change_percent": -86.59,
+    "statistically_significant": "False",
+    "p_value": 0.39663
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2018,
+        "incident_rate": 3.448459698724751
+      },
+      {
+        "year": 2019,
+        "incident_rate": 0.09674693120500714
+      },
+      {
+        "year": 2020,
+        "incident_rate": 0.11665606754798039
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2022,
+        "incident_rate": 0.16918445809835883
+      },
+      {
+        "year": 2023,
+        "incident_rate": 0.21843188311974207
+      },
+      {
+        "year": 2024,
+        "incident_rate": 0.10346584155377066
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "California",
+      "before_rate": 1.1039450378697064,
+      "after_rate": 0.11155550449744484,
+      "change_percent": -89.89483165640976
+    },
+    {
+      "state": "New York",
+      "before_rate": 0.5914196534381442,
+      "after_rate": 0.10356857524786645,
+      "change_percent": -82.48814109477365
+    },
+    {
+      "state": "Connecticut",
+      "before_rate": 0.6176494502973938,
+      "after_rate": 0.06337961015553668,
+      "change_percent": -89.7385790394503
+    }
+  ],
+  "diff_in_diff": 0.78
+}

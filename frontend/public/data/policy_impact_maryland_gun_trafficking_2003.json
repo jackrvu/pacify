@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Maryland",
+    "policy_type": "gun trafficking",
+    "implementation_year": 2003
+  },
+  "impact_summary": {
+    "before_rate": 6.23,
+    "after_rate": 7.4,
+    "change_percent": 18.68,
+    "statistically_significant": "True",
+    "p_value": 0.003285
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2000,
+        "incident_rate": 5.891861593040709
+      },
+      {
+        "year": 2001,
+        "incident_rate": 6.329760102719482
+      },
+      {
+        "year": 2002,
+        "incident_rate": 6.482809525830538
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2004,
+        "incident_rate": 7.073354259727944
+      },
+      {
+        "year": 2005,
+        "incident_rate": 7.669189538209664
+      },
+      {
+        "year": 2006,
+        "incident_rate": 7.268673068920606
+      },
+      {
+        "year": 2007,
+        "incident_rate": 7.586690472718306
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 4.132485447208341,
+      "after_rate": 4.181984246698146,
+      "change_percent": 1.1977973092014942
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 4.792852348637202,
+      "after_rate": 5.208953875273071,
+      "change_percent": 8.681709687013072
+    },
+    {
+      "state": "Texas",
+      "before_rate": 3.137826657676977,
+      "after_rate": 3.5856209933357626,
+      "change_percent": 14.270843628765034
+    }
+  ],
+  "diff_in_diff": 10.63
+}

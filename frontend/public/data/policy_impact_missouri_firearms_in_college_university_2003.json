@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Missouri",
+    "policy_type": "firearms in college/university",
+    "implementation_year": 2003
+  },
+  "impact_summary": {
+    "before_rate": 4.33,
+    "after_rate": 4.62,
+    "change_percent": 6.67,
+    "statistically_significant": "False",
+    "p_value": 0.3116
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2000,
+        "incident_rate": 4.297221832949385
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.4672770448756856
+      },
+      {
+        "year": 2002,
+        "incident_rate": 4.22838761594562
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2004,
+        "incident_rate": 4.288938113298159
+      },
+      {
+        "year": 2005,
+        "incident_rate": 5.156959732781493
+      },
+      {
+        "year": 2006,
+        "incident_rate": 4.276043414171403
+      },
+      {
+        "year": 2007,
+        "incident_rate": 4.757969495045538
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.556101200451624,
+      "after_rate": 4.382997870645979,
+      "change_percent": -3.7993741181272784
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 4.298476616009697,
+      "after_rate": 5.047992859345624,
+      "change_percent": 17.43678773415562
+    }
+  ],
+  "diff_in_diff": null
+}

@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Montana",
+    "policy_type": "waiting period",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 0.49,
+    "after_rate": 0.91,
+    "change_percent": 84.79,
+    "statistically_significant": "False",
+    "p_value": 0.279395
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1996,
+        "incident_rate": 0.0
+      },
+      {
+        "year": 1997,
+        "incident_rate": 0.9893754542710528
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 0.7568844656680856
+      },
+      {
+        "year": 2000,
+        "incident_rate": 0.8579700321792386
+      },
+      {
+        "year": 2001,
+        "incident_rate": 1.2765644077407354
+      },
+      {
+        "year": 2002,
+        "incident_rate": 0.5276417531994745
+      },
+      {
+        "year": 2003,
+        "incident_rate": 1.151588607323439
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.49944833046818377,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 5.281951110245217,
+      "after_rate": 4.495804137168031,
+      "change_percent": -14.883647286176572
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 7.041396312969145,
+      "after_rate": 3.579422198099367,
+      "change_percent": -49.16601709370293
+    }
+  ],
+  "diff_in_diff": 139.47
+}

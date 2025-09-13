@@ -1,0 +1,73 @@
+{
+  "policy_info": {
+    "state": "Arkansas",
+    "policy_type": "castle doctrine",
+    "implementation_year": 2021
+  },
+  "impact_summary": {
+    "before_rate": 0.32,
+    "after_rate": 0.22,
+    "change_percent": -31.42,
+    "statistically_significant": "False",
+    "p_value": 0.474688
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2019,
+        "incident_rate": 0.1671992893661026
+      },
+      {
+        "year": 2020,
+        "incident_rate": 0.4648809041535117
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2022,
+        "incident_rate": 0.16373658218988152
+      },
+      {
+        "year": 2023,
+        "incident_rate": 0.29270520060036415
+      },
+      {
+        "year": 2024,
+        "incident_rate": 0.19380804786833444
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Massachusetts",
+      "before_rate": 0.09309030043202528,
+      "after_rate": 0.07451453280270365,
+      "change_percent": -19.954568352570405
+    },
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.0,
+      "after_rate": 0.0237002131952915,
+      "change_percent": null
+    },
+    {
+      "state": "Maryland",
+      "before_rate": 0.3087227119200996,
+      "after_rate": 0.24888067794364502,
+      "change_percent": -19.383748479101943
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.03582375286769141,
+      "after_rate": 0.04678256985659996,
+      "change_percent": 30.59092393078684
+    },
+    {
+      "state": "New Jersey",
+      "before_rate": 0.1242198175582694,
+      "after_rate": 0.08449860389074217,
+      "change_percent": -31.97655128489839
+    }
+  ],
+  "diff_in_diff": null
+}

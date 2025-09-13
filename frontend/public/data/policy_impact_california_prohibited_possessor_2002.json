@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "California",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2002
+  },
+  "impact_summary": {
+    "before_rate": 4.38,
+    "after_rate": 5.2,
+    "change_percent": 18.82,
+    "statistically_significant": "True",
+    "p_value": 0.004988
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1999,
+        "incident_rate": 4.020624472944852
+      },
+      {
+        "year": 2000,
+        "incident_rate": 4.431978598014759
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.684996781979416
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2003,
+        "incident_rate": 5.150262724132701
+      },
+      {
+        "year": 2004,
+        "incident_rate": 5.092574629652712
+      },
+      {
+        "year": 2005,
+        "incident_rate": 5.315554969816502
+      },
+      {
+        "year": 2006,
+        "incident_rate": 5.25467551110671
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 3.899605999986582,
+      "after_rate": 4.012934786536315,
+      "change_percent": 2.906159918466699
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 4.572974723915892,
+      "after_rate": 5.15888080372976,
+      "change_percent": 12.812362087847923
+    },
+    {
+      "state": "Texas",
+      "before_rate": 3.0713751149472137,
+      "after_rate": 3.512961014681177,
+      "change_percent": 14.377465571851927
+    }
+  ],
+  "diff_in_diff": 8.79
+}

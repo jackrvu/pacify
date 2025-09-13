@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Maryland",
+    "policy_type": "untraceable firearms",
+    "implementation_year": 2023
+  },
+  "impact_summary": {
+    "before_rate": 0.3,
+    "after_rate": 0.11,
+    "change_percent": -63.93,
+    "statistically_significant": "True",
+    "p_value": 0.006172
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2021,
+        "incident_rate": 0.3054434245593472
+      },
+      {
+        "year": 2022,
+        "incident_rate": 0.303334840760614
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2024,
+        "incident_rate": 0.0944854173247786
+      },
+      {
+        "year": 2025,
+        "incident_rate": 0.1251285140223799
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.03604456455669209,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 0.12434979475244759,
+      "after_rate": 0.047423759633012055,
+      "change_percent": -61.86261527216666
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.0,
+      "after_rate": 0.03461232161129606,
+      "change_percent": null
+    },
+    {
+      "state": "Georgia",
+      "before_rate": 0.2354700769887926,
+      "after_rate": 0.18113131992924675,
+      "change_percent": -23.076714355570605
+    },
+    {
+      "state": "Vermont",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    }
+  ],
+  "diff_in_diff": null
+}

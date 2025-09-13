@@ -296,3 +296,48 @@ body {
     text-decoration: underline;
     color: rgba(255, 255, 255, 0.8);
 }
+
+/* Policy Impact Button */
+.policy-impact-button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 140px;
+}
+
+.policy-impact-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.policy-impact-icon {
+    font-size: 1.2rem;
+}
+
+.policy-impact-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+}
+
+/* Responsive design for policy impact button */
+@media (max-width: 768px) {
+    .policy-impact-button {
+        padding: 10px 12px;
+        min-width: 120px;
+    }
+    
+    .policy-impact-label {
+        font-size: 0.8rem;
+    }
+}

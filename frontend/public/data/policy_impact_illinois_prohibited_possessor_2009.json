@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Illinois",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2009
+  },
+  "impact_summary": {
+    "before_rate": 3.33,
+    "after_rate": 3.22,
+    "change_percent": -3.37,
+    "statistically_significant": "False",
+    "p_value": 0.634316
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2006,
+        "incident_rate": 3.435182539546616
+      },
+      {
+        "year": 2007,
+        "incident_rate": 2.970831813774326
+      },
+      {
+        "year": 2008,
+        "incident_rate": 3.5956948472253196
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2010,
+        "incident_rate": 3.0044565557277294
+      },
+      {
+        "year": 2011,
+        "incident_rate": 3.2652190872930396
+      },
+      {
+        "year": 2012,
+        "incident_rate": 3.579989496810196
+      },
+      {
+        "year": 2013,
+        "incident_rate": 3.0365962933046418
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 4.675778976567113,
+      "after_rate": 3.9375577918637914,
+      "change_percent": -15.788196756154466
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 5.114038183141698,
+      "after_rate": 3.5544357104486677,
+      "change_percent": -30.496496444516623
+    },
+    {
+      "state": "Texas",
+      "before_rate": 3.6277209030334716,
+      "after_rate": 2.933627035679697,
+      "change_percent": -19.133055874650633
+    }
+  ],
+  "diff_in_diff": 18.44
+}

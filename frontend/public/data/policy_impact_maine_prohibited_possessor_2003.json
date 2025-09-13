@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Maine",
+    "policy_type": "prohibited possessor",
+    "implementation_year": 2003
+  },
+  "impact_summary": {
+    "before_rate": 0.58,
+    "after_rate": 0.86,
+    "change_percent": 48.05,
+    "statistically_significant": "False",
+    "p_value": 0.086742
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2000,
+        "incident_rate": 0.4998663190840663
+      },
+      {
+        "year": 2001,
+        "incident_rate": 0.5784689044379238
+      },
+      {
+        "year": 2002,
+        "incident_rate": 0.6558124094771884
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2004,
+        "incident_rate": 0.7261571527234747
+      },
+      {
+        "year": 2005,
+        "incident_rate": 0.6404246322715784
+      },
+      {
+        "year": 2006,
+        "incident_rate": 0.9531818944840289
+      },
+      {
+        "year": 2007,
+        "incident_rate": 1.1034819365185475
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.556101200451624,
+      "after_rate": 4.382997870645979,
+      "change_percent": -3.7993741181272784
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 4.298476616009697,
+      "after_rate": 5.047992859345624,
+      "change_percent": 17.43678773415562
+    }
+  ],
+  "diff_in_diff": null
+}

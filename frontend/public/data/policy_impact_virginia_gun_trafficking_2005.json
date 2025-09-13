@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Virginia",
+    "policy_type": "gun trafficking",
+    "implementation_year": 2005
+  },
+  "impact_summary": {
+    "before_rate": 3.29,
+    "after_rate": 3.08,
+    "change_percent": -6.46,
+    "statistically_significant": "False",
+    "p_value": 0.153078
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2002,
+        "incident_rate": 3.260939814609861
+      },
+      {
+        "year": 2003,
+        "incident_rate": 3.511191058099757
+      },
+      {
+        "year": 2004,
+        "incident_rate": 3.105153687452512
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2006,
+        "incident_rate": 3.1854020275463584
+      },
+      {
+        "year": 2007,
+        "incident_rate": 3.199108333513213
+      },
+      {
+        "year": 2008,
+        "incident_rate": 2.9343480150921835
+      },
+      {
+        "year": 2009,
+        "incident_rate": 2.999958927298732
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 4.294676149847337,
+      "after_rate": 4.3926689622903545,
+      "change_percent": 2.281727632629546
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 4.203731934992602,
+      "after_rate": 5.596729050391429,
+      "change_percent": 33.13715377051697
+    }
+  ],
+  "diff_in_diff": null
+}

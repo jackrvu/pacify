@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Kansas",
+    "policy_type": "castle doctrine",
+    "implementation_year": 2006
+  },
+  "impact_summary": {
+    "before_rate": 1.79,
+    "after_rate": 2.53,
+    "change_percent": 41.22,
+    "statistically_significant": "True",
+    "p_value": 0.019339
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2003,
+        "incident_rate": 1.8158831419389927
+      },
+      {
+        "year": 2004,
+        "incident_rate": 1.5715812480826707
+      },
+      {
+        "year": 2005,
+        "incident_rate": 1.9776355283135416
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2007,
+        "incident_rate": 2.47141682866804
+      },
+      {
+        "year": 2008,
+        "incident_rate": 2.1552540366719
+      },
+      {
+        "year": 2009,
+        "incident_rate": 2.9502188479716973
+      },
+      {
+        "year": 2010,
+        "incident_rate": 2.5254111259512566
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "California",
+      "before_rate": 5.1861307745339715,
+      "after_rate": 4.064827432223628,
+      "change_percent": -21.62119296752799
+    },
+    {
+      "state": "New York",
+      "before_rate": 2.9052027542912326,
+      "after_rate": 2.5396762774596295,
+      "change_percent": -12.581788871420052
+    },
+    {
+      "state": "Connecticut",
+      "before_rate": 1.623190645627026,
+      "after_rate": 2.192596362867464,
+      "change_percent": 35.07941095979401
+    }
+  ],
+  "diff_in_diff": 40.93
+}

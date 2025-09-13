@@ -1,0 +1,73 @@
+{
+  "policy_info": {
+    "state": "New York",
+    "policy_type": "untraceable firearms",
+    "implementation_year": 2020
+  },
+  "impact_summary": {
+    "before_rate": 0.79,
+    "after_rate": 0.14,
+    "change_percent": -82.94,
+    "statistically_significant": "False",
+    "p_value": 0.324243
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2018,
+        "incident_rate": 1.541286018350491
+      },
+      {
+        "year": 2019,
+        "incident_rate": 0.044865761066364404
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2021,
+        "incident_rate": 0.18188380528956138
+      },
+      {
+        "year": 2022,
+        "incident_rate": 0.1464552949996708
+      },
+      {
+        "year": 2023,
+        "incident_rate": 0.07757397016241133
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.5153714717243865,
+      "after_rate": 0.04772992289975289,
+      "change_percent": -90.7387339970424
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 1.921359478014815,
+      "after_rate": 0.12398627814018408,
+      "change_percent": -93.54695050255306
+    },
+    {
+      "state": "Maine",
+      "before_rate": 0.47232128527382194,
+      "after_rate": 0.04678256985659996,
+      "change_percent": -90.09518069263417
+    },
+    {
+      "state": "Georgia",
+      "before_rate": 2.5131083763938613,
+      "after_rate": 0.23317499946837916,
+      "change_percent": -90.72164966466869
+    },
+    {
+      "state": "Vermont",
+      "before_rate": 0.2365654772977716,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    }
+  ],
+  "diff_in_diff": 10.08
+}

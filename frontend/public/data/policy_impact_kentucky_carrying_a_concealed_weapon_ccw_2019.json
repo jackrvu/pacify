@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Kentucky",
+    "policy_type": "carrying a concealed weapon (ccw)",
+    "implementation_year": 2019
+  },
+  "impact_summary": {
+    "before_rate": 4.37,
+    "after_rate": 0.17,
+    "change_percent": -96.13,
+    "statistically_significant": "True",
+    "p_value": 1.1e-05
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2016,
+        "incident_rate": 4.5437186415143795
+      },
+      {
+        "year": 2017,
+        "incident_rate": 4.488560857768369
+      },
+      {
+        "year": 2018,
+        "incident_rate": 4.07404929331703
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2020,
+        "incident_rate": 0.22193439796743603
+      },
+      {
+        "year": 2021,
+        "incident_rate": 0.0881566625491305
+      },
+      {
+        "year": 2022,
+        "incident_rate": 0.19698319346222132
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.8149835186036304,
+      "after_rate": 0.024029709704461392,
+      "change_percent": -97.05150973535842
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.0490085081246556,
+      "after_rate": 0.023882501911794276,
+      "change_percent": -97.72332619546721
+    },
+    {
+      "state": "California",
+      "before_rate": 3.4314378433003196,
+      "after_rate": 0.11129370606993678,
+      "change_percent": -96.75664513966846
+    },
+    {
+      "state": "Connecticut",
+      "before_rate": 1.63275326435485,
+      "after_rate": 0.11041655296944364,
+      "change_percent": -93.23740118118383
+    },
+    {
+      "state": "New York",
+      "before_rate": 1.6526874371398597,
+      "after_rate": 0.17214876039560312,
+      "change_percent": -89.58370732862086
+    }
+  ],
+  "diff_in_diff": -1.26
+}

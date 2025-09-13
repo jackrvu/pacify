@@ -1,0 +1,77 @@
+{
+  "policy_info": {
+    "state": "Wisconsin",
+    "policy_type": "waiting period",
+    "implementation_year": 2015
+  },
+  "impact_summary": {
+    "before_rate": 2.09,
+    "after_rate": 2.91,
+    "change_percent": 39.61,
+    "statistically_significant": "True",
+    "p_value": 0.024935
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2012,
+        "incident_rate": 1.9591385555758736
+      },
+      {
+        "year": 2013,
+        "incident_rate": 2.08744957202215
+      },
+      {
+        "year": 2014,
+        "incident_rate": 2.2138854796685856
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2016,
+        "incident_rate": 3.2642693674132386
+      },
+      {
+        "year": 2017,
+        "incident_rate": 2.9809617470714675
+      },
+      {
+        "year": 2018,
+        "incident_rate": 2.495179164144124
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "New Hampshire",
+      "before_rate": 0.5599943219144219,
+      "after_rate": 0.8149835186036304,
+      "change_percent": 45.53424681476964
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 3.9817477599103666,
+      "after_rate": 6.063579640784519,
+      "change_percent": 52.2843737575435
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 0.02092962380503365,
+      "after_rate": 0.0270596345594248,
+      "change_percent": 29.288681017366695
+    },
+    {
+      "state": "Maine",
+      "before_rate": 1.030592989218363,
+      "after_rate": 1.0490085081246556,
+      "change_percent": 1.7868857152094186
+    },
+    {
+      "state": "Florida",
+      "before_rate": 0.0,
+      "after_rate": 0.0,
+      "change_percent": null
+    }
+  ],
+  "diff_in_diff": null
+}

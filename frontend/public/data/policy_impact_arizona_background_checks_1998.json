@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "Arizona",
+    "policy_type": "background checks",
+    "implementation_year": 1998
+  },
+  "impact_summary": {
+    "before_rate": 4.5,
+    "after_rate": 4.77,
+    "change_percent": 6.04,
+    "statistically_significant": "False",
+    "p_value": 0.407948
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 1996,
+        "incident_rate": 4.571390414532177
+      },
+      {
+        "year": 1997,
+        "incident_rate": 4.433251925528225
+      }
+    ],
+    "after_period": [
+      {
+        "year": 1999,
+        "incident_rate": 4.508025855307229
+      },
+      {
+        "year": 2000,
+        "incident_rate": 4.211182359980804
+      },
+      {
+        "year": 2001,
+        "incident_rate": 4.999715956459643
+      },
+      {
+        "year": 2002,
+        "incident_rate": 5.167658729471157
+      },
+      {
+        "year": 2003,
+        "incident_rate": 4.98375259988525
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Florida",
+      "before_rate": 0.49944833046818377,
+      "after_rate": 0.0,
+      "change_percent": -100.0
+    },
+    {
+      "state": "Tennessee",
+      "before_rate": 5.281951110245217,
+      "after_rate": 4.495804137168031,
+      "change_percent": -14.883647286176572
+    },
+    {
+      "state": "Alabama",
+      "before_rate": 7.041396312969145,
+      "after_rate": 3.579422198099367,
+      "change_percent": -49.16601709370293
+    }
+  ],
+  "diff_in_diff": 60.72
+}

@@ -1,0 +1,69 @@
+{
+  "policy_info": {
+    "state": "New Jersey",
+    "policy_type": "firearm removal at scene of domestic violence",
+    "implementation_year": 2004
+  },
+  "impact_summary": {
+    "before_rate": 2.54,
+    "after_rate": 3.17,
+    "change_percent": 24.73,
+    "statistically_significant": "False",
+    "p_value": 0.061332
+  },
+  "time_series_data": {
+    "before_period": [
+      {
+        "year": 2001,
+        "incident_rate": 2.2598707871097345
+      },
+      {
+        "year": 2002,
+        "incident_rate": 2.3772627975322442
+      },
+      {
+        "year": 2003,
+        "incident_rate": 2.9815715487613357
+      }
+    ],
+    "after_period": [
+      {
+        "year": 2005,
+        "incident_rate": 3.3679552598610054
+      },
+      {
+        "year": 2006,
+        "incident_rate": 3.4611687824553523
+      },
+      {
+        "year": 2007,
+        "incident_rate": 3.055534138985167
+      },
+      {
+        "year": 2008,
+        "incident_rate": 2.7853783138857495
+      }
+    ]
+  },
+  "control_comparison": [
+    {
+      "state": "Georgia",
+      "before_rate": 4.364537812439359,
+      "after_rate": 4.453413012271957,
+      "change_percent": 2.0363026659843633
+    },
+    {
+      "state": "Arizona",
+      "before_rate": 5.050375761938683,
+      "after_rate": 5.132283223562049,
+      "change_percent": 1.62180925705862
+    },
+    {
+      "state": "Texas",
+      "before_rate": 3.27081351078685,
+      "after_rate": 3.6149749610597377,
+      "change_percent": 10.52219728021405
+    }
+  ],
+  "diff_in_diff": 20.0
+}
