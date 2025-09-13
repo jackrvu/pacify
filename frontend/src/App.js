@@ -132,18 +132,6 @@ function App() {
         setLoading(timelineLoading);
     }, [timelineMode, currentYear, timelineData, timelineLoading, getDataForYear]);
 
-    // Layer toggle handlers for controls
-    const handleToggleCountyLayer = (enabled) => {
-        setShowCountyLayer(enabled);
-    };
-
-    const handleToggleHeatMapLayer = (enabled) => {
-        setShowHeatMapLayer(enabled);
-    };
-
-    const handleTogglePinsLayer = (enabled) => {
-        setShowPinsLayer(enabled);
-    };
 
     // Cursor and panel handlers
     const handleCursorMove = (position) => {
@@ -301,23 +289,12 @@ function App() {
                 {/* Floating controls for layer toggles */}
                 <div className="controls-overlay">
                     <Controls
-                        onToggleCountyLayer={handleToggleCountyLayer}
-                        onToggleHeatMapLayer={handleToggleHeatMapLayer}
-                        onTogglePinsLayer={handleTogglePinsLayer}
                         onToggleTimeline={handleTimelineToggle}
                         timelineMode={timelineMode}
+                        currentYear={currentYear}
+                        availableYears={availableYears}
                     />
 
-                    {/* Timeline controls - show when timeline mode is active */}
-                    {timelineMode && availableYears.length > 0 && (
-                        <TimelineControls
-                            availableYears={availableYears}
-                            currentYear={currentYear}
-                            onYearChange={handleYearChange}
-                            yearStats={getYearStats(currentYear)}
-                            className="timeline-overlay"
-                        />
-                    )}
                 </div>
             </div>
 

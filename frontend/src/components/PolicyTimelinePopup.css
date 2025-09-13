@@ -9,12 +9,33 @@
     border-radius: 12px 12px 0 0;
     box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
     z-index: 1000;
-    min-height: 200px;
-    max-height: 400px;
+    min-height: 150px;
+    max-height: 60vh;
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Resize handle for policy timeline */
+.resize-handle-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: transparent;
+    cursor: row-resize;
+    z-index: 1001;
+    transition: background-color 0.2s ease;
+}
+
+.resize-handle-top:hover {
+    background: #4a90e2;
+}
+
+.policy-timeline-popup.resizing .resize-handle-top {
+    background: #4a90e2;
 }
 
 .timeline-popup-header {
@@ -37,6 +58,44 @@
     font-size: 1.4rem;
     font-weight: 600;
     color: #ffffff;
+}
+
+.timeline-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.play-pause-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.play-pause-btn:hover {
+    background: linear-gradient(135deg, #357abd, #2c5aa0);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+}
+
+.play-pause-btn.playing {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.play-pause-btn.playing:hover {
+    background: linear-gradient(135deg, #c0392b, #a93226);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
 }
 
 .current-year-display {

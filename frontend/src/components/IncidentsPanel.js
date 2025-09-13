@@ -10,6 +10,10 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
     const [isPersistent, setIsPersistent] = useState(false);
     const [lastClickCount, setLastClickCount] = useState(0);
     const [isPanelMinimized, setIsPanelMinimized] = useState(false);
+    
+    // Resize state
+    const [panelWidth, setPanelWidth] = useState(640);
+    const [isResizing, setIsResizing] = useState(false);
 
     // Policy-related state
     const [policyData, setPolicyData] = useState([]);
@@ -217,6 +221,50 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
         setIsPanelMinimized(false);
     };
 
+    // Resize handlers
+    const handleMouseDown = (e) => {
+        e.preventDefault();
+        setIsResizing(true);
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isResizing) return;
+        
+        const newWidth = window.innerWidth - e.clientX;
+        const minWidth = 300;
+        const maxWidth = window.innerWidth * 0.8;
+        
+        if (newWidth >= minWidth && newWidth <= maxWidth) {
+            setPanelWidth(newWidth);
+        }
+    };
+
+    const handleMouseUp = () => {
+        setIsResizing(false);
+    };
+
+    // Add event listeners for resize
+    useEffect(() => {
+        if (isResizing) {
+            document.addEventListener('mousemove', handleMouseMove);
+            document.addEventListener('mouseup', handleMouseUp);
+            document.body.style.cursor = 'col-resize';
+            document.body.style.userSelect = 'none';
+        } else {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+        }
+
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+        };
+    }, [isResizing]);
+
     // Use persistent incidents if available, otherwise use nearby incidents
     const currentIncidents = isPersistent ? persistentIncidents : nearbyIncidents;
     const displayedIncidents = currentIncidents.slice(0, displayedIncidentCount);
@@ -295,9 +343,17 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
             )}
 
             <div
-                className={`incidents-panel ${isMobile ? 'mobile' : ''} ${isMobile && isPanelMinimized ? 'minimized' : ''}`}
+                className={`incidents-panel ${isMobile ? 'mobile' : ''} ${isMobile && isPanelMinimized ? 'minimized' : ''} ${isResizing ? 'resizing' : ''}`}
                 ref={panelRef}
+                style={{ width: isMobile ? '100%' : `${panelWidth}px` }}
             >
+                {/* Resize handle */}
+                {!isMobile && (
+                    <div 
+                        className="resize-handle"
+                        onMouseDown={handleMouseDown}
+                    />
+                )}
                 <div className="incidents-panel-header">
                     {/* Minimize button for mobile */}
                     {isMobile && !isPanelMinimized && (
