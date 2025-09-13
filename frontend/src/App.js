@@ -208,8 +208,8 @@ function App() {
     const handleTimelineToggle = (enabled) => {
         setTimelineMode(enabled);
         if (enabled && availableYears.length > 0) {
-            // Set to most recent year when enabling timeline
-            setCurrentYear(Math.max(...availableYears));
+            // Set to earliest year when enabling timeline
+            setCurrentYear(Math.min(...availableYears));
         }
     };
 
