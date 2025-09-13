@@ -11,6 +11,8 @@ import IncidentPins from './components/IncidentPins';
 import IncidentHeatmap from './components/IncidentHeatmap';
 import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
+import TimelineControls from './components/TimelineControls';
+import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -27,8 +29,23 @@ function App() {
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
     const [showPinsLayer, setShowPinsLayer] = useState(false); // Disable pins by default
+    
+    // Timeline state
+    const [timelineMode, setTimelineMode] = useState(false);
+    const [currentYear, setCurrentYear] = useState(2025);
+    
+    // Legacy state for backward compatibility
     const [incidents, setIncidents] = useState([]); // Gun violence incident data
     const [loading, setLoading] = useState(true);
+    
+    // Timeline data hook
+    const { 
+        allData: timelineData, 
+        loading: timelineLoading, 
+        availableYears, 
+        getDataForYear, 
+        getYearStats 
+    } = useTimelineData();
     
     // State for cursor tracking and panel
     const [cursorPosition, setCursorPosition] = useState(null);
@@ -53,37 +70,57 @@ function App() {
         };
     }, []);
 
-    // Load CSV data on component mount
+    // Update incidents based on timeline mode and current year
     useEffect(() => {
-        const loadIncidentData = async () => {
-            try {
-                setLoading(true);
-                // Fetch CSV from public directory
+        if (timelineLoading) {
+            setLoading(true);
+            return;
+        }
 
-                const response = await fetch('/data/2025_with_locations.csv');
-                const csvText = await response.text();
+        if (timelineMode && timelineData.length > 0) {
+            // Timeline mode: use filtered data
+            const yearData = getDataForYear(currentYear);
+            // Convert timeline data format to legacy format for compatibility
+            const legacyFormat = yearData.map(item => ({
+                'Incident ID': item.id,
+                'Incident Date': `${item.month || 1}/1/${item.year}`,
+                'State': item.state,
+                'City Or County': item.city || '',
+                'Address': item.address || '',
+                'Victims Killed': item.killed,
+                'Victims Injured': item.injured,
+                'Latitude': item.latitude,
+                'Longitude': item.longitude,
+                ...item.originalData
+            }));
+            setIncidents(legacyFormat);
+        } else if (!timelineMode) {
+            // Legacy mode: load 2025 data as before
+            const load2025Data = async () => {
+                try {
+                    const response = await fetch('/data/2025_with_locations.csv');
+                    const csvText = await response.text();
 
-                // Parse CSV with headers using PapaParse library
-                Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: (results) => {
-                        setIncidents(results.data);
-                        setLoading(false);
-                    },
-                    error: (error) => {
-                        console.error('Error parsing CSV:', error);
-                        setLoading(false);
-                    }
-                });
-            } catch (error) {
-                console.error('Error loading incident data:', error);
-                setLoading(false);
-            }
-        };
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true,
+                        complete: (results) => {
+                            setIncidents(results.data);
+                        },
+                        error: (error) => {
+                            console.error('Error parsing CSV:', error);
+                        }
+                    });
+                } catch (error) {
+                    console.error('Error loading incident data:', error);
+                }
+            };
 
-        loadIncidentData();
-    }, []);
+            load2025Data();
+        }
+
+        setLoading(timelineLoading);
+    }, [timelineMode, currentYear, timelineData, timelineLoading, getDataForYear]);
 
     // Layer toggle handlers for controls
     const handleToggleCountyLayer = (enabled) => {
@@ -105,6 +142,19 @@ function App() {
 
     const handleMapClick = () => {
         setMapClickCount(prev => prev + 1);
+    };
+
+    // Timeline handlers
+    const handleTimelineToggle = (enabled) => {
+        setTimelineMode(enabled);
+        if (enabled && availableYears.length > 0) {
+            // Set to most recent year when enabling timeline
+            setCurrentYear(Math.max(...availableYears));
+        }
+    };
+
+    const handleYearChange = (year) => {
+        setCurrentYear(year);
     };
 
     // Show loading screen while CSV data loads
@@ -161,7 +211,20 @@ function App() {
                         onToggleCountyLayer={handleToggleCountyLayer}
                         onToggleHeatMapLayer={handleToggleHeatMapLayer}
                         onTogglePinsLayer={handleTogglePinsLayer}
+                        onToggleTimeline={handleTimelineToggle}
+                        timelineMode={timelineMode}
                     />
+                    
+                    {/* Timeline controls - show when timeline mode is active */}
+                    {timelineMode && availableYears.length > 0 && (
+                        <TimelineControls
+                            availableYears={availableYears}
+                            currentYear={currentYear}
+                            onYearChange={handleYearChange}
+                            yearStats={getYearStats(currentYear)}
+                            className="timeline-overlay"
+                        />
+                    )}
                 </div>
             </div>
 

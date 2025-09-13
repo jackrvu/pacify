@@ -1,0 +1,368 @@
+/* Timeline Controls Styling */
+.timeline-controls {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    min-width: 320px;
+    max-width: 400px;
+}
+
+.timeline-controls.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+/* Header */
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 8px;
+}
+
+.timeline-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+    font-weight: 600;
+}
+
+.year-display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.current-year {
+    font-size: 20px;
+    font-weight: bold;
+    color: #2c5aa0;
+    line-height: 1;
+}
+
+.year-range {
+    font-size: 11px;
+    color: #666;
+    margin-top: 2px;
+}
+
+/* Year Statistics */
+.year-stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    padding: 8px 12px;
+    background: rgba(44, 90, 160, 0.1);
+    border-radius: 6px;
+    border-left: 3px solid #2c5aa0;
+}
+
+.year-stats .stat {
+    font-size: 12px;
+    color: #555;
+    text-align: center;
+}
+
+.year-stats .stat strong {
+    display: block;
+    font-size: 14px;
+    color: #2c5aa0;
+    font-weight: 600;
+}
+
+/* Timeline Slider */
+.timeline-slider-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.nav-button {
+    background: #2c5aa0;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    transition: all 0.2s ease;
+}
+
+.nav-button:hover:not(:disabled) {
+    background: #1e3f73;
+    transform: scale(1.05);
+}
+
+.nav-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.slider-wrapper {
+    flex: 1;
+    position: relative;
+}
+
+.year-slider {
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: #ddd;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.year-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2c5aa0;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+.year-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    background: #1e3f73;
+}
+
+.year-slider::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2c5aa0;
+    cursor: pointer;
+    border: 2px solid white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.slider-track {
+    position: relative;
+    margin-top: 8px;
+}
+
+.year-markers {
+    position: relative;
+    height: 20px;
+}
+
+.year-marker {
+    position: absolute;
+    font-size: 10px;
+    color: #666;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+/* Playback Controls */
+.playback-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+    padding: 8px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.play-pause-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #2c5aa0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    justify-content: center;
+}
+
+.play-pause-btn:hover {
+    background: #1e3f73;
+    transform: translateY(-1px);
+}
+
+.play-pause-btn.playing {
+    background: #dc3545;
+}
+
+.play-pause-btn.playing:hover {
+    background: #c82333;
+}
+
+.speed-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex: 1;
+}
+
+.speed-controls label {
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+}
+
+.speed-selector {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    outline: none;
+}
+
+.speed-selector:focus {
+    border-color: #2c5aa0;
+    box-shadow: 0 0 0 2px rgba(44, 90, 160, 0.2);
+}
+
+/* Quick Year Selection */
+.quick-years {
+    margin-bottom: 12px;
+}
+
+.quick-years-label {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.year-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.year-btn {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 4px 8px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 40px;
+}
+
+.year-btn:hover {
+    border-color: #2c5aa0;
+    background: rgba(44, 90, 160, 0.1);
+}
+
+.year-btn.active {
+    background: #2c5aa0;
+    color: white;
+    border-color: #2c5aa0;
+}
+
+/* Progress Indicator */
+.progress-indicator {
+    margin-top: 8px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 4px;
+    background: #eee;
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 4px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2c5aa0, #4a90e2);
+    border-radius: 2px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 11px;
+    color: #666;
+    text-align: center;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .timeline-controls {
+        min-width: 280px;
+        max-width: 100%;
+        padding: 12px;
+    }
+    
+    .timeline-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+    
+    .year-display {
+        align-items: flex-start;
+    }
+    
+    .year-stats {
+        flex-direction: column;
+        gap: 4px;
+    }
+    
+    .year-stats .stat {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .year-stats .stat strong {
+        display: inline;
+        margin-left: 8px;
+    }
+    
+    .playback-controls {
+        flex-direction: column;
+        gap: 8px;
+        align-items: stretch;
+    }
+    
+    .speed-controls {
+        justify-content: center;
+    }
+    
+    .year-buttons {
+        justify-content: center;
+    }
+}
+
+/* Animation for smooth transitions */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.timeline-controls {
+    animation: fadeIn 0.3s ease-out;
+}

@@ -2,7 +2,13 @@
 import React, { useState } from 'react';
 import './Controls.css';
 
-function Controls({ onToggleCountyLayer, onToggleHeatMapLayer, onTogglePinsLayer }) {
+function Controls({ 
+    onToggleCountyLayer, 
+    onToggleHeatMapLayer, 
+    onTogglePinsLayer, 
+    onToggleTimeline,
+    timelineMode = false 
+}) {
     // Local state to track checkbox states
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
@@ -32,6 +38,14 @@ function Controls({ onToggleCountyLayer, onToggleHeatMapLayer, onTogglePinsLayer
         setShowPinsLayer(newValue);
         if (onTogglePinsLayer) {
             onTogglePinsLayer(newValue);
+        }
+    };
+
+    // Toggle timeline mode
+    const handleToggleTimeline = () => {
+        const newValue = !timelineMode;
+        if (onToggleTimeline) {
+            onToggleTimeline(newValue);
         }
     };
 
@@ -67,6 +81,28 @@ function Controls({ onToggleCountyLayer, onToggleHeatMapLayer, onTogglePinsLayer
                     />
                     Incident Pins
                 </label>
+            </div>
+            
+            {/* Timeline Mode Toggle */}
+            <div className="control-section">
+                <h4>Timeline View</h4>
+                <div className="control-item timeline-toggle">
+                    <label>
+                        <input
+                            type="checkbox"
+                            checked={timelineMode}
+                            onChange={handleToggleTimeline}
+                        />
+                        <span className="timeline-label">
+                            {timelineMode ? 'Timeline Mode (1995-2025)' : 'Enable Timeline View'}
+                        </span>
+                    </label>
+                    {timelineMode && (
+                        <div className="timeline-hint">
+                            Use timeline controls below to navigate through years
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );
