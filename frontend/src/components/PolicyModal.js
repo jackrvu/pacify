@@ -408,8 +408,8 @@ const PolicyModal = ({
                                     <div className="gemini-response">
                                         <h4>{getAnalysisTitle(currentAnalysisType)}</h4>
                                         <div className="gemini-response-content">
-                                            <VisualAnalysisResponse 
-                                                analysis={geminiResponse} 
+                                            <VisualAnalysisResponse
+                                                analysis={geminiResponse}
                                                 hideSectionTitles={currentAnalysisType !== null}
                                                 enableTypewriter={true}
                                             />
@@ -424,19 +424,20 @@ const PolicyModal = ({
                                 )}
                             </div>
                         )}
+
+                        {/* Policy Incident Graph - moved to bottom of bookmark controls */}
+                        {policy && (
+                            <div className="policy-modal-graph-section">
+                                <PolicyIncidentGraph
+                                    state={policy.State || policy.state}
+                                    policyDate={policy.effective_date || `${policy['Effective Date Year']}-${policy['Effective Date Month']}-${policy['Effective Date Day']}`}
+                                    timelineData={timelineData}
+                                />
+                            </div>
+                        )}
                     </div>
                 )}
 
-                {/* Policy Incident Graph */}
-                {policy && (
-                    <div className="policy-modal-graph-section">
-                        <PolicyIncidentGraph
-                            state={policy.State || policy.state}
-                            policyDate={policy.effective_date || `${policy['Effective Date Year']}-${policy['Effective Date Month']}-${policy['Effective Date Day']}`}
-                            timelineData={timelineData}
-                        />
-                    </div>
-                )}
 
                 <div className="policy-modal-footer">
                     <button

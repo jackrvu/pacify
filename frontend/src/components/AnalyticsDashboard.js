@@ -81,7 +81,7 @@ const AnalyticsDashboard = ({
     const [annotationType, setAnnotationType] = useState('note');
     const [geminiLoading, setGeminiLoading] = useState(false);
     const [geminiResponse, setGeminiResponse] = useState('');
-    const [showGeminiPanel, setShowGeminiPanel] = useState(false);
+    const [showGeminiPanel, setShowGeminiPanel] = useState(true);
     const [geminiQuestion, setGeminiQuestion] = useState('');
     const [currentAnalysisType, setCurrentAnalysisType] = useState(null);
 

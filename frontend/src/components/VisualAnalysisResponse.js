@@ -19,29 +19,29 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
         if (text.includes('##')) {
             const sections = text.split(/##\s+/);
             const parsed = {};
-            
+
             sections.forEach(section => {
                 if (section.trim()) {
                     const lines = section.split('\n');
                     const title = lines[0].trim();
                     const content = lines.slice(1).join('\n').trim();
-                    
+
                     if (title && content && content.length > 10) {
                         parsed[title] = content;
                     }
                 }
             });
-            
+
             return parsed;
         } else {
             // Check if this is a focused single-topic response
             // If it doesn't contain multiple section markers, treat it as a single focused response
-            const hasMultipleSections = text.includes('Potential Benefits:') || 
-                                       text.includes('Potential Drawbacks:') || 
-                                       text.includes('Constitutional') ||
-                                       text.includes('Safety Impact') ||
-                                       text.includes('State Context');
-            
+            const hasMultipleSections = text.includes('Potential Benefits:') ||
+                text.includes('Potential Drawbacks:') ||
+                text.includes('Constitutional') ||
+                text.includes('Safety Impact') ||
+                text.includes('State Context');
+
             if (!hasMultipleSections) {
                 // This is a focused response, return it as a single section
                 return { 'Focused Analysis': text };
@@ -55,28 +55,28 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
     const parseUnstructuredText = (text) => {
         const sections = {};
         const usedRanges = []; // Track used text ranges to avoid overlaps
-        
+
         // Helper function to check if a range overlaps with used ranges
         const hasOverlap = (start, end) => {
-            return usedRanges.some(range => 
+            return usedRanges.some(range =>
                 (start >= range.start && start <= range.end) ||
                 (end >= range.start && end <= range.end) ||
                 (start <= range.start && end >= range.end)
             );
         };
-        
+
         // Helper function to mark a range as used
         const markUsed = (start, end) => {
             usedRanges.push({ start, end });
         };
-        
+
         // Look for structured sections first (these are most reliable)
         const structuredSections = [
             { markers: ['Potential Benefits:', '**Potential Benefits:**'], title: 'Safety Benefits' },
             { markers: ['Potential Drawbacks:', '**Potential Drawbacks:**'], title: 'Safety Concerns' },
             { markers: ['Overall Assessment:', '**Overall Assessment:**'], title: 'Key Takeaways' }
         ];
-        
+
         structuredSections.forEach(section => {
             const content = extractSection(text, section.markers);
             if (content && content.length > 20) {
@@ -88,7 +88,7 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
                 }
             }
         });
-        
+
         // If we have structured sections, organize the remaining content
         if (Object.keys(sections).length > 0) {
             // Get all unused text
@@ -103,7 +103,7 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
             const organizedText = organizeEntireText(text);
             Object.assign(sections, organizedText);
         }
-        
+
         return sections;
     };
 
@@ -114,13 +114,13 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
                 const sectionStart = startIndex + marker.length;
                 const nextSection = findNextSection(text, sectionStart);
                 const sectionEnd = nextSection !== -1 ? nextSection : text.length;
-                
+
                 let content = text.substring(sectionStart, sectionEnd).trim();
-                
+
                 // Clean up the content
                 content = content.replace(/\*\*/g, ''); // Remove bold markers
                 content = content.replace(/\*/g, '•'); // Convert asterisks to bullets
-                
+
                 return content;
             }
         }
@@ -135,7 +135,7 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
             'Constitutional', 'Safety Impact', 'State Context',
             'Second Amendment', 'Fourth Amendment', 'Fourteenth Amendment'
         ];
-        
+
         let earliestIndex = -1;
         for (const marker of sectionMarkers) {
             const index = text.indexOf(marker, startIndex);
@@ -143,7 +143,7 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
                 earliestIndex = index;
             }
         }
-        
+
         return earliestIndex;
     };
 
@@ -153,10 +153,10 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
             'Second Amendment', 'Fourth Amendment', 'Fourteenth Amendment',
             'Constitutional', 'Due Process', 'Equal Protection'
         ];
-        
+
         let startIndex = -1;
         let endIndex = text.length;
-        
+
         // Find the start of constitutional discussion
         for (const marker of constitutionalMarkers) {
             const index = text.indexOf(marker);
@@ -164,9 +164,9 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
                 startIndex = index;
             }
         }
-        
+
         if (startIndex === -1) return '';
-        
+
         // Find the end (next major section or end of text)
         const nextSections = ['Potential Benefits', 'Potential Drawbacks', 'Overall Assessment', 'Safety Impact'];
         for (const section of nextSections) {
@@ -175,11 +175,11 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
                 endIndex = index;
             }
         }
-        
+
         let content = text.substring(startIndex, endIndex).trim();
         content = content.replace(/\*\*/g, ''); // Remove bold markers
         content = content.replace(/\*/g, '•'); // Convert asterisks to bullets
-        
+
         return content;
     };
 
@@ -189,10 +189,10 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
             'public safety', 'gun violence', 'safety implications',
             'crime prevention', 'law enforcement'
         ];
-        
+
         let startIndex = -1;
         let endIndex = text.length;
-        
+
         // Find safety-related content
         for (const marker of safetyMarkers) {
             const index = text.toLowerCase().indexOf(marker.toLowerCase());
@@ -200,47 +200,47 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
                 startIndex = index;
             }
         }
-        
+
         if (startIndex === -1) return '';
-        
+
         // Extract a reasonable chunk around the safety content
         const chunkStart = Math.max(0, startIndex - 100);
         const chunkEnd = Math.min(text.length, startIndex + 500);
-        
+
         let content = text.substring(chunkStart, chunkEnd).trim();
         content = content.replace(/\*\*/g, ''); // Remove bold markers
         content = content.replace(/\*/g, '•'); // Convert asterisks to bullets
-        
+
         return content;
     };
 
     const getUnusedText = (text, usedRanges) => {
         if (usedRanges.length === 0) return text;
-        
+
         // Sort ranges by start position
         const sortedRanges = usedRanges.sort((a, b) => a.start - b.start);
-        
+
         let unusedText = '';
         let lastEnd = 0;
-        
+
         sortedRanges.forEach(range => {
             if (range.start > lastEnd) {
                 unusedText += text.substring(lastEnd, range.start);
             }
             lastEnd = Math.max(lastEnd, range.end);
         });
-        
+
         // Add remaining text after last range
         if (lastEnd < text.length) {
             unusedText += text.substring(lastEnd);
         }
-        
+
         return unusedText.trim();
     };
 
     const organizeRemainingText = (text) => {
         const sections = {};
-        
+
         // Look for constitutional content
         if (text.includes('Second Amendment') || text.includes('Constitutional') || text.includes('Due Process')) {
             sections['Constitutional Analysis'] = cleanText(text.substring(0, Math.min(800, text.length)));
@@ -248,13 +248,13 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
             // If no clear constitutional content, just show as analysis
             sections['Policy Analysis'] = cleanText(text.substring(0, Math.min(1000, text.length)));
         }
-        
+
         return sections;
     };
 
     const organizeEntireText = (text) => {
         const sections = {};
-        
+
         // Try to identify the main theme
         if (text.includes('Potential Benefits') || text.includes('Potential Drawbacks')) {
             // This looks like a safety analysis
@@ -266,7 +266,7 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
             // General policy analysis
             sections['Policy Analysis'] = cleanText(text);
         }
-        
+
         return sections;
     };
 
@@ -278,17 +278,17 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
     };
 
     const parsedAnalysis = parseAnalysis(analysis);
-    
+
     // Use typewriter effect for the entire analysis text
     const { displayedText, isTyping, isComplete, skipToEnd } = useTypewriter(
-        analysis, 
+        analysis,
         30, // typing speed in milliseconds
         enableTypewriter
     );
-    
+
     // Parse the displayed text (which might be partial during typing)
     const displayedParsedAnalysis = enableTypewriter ? parseAnalysis(displayedText) : parsedAnalysis;
-    
+
     // Debug log to see what sections are being created
     if (enableTypewriter && isTyping) {
         console.log('Displayed text length:', displayedText.length);
@@ -298,51 +298,46 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
 
     return (
         <div className="visual-analysis">
-            
+
             {Object.entries(displayedParsedAnalysis)
                 .filter(([title, content]) => title && content && content.trim().length > 0)
                 .map(([title, content], index) => (
-                <div key={index} className="analysis-section">
-                    {!hideSectionTitles && (
-                        <div className="section-header">
-                            <div className="section-title-group">
-                                <h3 className="section-title">{title}</h3>
-                            </div>
-                            {enableTypewriter && isTyping && index === 0 && (
-                                <button 
-                                    onClick={() => {
-                                        console.log('Skip button clicked, isTyping:', isTyping);
-                                        skipToEnd();
-                                    }} 
-                                    className="skip-typing-btn"
-                                    title="Skip typing animation and show full response"
-                                >
-                                    Skip
-                                </button>
-                            )}
-                        </div>
-                    )}
-                    <div className="section-content">
-                        {content.split('\n').map((line, lineIndex) => (
-                            line.trim() ? (
-                                <div key={lineIndex} className="content-line">
-                                    {line.startsWith('•') || line.startsWith('-') || line.startsWith('*') ? (
-                                        <span className="bullet-point">{parseTextWithBold(line)}</span>
-                                    ) : (
-                                        <span className="content-text">{parseTextWithBold(line)}</span>
-                                    )}
+                    <div key={index} className="analysis-section">
+                        {!hideSectionTitles && (
+                            <div className="section-header">
+                                <div className="section-title-group">
+                                    <h3 className="section-title">{title}</h3>
                                 </div>
-                            ) : null
-                        ))}
-                    </div>
-                    
-                    {enableTypewriter && isTyping && index === Object.keys(displayedParsedAnalysis).length - 1 && (
-                        <div className="typing-cursor">
-                            <span className="cursor-blink">|</span>
+                                {enableTypewriter && isTyping && index === 0 && (
+                                    <button
+                                        onClick={() => {
+                                            console.log('Skip button clicked, isTyping:', isTyping);
+                                            skipToEnd();
+                                        }}
+                                        className="skip-typing-btn"
+                                        title="Skip typing animation and show full response"
+                                    >
+                                        Skip
+                                    </button>
+                                )}
+                            </div>
+                        )}
+                        <div className="section-content">
+                            {content.split('\n').map((line, lineIndex) => (
+                                line.trim() ? (
+                                    <div key={lineIndex} className="content-line">
+                                        {line.startsWith('•') || line.startsWith('-') || line.startsWith('*') ? (
+                                            <span className="bullet-point">{parseTextWithBold(line)}</span>
+                                        ) : (
+                                            <span className="content-text">{parseTextWithBold(line)}</span>
+                                        )}
+                                    </div>
+                                ) : null
+                            ))}
                         </div>
-                    )}
-                </div>
-            ))}
+
+                    </div>
+                ))}
         </div>
     );
 };

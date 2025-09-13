@@ -754,6 +754,29 @@ const PolicyTimelinePopup = ({
                         </div>
                     </div>
 
+                    {/* Year labels below timeline */}
+                    <div className="year-labels">
+                        {availableYears.map((year, index) => {
+                            // Show every few years to avoid crowding
+                            const shouldShow = index % Math.ceil(availableYears.length / 8) === 0 ||
+                                year === minYear ||
+                                year === maxYear ||
+                                year === currentYear;
+
+                            if (!shouldShow) return null;
+
+                            return (
+                                <div
+                                    key={year}
+                                    className="year-label"
+                                    style={{ left: `${getPolicyMarkerPosition(year)}%` }}
+                                >
+                                    {year}
+                                </div>
+                            );
+                        })}
+                    </div>
+
                 </div>
 
                 {loadingPolicy && (

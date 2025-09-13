@@ -2,6 +2,10 @@
 // Provides intelligent analysis of gun policies using Google's Gemini API
 
 const GEMINI_API_KEY = process.env.REACT_APP_GEMINI_API_KEY || 'AIzaSyBvOkBwJcE2lQjf8nM3pO7rS9tU1vW4xY6'; // Replace with actual API key
+
+// Debug logging
+console.log('GEMINI_API_KEY loaded:', GEMINI_API_KEY ? 'Present' : 'Missing');
+console.log('Environment variable REACT_APP_GEMINI_API_KEY:', process.env.REACT_APP_GEMINI_API_KEY ? 'Present' : 'Missing');
 const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent';
 
 // Analyze policy with Gemini
@@ -15,7 +19,7 @@ export const analyzePolicyWithGemini = async (policy, question = null) => {
         }
 
         const prompt = buildAnalysisPrompt(policy, question);
-        
+
         const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
             method: 'POST',
             headers: {
@@ -41,10 +45,10 @@ export const analyzePolicyWithGemini = async (policy, question = null) => {
         }
 
         const data = await response.json();
-        
+
         if (data.candidates && data.candidates[0] && data.candidates[0].content) {
             const analysis = data.candidates[0].content.parts[0].text;
-            
+
             return {
                 success: true,
                 analysis,
