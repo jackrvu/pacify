@@ -687,18 +687,6 @@ const PolicyTimelinePopup = ({
                             })}
                         </div>
 
-                        {/* Year labels */}
-                        <div className="year-labels">
-                            {availableYears.filter((_, index) => index % 3 === 0).map(year => (
-                                <div
-                                    key={year}
-                                    className="year-label"
-                                    style={{ left: `${getPolicyMarkerPosition(year)}%` }}
-                                >
-                                    {year}
-                                </div>
-                            ))}
-                        </div>
 
                         {/* Current year indicator */}
                         <div

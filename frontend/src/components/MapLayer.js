@@ -97,7 +97,7 @@ function MapLayer({ enabled = true }) {
         const countyName = feature.properties.NAME;
         const stateFips = feature.properties.STATE;
         const countyKey = `${countyName}_${stateFips}`;
-        
+
         const countyData = caseData[countyKey] || { totalCases: 0, cases90Days: 0 };
         const caseCount = countyData.totalCases;
         let fillColor = '#ffffff';
@@ -138,8 +138,7 @@ function MapLayer({ enabled = true }) {
 
         // Create tooltip with county info
         layer.bindTooltip(`
-            <div style="font-weight:600;">${countyName}</div>
-            <div style="font-size:0.9em;margin-top:2px;">Total Incidents: ${formattedCount}</div>
+            <div style="font-weight:600;">${countyName} County</div>
         `, {
             sticky: true,
             offset: [0, -5],
@@ -215,28 +214,28 @@ function MapLayer({ enabled = true }) {
             try {
                 const response = await fetch('/data/county_incident_summary.csv');
                 const csvText = await response.text();
-                
+
                 // Parse CSV data
                 const lines = csvText.split('\n');
                 const headers = lines[0].split(',');
                 const countyData = {};
-                
+
                 for (let i = 1; i < lines.length; i++) {
                     const line = lines[i].trim();
                     if (!line) continue;
-                    
+
                     const values = line.split(',');
                     const countyName = values[0];
                     const stateFips = values[1];
                     const totalIncidents = parseInt(values[2]) || 0;
                     const totalKilled = parseInt(values[3]) || 0;
                     const totalInjured = parseInt(values[4]) || 0;
-                    
+
                     // Create FIPS code from state FIPS (need to pad to 5 digits)
                     const stateFipsPadded = Math.floor(parseFloat(stateFips)).toString().padStart(2, '0');
                     // For now, we'll use county name as key since we don't have full FIPS codes
                     const countyKey = `${countyName}_${stateFipsPadded}`;
-                    
+
                     countyData[countyKey] = {
                         totalCases: totalIncidents,
                         cases90Days: Math.floor(totalIncidents * 0.1), // Estimate 90-day cases as 10% of total
@@ -244,7 +243,7 @@ function MapLayer({ enabled = true }) {
                         stateFips: stateFipsPadded
                     };
                 }
-                
+
                 setCaseData(countyData);
             } catch (error) {
                 console.error('Error loading county data:', error);

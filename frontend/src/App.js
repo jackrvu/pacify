@@ -14,6 +14,7 @@ import IncidentsPanel from './components/IncidentsPanel';
 import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
 import StateGunViolencePanel from './components/StateGunViolencePanel';
+import HeatmapLegend from './components/HeatmapLegend';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
@@ -328,10 +329,10 @@ function App() {
                         currentYear={currentYear}
                         availableYears={availableYears}
                     />
-
-
-
                 </div>
+
+                {/* Heatmap Legend - positioned independently */}
+                <HeatmapLegend />
             </div>
 
 
