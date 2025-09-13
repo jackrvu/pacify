@@ -2,10 +2,14 @@
 import React, { useState } from 'react';
 import './Controls.css';
 
+<<<<<<< HEAD
 function Controls({ onToggleCountyLayer, onToggleHeatMapLayer }) {
     // Local state to track checkbox states
+=======
+function Controls({ onToggleCountyLayer, onTogglePinsLayer }) {
+>>>>>>> 0891af6 (Push latest changes to main)
     const [showCountyLayer, setShowCountyLayer] = useState(true);
-    const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
+    const [showPinsLayer, setShowPinsLayer] = useState(true);
 
     // Toggle county choropleth layer
     const handleToggleCountyLayer = () => {
@@ -16,12 +20,20 @@ function Controls({ onToggleCountyLayer, onToggleHeatMapLayer }) {
         }
     };
 
+<<<<<<< HEAD
     // Toggle incident heatmap layer
     const handleToggleHeatMapLayer = () => {
         const newValue = !showHeatMapLayer;
         setShowHeatMapLayer(newValue);
         if (onToggleHeatMapLayer) {
             onToggleHeatMapLayer(newValue);
+=======
+    const handleTogglePinsLayer = () => {
+        const newValue = !showPinsLayer;
+        setShowPinsLayer(newValue);
+        if (onTogglePinsLayer) {
+            onTogglePinsLayer(newValue);
+>>>>>>> 0891af6 (Push latest changes to main)
         }
     };
 
@@ -42,10 +54,10 @@ function Controls({ onToggleCountyLayer, onToggleHeatMapLayer }) {
                 <label>
                     <input
                         type="checkbox"
-                        checked={showHeatMapLayer}
-                        onChange={handleToggleHeatMapLayer}
+                        checked={showPinsLayer}
+                        onChange={handleTogglePinsLayer}
                     />
-                    Heat Map Layer (Red)
+                    Incident Pins
                 </label>
             </div>
         </div>

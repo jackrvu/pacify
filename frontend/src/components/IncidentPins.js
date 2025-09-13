@@ -1,160 +1,88 @@
-// Incident heatmap component - converts CSV addresses to coordinates and displays heat layer
-// Uses Google Places API for geocoding and Leaflet.heat for visualization
 import React, { useEffect, useRef, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
-import 'leaflet.heat';
 import './IncidentModal.css';
 
-// Geocoding function using OpenStreetMap Nominatim API
-const geocodeAddress = async (address, city, state) => {
-    try {
-        const fullAddress = `${address}, ${city}, ${state}, USA`;
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}&limit=1&countrycodes=us`
-        );
-        const data = await response.json();
-
-        if (data && data.length > 0) {
-            return {
-                lat: parseFloat(data[0].lat),
-                lng: parseFloat(data[0].lon)
-            };
-        }
-        return null;
-    } catch (error) {
-        console.error('Geocoding error:', error);
-        return null;
-    }
-};
-
-const IncidentHeatmap = ({ incidents }) => {
+const IncidentPins = ({ incidents }) => {
     const map = useMap();
-    const heatLayerRef = useRef(null);
-    const [filteredIncidents, setFilteredIncidents] = useState([]);
+    const markersRef = useRef([]);
     const [showModal, setShowModal] = useState(false);
     const [modalIncidents, setModalIncidents] = useState([]);
     const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 
-    // Process incidents and geocode addresses
+    // Create markers for incidents with coordinates
     useEffect(() => {
-        if (!incidents || incidents.length === 0) return;
+        if (!map || !incidents || incidents.length === 0) return;
 
-        const processIncidents = async () => {
-            const processedIncidents = [];
+        // Clear existing markers
+        markersRef.current.forEach(marker => {
+            map.removeLayer(marker);
+        });
+        markersRef.current = [];
 
-            // Process incidents in batches to avoid rate limiting
-            const batchSize = 10;
-            for (let i = 0; i < incidents.length; i += batchSize) {
-                const batch = incidents.slice(i, i + batchSize);
-                const batchPromises = batch.map(async (incident) => {
-                    // Skip if address is N/A or empty
-                    if (!incident.Address || incident.Address === 'N/A' || incident.Address.trim() === '') {
-                        return null;
-                    }
-
-                    const coordinates = await geocodeAddress(
-                        incident.Address,
-                        incident['City Or County'],
-                        incident.State
-                    );
-
-                    if (coordinates) {
-                        return {
-                            ...incident,
-                            Latitude: coordinates.lat,
-                            Longitude: coordinates.lng,
-                            'Geocoding Match': 'Match'
-                        };
-                    }
-                    return null;
-                });
-
-                const batchResults = await Promise.all(batchPromises);
-                processedIncidents.push(...batchResults.filter(incident => incident !== null));
-
-                // Add a small delay between batches to respect rate limits
-                if (i + batchSize < incidents.length) {
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                }
-            }
-
-            setFilteredIncidents(processedIncidents);
-        };
-
-        processIncidents();
-    }, [incidents]);
-
-    // Render heatmap layer on map using Leaflet.heat
-    useEffect(() => {
-        if (!map || filteredIncidents.length === 0) return;
-
-        // Clean up existing layer
-        if (heatLayerRef.current) {
-            map.removeLayer(heatLayerRef.current);
-        }
-
-        // Prepare heat map data
-        const heatData = filteredIncidents.map(incident => {
+        // Filter incidents that have valid coordinates
+        const incidentsWithCoords = incidents.filter(incident => {
             const lat = parseFloat(incident.Latitude);
             const lng = parseFloat(incident.Longitude);
-            const victimsKilled = parseInt(incident['Victims Killed'] || 0);
-            const victimsInjured = parseInt(incident['Victims Injured'] || 0);
-
-            // Calculate intensity based on casualties
-            const intensity = Math.max(0.1, victimsKilled * 2 + victimsInjured * 0.5 + 0.1);
-
-            return [lat, lng, intensity];
+            return !isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0;
         });
 
-        // Create heat map layer with yellow to red gradient
-        heatLayerRef.current = L.heatLayer(heatData, {
-            radius: 30,
-            blur: 20,
-            maxZoom: 17,
-            max: 1.0,
-            gradient: {
-                0.0: 'yellow',
-                0.2: 'orange',
-                0.4: 'red',
-                0.6: 'darkred',
-                0.8: 'maroon',
-                1.0: 'darkred'
-            }
-        });
+        // Create markers for each incident
+        incidentsWithCoords.forEach(incident => {
+            const lat = parseFloat(incident.Latitude);
+            const lng = parseFloat(incident.Longitude);
+            const killed = parseInt(incident['Victims Killed'] || 0);
+            const injured = parseInt(incident['Victims Injured'] || 0);
 
-        // Add click event to the heat layer
-        heatLayerRef.current.on('click', (e) => {
-            const clickLat = e.latlng.lat;
-            const clickLng = e.latlng.lng;
+            // Create custom icon based on severity
+            const severityColor = getSeverityColor(killed, injured);
+            const iconSize = getIconSize(killed, injured);
 
-            // Find incidents within a reasonable radius of the click
-            const radius = 0.01; // Approximately 1km radius
-            const nearbyIncidents = filteredIncidents.filter(incident => {
-                const lat = parseFloat(incident.Latitude);
-                const lng = parseFloat(incident.Longitude);
-                const distance = Math.sqrt(
-                    Math.pow(lat - clickLat, 2) + Math.pow(lng - clickLng, 2)
-                );
-                return distance <= radius;
+            const customIcon = L.divIcon({
+                className: 'custom-pin',
+                html: `
+                    <div style="
+                        background-color: ${severityColor};
+                        width: ${iconSize}px;
+                        height: ${iconSize}px;
+                        border-radius: 50%;
+                        border: 2px solid white;
+                        box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-weight: bold;
+                        font-size: ${iconSize > 20 ? '12px' : '10px'};
+                    ">
+                        ${killed + injured}
+                    </div>
+                `,
+                iconSize: [iconSize, iconSize],
+                iconAnchor: [iconSize / 2, iconSize / 2]
             });
 
-            if (nearbyIncidents.length > 0) {
-                setModalIncidents(nearbyIncidents);
+            const marker = L.marker([lat, lng], { icon: customIcon });
+
+            // Add click event to marker
+            marker.on('click', (e) => {
+                setModalIncidents([incident]);
                 setModalPosition({ x: e.containerPoint.x, y: e.containerPoint.y });
                 setShowModal(true);
-            }
-        });
+            });
 
-        heatLayerRef.current.addTo(map);
+            marker.addTo(map);
+            markersRef.current.push(marker);
+        });
 
         // Cleanup function
         return () => {
-            if (heatLayerRef.current) {
-                map.removeLayer(heatLayerRef.current);
-            }
+            markersRef.current.forEach(marker => {
+                map.removeLayer(marker);
+            });
+            markersRef.current = [];
         };
-    }, [map, filteredIncidents]);
+    }, [map, incidents]);
 
     // Close modal when clicking outside
     useEffect(() => {
@@ -195,6 +123,15 @@ const IncidentHeatmap = ({ incidents }) => {
         return '#FFD700'; // Gold
     };
 
+    const getIconSize = (killed, injured) => {
+        const total = killed + injured;
+        if (total >= 10) return 30; // Large for high casualties
+        if (total >= 5) return 25;  // Medium-large
+        if (total >= 3) return 20;  // Medium
+        if (total >= 1) return 15;  // Small
+        return 12; // Very small for no casualties
+    };
+
     return (
         <>
             {showModal && (
@@ -214,7 +151,7 @@ const IncidentHeatmap = ({ incidents }) => {
                 >
                     <div className="modal-header">
                         <h3>
-                            Incidents ({modalIncidents.length})
+                            Incident Details
                         </h3>
                         <button
                             onClick={() => setShowModal(false)}
@@ -278,4 +215,4 @@ const IncidentHeatmap = ({ incidents }) => {
     );
 };
 
-export default IncidentHeatmap;
+export default IncidentPins;
