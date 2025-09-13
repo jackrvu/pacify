@@ -29,12 +29,15 @@ function App() {
     const [showPinsLayer, setShowPinsLayer] = useState(false); // Disable pins by default
     const [incidents, setIncidents] = useState([]); // Gun violence incident data
     const [loading, setLoading] = useState(true);
-    
+
     // State for cursor tracking and panel
     const [cursorPosition, setCursorPosition] = useState(null);
     const [mapClickCount, setMapClickCount] = useState(0);
     const [isMobile, setIsMobile] = useState(false);
     const [isPanelMinimized, setIsPanelMinimized] = useState(false);
+
+    // State for policy tab
+    const [selectedState, setSelectedState] = useState(null);
 
     // Detect mobile device on mount and window resize
     useEffect(() => {
@@ -105,7 +108,64 @@ function App() {
 
     const handleMapClick = () => {
         setMapClickCount(prev => prev + 1);
+
+        // Detect state based on cursor position and incidents
+        if (cursorPosition && incidents.length > 0) {
+            const state = detectStateFromPosition(cursorPosition);
+            if (state && state !== selectedState) {
+                setSelectedState(state);
+            }
+        }
     };
+
+    // Function to detect state from cursor position by finding nearby incidents
+    const detectStateFromPosition = (position) => {
+        if (!position || !incidents.length) return null;
+
+        const { lat, lng } = position;
+        const searchRadius = 1.0; // Increased radius for state detection
+
+        // Find incidents near the clicked position
+        const nearbyIncidents = incidents.filter(incident => {
+            const incidentLat = parseFloat(incident.Latitude);
+            const incidentLng = parseFloat(incident.Longitude);
+
+            if (isNaN(incidentLat) || isNaN(incidentLng)) return false;
+
+            const distance = Math.sqrt(
+                Math.pow(lat - incidentLat, 2) +
+                Math.pow(lng - incidentLng, 2)
+            );
+
+            return distance <= searchRadius;
+        });
+
+        // Return the most common state among nearby incidents
+        if (nearbyIncidents.length > 0) {
+            const stateCounts = {};
+            nearbyIncidents.forEach(incident => {
+                const state = incident.State;
+                if (state) {
+                    stateCounts[state] = (stateCounts[state] || 0) + 1;
+                }
+            });
+
+            // Find the state with the most incidents
+            let mostCommonState = null;
+            let maxCount = 0;
+            Object.entries(stateCounts).forEach(([state, count]) => {
+                if (count > maxCount) {
+                    maxCount = count;
+                    mostCommonState = state;
+                }
+            });
+
+            return mostCommonState;
+        }
+
+        return null;
+    };
+
 
     // Show loading screen while CSV data loads
     if (loading) {
@@ -113,6 +173,9 @@ function App() {
             <div className="loading-screen">
                 <h1>Pacify</h1>
                 <p>Loading incident data...</p>
+                <p style={{ fontSize: '0.9rem', marginTop: '1rem', color: '#666' }}>
+                    Tip: Click on any state to view recent policy changes
+                </p>
             </div>
         );
     }
@@ -149,9 +212,9 @@ function App() {
                     )}
 
                     {/* Cursor tracking for incidents panel */}
-                    <CursorTracker 
-                        onCursorMove={handleCursorMove} 
-                        onMapClick={handleMapClick} 
+                    <CursorTracker
+                        onCursorMove={handleCursorMove}
+                        onMapClick={handleMapClick}
                     />
                 </MapContainer>
 
@@ -172,7 +235,9 @@ function App() {
                 onMapClick={mapClickCount}
                 isMobile={isMobile}
                 onPanelStateChange={setIsPanelMinimized}
+                selectedState={selectedState}
             />
+
         </div>
     );
 }
