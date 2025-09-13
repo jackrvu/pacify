@@ -468,7 +468,7 @@ const PolicyTimelinePopup = ({
         // Individual policy bookmark component
         const PolicyBookmarkButton = ({ policy }) => {
             const [bookmarkState, setBookmarkState] = useState(isPolicyBookmarked(policy.law_id));
-            
+
             // Update bookmark state when policy changes
             useEffect(() => {
                 setBookmarkState(isPolicyBookmarked(policy.law_id));
@@ -742,18 +742,6 @@ const PolicyTimelinePopup = ({
                             })}
                         </div>
 
-                        {/* Year labels */}
-                        <div className="year-labels">
-                            {availableYears.map(year => (
-                                <div
-                                    key={year}
-                                    className="year-label"
-                                    style={{ left: `${getPolicyMarkerPosition(year)}%` }}
-                                >
-                                    {year}
-                                </div>
-                            ))}
-                        </div>
 
                         {/* Current year indicator */}
                         <div

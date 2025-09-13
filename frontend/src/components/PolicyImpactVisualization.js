@@ -598,6 +598,7 @@ const PolicyImpactVisualization = ({
                                                     <XAxis
                                                         dataKey="year"
                                                         domain={['dataMin', 'dataMax']}
+                                                        tick={false}
                                                     />
                                                     <YAxis
                                                         label={{ value: 'Incidents per 100k', angle: -90, position: 'insideLeft' }}

@@ -116,26 +116,6 @@ const PolicyIncidentGraph = ({ state, policyDate, timelineData }) => {
                         />
                     )}
 
-                    {/* Year labels */}
-                    {graphData.map((d, i) => {
-                        if (i % Math.ceil(graphData.length / 5) === 0) {
-                            const x = 40 + (i / (graphData.length - 1)) * 340;
-                            return (
-                                <text
-                                    key={i}
-                                    x={x}
-                                    y="115"
-                                    textAnchor="middle"
-                                    className="year-label"
-                                    fill="#cccccc"
-                                    fontSize="10"
-                                >
-                                    {d.year}
-                                </text>
-                            );
-                        }
-                        return null;
-                    })}
 
                     {/* Y-axis labels */}
                     {[0, 0.25, 0.5, 0.75, 1].map((ratio, i) => {

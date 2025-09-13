@@ -72,7 +72,6 @@ const AnalyticsDashboard = ({
     const [bookmarkedPolicies, setBookmarkedPolicies] = useState([]);
     const [selectedBookmark, setSelectedBookmark] = useState(null);
     const [showBookmarkModal, setShowBookmarkModal] = useState(false);
-    const [bookmarkFilter, setBookmarkFilter] = useState('all'); // 'all', 'restrictive', 'permissive'
     const [bookmarkSearch, setBookmarkSearch] = useState('');
 
     // Policy details state
@@ -217,16 +216,14 @@ const AnalyticsDashboard = ({
     // Filtered bookmarks
     const filteredBookmarks = useMemo(() => {
         return bookmarkedPolicies.filter(bookmark => {
-            const matchesFilter = bookmarkFilter === 'all' ||
-                bookmark.effect?.toLowerCase() === bookmarkFilter.toLowerCase();
             const matchesSearch = !bookmarkSearch ||
                 bookmark.state?.toLowerCase().includes(bookmarkSearch.toLowerCase()) ||
                 bookmark.law_class?.toLowerCase().includes(bookmarkSearch.toLowerCase()) ||
                 bookmark.original_content?.toLowerCase().includes(bookmarkSearch.toLowerCase());
 
-            return matchesFilter && matchesSearch;
+            return matchesSearch;
         });
-    }, [bookmarkedPolicies, bookmarkFilter, bookmarkSearch]);
+    }, [bookmarkedPolicies, bookmarkSearch]);
 
     // Filter and sort policies based on current filter settings
     const filteredPolicies = useMemo(() => {
@@ -435,7 +432,7 @@ const AnalyticsDashboard = ({
 
         try {
             console.log('Analyzing policy with insight type:', insightType);
-            
+
             const result = insightType
                 ? await getPolicyInsights(currentPolicy, insightType)
                 : await analyzePolicyWithGemini(currentPolicy, geminiQuestion || null);
@@ -629,16 +626,6 @@ const AnalyticsDashboard = ({
                         {/* Bookmarks Controls */}
                         <div className="bookmarks-controls">
                             <div className="bookmarks-filters">
-                                <select
-                                    value={bookmarkFilter}
-                                    onChange={(e) => setBookmarkFilter(e.target.value)}
-                                    className="filter-select"
-                                >
-                                    <option value="all">All Policies</option>
-                                    <option value="restrictive">Restrictive</option>
-                                    <option value="permissive">Permissive</option>
-                                </select>
-
                                 <input
                                     type="text"
                                     value={bookmarkSearch}
@@ -659,7 +646,7 @@ const AnalyticsDashboard = ({
                                 </div>
                             ) : (
                                 filteredBookmarks.map((bookmark) => (
-                                    <div key={bookmark.id} className="bookmark-card">
+                                    <div key={bookmark.id} className="bookmark-card" onClick={() => handleViewBookmark(bookmark)}>
                                         <div className="bookmark-header">
                                             <div className="bookmark-title">
                                                 <h3>{bookmark.law_class}</h3>
@@ -677,13 +664,10 @@ const AnalyticsDashboard = ({
                                             </div>
                                             <div className="bookmark-actions">
                                                 <button
-                                                    onClick={() => handleViewBookmark(bookmark)}
-                                                    className="btn btn-primary btn-sm"
-                                                >
-                                                    View Details
-                                                </button>
-                                                <button
-                                                    onClick={() => handleRemoveBookmark(bookmark.law_id)}
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        handleRemoveBookmark(bookmark.law_id);
+                                                    }}
                                                     className="btn btn-danger btn-sm"
                                                 >
                                                     Remove
@@ -757,25 +741,28 @@ const AnalyticsDashboard = ({
                                     </div>
                                 </div>
 
-                                {/* Policy Content */}
-                                <div className="policy-content-section">
-                                    <h4>Policy Content</h4>
-                                    <div className="policy-content-text">
-                                        {currentPolicy.original_content || 'No content available'}
-                                    </div>
-                                </div>
-
-                                {/* Gemini Analysis */}
-                                {currentPolicy.human_explanation && (
-                                    <div className="gemini-analysis-section">
-                                        <h4>AI Analysis</h4>
-                                        <div className="gemini-analysis-content">
-                                            {currentPolicy.human_explanation.split('\n').map((paragraph, idx) => (
-                                                <p key={idx}>{paragraph}</p>
-                                            ))}
+                                {/* Policy Content and AI Analysis Side by Side */}
+                                <div className="policy-content-analysis-container">
+                                    {/* Policy Content */}
+                                    <div className="policy-content-section">
+                                        <h4>Policy Content</h4>
+                                        <div className="policy-content-text">
+                                            {currentPolicy.original_content || 'No content available'}
                                         </div>
                                     </div>
-                                )}
+
+                                    {/* Gemini Analysis */}
+                                    {currentPolicy.human_explanation && (
+                                        <div className="gemini-analysis-section">
+                                            <h4>Analysis with Gemini 2.5 Pro</h4>
+                                            <div className="gemini-analysis-content">
+                                                {currentPolicy.human_explanation.split('\n').map((paragraph, idx) => (
+                                                    <p key={idx}>{paragraph}</p>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
 
                             {/* Analysis Tools */}
@@ -956,8 +943,8 @@ const AnalyticsDashboard = ({
                                         {geminiResponse && (
                                             <div className="gemini-response">
                                                 <h4>{getAnalysisTitle(currentAnalysisType)}</h4>
-                                                <VisualAnalysisResponse 
-                                                    analysis={geminiResponse} 
+                                                <VisualAnalysisResponse
+                                                    analysis={geminiResponse}
                                                     hideSectionTitles={currentAnalysisType !== null}
                                                     enableTypewriter={true}
                                                 />

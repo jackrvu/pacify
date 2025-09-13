@@ -485,6 +485,7 @@
     border: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px;
     transition: all 0.2s ease;
+    cursor: pointer;
 }
 
 .bookmark-card:hover {
@@ -752,8 +753,20 @@
     font-weight: 500;
 }
 
-.policy-content-section {
+.policy-content-analysis-container {
+    display: flex;
+    gap: 1.5rem;
     margin-bottom: 1.5rem;
+}
+
+.policy-content-section {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.gemini-analysis-section {
+    flex: 1;
+    margin-top: 0;
 }
 
 .policy-content-section h4 {
@@ -762,7 +775,8 @@
     font-size: 1.2rem;
 }
 
-.policy-content-text {
+.policy-content-text,
+.gemini-analysis-content {
     background: rgba(30, 30, 30, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
@@ -773,9 +787,6 @@
     overflow-y: auto;
 }
 
-.gemini-analysis-section {
-    margin-top: 1.5rem;
-}
 
 .gemini-analysis-section h4 {
     margin: 0 0 1rem 0;
@@ -783,14 +794,6 @@
     font-size: 1.2rem;
 }
 
-.gemini-analysis-content {
-    background: rgba(30, 30, 30, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 1rem;
-    line-height: 1.6;
-    color: #e0e0e0;
-}
 
 .gemini-analysis-content p {
     margin: 0 0 1rem 0;
@@ -1225,6 +1228,11 @@
     .policy-meta {
         flex-direction: column;
         gap: 0.5rem;
+    }
+
+    .policy-content-analysis-container {
+        flex-direction: column;
+        gap: 1rem;
     }
 
     .tools-header {
