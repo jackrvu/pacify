@@ -110,6 +110,7 @@
     box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
 }
 
+
 .close-timeline-btn {
     background: rgba(255, 255, 255, 0.1);
     border: none;
@@ -572,6 +573,7 @@
         font-size: 1rem;
         padding: 4px 8px;
     }
+
 
     .timeline-container {
         padding: 16px;

@@ -11,7 +11,6 @@ import IncidentPins from './components/IncidentPins';
 import IncidentHeatmap from './components/IncidentHeatmap';
 import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
-import IncidentSummary from './components/IncidentSummary';
 import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
 import StateGunViolencePanel from './components/StateGunViolencePanel';
@@ -335,15 +334,6 @@ function App() {
                 </div>
             </div>
 
-            {/* Compact incident summary */}
-            <IncidentSummary
-                incidents={incidents}
-                currentYear={currentYear}
-                selectedState={selectedState}
-                cursorPosition={cursorPosition}
-                onMapClick={mapClickCount}
-                isMobile={isMobile}
-            />
 
             {/* Policy Timeline Popup */}
             <PolicyTimelinePopup
