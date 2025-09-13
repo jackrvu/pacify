@@ -4,7 +4,7 @@ import pandas as pd
 df = pd.read_csv('/Users/jackvu/Desktop/latex_projects/hackathon/pacify/data/US_gun_deaths_1985-2018_with_coordinates.csv')
 
 # Filter for years >= 1990
-df = df[df['year'] >= 1990]
+df = df[df['year'] >= 1995]
 
 # Save the filtered data back to CSV
 df.to_csv('/Users/jackvu/Desktop/latex_projects/hackathon/pacify/data/US_gun_deaths_1985-2018_with_coordinates.csv', index=False)
