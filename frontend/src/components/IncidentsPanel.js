@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Papa from 'papaparse';
 import './IncidentsPanel.css';
 
-function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPanelStateChange, selectedState }) {
+function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPanelStateChange, selectedState, hidePolicySection = false }) {
     const [nearbyIncidents, setNearbyIncidents] = useState([]);
     const [displayedIncidentCount, setDisplayedIncidentCount] = useState(20);
     const [loadingMoreIncidents, setLoadingMoreIncidents] = useState(false);
@@ -390,11 +390,12 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
                         </div>
                     </div>
 
-                    {/* Policy Section */}
-                    {selectedState && (
+                    {/* Policy Section - Hidden when timeline popup is active */}
+                    {selectedState && !hidePolicySection && (
                         <div className="policy-section">
                             <div className="policy-section-header">
                                 <h4>Recent Policy Changes in {selectedState}</h4>
+                                <p className="policy-hint">Enable Timeline View to see all policy changes</p>
                             </div>
                             <div className="policy-content">
                                 {loadingPolicy && (

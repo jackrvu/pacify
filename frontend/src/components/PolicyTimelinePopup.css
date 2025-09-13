@@ -1,0 +1,434 @@
+/* Policy Timeline Popup Styles */
+.policy-timeline-popup {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+    border-top: 3px solid #4a90e2;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    min-height: 200px;
+    max-height: 400px;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.timeline-popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.timeline-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.timeline-title h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.current-year-display {
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.close-timeline-btn {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.close-timeline-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.timeline-container {
+    padding: 24px;
+    position: relative;
+}
+
+.timeline-track {
+    position: relative;
+    height: 80px;
+    margin: 20px 0;
+}
+
+.timeline-slider {
+    width: 100%;
+    height: 8px;
+    background: linear-gradient(to right, #2a2a2a, #4a4a4a);
+    border-radius: 4px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    border: 3px solid white;
+    transition: all 0.2s ease;
+}
+
+.timeline-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+    box-shadow: 0 6px 16px rgba(74, 144, 226, 0.6);
+}
+
+.timeline-slider::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.4);
+    border: 3px solid white;
+    transition: all 0.2s ease;
+}
+
+.policy-markers {
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    z-index: 3;
+}
+
+.policy-marker {
+    position: absolute;
+    cursor: pointer;
+    transform: translateX(-50%);
+    z-index: 4;
+}
+
+.policy-marker-dot {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.policy-marker-dot:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 16px rgba(255, 107, 53, 0.6);
+}
+
+.policy-count {
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+}
+
+.policy-marker-year {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    color: #cccccc;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.year-labels {
+    position: absolute;
+    top: 50px;
+    left: 0;
+    right: 0;
+    height: 20px;
+}
+
+.year-label {
+    position: absolute;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: #888888;
+    font-weight: 500;
+}
+
+.current-year-indicator {
+    position: absolute;
+    top: -20px;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+.indicator-line {
+    width: 2px;
+    height: 60px;
+    background: linear-gradient(to bottom, #4a90e2, #357abd);
+    margin: 0 auto;
+    border-radius: 1px;
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.5);
+}
+
+.indicator-label {
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #4a90e2, #357abd);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+.policy-details-dropdown {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.policy-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px 12px 0 0;
+}
+
+.policy-details-header h4 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.close-details-btn {
+    background: none;
+    border: none;
+    color: #cccccc;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.close-details-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.policy-details-list {
+    padding: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.policy-detail-item {
+    padding: 8px 12px;
+    margin: 4px 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid #4a90e2;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.policy-detail-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.2);
+}
+
+.policy-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.policy-state {
+    font-size: 11px;
+    color: #cccccc;
+    font-weight: 500;
+}
+
+.policy-effect {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.policy-detail-title {
+    font-size: 13px;
+    color: white;
+    font-weight: 500;
+    margin-bottom: 2px;
+}
+
+.policy-detail-date {
+    font-size: 11px;
+    color: #888888;
+}
+
+.more-policies-indicator {
+    text-align: center;
+    padding: 8px;
+    color: #888888;
+    font-size: 12px;
+    font-style: italic;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px 12px 0 0;
+    backdrop-filter: blur(5px);
+}
+
+.loading-text {
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .policy-timeline-popup {
+        border-radius: 16px 16px 0 0;
+        min-height: 180px;
+        max-height: 350px;
+    }
+
+    .timeline-popup-header {
+        padding: 12px 16px;
+    }
+
+    .timeline-title h3 {
+        font-size: 1.2rem;
+    }
+
+    .current-year-display {
+        font-size: 1rem;
+        padding: 4px 8px;
+    }
+
+    .timeline-container {
+        padding: 16px;
+    }
+
+    .timeline-track {
+        height: 70px;
+    }
+
+    .policy-marker-dot {
+        width: 16px;
+        height: 16px;
+    }
+
+    .policy-count {
+        font-size: 8px;
+    }
+
+    .policy-marker-year {
+        font-size: 10px;
+        top: 20px;
+    }
+
+    .year-label {
+        font-size: 11px;
+    }
+
+    .policy-details-dropdown {
+        max-height: 160px;
+    }
+
+    .policy-details-list {
+        max-height: 120px;
+    }
+
+    .policy-detail-item {
+        padding: 6px 8px;
+    }
+}
+
+/* Scrollbar styling */
+.policy-details-list::-webkit-scrollbar,
+.policy-timeline-popup::-webkit-scrollbar {
+    width: 6px;
+}
+
+.policy-details-list::-webkit-scrollbar-track,
+.policy-timeline-popup::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.policy-details-list::-webkit-scrollbar-thumb,
+.policy-timeline-popup::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+}
+
+.policy-details-list::-webkit-scrollbar-thumb:hover,
+.policy-timeline-popup::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
