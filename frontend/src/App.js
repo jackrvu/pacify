@@ -9,6 +9,7 @@ import MapLayer from './components/MapLayer';
 import Controls from './components/Controls';
 import IncidentPins from './components/IncidentPins';
 import IncidentHeatmap from './components/IncidentHeatmap';
+import Violence3DGlobe from './components/Violence3DGlobe';
 import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
 import TimelineControls from './components/TimelineControls';
@@ -31,6 +32,9 @@ function App() {
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
     const [showPinsLayer, setShowPinsLayer] = useState(false); // Disable pins by default
+    
+    // State for 3D view toggle
+    const [show3DView, setShow3DView] = useState(false);
 
     // Timeline state
     const [timelineMode, setTimelineMode] = useState(true); // Start in timeline mode to get full dataset
@@ -204,6 +208,11 @@ function App() {
         setCurrentYear(year);
     };
 
+    // 3D view toggle handler
+    const handleToggle3DView = (enabled) => {
+        setShow3DView(enabled);
+    };
+
     // Policy timeline handlers
     const handleClosePolicyTimeline = () => {
         setShowPolicyTimeline(false);
@@ -232,40 +241,48 @@ function App() {
     return (
         <div className="App">
             <div className="map-container">
-                <MapContainer
-                    center={[39.8283, -98.5795]} // Geographic center of US
-                    zoom={4}
-                    style={{ height: '100vh', width: '100vw' }}
-                    zoomControl={true}
-                    attributionControl={true}
-                >
-                    {/* Base map tiles - Esri World Street Map */}
-                    <TileLayer
-                        //attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-                        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+                {/* Conditional rendering: 3D globe or 2D map */}
+                {show3DView ? (
+                    <Violence3DGlobe 
+                        incidents={incidents} 
+                        enabled={show3DView}
                     />
+                ) : (
+                    <MapContainer
+                        center={[39.8283, -98.5795]} // Geographic center of US
+                        zoom={4}
+                        style={{ height: '100vh', width: '100vw' }}
+                        zoomControl={true}
+                        attributionControl={true}
+                    >
+                        {/* Base map tiles - Esri World Street Map */}
+                        <TileLayer
+                            //attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+                            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
+                        />
 
-                    {/* County choropleth layer - shows data density by county */}
-                    {showCountyLayer && (
-                        <MapLayer enabled={showCountyLayer} />
-                    )}
+                        {/* County choropleth layer - shows data density by county */}
+                        {showCountyLayer && (
+                            <MapLayer enabled={showCountyLayer} />
+                        )}
 
-                    {/* Heatmap layer - shows incident clustering */}
-                    {showHeatMapLayer && (
-                        <IncidentHeatmap incidents={incidents} enabled={showHeatMapLayer} />
-                    )}
+                        {/* Heatmap layer - shows incident clustering */}
+                        {showHeatMapLayer && (
+                            <IncidentHeatmap incidents={incidents} enabled={showHeatMapLayer} />
+                        )}
 
-                    {/* Pins layer - shows individual incident markers */}
-                    {showPinsLayer && (
-                        <IncidentPins incidents={incidents} />
-                    )}
+                        {/* Pins layer - shows individual incident markers */}
+                        {showPinsLayer && (
+                            <IncidentPins incidents={incidents} />
+                        )}
 
-                    {/* Cursor tracking for incidents panel */}
-                    <CursorTracker
-                        onCursorMove={handleCursorMove}
-                        onMapClick={handleMapClick}
-                    />
-                </MapContainer>
+                        {/* Cursor tracking for incidents panel */}
+                        <CursorTracker
+                            onCursorMove={handleCursorMove}
+                            onMapClick={handleMapClick}
+                        />
+                    </MapContainer>
+                )}
 
                 {/* Floating controls for layer toggles */}
                 <div className="controls-overlay">
@@ -274,12 +291,24 @@ function App() {
                         timelineMode={timelineMode}
                         currentYear={currentYear}
                         availableYears={availableYears}
+                        onToggle3DView={handleToggle3DView}
+                        show3DView={show3DView}
                     />
 
                     {/* Policy Impact Button */}
                     <div className="policy-impact-button" onClick={() => setShowPolicyImpact(true)}>
                         <div className="policy-impact-icon">📊</div>
                         <div className="policy-impact-label">Policy Impact</div>
+                    </div>
+
+                    {/* Current View Indicator */}
+                    <div className="current-view-indicator">
+                        <div className="view-indicator-icon">
+                            {show3DView ? '🌍' : '🔥'}
+                        </div>
+                        <div className="view-indicator-text">
+                            {show3DView ? '3D Globe View' : 'Heatmap View'}
+                        </div>
                     </div>
 
                 </div>
