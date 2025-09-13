@@ -27,7 +27,7 @@ function App() {
         const loadIncidentData = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('/data/2025_deaths.csv');
+                const response = await fetch('/data/2025_with_locations.csv');
                 const csvText = await response.text();
 
                 // Parse CSV data using PapaParse

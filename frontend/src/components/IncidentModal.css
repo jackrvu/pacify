@@ -1,0 +1,117 @@
+.incident-modal {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background: white;
+    backdrop-filter: blur(10px);
+}
+
+.incident-modal h3 {
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.incident-item {
+    border: 1px solid #e1e8ed;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+    background: #f8f9fa;
+    transition: all 0.2s ease;
+}
+
+.incident-item:hover {
+    background: #e9ecef;
+    border-color: #dee2e6;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.severity-badge {
+    color: white;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #6c757d;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.close-button:hover {
+    background: #f8f9fa;
+    color: #495057;
+}
+
+.incident-address {
+    font-size: 14px;
+    color: #495057;
+    line-height: 1.4;
+}
+
+.incident-date {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 2px;
+}
+
+.matched-address {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+.suspects-info {
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px solid #e9ecef;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.modal-content {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+}
+
+/* Custom scrollbar for modal content */
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+}
+
+.modal-content::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
