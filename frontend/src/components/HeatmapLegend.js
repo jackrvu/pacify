@@ -35,8 +35,7 @@ const HeatmapLegend = () => {
         <>
             {/* Legend Button */}
             <div className="heatmap-legend-button" onClick={handleLegendClick}>
-                <div className="legend-icon">🔥</div>
-                <span className="legend-text">Heatmap Legend</span>
+                <span className="legend-text">Legend</span>
             </div>
 
             {/* Legend Modal */}

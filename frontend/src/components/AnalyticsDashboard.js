@@ -450,13 +450,13 @@ const AnalyticsDashboard = ({
                             className={`view-btn ${activeView === 'analytics' ? 'active' : ''}`}
                             onClick={() => setActiveView('analytics')}
                         >
-                            📊 Analytics
+                            Analytics
                         </button>
                         <button 
                             className={`view-btn ${activeView === 'bookmarks' ? 'active' : ''}`}
                             onClick={() => setActiveView('bookmarks')}
                         >
-                            📚 Bookmarks ({bookmarkedPolicies.length})
+                            Bookmarks ({bookmarkedPolicies.length})
                         </button>
                     </div>
                     
@@ -517,7 +517,7 @@ const AnalyticsDashboard = ({
                 {activeView === 'bookmarks' && (
                     <div className="bookmarks-view">
                         <div className="bookmarks-header">
-                            <h2>📚 Bookmarked Policies</h2>
+                            <h2>Bookmarked Policies</h2>
                             <p>Manage your saved policies and annotations</p>
                         </div>
 
@@ -548,7 +548,7 @@ const AnalyticsDashboard = ({
                         <div className="bookmarks-list">
                             {filteredBookmarks.length === 0 ? (
                                 <div className="empty-state">
-                                    <div className="empty-icon">📚</div>
+                                    <div className="empty-icon">Bookmarks</div>
                                     <h3>No bookmarked policies</h3>
                                     <p>Bookmark policies from the map to see them here</p>
                                 </div>
@@ -598,8 +598,8 @@ const AnalyticsDashboard = ({
                                                         {bookmark.annotations.slice(0, 2).map((annotation) => (
                                                             <div key={annotation.id} className="annotation-item">
                                                                 <span className="annotation-type">
-                                                                    {annotation.type === 'note' ? '📝' : 
-                                                                     annotation.type === 'question' ? '❓' : '💡'}
+                                                                    {annotation.type === 'note' ? 'Note' : 
+                                                                     annotation.type === 'question' ? 'Question' : 'Insight'}
                                                                 </span>
                                                                 <span className="annotation-content">
                                                                     {annotation.content}
@@ -759,8 +759,8 @@ const AnalyticsDashboard = ({
                                                                 <>
                                                                     <div className="annotation-header">
                                                                         <span className="annotation-type">
-                                                                            {annotation.type === 'note' ? '📝' : 
-                                                                             annotation.type === 'question' ? '❓' : '💡'}
+                                                                            {annotation.type === 'note' ? 'Note' :  
+                                                                             annotation.type === 'question' ? 'Question' : 'Insight'}
                                                                         </span>
                                                                         <span className="annotation-date">
                                                                             {formatDateForDisplay(annotation.created_at || annotation.timestamp)}
@@ -813,21 +813,21 @@ const AnalyticsDashboard = ({
                                                     disabled={geminiLoading}
                                                     className="gemini-btn"
                                                 >
-                                                    🛡️ Safety Impact
+                                                    Safety Impact
                                                 </button>
                                                 <button
                                                     onClick={() => handleGeminiAnalysis('constitutional')}
                                                     disabled={geminiLoading}
                                                     className="gemini-btn"
                                                 >
-                                                    ⚖️ Constitutional
+                                                    Constitutional
                                                 </button>
                                                 <button
                                                     onClick={() => handleGeminiAnalysis('effectiveness')}
                                                     disabled={geminiLoading}
                                                     className="gemini-btn"
                                                 >
-                                                    📊 Effectiveness
+                                                    Effectiveness
                                                 </button>
                                             </div>
                                             <div className="gemini-custom-question">

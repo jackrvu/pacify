@@ -299,13 +299,13 @@ const PolicyModal = ({
                                     className={`control-btn ${showAnnotations ? 'active' : ''}`}
                                     onClick={() => setShowAnnotations(!showAnnotations)}
                                 >
-                                    📝 Annotations
+                                    Annotations
                                 </button>
                                 <button
                                     className={`control-btn ${showGeminiPanel ? 'active' : ''}`}
                                     onClick={() => setShowGeminiPanel(!showGeminiPanel)}
                                 >
-                                    🤖 AI Analysis
+                                    AI Analysis
                                 </button>
                             </div>
                         </div>
