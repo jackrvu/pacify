@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import './AnalyticsDashboard.css';
-import { getBookmarkedPolicies, unbookmarkPolicy, exportBookmarks, importBookmarks, addAnnotation, updateAnnotation, removeAnnotation } from '../utils/bookmarkService';
+import { getBookmarkedPolicies, unbookmarkPolicy, addAnnotation, updateAnnotation, removeAnnotation } from '../utils/bookmarkService';
 import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
 
 // Utility function for consistent timestamp generation
@@ -15,7 +15,7 @@ const getCurrentTimestamp = () => {
 const formatDateForDisplay = (dateString) => {
     try {
         if (!dateString) return 'No date';
-        
+
         // Handle different date formats
         let date;
         if (typeof dateString === 'string') {
@@ -34,12 +34,12 @@ const formatDateForDisplay = (dateString) => {
         } else {
             date = new Date(dateString);
         }
-        
+
         // Check if date is valid
         if (isNaN(date.getTime())) {
             return dateString; // Return original string if invalid
         }
-        
+
         return date.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
@@ -54,12 +54,12 @@ const formatDateForDisplay = (dateString) => {
     }
 };
 
-const AnalyticsDashboard = ({ 
-    incidents, 
-    timelineData, 
-    availableYears, 
-    getDataForYear, 
-    getYearStats, 
+const AnalyticsDashboard = ({
+    incidents,
+    timelineData,
+    availableYears,
+    getDataForYear,
+    getYearStats,
     onClose,
     selectedPolicyForDashboard,
     showAnalyticsDashboard,
@@ -67,7 +67,7 @@ const AnalyticsDashboard = ({
 }) => {
     // Dashboard view state
     const [activeView, setActiveView] = useState('analytics'); // 'analytics', 'bookmarks', 'policy-details'
-    
+
     // Bookmark state
     const [bookmarkedPolicies, setBookmarkedPolicies] = useState([]);
     const [selectedBookmark, setSelectedBookmark] = useState(null);
@@ -84,57 +84,13 @@ const AnalyticsDashboard = ({
     const [geminiResponse, setGeminiResponse] = useState('');
     const [showGeminiPanel, setShowGeminiPanel] = useState(false);
     const [geminiQuestion, setGeminiQuestion] = useState('');
-    
+
     // Annotation editing state
     const [editingAnnotation, setEditingAnnotation] = useState(null);
     const [editAnnotationContent, setEditAnnotationContent] = useState('');
 
-    // Session state management
-    const [analysisSession, setAnalysisSession] = useState({
-        id: Date.now(),
-        name: 'Untitled Analysis',
-        created: getCurrentTimestamp(),
-        filters: {},
-        bookmarks: [],
-        notes: [],
-        customViews: [],
-        statistics: {},
-        lastModified: getCurrentTimestamp()
-    });
-
-    // Auto-save to localStorage every 30 seconds
-    useEffect(() => {
-        const sessionKey = `analytics_session_${analysisSession.id}`;
-        localStorage.setItem(sessionKey, JSON.stringify(analysisSession));
-        
-        // Keep list of all sessions
-        const allSessions = JSON.parse(localStorage.getItem('all_analytics_sessions') || '[]');
-        const updatedSessions = allSessions.filter(s => s.id !== analysisSession.id);
-        updatedSessions.push({
-            id: analysisSession.id,
-            name: analysisSession.name,
-            created: analysisSession.created,
-            lastModified: getCurrentTimestamp()
-        });
-        localStorage.setItem('all_analytics_sessions', JSON.stringify(updatedSessions));
-    }, [analysisSession]);
-
-    // Load existing sessions on mount
-    useEffect(() => {
-        const allSessions = JSON.parse(localStorage.getItem('all_analytics_sessions') || '[]');
-        if (allSessions.length > 0) {
-            // Load the most recent session
-            const latestSession = allSessions.sort((a, b) => 
-                new Date(b.lastModified) - new Date(a.lastModified)
-            )[0];
-            
-            const sessionKey = `analytics_session_${latestSession.id}`;
-            const savedSession = localStorage.getItem(sessionKey);
-            if (savedSession) {
-                setAnalysisSession(JSON.parse(savedSession));
-            }
-        }
-    }, []);
+    // Simple session info for display
+    const [sessionCreated] = useState(getCurrentTimestamp());
 
     // Load bookmarked policies
     useEffect(() => {
@@ -147,7 +103,7 @@ const AnalyticsDashboard = ({
         if (selectedPolicyForDashboard && showAnalyticsDashboard) {
             setCurrentPolicy(selectedPolicyForDashboard);
             setActiveView('policy-details');
-            
+
             // Load existing annotations for this policy
             const bookmarks = getBookmarkedPolicies();
             const bookmark = bookmarks.find(b => b.law_id === selectedPolicyForDashboard.law_id);
@@ -159,81 +115,9 @@ const AnalyticsDashboard = ({
         }
     }, [selectedPolicyForDashboard, showAnalyticsDashboard]);
 
-    // Export session as JSON file
-    const exportSession = () => {
-        const sessionData = {
-            ...analysisSession,
-            timestamp: getCurrentTimestamp(),
-            appVersion: '1.0.0',
-            dataSnapshot: {
-                incidentCount: incidents.length,
-                yearRange: availableYears ? [Math.min(...availableYears), Math.max(...availableYears)] : [2025, 2025],
-                selectedFilters: analysisSession.filters
-            }
-        };
-        
-        const blob = new Blob([JSON.stringify(sessionData, null, 2)], {
-            type: 'application/json'
-        });
-        
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `${analysisSession.name}_${getCurrentTimestamp().split('T')[0]}.pacify`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-    };
 
-    // Import session from file
-    const importSession = (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
 
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            try {
-                const importedSession = JSON.parse(e.target.result);
-                setAnalysisSession({
-                    ...importedSession,
-                    id: Date.now(), // New ID to avoid conflicts
-                    imported: true,
-                    originalId: importedSession.id,
-                    lastModified: getCurrentTimestamp()
-                });
-            } catch (error) {
-                console.error('Invalid session file:', error);
-                alert('Invalid session file. Please select a valid .pacify file.');
-            }
-        };
-        reader.readAsText(file);
-    };
 
-    // Create new session
-    const createNewSession = () => {
-        const newSession = {
-            id: Date.now(),
-        name: `Analysis ${formatDateForDisplay(getCurrentTimestamp())}`,
-        created: getCurrentTimestamp(),
-            filters: {},
-            bookmarks: [],
-            notes: [],
-            customViews: [],
-            statistics: {},
-            lastModified: getCurrentTimestamp()
-        };
-        setAnalysisSession(newSession);
-    };
-
-    // Update session name
-    const updateSessionName = (newName) => {
-        setAnalysisSession(prev => ({
-            ...prev,
-            name: newName,
-            lastModified: getCurrentTimestamp()
-        }));
-    };
 
     // Bookmark handlers
     const handleRemoveBookmark = (lawId) => {
@@ -259,51 +143,32 @@ const AnalyticsDashboard = ({
             mass_shooting_analysis: bookmark.mass_shooting_analysis,
             state_mass_shooting_stats: bookmark.state_mass_shooting_stats
         };
-        
+
         setCurrentPolicy(policyData);
         setActiveView('policy-details');
-        
+
         // Load existing annotations for this policy
         if (bookmark.annotations) {
             setPolicyAnnotations(bookmark.annotations);
         } else {
             setPolicyAnnotations([]);
         }
-        
+
         console.log('Switched to policy-details view with policy:', policyData);
     };
 
-    const handleExportBookmarks = () => {
-        const result = exportBookmarks();
-        if (!result.success) {
-            alert(result.message);
-        }
-    };
 
-    const handleImportBookmarks = (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
-
-        importBookmarks(file).then(result => {
-            if (result.success) {
-                setBookmarkedPolicies(getBookmarkedPolicies());
-                alert(`Successfully imported ${result.count} bookmarks!`);
-            } else {
-                alert(result.message);
-            }
-        });
-    };
 
     // Filtered bookmarks
     const filteredBookmarks = useMemo(() => {
         return bookmarkedPolicies.filter(bookmark => {
-            const matchesFilter = bookmarkFilter === 'all' || 
+            const matchesFilter = bookmarkFilter === 'all' ||
                 bookmark.effect?.toLowerCase() === bookmarkFilter.toLowerCase();
-            const matchesSearch = !bookmarkSearch || 
+            const matchesSearch = !bookmarkSearch ||
                 bookmark.state?.toLowerCase().includes(bookmarkSearch.toLowerCase()) ||
                 bookmark.law_class?.toLowerCase().includes(bookmarkSearch.toLowerCase()) ||
                 bookmark.original_content?.toLowerCase().includes(bookmarkSearch.toLowerCase());
-            
+
             return matchesFilter && matchesSearch;
         });
     }, [bookmarkedPolicies, bookmarkFilter, bookmarkSearch]);
@@ -321,14 +186,14 @@ const AnalyticsDashboard = ({
         if (result.success) {
             setNewAnnotation('');
             setGeminiResponse('');
-            
+
             // Reload annotations
             const bookmarks = getBookmarkedPolicies();
             const bookmark = bookmarks.find(b => b.law_id === currentPolicy.law_id);
             if (bookmark && bookmark.annotations) {
                 setPolicyAnnotations(bookmark.annotations);
             }
-            
+
             // Move camera to annotation location instead of showing alert
             if (onFlyToLocation && currentPolicy.state) {
                 onFlyToLocation(currentPolicy.state);
@@ -357,7 +222,7 @@ const AnalyticsDashboard = ({
             if (bookmark && bookmark.annotations) {
                 setPolicyAnnotations(bookmark.annotations);
             }
-            
+
             // Clear editing state
             setEditingAnnotation(null);
             setEditAnnotationContent('');
@@ -402,7 +267,7 @@ const AnalyticsDashboard = ({
         setGeminiResponse('');
 
         try {
-            const result = insightType 
+            const result = insightType
                 ? await getPolicyInsights(currentPolicy, insightType)
                 : await analyzePolicyWithGemini(currentPolicy, geminiQuestion || null);
 
@@ -429,74 +294,32 @@ const AnalyticsDashboard = ({
 
     return (
         <div className="analytics-dashboard">
-            {/* Header with session management */}
+            {/* Header */}
             <div className="dashboard-header">
                 <div className="session-info">
-                    <input
-                        type="text"
-                        value={analysisSession.name}
-                        onChange={(e) => updateSessionName(e.target.value)}
-                        className="session-name-input"
-                        placeholder="Enter analysis name..."
-                    />
                     <span className="session-date">
-                        Created: {formatDateForDisplay(analysisSession.created)}
+                        Session started: {formatDateForDisplay(sessionCreated)}
                     </span>
                 </div>
-                
+
                 <div className="session-controls">
                     <div className="view-switcher">
-                        <button 
+                        <button
                             className={`view-btn ${activeView === 'analytics' ? 'active' : ''}`}
                             onClick={() => setActiveView('analytics')}
                         >
                             Analytics
                         </button>
-                        <button 
+                        <button
                             className={`view-btn ${activeView === 'bookmarks' ? 'active' : ''}`}
                             onClick={() => setActiveView('bookmarks')}
                         >
                             Bookmarks ({bookmarkedPolicies.length})
                         </button>
                     </div>
-                    
-                    {activeView === 'analytics' && (
-                        <>
-                            <button onClick={createNewSession} className="btn btn-secondary">
-                                New Analysis
-                            </button>
-                            <button onClick={exportSession} className="btn btn-primary">
-                                Export Session
-                            </button>
-                            <label className="btn btn-secondary">
-                                Import Session
-                                <input
-                                    type="file"
-                                    accept=".pacify,.json"
-                                    onChange={importSession}
-                                    style={{ display: 'none' }}
-                                />
-                            </label>
-                        </>
-                    )}
-                    
-                    {activeView === 'bookmarks' && (
-                        <>
-                            <button onClick={handleExportBookmarks} className="btn btn-primary">
-                                Export Bookmarks
-                            </button>
-                            <label className="btn btn-secondary">
-                                Import Bookmarks
-                                <input
-                                    type="file"
-                                    accept=".json"
-                                    onChange={handleImportBookmarks}
-                                    style={{ display: 'none' }}
-                                />
-                            </label>
-                        </>
-                    )}
-                    
+
+
+
                     <button onClick={onClose} className="btn btn-close">
                         ✕
                     </button>
@@ -533,7 +356,7 @@ const AnalyticsDashboard = ({
                                     <option value="restrictive">Restrictive</option>
                                     <option value="permissive">Permissive</option>
                                 </select>
-                                
+
                                 <input
                                     type="text"
                                     value={bookmarkSearch}
@@ -548,7 +371,7 @@ const AnalyticsDashboard = ({
                         <div className="bookmarks-list">
                             {filteredBookmarks.length === 0 ? (
                                 <div className="empty-state">
-                                    <div className="empty-icon">Bookmarks</div>
+                                    <div className="empty-icon"></div>
                                     <h3>No bookmarked policies</h3>
                                     <p>Bookmark policies from the map to see them here</p>
                                 </div>
@@ -560,7 +383,7 @@ const AnalyticsDashboard = ({
                                                 <h3>{bookmark.law_class}</h3>
                                                 <div className="bookmark-meta">
                                                     <span className="bookmark-state">{bookmark.state}</span>
-                                                    <span 
+                                                    <span
                                                         className={`bookmark-effect ${bookmark.effect?.toLowerCase()}`}
                                                     >
                                                         {bookmark.effect}
@@ -585,12 +408,12 @@ const AnalyticsDashboard = ({
                                                 </button>
                                             </div>
                                         </div>
-                                        
+
                                         <div className="bookmark-content">
                                             <p className="bookmark-summary">
                                                 {bookmark.original_content?.substring(0, 200)}...
                                             </p>
-                                            
+
                                             {bookmark.annotations && bookmark.annotations.length > 0 && (
                                                 <div className="bookmark-annotations">
                                                     <h4>Annotations ({bookmark.annotations.length})</h4>
@@ -598,8 +421,8 @@ const AnalyticsDashboard = ({
                                                         {bookmark.annotations.slice(0, 2).map((annotation) => (
                                                             <div key={annotation.id} className="annotation-item">
                                                                 <span className="annotation-type">
-                                                                    {annotation.type === 'note' ? 'Note' : 
-                                                                     annotation.type === 'question' ? 'Question' : 'Insight'}
+                                                                    {annotation.type === 'note' ? 'Note' :
+                                                                        annotation.type === 'question' ? 'Question' : 'Insight'}
                                                                 </span>
                                                                 <span className="annotation-content">
                                                                     {annotation.content}
@@ -625,7 +448,7 @@ const AnalyticsDashboard = ({
                 {activeView === 'policy-details' && currentPolicy && (
                     <div className="policy-details-view">
                         <div className="policy-details-header">
-                            <button 
+                            <button
                                 onClick={handleBackToAnalytics}
                                 className="back-btn"
                             >
@@ -641,7 +464,7 @@ const AnalyticsDashboard = ({
                                     <h3>{currentPolicy.law_class}</h3>
                                     <div className="policy-meta">
                                         <span className="policy-state">{currentPolicy.state}</span>
-                                        <span 
+                                        <span
                                             className={`policy-effect ${currentPolicy.effect?.toLowerCase()}`}
                                         >
                                             {currentPolicy.effect}
@@ -678,13 +501,13 @@ const AnalyticsDashboard = ({
                                 <div className="tools-header">
                                     <h3>Analysis Tools</h3>
                                     <div className="tools-tabs">
-                                        <button 
+                                        <button
                                             className={`tool-tab ${!showGeminiPanel ? 'active' : ''}`}
                                             onClick={() => setShowGeminiPanel(false)}
                                         >
                                             Annotations
                                         </button>
-                                        <button 
+                                        <button
                                             className={`tool-tab ${showGeminiPanel ? 'active' : ''}`}
                                             onClick={() => setShowGeminiPanel(true)}
                                         >
@@ -759,8 +582,8 @@ const AnalyticsDashboard = ({
                                                                 <>
                                                                     <div className="annotation-header">
                                                                         <span className="annotation-type">
-                                                                            {annotation.type === 'note' ? 'Note' :  
-                                                                             annotation.type === 'question' ? 'Question' : 'Insight'}
+                                                                            {annotation.type === 'note' ? 'Note' :
+                                                                                annotation.type === 'question' ? 'Question' : 'Insight'}
                                                                         </span>
                                                                         <span className="annotation-date">
                                                                             {formatDateForDisplay(annotation.created_at || annotation.timestamp)}
@@ -843,11 +666,11 @@ const AnalyticsDashboard = ({
                                                     disabled={geminiLoading || !geminiQuestion.trim()}
                                                     className="gemini-ask-btn"
                                                 >
-                                                    {geminiLoading ? '⏳ Analyzing...' : '🤖 Ask Gemini'}
+                                                    {geminiLoading ? 'Analyzing...' : 'Ask Gemini'}
                                                 </button>
                                             </div>
                                         </div>
-                                        
+
                                         {geminiResponse && (
                                             <div className="gemini-response">
                                                 <h4>AI Analysis:</h4>
