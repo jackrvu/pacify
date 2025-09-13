@@ -127,7 +127,14 @@ function App() {
         }
 
         setLoading(timelineLoading);
-    }, [timelineMode, currentYear, timelineData, timelineLoading, getDataForYear]);
+    }, [timelineMode, currentYear, timelineData.length, timelineLoading, getDataForYear]);
+
+    // Show policy timeline when a state is selected
+    useEffect(() => {
+        if (selectedState) {
+            setShowPolicyTimeline(true);
+        }
+    }, [selectedState]);
 
 
     // Cursor and panel handlers
@@ -143,6 +150,8 @@ function App() {
             const state = detectStateFromPosition(cursorPosition);
             if (state && state !== selectedState) {
                 setSelectedState(state);
+                // Always show policy timeline when a state is selected
+                setShowPolicyTimeline(true);
             }
         }
     };
@@ -202,12 +211,8 @@ function App() {
         if (enabled && availableYears.length > 0) {
             // Set to earliest year when enabling timeline
             setCurrentYear(Math.min(...availableYears));
-            // Show policy timeline popup when timeline mode is enabled
-            setShowPolicyTimeline(true);
-        } else {
-            // Hide policy timeline popup when timeline mode is disabled
-            setShowPolicyTimeline(false);
         }
+        // Note: Policy timeline visibility is now controlled by selectedState, not timeline mode
     };
 
     const handleYearChange = (year) => {
@@ -217,7 +222,8 @@ function App() {
     // Policy timeline handlers
     const handleClosePolicyTimeline = () => {
         setShowPolicyTimeline(false);
-        setTimelineMode(false);
+        setSelectedState(null); // Clear selected state when closing timeline
+        // Note: Timeline mode can remain enabled independently of policy timeline
     };
 
     const handlePolicyClick = (year, policies) => {
@@ -295,8 +301,6 @@ function App() {
                 onMapClick={mapClickCount}
                 isMobile={isMobile}
                 onPanelStateChange={setIsPanelMinimized}
-                selectedState={selectedState}
-                hidePolicySection={showPolicyTimeline} // Hide policy section when timeline is active
             />
 
             {/* Policy Timeline Popup */}

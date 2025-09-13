@@ -15,15 +15,16 @@ const PolicyTimelinePopup = ({
     const [loadingPolicy, setLoadingPolicy] = useState(false);
     const [isDragging, setIsDragging] = useState(false);
     const [selectedPolicy, setSelectedPolicy] = useState(null);
-    
+
     // Timeline controls state
     const [isPlaying, setIsPlaying] = useState(false);
     const isPlayingRef = useRef(false);
-    
+    const intervalRef = useRef(null);
+
     // Resize state
     const [panelHeight, setPanelHeight] = useState(200);
     const [isResizing, setIsResizing] = useState(false);
-    
+
     // Modal state
     const [showPolicyModal, setShowPolicyModal] = useState(false);
 
@@ -58,11 +59,23 @@ const PolicyTimelinePopup = ({
         }
     }, [isVisible, policyData.length]);
 
+    // Reset modal state when selectedState changes
+    useEffect(() => {
+        if (showPolicyModal) {
+            setShowPolicyModal(false);
+            setSelectedPolicy(null);
+        }
+    }, [selectedState]);
+
     // Cleanup on unmount
     useEffect(() => {
         return () => {
             setIsPlaying(false);
             isPlayingRef.current = false;
+            if (intervalRef.current) {
+                clearInterval(intervalRef.current);
+                intervalRef.current = null;
+            }
         };
     }, []);
 
@@ -74,11 +87,11 @@ const PolicyTimelinePopup = ({
 
     const handleResizeMouseMove = (e) => {
         if (!isResizing) return;
-        
+
         const newHeight = window.innerHeight - e.clientY;
         const minHeight = 150;
         const maxHeight = window.innerHeight * 0.6;
-        
+
         if (newHeight >= minHeight && newHeight <= maxHeight) {
             setPanelHeight(newHeight);
         }
@@ -119,13 +132,13 @@ const PolicyTimelinePopup = ({
         policyData.forEach(policy => {
             const year = parseInt(policy['Effective Date Year']);
             const state = policy.State;
-            
+
             // Only include policies for the selected state (if one is selected)
             if (year && year >= 1995 && year <= 2025) {
                 if (selectedState && state && state.toLowerCase() !== selectedState.toLowerCase()) {
                     return; // Skip this policy if it's not for the selected state
                 }
-                
+
                 if (!grouped[year]) {
                     grouped[year] = [];
                 }
@@ -145,32 +158,49 @@ const PolicyTimelinePopup = ({
         const currentIndex = availableYears.indexOf(currentYear);
         const nextIndex = (currentIndex + 1) % availableYears.length;
         const nextYear = availableYears[nextIndex];
-        
+
         onYearChange(nextYear);
-        
-        // Schedule next increment if still playing
-        setTimeout(() => {
-            if (isPlayingRef.current) {
-                incrementYear();
-            }
-        }, 2000); // 2 seconds
     }, [availableYears, currentYear, onYearChange]);
 
     // Start simple year increment
     const startAutoPlay = useCallback(() => {
         if (availableYears.length === 0) return;
-        
+
+        // Clear existing interval if any
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+        }
+
         setIsPlaying(true);
         isPlayingRef.current = true;
-        
-        // Start incrementing immediately
-        incrementYear();
-    }, [availableYears, incrementYear]);
+
+        // Use interval instead of recursive setTimeout
+        intervalRef.current = setInterval(() => {
+            if (!isPlayingRef.current) {
+                if (intervalRef.current) {
+                    clearInterval(intervalRef.current);
+                    intervalRef.current = null;
+                }
+                return;
+            }
+
+            // We need to access the latest state here
+            onYearChange(prevYear => {
+                const currentIndex = availableYears.indexOf(prevYear);
+                const nextIndex = (currentIndex + 1) % availableYears.length;
+                return availableYears[nextIndex];
+            });
+        }, 2000);
+    }, [availableYears, onYearChange]);
 
     // Stop year increment
     const stopAutoPlay = useCallback(() => {
         setIsPlaying(false);
         isPlayingRef.current = false;
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
     }, []);
 
     // Handle play/pause
@@ -243,18 +273,18 @@ const PolicyTimelinePopup = ({
     // Show policy modal if a policy is selected
     if (showPolicyModal && selectedPolicy) {
         return (
-            <div 
+            <div
                 className={`policy-timeline-popup ${isResizing ? 'resizing' : ''}`}
                 style={{ height: `${panelHeight}px` }}
             >
                 {/* Resize handle */}
-                <div 
+                <div
                     className="resize-handle-top"
                     onMouseDown={handleResizeMouseDown}
                 />
                 <div className="timeline-popup-header">
                     <div className="timeline-title">
-                        <button 
+                        <button
                             className="back-to-timeline-btn"
                             onClick={handleBackToTimeline}
                             title="Back to timeline"
@@ -282,7 +312,7 @@ const PolicyTimelinePopup = ({
                             {selectedState && ` for ${selectedState}`}
                         </p>
                     </div>
-                    
+
                     <div className="policy-modal-list">
                         {selectedPolicy.policies.map((policy, index) => (
                             <div
@@ -322,12 +352,12 @@ const PolicyTimelinePopup = ({
     }
 
     return (
-        <div 
+        <div
             className={`policy-timeline-popup ${isResizing ? 'resizing' : ''}`}
             style={{ height: `${panelHeight}px` }}
         >
             {/* Resize handle */}
-            <div 
+            <div
                 className="resize-handle-top"
                 onMouseDown={handleResizeMouseDown}
             />
@@ -340,7 +370,7 @@ const PolicyTimelinePopup = ({
                     <span className="current-year-display">{currentYear}</span>
                 </div>
                 <div className="timeline-controls">
-                    <button 
+                    <button
                         className={`play-pause-btn ${isPlaying ? 'playing' : 'paused'}`}
                         onClick={handlePlayPause}
                         title={isPlaying ? 'Pause timeline' : 'Play timeline'}

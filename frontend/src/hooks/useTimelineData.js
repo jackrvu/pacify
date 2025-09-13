@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import Papa from 'papaparse';
 
 const useTimelineData = () => {
@@ -61,11 +61,11 @@ const useTimelineData = () => {
                         state: item.state,
                         source: 'historical',
                         originalData: item
-                    })).filter(item => 
-                        !isNaN(item.year) && 
-                        !isNaN(item.latitude) && 
+                    })).filter(item =>
+                        !isNaN(item.year) &&
+                        !isNaN(item.latitude) &&
                         !isNaN(item.longitude) &&
-                        item.latitude !== 0 && 
+                        item.latitude !== 0 &&
                         item.longitude !== 0
                     );
                 };
@@ -74,7 +74,7 @@ const useTimelineData = () => {
                     return data.map(item => {
                         const killed = parseInt(item['Victims Killed'] || 0);
                         const injured = parseInt(item['Victims Injured'] || 0);
-                        
+
                         return {
                             id: item['Incident ID'],
                             year: parseInt(item.year),
@@ -90,8 +90,8 @@ const useTimelineData = () => {
                             source: 'recent',
                             originalData: item
                         };
-                    }).filter(item => 
-                        !isNaN(item.year) && 
+                    }).filter(item =>
+                        !isNaN(item.year) &&
                         item.casualties > 0
                     );
                 };
@@ -100,7 +100,7 @@ const useTimelineData = () => {
                     return data.map(item => {
                         const killed = parseInt(item['Victims Killed'] || 0);
                         const injured = parseInt(item['Victims Injured'] || 0);
-                        
+
                         return {
                             id: item['Incident ID'],
                             year: 2025, // Current data is 2025
@@ -116,10 +116,10 @@ const useTimelineData = () => {
                             source: 'current',
                             originalData: item
                         };
-                    }).filter(item => 
-                        !isNaN(item.latitude) && 
+                    }).filter(item =>
+                        !isNaN(item.latitude) &&
                         !isNaN(item.longitude) &&
-                        item.latitude !== 0 && 
+                        item.latitude !== 0 &&
                         item.longitude !== 0 &&
                         item.casualties > 0
                     );
@@ -160,16 +160,16 @@ const useTimelineData = () => {
     // Extract available years from data
     const availableYears = useMemo(() => {
         if (allData.length === 0) return [];
-        
+
         const years = [...new Set(allData.map(item => item.year))];
         return years.sort((a, b) => a - b);
     }, [allData]);
 
     // Filter data by year
-    const getDataForYear = (year) => {
+    const getDataForYear = useCallback((year) => {
         if (year === 'all') return allData;
         return allData.filter(item => item.year === year);
-    };
+    }, [allData]);
 
     // Get year range
     const yearRange = useMemo(() => {
@@ -181,7 +181,7 @@ const useTimelineData = () => {
     }, [availableYears]);
 
     // Get statistics
-    const getYearStats = (year) => {
+    const getYearStats = useCallback((year) => {
         const yearData = getDataForYear(year);
         return {
             totalIncidents: yearData.length,
@@ -189,7 +189,7 @@ const useTimelineData = () => {
             totalInjured: yearData.reduce((sum, item) => sum + item.injured, 0),
             totalCasualties: yearData.reduce((sum, item) => sum + item.casualties, 0)
         };
-    };
+    }, [getDataForYear]);
 
     return {
         allData,

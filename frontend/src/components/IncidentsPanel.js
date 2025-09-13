@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Papa from 'papaparse';
 import './IncidentsPanel.css';
 
-function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPanelStateChange, selectedState, hidePolicySection = false }) {
+function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPanelStateChange }) {
     const [nearbyIncidents, setNearbyIncidents] = useState([]);
     const [displayedIncidentCount, setDisplayedIncidentCount] = useState(20);
     const [loadingMoreIncidents, setLoadingMoreIncidents] = useState(false);
@@ -10,15 +10,11 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
     const [isPersistent, setIsPersistent] = useState(false);
     const [lastClickCount, setLastClickCount] = useState(0);
     const [isPanelMinimized, setIsPanelMinimized] = useState(false);
-    
+
     // Resize state
     const [panelWidth, setPanelWidth] = useState(320); // Half the original size
     const [isResizing, setIsResizing] = useState(false);
 
-    // Policy-related state
-    const [policyData, setPolicyData] = useState([]);
-    const [loadingPolicy, setLoadingPolicy] = useState(false);
-    const [policyError, setPolicyError] = useState(null);
 
     const incidentsListRef = useRef(null);
     const incidentsContentRef = useRef(null);
@@ -36,91 +32,7 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
         return R * c;
     };
 
-    // Load policy data when component mounts
-    useEffect(() => {
-        const loadPolicyData = async () => {
-            try {
-                setLoadingPolicy(true);
-                setPolicyError(null);
 
-                const response = await fetch('/data/policy_sorted.csv');
-                const csvText = await response.text();
-
-                Papa.parse(csvText, {
-                    header: true,
-                    skipEmptyLines: true,
-                    complete: (results) => {
-                        setPolicyData(results.data);
-                        setLoadingPolicy(false);
-                    },
-                    error: (error) => {
-                        console.error('Error parsing policy CSV:', error);
-                        setPolicyError('Failed to load policy data');
-                        setLoadingPolicy(false);
-                    }
-                });
-            } catch (error) {
-                console.error('Error loading policy data:', error);
-                setPolicyError('Failed to load policy data');
-                setLoadingPolicy(false);
-            }
-        };
-
-        loadPolicyData();
-    }, []);
-
-    // Filter policies for the selected state and get the most recent ones
-    const getRecentPoliciesForState = (stateName) => {
-        if (!policyData || !stateName) return [];
-
-        const statePolicies = policyData.filter(policy =>
-            policy.State && policy.State.toLowerCase() === stateName.toLowerCase()
-        );
-
-        // Sort by effective date (most recent first)
-        const sortedPolicies = statePolicies.sort((a, b) => {
-            const yearA = parseInt(a['Effective Date Year']) || 0;
-            const monthA = parseInt(a['Effective Date Month']) || 0;
-            const dayA = parseInt(a['Effective Date Day']) || 0;
-
-            const yearB = parseInt(b['Effective Date Year']) || 0;
-            const monthB = parseInt(b['Effective Date Month']) || 0;
-            const dayB = parseInt(b['Effective Date Day']) || 0;
-
-            // Compare years first
-            if (yearA !== yearB) return yearB - yearA;
-            // Then months
-            if (monthA !== monthB) return monthB - monthA;
-            // Then days
-            return dayB - dayA;
-        });
-
-        // Return the 5 most recent policies (fewer for side panel)
-        return sortedPolicies.slice(0, 5);
-    };
-
-    const formatPolicyDate = (year, month, day) => {
-        if (!year) return 'Unknown Date';
-
-        const date = new Date(year, (month || 1) - 1, day || 1);
-        return date.toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'short',
-            day: 'numeric'
-        });
-    };
-
-    const getPolicyEffectColor = (effect) => {
-        if (!effect) return '#666';
-        switch (effect.toLowerCase()) {
-            case 'restrictive':
-                return '#DC143C'; // Crimson
-            case 'permissive':
-                return '#228B22'; // Forest Green
-            default:
-                return '#666'; // Gray
-        }
-    };
 
     // Effect to handle incidents based on cursor position
     useEffect(() => {
@@ -229,11 +141,11 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
 
     const handleMouseMove = (e) => {
         if (!isResizing) return;
-        
+
         const newWidth = window.innerWidth - e.clientX;
         const minWidth = 300;
         const maxWidth = window.innerWidth * 0.8;
-        
+
         if (newWidth >= minWidth && newWidth <= maxWidth) {
             setPanelWidth(newWidth);
         }
@@ -349,7 +261,7 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
             >
                 {/* Resize handle */}
                 {!isMobile && (
-                    <div 
+                    <div
                         className="resize-handle"
                         onMouseDown={handleMouseDown}
                     />
@@ -446,77 +358,6 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
                         </div>
                     </div>
 
-                    {/* Policy Section - Hidden when timeline popup is active */}
-                    {selectedState && !hidePolicySection && (
-                        <div className="policy-section">
-                            <div className="policy-section-header">
-                                <h4>Recent Policy Changes in {selectedState}</h4>
-                                <p className="policy-hint">Enable Timeline View to see all policy changes</p>
-                            </div>
-                            <div className="policy-content">
-                                {loadingPolicy && (
-                                    <div className="policy-loading">
-                                        <p>Loading policy data...</p>
-                                    </div>
-                                )}
-
-                                {policyError && (
-                                    <div className="policy-error">
-                                        <p>{policyError}</p>
-                                    </div>
-                                )}
-
-                                {!loadingPolicy && !policyError && (
-                                    (() => {
-                                        const recentPolicies = getRecentPoliciesForState(selectedState);
-                                        return recentPolicies.length === 0 ? (
-                                            <div className="no-policies">
-                                                <p>No recent policy changes in {selectedState}</p>
-                                            </div>
-                                        ) : (
-                                            <div className="policies-list">
-                                                {recentPolicies.map((policy, index) => (
-                                                    <div key={policy['Law ID'] || index} className="policy-item">
-                                                        <div className="policy-header">
-                                                            <div className="policy-date">
-                                                                {formatPolicyDate(
-                                                                    policy['Effective Date Year'],
-                                                                    policy['Effective Date Month'],
-                                                                    policy['Effective Date Day']
-                                                                )}
-                                                            </div>
-                                                            <div
-                                                                className="policy-effect"
-                                                                style={{ color: getPolicyEffectColor(policy.Effect) }}
-                                                            >
-                                                                {policy.Effect || 'Unknown'}
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="policy-title">
-                                                            {policy['Law Class'] || 'Unknown Law Class'}
-                                                        </div>
-
-                                                        <div className="policy-change-type">
-                                                            <strong>Change:</strong> {policy['Type of Change'] || 'Unknown'}
-                                                        </div>
-
-                                                        {policy.Content && (
-                                                            <div className="policy-content-text">
-                                                                {policy.Content.length > 100
-                                                                    ? `${policy.Content.substring(0, 100)}...`
-                                                                    : policy.Content}
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        );
-                                    })()
-                                )}
-                            </div>
-                        </div>
-                    )}
                 </div>
             </div>
         </>
