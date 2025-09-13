@@ -12,6 +12,8 @@ import IncidentHeatmap from './components/IncidentHeatmap';
 import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
 import TimelineControls from './components/TimelineControls';
+import PolicyTimelinePopup from './components/PolicyTimelinePopup';
+import PolicyModal from './components/PolicyModal';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
@@ -29,24 +31,24 @@ function App() {
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
     const [showPinsLayer, setShowPinsLayer] = useState(false); // Disable pins by default
-    
+
     // Timeline state
     const [timelineMode, setTimelineMode] = useState(false);
     const [currentYear, setCurrentYear] = useState(2025);
-    
+
     // Legacy state for backward compatibility
     const [incidents, setIncidents] = useState([]); // Gun violence incident data
     const [loading, setLoading] = useState(true);
-    
+
     // Timeline data hook
-    const { 
-        allData: timelineData, 
-        loading: timelineLoading, 
-        availableYears, 
-        getDataForYear, 
-        getYearStats 
+    const {
+        allData: timelineData,
+        loading: timelineLoading,
+        availableYears,
+        getDataForYear,
+        getYearStats
     } = useTimelineData();
-    
+
     // State for cursor tracking and panel
     const [cursorPosition, setCursorPosition] = useState(null);
     const [mapClickCount, setMapClickCount] = useState(0);
@@ -55,6 +57,11 @@ function App() {
 
     // State for policy tab
     const [selectedState, setSelectedState] = useState(null);
+
+    // State for policy timeline popup
+    const [showPolicyTimeline, setShowPolicyTimeline] = useState(false);
+    const [selectedPolicy, setSelectedPolicy] = useState(null);
+    const [showPolicyModal, setShowPolicyModal] = useState(false);
 
     // Detect mobile device on mount and window resize
     useEffect(() => {
@@ -210,11 +217,34 @@ function App() {
         if (enabled && availableYears.length > 0) {
             // Set to earliest year when enabling timeline
             setCurrentYear(Math.min(...availableYears));
+            // Show policy timeline popup when timeline mode is enabled
+            setShowPolicyTimeline(true);
+        } else {
+            // Hide policy timeline popup when timeline mode is disabled
+            setShowPolicyTimeline(false);
         }
     };
 
     const handleYearChange = (year) => {
         setCurrentYear(year);
+    };
+
+    // Policy timeline handlers
+    const handleClosePolicyTimeline = () => {
+        setShowPolicyTimeline(false);
+        setTimelineMode(false);
+    };
+
+    const handlePolicyClick = (year, policies) => {
+        // Find a representative policy from the year to show in modal
+        const policy = policies[0]; // Show the first policy for now
+        setSelectedPolicy(policy);
+        setShowPolicyModal(true);
+    };
+
+    const handleClosePolicyModal = () => {
+        setShowPolicyModal(false);
+        setSelectedPolicy(null);
     };
 
     // Show loading screen while CSV data loads
@@ -277,7 +307,7 @@ function App() {
                         onToggleTimeline={handleTimelineToggle}
                         timelineMode={timelineMode}
                     />
-                    
+
                     {/* Timeline controls - show when timeline mode is active */}
                     {timelineMode && availableYears.length > 0 && (
                         <TimelineControls
@@ -299,6 +329,25 @@ function App() {
                 isMobile={isMobile}
                 onPanelStateChange={setIsPanelMinimized}
                 selectedState={selectedState}
+                hidePolicySection={showPolicyTimeline} // Hide policy section when timeline is active
+            />
+
+            {/* Policy Timeline Popup */}
+            <PolicyTimelinePopup
+                isVisible={showPolicyTimeline}
+                onClose={handleClosePolicyTimeline}
+                availableYears={availableYears}
+                currentYear={currentYear}
+                onYearChange={handleYearChange}
+                onPolicyClick={handlePolicyClick}
+            />
+
+            {/* Policy Modal */}
+            <PolicyModal
+                isOpen={showPolicyModal}
+                onClose={handleClosePolicyModal}
+                policy={selectedPolicy}
+                year={currentYear}
             />
 
         </div>
