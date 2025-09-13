@@ -2,6 +2,7 @@
 // Uses Leaflet for mapping with county choropleth and incident heatmap layers
 
 import React, { useState, useEffect, useRef } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
 import Papa from 'papaparse';
@@ -16,6 +17,8 @@ import PolicyTimelinePopup from './components/PolicyTimelinePopup';
 import StateGunViolencePanel from './components/StateGunViolencePanel';
 import HeatmapLegend from './components/HeatmapLegend';
 import ResizableTab from './components/ResizableTab';
+import AboutPage from './components/AboutPage';
+import MethodologyPage from './components/MethodologyPage';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
@@ -28,10 +31,11 @@ L.Icon.Default.mergeOptions({
     shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
 });
 
-function App() {
+// Main map component - extracted for routing
+function MapApp() {
     // Map reference for fly-to functionality
     const mapRef = useRef(null);
-    
+
     // State for controlling map layer visibility
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
@@ -66,7 +70,7 @@ function App() {
 
     // State for policy timeline popup
     const [showPolicyTimeline, setShowPolicyTimeline] = useState(false);
-    
+
     // State for analytics dashboard
     const [showAnalyticsDashboard, setShowAnalyticsDashboard] = useState(false);
     const [selectedPolicyForDashboard, setSelectedPolicyForDashboard] = useState(null);
@@ -452,6 +456,19 @@ function App() {
             />
 
         </div>
+    );
+}
+
+// Main App component with routing
+function App() {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<MapApp />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/methodology" element={<MethodologyPage />} />
+            </Routes>
+        </Router>
     );
 }
 

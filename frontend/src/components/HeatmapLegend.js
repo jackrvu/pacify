@@ -1,10 +1,12 @@
 // HeatmapLegend component - displays a clickable legend for the heatmap layer
 // Shows color gradient and explains what each color intensity represents
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './HeatmapLegend.css';
 
 const HeatmapLegend = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
     const colorStops = [
         { color: '#808080', intensity: '0.1', casualties: '0', description: 'No casualties' },
@@ -39,12 +41,12 @@ const HeatmapLegend = () => {
             </div>
 
             {/* Methodology Button */}
-            <div className="heatmap-legend-button methodology-button" onClick={() => window.open('/methodology', '_blank')}>
+            <div className="heatmap-legend-button methodology-button" onClick={() => navigate('/methodology')}>
                 <span className="legend-text">Methodology</span>
             </div>
 
             {/* About Button */}
-            <div className="heatmap-legend-button about-button" onClick={() => window.open('/about', '_blank')}>
+            <div className="heatmap-legend-button about-button" onClick={() => navigate('/about')}>
                 <span className="legend-text">About</span>
             </div>
 
