@@ -32,7 +32,7 @@
     align-items: center;
     padding: 20px 30px;
     border-bottom: 1px solid #e5e7eb;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #404040 0%, #2d2d2d 100%);
     color: white;
 }
 
@@ -103,7 +103,8 @@
     max-height: 400px;
     min-height: 200px;
     overflow-y: auto;
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical;
+    /* Allow vertical resizing */
     background: white;
     border-bottom: 2px solid #e5e7eb;
 }
@@ -281,7 +282,8 @@
     padding: 30px;
     display: flex;
     flex-direction: column;
-    min-height: 0; /* Allow flexbox shrinking */
+    min-height: 0;
+    /* Allow flexbox shrinking */
 }
 
 .loading-indicator {
@@ -336,7 +338,8 @@
     min-height: 400px;
     max-height: 800px;
     overflow: hidden;
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical;
+    /* Allow vertical resizing */
     display: flex;
     flex-direction: column;
     position: relative;
@@ -513,63 +516,63 @@
     .policy-impact-overlay {
         padding: 10px;
     }
-    
+
     .policy-impact-container {
         max-height: 95vh;
     }
-    
+
     .policy-impact-header {
         padding: 15px 20px;
     }
-    
+
     .policy-impact-header h2 {
         font-size: 1.3rem;
     }
-    
+
     .analysis-filters {
         padding: 15px 20px;
         flex-direction: column;
         gap: 15px;
         align-items: stretch;
     }
-    
+
     .filter-section {
         justify-content: space-between;
     }
-    
+
     .analysis-grid {
         padding: 15px;
         grid-template-columns: 1fr;
         gap: 15px;
         max-height: 350px;
     }
-    
+
     .analysis-card {
         padding: 12px;
     }
-    
+
     .card-content h3 {
         font-size: 1.1rem;
     }
-    
+
     .policy-impact-content {
         padding: 20px;
     }
-    
+
     .view-mode-selector {
         padding: 0 20px;
     }
-    
+
     .view-mode-selector button {
         padding: 12px 15px;
         font-size: 0.9rem;
     }
-    
+
     .summary-cards {
         grid-template-columns: 1fr;
         gap: 15px;
     }
-    
+
     .chart-container {
         padding: 15px;
     }
@@ -579,12 +582,12 @@
     .view-mode-selector {
         flex-direction: column;
     }
-    
+
     .view-mode-selector button {
         border-bottom: 1px solid #e5e7eb;
         border-radius: 0;
     }
-    
+
     .view-mode-selector button.active {
         border-bottom-color: #2563eb;
         border-left: 3px solid #2563eb;
