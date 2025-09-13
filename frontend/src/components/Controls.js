@@ -1,10 +1,13 @@
+// Map layer controls component - provides checkboxes to toggle map layers
 import React, { useState } from 'react';
 import './Controls.css';
 
 function Controls({ onToggleCountyLayer, onToggleHeatMapLayer }) {
+    // Local state to track checkbox states
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
 
+    // Toggle county choropleth layer
     const handleToggleCountyLayer = () => {
         const newValue = !showCountyLayer;
         setShowCountyLayer(newValue);
@@ -13,6 +16,7 @@ function Controls({ onToggleCountyLayer, onToggleHeatMapLayer }) {
         }
     };
 
+    // Toggle incident heatmap layer
     const handleToggleHeatMapLayer = () => {
         const newValue = !showHeatMapLayer;
         setShowHeatMapLayer(newValue);

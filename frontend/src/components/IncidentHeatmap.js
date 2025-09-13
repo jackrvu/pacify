@@ -1,3 +1,5 @@
+// Incident heatmap component - converts CSV addresses to coordinates and displays heat layer
+// Uses Google Places API for geocoding and Leaflet.heat for visualization
 import React, { useEffect, useRef, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -6,10 +8,10 @@ import 'leaflet.heat';
 const IncidentHeatmap = ({ incidents }) => {
     const map = useMap();
     const heatLayerRef = useRef(null);
-    const [geocodedIncidents, setGeocodedIncidents] = useState([]);
+    const [geocodedIncidents, setGeocodedIncidents] = useState([]); // Incidents with coordinates
     const [isGeocoding, setIsGeocoding] = useState(false);
 
-    // Google Places API geocoding function
+    // Convert address strings to lat/lng coordinates using Google Places API
     const geocodeAddress = async (address, city, state) => {
         const apiKey = process.env.REACT_APP_GOOGLE_PLACES_API_KEY;
         if (!apiKey) {
@@ -34,7 +36,7 @@ const IncidentHeatmap = ({ incidents }) => {
         return null;
     };
 
-    // Geocode incidents with coordinates
+    // Process CSV incidents: geocode addresses and calculate intensity
     useEffect(() => {
         const geocodeIncidents = async () => {
             if (!incidents || incidents.length === 0) return;
@@ -42,7 +44,7 @@ const IncidentHeatmap = ({ incidents }) => {
             setIsGeocoding(true);
             const geocoded = [];
 
-            // Process incidents in batches to avoid rate limiting
+            // Batch processing to respect Google API rate limits
             const batchSize = 10;
             for (let i = 0; i < incidents.length; i += batchSize) {
                 const batch = incidents.slice(i, i + batchSize);
@@ -54,6 +56,7 @@ const IncidentHeatmap = ({ incidents }) => {
                             return {
                                 ...incident,
                                 coordinates: coords,
+                                // Heat intensity = killed + injured + 1 (base intensity)
                                 intensity: parseInt(incident['Victims Killed'] || 0) +
                                     parseInt(incident['Victims Injured'] || 0) + 1
                             };
@@ -65,7 +68,7 @@ const IncidentHeatmap = ({ incidents }) => {
                 const batchResults = await Promise.all(batchPromises);
                 geocoded.push(...batchResults.filter(result => result !== null));
 
-                // Add delay between batches to respect rate limits
+                // Rate limiting delay between batches
                 if (i + batchSize < incidents.length) {
                     await new Promise(resolve => setTimeout(resolve, 100));
                 }
@@ -78,29 +81,29 @@ const IncidentHeatmap = ({ incidents }) => {
         geocodeIncidents();
     }, [incidents]);
 
-    // Create heat map layer
+    // Render heatmap layer on map using Leaflet.heat
     useEffect(() => {
         if (!map || geocodedIncidents.length === 0) return;
 
-        // Remove existing heat layer
+        // Clean up existing layer
         if (heatLayerRef.current) {
             map.removeLayer(heatLayerRef.current);
         }
 
-        // Prepare heat map data
+        // Format data for Leaflet.heat: [lat, lng, intensity]
         const heatData = geocodedIncidents.map(incident => [
-            incident.coordinates[0], // lat
-            incident.coordinates[1], // lng
-            incident.intensity // intensity
+            incident.coordinates[0], // latitude
+            incident.coordinates[1], // longitude
+            incident.intensity // heat intensity
         ]);
 
-        // Create heat map layer
+        // Create heatmap with custom gradient and settings
         heatLayerRef.current = L.heatLayer(heatData, {
             radius: 25,
             blur: 15,
             maxZoom: 17,
             max: 1.0,
-            gradient: {
+            gradient: { // Blue to red gradient for heat intensity
                 0.4: 'blue',
                 0.6: 'cyan',
                 0.7: 'lime',
@@ -109,7 +112,6 @@ const IncidentHeatmap = ({ incidents }) => {
             }
         });
 
-        // Add heat layer to map
         heatLayerRef.current.addTo(map);
 
         // Cleanup function

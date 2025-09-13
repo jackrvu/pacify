@@ -1,3 +1,6 @@
+// County choropleth layer component - displays US counties colored by data density
+// Uses D3 scales for color mapping and Leaflet GeoJSON for rendering
+
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { GeoJSON, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -6,14 +9,13 @@ import * as d3Interpolate from 'd3-scale-chromatic';
 import { interpolateRgb } from 'd3-interpolate';
 import './MapLayer.css';
 
-// Map Layer component
 function MapLayer({ enabled = true }) {
     const map = useMap();
-    const [countyData, setCountyData] = useState(null);
-    const [caseData, setCaseData] = useState({});
+    const [countyData, setCountyData] = useState(null); // GeoJSON county boundaries
+    const [caseData, setCaseData] = useState({}); // Sample data for county coloring
     const geojsonLayerRef = useRef(null);
 
-    // Track if the map is currently moving
+    // Track map movement to prevent tooltip flicker during pan/zoom
     const [isMapMoving, setIsMapMoving] = useState(false);
 
     useEffect(() => {
@@ -40,7 +42,7 @@ function MapLayer({ enabled = true }) {
         }
     }, []);
 
-    // Memoize the color scale to prevent recreation on every render
+    // D3 color scale for county fill colors - red gradient based on case count
     const colorScale = useMemo(() => {
         if (!Object.keys(caseData).length) return null;
 
@@ -48,14 +50,13 @@ function MapLayer({ enabled = true }) {
         const minCount = Math.min(...caseCounts) || 0;
         const maxCount = Math.max(...caseCounts) || 1;
 
-        // Create a custom color scale that is overall redder and starts at a darker baseline
+        // Custom red gradient interpolator for high-impact visualization
         const customInterpolator = t => {
-            // t is normalized [0,1] value
-            // For the lowest 40%, blend from #fc9272 (light red) to #de2d26 (dark red)
+            // Lower 40%: light red to dark red
             if (t < 0.4) {
                 return interpolateRgb("#fc9272", "#de2d26")(t / 0.4);
             }
-            // For the rest, blend from #de2d26 (dark red) to #800026 (very dark red)
+            // Upper 60%: dark red to very dark red
             return interpolateRgb("#de2d26", "#800026")((t - 0.4) / 0.6);
         };
 
