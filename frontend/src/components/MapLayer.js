@@ -1,5 +1,6 @@
 // County choropleth layer component - displays US counties colored by data density
 // Uses D3 scales for color mapping and Leaflet GeoJSON for rendering
+// Loads real county incident data from CSV and maps it to GeoJSON features
 
 import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react';
 import { GeoJSON, useMap } from 'react-leaflet';
@@ -11,8 +12,8 @@ import './MapLayer.css';
 
 function MapLayer({ enabled = true }) {
     const map = useMap();
-    const [countyData, setCountyData] = useState(null); // GeoJSON county boundaries
-    const [caseData, setCaseData] = useState({}); // Sample data for county coloring
+    const [countyData, setCountyData] = useState(null); // GeoJSON county boundaries from external source
+    const [caseData, setCaseData] = useState({}); // Real incident data loaded from CSV
     const geojsonLayerRef = useRef(null);
 
     // Track map movement to prevent tooltip flicker during pan/zoom
@@ -92,8 +93,12 @@ function MapLayer({ enabled = true }) {
             };
         }
 
-        const countyId = feature.id;
-        const countyData = caseData[countyId] || { totalCases: 0, cases90Days: 0 };
+        // Try to find county data by matching county name and state
+        const countyName = feature.properties.NAME;
+        const stateFips = feature.properties.STATE;
+        const countyKey = `${countyName}_${stateFips}`;
+        
+        const countyData = caseData[countyKey] || { totalCases: 0, cases90Days: 0 };
         const caseCount = countyData.totalCases;
         let fillColor = '#ffffff';
         let fillOpacity = 0.2;
@@ -121,8 +126,9 @@ function MapLayer({ enabled = true }) {
     const onEachFeatureFunction = useCallback((feature, layer) => {
         // Extract county name from properties
         const countyName = feature.properties.NAME;
-        const countyId = feature.id;
-        const countyData = caseData[countyId] || { totalCases: 0, cases90Days: 0 };
+        const stateFips = feature.properties.STATE;
+        const countyKey = `${countyName}_${stateFips}`;
+        const countyData = caseData[countyKey] || { totalCases: 0, cases90Days: 0 };
         const caseCount = countyData.totalCases;
         const caseCount90Days = countyData.cases90Days;
 
@@ -132,15 +138,8 @@ function MapLayer({ enabled = true }) {
 
         // Create tooltip with county info
         layer.bindTooltip(`
-            <div style="font-weight:600; margin-bottom:4px;">${countyName}</div>
-            <div style="display:flex; align-items:center; margin-bottom:3px;">
-                <span style="color:#3182bd; font-weight:bold; margin-right:5px;">${formattedCount}</span>
-                <span style="color:#800000;">data points</span>
-            </div>
-            <div style="display:flex; align-items:center;">
-                <span style="color:#3182bd; font-weight:bold; margin-right:5px;">${formattedCount90Days}</span>
-                <span style="color:#800000;">recent activity</span>
-            </div>
+            <div style="font-weight:600;">${countyName}</div>
+            <div style="font-size:0.9em;margin-top:2px;">Total Incidents: ${formattedCount}</div>
         `, {
             sticky: true,
             offset: [0, -5],
@@ -211,34 +210,46 @@ function MapLayer({ enabled = true }) {
             }
         };
 
-        // Load sample data for demonstration
+        // Load real county incident data
         const loadCaseData = async () => {
             try {
-                // Generate sample data for demonstration
-                const sampleData = {};
-                const counties = [
-                    '06037', // Los Angeles County
-                    '06059', // Orange County
-                    '06073', // San Diego County
-                    '06075', // San Francisco County
-                    '06111', // Santa Clara County
-                    '12011', // Broward County
-                    '12086', // Miami-Dade County
-                    '12095', // Orange County, FL
-                    '13135', // Fulton County, GA
-                    '13245', // Gwinnett County, GA
-                ];
-
-                counties.forEach(countyId => {
-                    sampleData[countyId] = {
-                        totalCases: Math.floor(Math.random() * 1000) + 100,
-                        cases90Days: Math.floor(Math.random() * 100) + 10
+                const response = await fetch('/data/county_incident_summary.csv');
+                const csvText = await response.text();
+                
+                // Parse CSV data
+                const lines = csvText.split('\n');
+                const headers = lines[0].split(',');
+                const countyData = {};
+                
+                for (let i = 1; i < lines.length; i++) {
+                    const line = lines[i].trim();
+                    if (!line) continue;
+                    
+                    const values = line.split(',');
+                    const countyName = values[0];
+                    const stateFips = values[1];
+                    const totalIncidents = parseInt(values[2]) || 0;
+                    const totalKilled = parseInt(values[3]) || 0;
+                    const totalInjured = parseInt(values[4]) || 0;
+                    
+                    // Create FIPS code from state FIPS (need to pad to 5 digits)
+                    const stateFipsPadded = Math.floor(parseFloat(stateFips)).toString().padStart(2, '0');
+                    // For now, we'll use county name as key since we don't have full FIPS codes
+                    const countyKey = `${countyName}_${stateFipsPadded}`;
+                    
+                    countyData[countyKey] = {
+                        totalCases: totalIncidents,
+                        cases90Days: Math.floor(totalIncidents * 0.1), // Estimate 90-day cases as 10% of total
+                        countyName: countyName,
+                        stateFips: stateFipsPadded
                     };
-                });
-
-                setCaseData(sampleData);
+                }
+                
+                setCaseData(countyData);
             } catch (error) {
-                console.error('Error loading sample data:', error);
+                console.error('Error loading county data:', error);
+                // Fallback to empty data instead of sample data
+                setCaseData({});
             }
         };
 

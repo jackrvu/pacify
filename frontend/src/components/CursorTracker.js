@@ -1,7 +1,9 @@
+// CursorTracker component - tracks mouse movement and clicks on map
+// Converts screen coordinates to lat/lng and provides cursor position to parent components
+// Used for dynamic incident panel updates and state detection
 import React, { useEffect, useCallback } from 'react';
 import { useMap } from 'react-leaflet';
 
-// Cursor tracking component that follows mouse movement
 function CursorTracker({ onCursorMove, onMapClick }) {
     const map = useMap();
 

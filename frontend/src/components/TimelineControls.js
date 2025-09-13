@@ -1,3 +1,6 @@
+// TimelineControls component - provides interactive timeline navigation
+// Supports auto-play, manual scrubbing, and smooth transitions between years
+// Includes pause functionality and customizable transition speeds
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import './TimelineControls.css';
 
@@ -175,165 +178,30 @@ const TimelineControls = ({
 
     return (
         <div className={`timeline-controls ${className}`}>
-            <div className="timeline-header">
-                <h3>Timeline View</h3>
-                <div className="year-display">
-                    <span className="current-year">{displayYear}</span>
-                    <span className="year-range">({minYear} - {maxYear})</span>
-                    {isPaused && <span className="pause-indicator">⏸️ PAUSED</span>}
-                </div>
-            </div>
 
-            {/* Year Statistics */}
-            {yearStats && (
-                <div className="year-stats">
-                    <span className="stat">
-                        <strong>{yearStats.totalIncidents || 0}</strong> incidents
-                    </span>
-                    <span className="stat">
-                        <strong>{yearStats.totalKilled || 0}</strong> killed
-                    </span>
-                    <span className="stat">
-                        <strong>{yearStats.totalInjured || 0}</strong> injured
-                    </span>
-                </div>
-            )}
 
-            {/* Main Timeline Slider */}
-            <div className="timeline-slider-container">
-                <button 
-                    className="nav-button prev"
-                    onClick={handlePrevYear}
-                    disabled={currentIndex === 0}
-                    title="Previous year"
-                >
-                    ◀
-                </button>
-                
-                <div className="slider-wrapper">
-                    <input
-                        type="range"
-                        min={minYear}
-                        max={maxYear}
-                        value={displayYear}
-                        onChange={handleSliderChange}
-                        className="year-slider"
-                        step="1"
-                    />
-                    <div className="slider-track">
-                        <div className="year-markers">
-                            {availableYears.filter((_, index) => index % 5 === 0).map(year => (
-                                <div 
-                                    key={year}
-                                    className="year-marker"
-                                    style={{
-                                        left: `${((year - minYear) / (maxYear - minYear)) * 100}%`
-                                    }}
-                                >
-                                    {year}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-
-                <button 
-                    className="nav-button next"
-                    onClick={handleNextYear}
-                    disabled={currentIndex === availableYears.length - 1}
-                    title="Next year"
-                >
-                    ▶
-                </button>
-            </div>
-
-            {/* Playback Controls */}
-            <div className="playback-controls">
+            {/* Minimalist Timeline Controls */}
+            <div className="minimalist-timeline">
                 <button 
                     className={`play-pause-btn ${isPlaying ? 'playing' : 'paused'}`}
                     onClick={handlePlayPause}
                     title={isPlaying ? 'Pause timeline' : 'Play timeline'}
                 >
                     {isPlaying ? '⏸️' : '▶️'}
-                    <span>{isPlaying ? 'Pause' : 'Play'}</span>
                 </button>
-
-                <div className="speed-controls">
-                    <div className="control-group">
-                        <label htmlFor="transition-speed">Transition:</label>
-                        <select 
-                            id="transition-speed"
-                            value={transitionSpeed} 
-                            onChange={(e) => handleTransitionSpeedChange(parseInt(e.target.value))}
-                            className="speed-selector"
-                        >
-                            <option value={4000}>Slow</option>
-                            <option value={2000}>Normal</option>
-                            <option value={1000}>Fast</option>
-                            <option value={500}>Very Fast</option>
-                        </select>
-                    </div>
-                    
-                    <div className="control-group">
-                        <label htmlFor="pause-duration">Pause:</label>
-                        <select 
-                            id="pause-duration"
-                            value={pauseDuration} 
-                            onChange={(e) => handlePauseDurationChange(parseInt(e.target.value))}
-                            className="speed-selector"
-                        >
-                            <option value={0}>None</option>
-                            <option value={500}>0.5s</option>
-                            <option value={1000}>1s</option>
-                            <option value={2000}>2s</option>
-                            <option value={3000}>3s</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            {/* Quick Year Selection with Pause Points */}
-            <div className="quick-years">
-                <div className="quick-years-label">
-                    Quick Jump: 
-                    <span className="pause-hint">(Right-click to set pause points)</span>
-                </div>
-                <div className="year-buttons">
-                    {availableYears.filter((_, index) => index % 3 === 0 || index === availableYears.length - 1).map(year => (
-                        <button
-                            key={year}
-                            onClick={() => handleYearButtonClick(year)}
-                            onContextMenu={(e) => {
-                                e.preventDefault();
-                                togglePausePoint(year);
-                            }}
-                            className={`year-btn ${year === displayYear ? 'active' : ''} ${pausePoints.has(year) ? 'pause-point' : ''}`}
-                            title={`${pausePoints.has(year) ? 'Remove pause point' : 'Right-click to add pause point'} - ${year}`}
-                        >
-                            {year}
-                            {pausePoints.has(year) && <span className="pause-dot">●</span>}
-                        </button>
-                    ))}
-                </div>
-            </div>
-
-            {/* Progress Indicator */}
-            <div className="progress-indicator">
-                <div className="progress-bar">
-                    <div 
-                        className="progress-fill"
-                        style={{
-                            width: `${((displayYear - minYear) / (maxYear - minYear)) * 100}%`
-                        }}
-                    />
-                </div>
-                <div className="progress-text">
-                    {displayYear} of {availableYears.length} years
-                    {pausePoints.size > 0 && (
-                        <span className="pause-count">
-                            ({pausePoints.size} pause point{pausePoints.size !== 1 ? 's' : ''})
-                        </span>
-                    )}
+                
+                <input
+                    type="range"
+                    min={minYear}
+                    max={maxYear}
+                    value={displayYear}
+                    onChange={handleSliderChange}
+                    className="timeline-slider"
+                    title={`Year: ${displayYear}`}
+                />
+                
+                <div className="year-range-display">
+                    {minYear} - {maxYear}
                 </div>
             </div>
         </div>

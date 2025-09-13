@@ -1,3 +1,6 @@
+// IncidentPins component - displays individual incident markers on map
+// Shows clickable pins for each gun violence incident with modal popup details
+// Groups nearby incidents and displays them in a modal for better UX
 import React, { useEffect, useRef, useState } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -175,8 +178,18 @@ const IncidentPins = ({ incidents }) => {
                                 }}>
                                     <div>
                                         <strong style={{ color: '#333' }}>
-                                            {incident['City Or County']}, {incident.State}
+                                            {incident.County_Name ? 
+                                                `${incident.County_Name}, ${incident.State}` : 
+                                                incident['City Or County'] ? 
+                                                    `${incident['City Or County']}, ${incident.State}` : 
+                                                    incident.State
+                                            }
                                         </strong>
+                                        {incident.County_Name && incident['City Or County'] && incident.County_Name !== incident['City Or County'] && (
+                                            <div style={{ fontSize: '0.9em', color: '#666', marginTop: '2px' }}>
+                                                City: {incident['City Or County']}
+                                            </div>
+                                        )}
                                         <div className="incident-date">
                                             {formatDate(incident['Incident Date'])}
                                         </div>
@@ -195,7 +208,24 @@ const IncidentPins = ({ incidents }) => {
                                 </div>
 
                                 <div className="incident-address">
-                                    <div><strong>Address:</strong> {incident.Address}</div>
+                                    <div><strong>Coordinates:</strong> 
+                                        {incident.Coordinate_Display ? (
+                                            incident.Google_Maps_Link ? (
+                                                <a 
+                                                    href={incident.Google_Maps_Link} 
+                                                    target="_blank" 
+                                                    rel="noopener noreferrer"
+                                                    style={{ color: '#007bff', textDecoration: 'underline', marginLeft: '5px' }}
+                                                >
+                                                    {incident.Coordinate_Display}
+                                                </a>
+                                            ) : (
+                                                <span style={{ marginLeft: '5px' }}>{incident.Coordinate_Display}</span>
+                                            )
+                                        ) : (
+                                            <span style={{ marginLeft: '5px', color: '#666' }}>Coordinates not available</span>
+                                        )}
+                                    </div>
                                 </div>
 
                                 {(incident['Suspects Killed'] || incident['Suspects Injured'] || incident['Suspects Arrested']) && (

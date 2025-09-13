@@ -1,8 +1,11 @@
+// Custom hook for loading and managing gun violence incident data across multiple datasets
+// Handles data from 1985-2018 (historical), 2019-2025 (recent), and 2025 (current)
+// Normalizes different data formats and provides year-based filtering
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import Papa from 'papaparse';
 
 const useTimelineData = () => {
-    const [allData, setAllData] = useState([]);
+    const [allData, setAllData] = useState([]); // Combined normalized data from all sources
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -13,11 +16,11 @@ const useTimelineData = () => {
                 setLoading(true);
                 setError(null);
 
-                // Load all three datasets
+                // Load all three datasets (now with county information)
                 const [historicalResponse, recentResponse, currentResponse] = await Promise.all([
-                    fetch('/data/US_gun_deaths_1985-2018_with_coordinates.csv'),
-                    fetch('/data/gun_incidents_2019-2025_incident_level.csv'),
-                    fetch('/data/2025_with_locations.csv')
+                    fetch('/data/US_gun_deaths_1985-2018_with_coordinates_with_counties.csv'),
+                    fetch('/data/gun_incidents_2019-2025_incident_level.csv'), // This one was updated in place
+                    fetch('/data/2025_with_locations_with_counties.csv')
                 ]);
 
                 const [historicalText, recentText, currentText] = await Promise.all([
@@ -86,7 +89,10 @@ const useTimelineData = () => {
                             injured: injured,
                             state: item.State,
                             city: item['City Or County'],
-                            address: item.Address,
+                            county: item.County_Name || '',
+                            countyState: item.County_State || '',
+                            address: item.Coordinate_Display || item.Address,
+                            googleMapsLink: item.Google_Maps_Link,
                             source: 'recent',
                             originalData: item
                         };
@@ -112,7 +118,10 @@ const useTimelineData = () => {
                             injured: injured,
                             state: item.State,
                             city: item['City Or County'],
-                            address: item.Address,
+                            county: item.County_Name || '',
+                            countyState: item.County_State || '',
+                            address: item.Coordinate_Display || item.Address,
+                            googleMapsLink: item.Google_Maps_Link,
                             source: 'current',
                             originalData: item
                         };

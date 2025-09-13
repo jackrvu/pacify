@@ -1,0 +1,302 @@
+Incident ID,Incident Date,State,City Or County,Address,Victims Killed,Victims Injured,Suspects Killed,Suspects Injured,Suspects Arrested,Operations,Latitude,Longitude,Geocoding Match,Matched Address,County_Name,County_FIPS,State_FIPS,County_State
+3305393,"September 11, 2025",Florida,Tampa,6000 block of Woodville St,1,5,0,0,0,,,,No_Match,,,,,
+3304563,"September 9, 2025",California,San Francisco,1555 Burke St,0,6,0,0,0,,37.744396900633,-122.386072681753,Match,"1555 BURKE AVE, SAN FRANCISCO, CA, 94124",San Francisco,075,06,"San Francisco, 06"
+3304605,"September 8, 2025",California,Santa Ana,400 S Susan St,1,3,0,0,0,,33.741890880643,-117.913596092036,Match,"400 S SUSAN ST, SANTA ANA, CA, 92704",Orange,059,06,"Orange, 06"
+3303073,"September 7, 2025",Ohio,Cleveland,1051 W 10th St,0,5,0,1,1,,,,No_Match,,,,,
+3302748,"September 7, 2025",Texas,Cleveland,2843 County Rd 5018,2,4,0,0,0,,30.199930635724,-95.05924485192,Match,"2843 RD 5018, CLEVELAND, TX, 77327",Liberty,291,48,"Liberty, 48"
+3303232,"September 7, 2025",Tennessee,Memphis,4100 block of Rosewind Cir,0,4,0,0,0,,35.034920226526,-89.85590619941,Match,"4100 ROSEWIND CIR, MEMPHIS, TN, 38141",Shelby,157,47,"Shelby, 47"
+3302041,"September 6, 2025",Virginia,Portsmouth,Manly St and Dahlia St S,1,3,0,0,0,,,,No_Match,,,,,
+3300931,"September 3, 2025",Missouri,Kansas City,Harrison St and E Armour Blvd,0,5,0,0,0,,39.063287022427,-94.572901570655,Match,"HARRISON ST & E ARMOUR BLVD, KANSAS CITY, MO, 64109",Jackson,095,29,"Jackson, 29"
+3299148,"September 1, 2025",New York,Bronx,686 Allerton Ave,1,4,0,0,5,,40.865361429171,-73.867861298022,Match,"686 ALLERTON AVE, BRONX, NY, 10467",Bronx,005,36,"Bronx, 36"
+3298615,"September 1, 2025",Illinois,Chicago,3600 block of S Cottage Grove Ave,0,5,0,0,1,,41.82905727426,-87.609587788461,Match,"3600 S COTTAGE GROVE AVE, CHICAGO, IL, 60653",Cook,031,17,"Cook, 17"
+3297880,"August 31, 2025",Illinois,Chicago,2700 block of W Haddon Ave,0,4,0,0,0,,41.902077012111,-87.694471083116,Match,"2700 W HADDON AVE, CHICAGO, IL, 60622",Cook,031,17,"Cook, 17"
+3297889,"August 30, 2025",Illinois,Chicago Heights,400 block of W 14th St,1,4,0,0,1,,41.505954916441,-87.659602785934,Match,"400 W 14TH ST, CHICAGO HEIGHTS, IL, 60411",Cook,031,17,"Cook, 17"
+3298204,"August 30, 2025",Mississippi,Jackson,5627 Dogwood Trail,2,2,0,0,3,,32.250352753786,-90.296782199883,Match,"5627 DOGWOOD TRL, JACKSON, MS, 39212",Hinds,049,28,"Hinds, 28"
+3297867,"August 30, 2025",Illinois,Chicago,3500 block of S State St,0,7,0,0,0,,41.830953195469,-87.626720750491,Match,"3500 S STATE ST, CHICAGO, IL, 60609",Cook,031,17,"Cook, 17"
+3297573,"August 29, 2025",New York,Syracuse (Geddes),1002 State Fair Blvd,0,4,0,1,1,,43.09986494395,-76.24814643451,Match,"1002 STATE FAIR BLVD, SYRACUSE, NY, 13209",Onondaga,067,36,"Onondaga, 36"
+3297408,"August 29, 2025",Florida,Fort Lauderdale,657 NW 9th St,0,4,0,0,0,,26.134905790926,-80.150500477056,Match,"657 NW 9TH ST, FORT LAUDERDALE, FL, 33311",Broward,011,12,"Broward, 12"
+3294737,"August 27, 2025",Minnesota,Minneapolis,509 W 54th St,2,21,1,0,0,,44.905037512829,-93.285914588911,Match,"509 W 54TH ST, MINNEAPOLIS, MN, 55419",Hennepin,053,27,"Hennepin, 27"
+3294361,"August 26, 2025",California,Los Angeles,8501 S Figueroa St,0,5,0,0,0,,33.961059860583,-118.282768393163,Match,"8501 S FIGUEROA ST, LOS ANGELES, CA, 90003",Los Angeles,037,06,"Los Angeles, 06"
+3294369,"August 26, 2025",Minnesota,Minneapolis,E 29th St and Clinton Ave,1,6,0,0,0,,44.950060011129,-93.271559750897,Match,"E 29TH ST & CLINTON AVE S, MINNEAPOLIS, MN, 55408",Hennepin,053,27,"Hennepin, 27"
+3292906,"August 24, 2025",Missouri,Kansas City,E 13th St and Grand Blvd,2,3,0,0,0,,39.098513016937,-94.580974565142,Match,"E 13TH ST & GRAND BLVD, KANSAS CITY, MO, 64106",Jackson,095,29,"Jackson, 29"
+3293218,"August 24, 2025",Maryland,Hagerstown,11205 John F Kennedy Dr,0,4,0,0,0,,39.62260831575,-77.676829058686,Match,"11205 JOHN F KENNEDY DR, HAGERSTOWN, MD, 21742",Washington,043,24,"Washington, 24"
+3292691,"August 23, 2025",New York,Bronx,Burke Ave and Wickham Ave,2,3,0,0,4,,40.87440970617,-73.840035094878,Match,"BURKE AVE & WICKHAM AVE, BRONX, NY, 10469",Bronx,005,36,"Bronx, 36"
+3292026,"August 22, 2025",New York,Bronx,1401 Overing St,0,4,0,0,0,,40.839344897359,-73.843719693678,Match,"1401 OVERING ST, BRONX, NY, 10461",Bronx,005,36,"Bronx, 36"
+3289583,"August 18, 2025",West Virginia,Mount Carbon,Adena Dr,1,3,1,0,0,,,,No_Match,,,,,
+3288499,"August 17, 2025",Virginia,Richmond,1700 block of Clarkson Rd,1,3,0,0,0,,37.492238563196,-77.480396892984,Match,"1700 CLARKSON RD, RICHMOND, VA, 23224",Richmond,760,51,"Richmond, 51"
+3288282,"August 17, 2025",New York,Brooklyn,903 Franklin Ave,1,11,2,0,0,,40.667920462352,-73.958883422697,Match,"903 FRANKLIN AVE, BROOKLYN, NY, 11225",Kings,047,36,"Kings, 36"
+3290521,"August 17, 2025",Mississippi,Prentiss,84 Young Rd,1,4,0,0,5,,,,No_Match,,,,,
+3290307,"August 16, 2025",Washington,Grandview,Apricot Rd and County Line Rd,0,5,0,0,0,,46.236450202495,-119.873334825097,Match,"APRICOT RD & S COUNTY LINE RD, GRANDVIEW, WA, 98930",Benton,005,53,"Benton, 53"
+3288024,"August 16, 2025",Indiana,Indianapolis,3100 block of Brouse Ave,0,5,0,0,0,,,,No_Match,,,,,
+3288736,"August 16, 2025",Michigan,Saginaw,S 23rd St and Perkins St,0,5,0,0,0,,43.421805679852,-83.906684718466,Match,"S 23RD ST & PERKINS ST, SAGINAW, MI, 48601",Saginaw,145,26,"Saginaw, 26"
+3288301,"August 16, 2025",Illinois,Chicago,2400 block of W Jackson Blvd,0,4,0,0,0,,41.87759844535,-87.686963184468,Match,"2400 W JACKSON BLVD, CHICAGO, IL, 60612",Cook,031,17,"Cook, 17"
+3284255,"August 11, 2025",Illinois,Chicago,700 block of E 43rd St,0,5,0,0,0,,41.816830451447,-87.609112384362,Match,"700 E 43RD ST, CHICAGO, IL, 60653",Cook,031,17,"Cook, 17"
+3283186,"August 10, 2025",Illinois,Chicago,100 block of N La Crosse Ave,1,5,0,0,0,,41.883168008622,-87.746680058624,Match,"100 N LA CROSSE AVE, CHICAGO, IL, 60644",Cook,031,17,"Cook, 17"
+3283977,"August 10, 2025",Mississippi,Jackson,357 N Mart Plaza,0,8,0,0,0,,32.3512117611,-90.174050908709,Match,"357 N MART PLZ, JACKSON, MS, 39206",Hinds,049,28,"Hinds, 28"
+3283199,"August 10, 2025",Illinois,Chicago,4500 block of W Wilcox St,0,4,0,0,0,,41.878777447988,-87.737939170764,Match,"4500 W WILCOX ST, CHICAGO, IL, 60624",Cook,031,17,"Cook, 17"
+3283060,"August 9, 2025",Maryland,Baltimore,5101 Queensbury Ave,1,5,0,0,0,,39.35003253733,-76.671808453868,Match,"5101 QUEENSBERRY AVE, BALTIMORE, MD, 21215",Baltimore,510,24,"Baltimore, 24"
+3282825,"August 9, 2025",Texas,Midland,610 E Industrial Ave,0,4,0,0,1,,31.998698054611,-102.067300911083,Match,"610 E INDUSTRIAL AVE, MIDLAND, TX, 79701",Midland,329,48,"Midland, 48"
+3281735,"August 7, 2025",Ohio,Cleveland,1900 block of N Taylor Rd,2,2,0,0,1,,41.537593491907,-81.570779898305,Match,"1900 N TAYLOR RD, CLEVELAND, OH, 44112",Cuyahoga,035,39,"Cuyahoga, 39"
+3280275,"August 6, 2025",Georgia,Fort Stewart,594 Vanguard Rd,0,5,0,0,1,,,,No_Match,,,,,
+3278590,"August 4, 2025",California,Los Angeles,E 14th Pl and Paloma St,2,6,0,0,0,,34.028608146954,-118.249750313712,Match,"E 14TH PL & PALOMA ST, LOS ANGELES, CA, 90021",Los Angeles,037,06,"Los Angeles, 06"
+3278919,"August 3, 2025",Virginia,Virginia Beach,4900 block of Gulfstream Cir,0,4,0,0,0,,36.81655301411,-76.153590951147,Match,"4900 GULFSTREAM CIR, VIRGINIA BEACH, VA, 23464",Virginia Beach,810,51,"Virginia Beach, 51"
+3278049,"August 3, 2025",Iowa,Iowa City,600 block of E Court St,0,4,0,0,2,,41.65664790494,-91.527206404856,Match,"600 E COURT ST, IOWA CITY, IA, 52240",Johnson,103,19,"Johnson, 19"
+3278491,"August 2, 2025",Nebraska,Omaha,3501 N 30th St,0,6,0,1,1,,41.290573616774,-95.956479654132,Match,"3501 N 30TH ST, OMAHA, NE, 68111",Douglas,055,31,"Douglas, 31"
+3277877,"August 2, 2025",Illinois,Harvey,14400 block of Des Plaines St,0,5,1,1,0,,41.627328415164,-87.639077777528,Match,"14400 DES PLAINES ST, HARVEY, IL, 60426",Cook,031,17,"Cook, 17"
+3276908,"August 1, 2025",Montana,Anaconda,819 E 3rd St,4,0,0,0,1,,46.126508397094,-112.943095147152,Match,"819 E 3RD ST, ANACONDA, MT, 59711",Deer Lodge,023,30,"Deer Lodge, 30"
+3276476,"July 30, 2025",Georgia,Atlanta,2479 Abner Terrace NW,0,4,0,0,0,,33.800970368396,-84.466914956396,Match,"2479 ABNER TER, ATLANTA, GA, 30318",Fulton,121,13,"Fulton, 13"
+3275972,"July 30, 2025",Pennsylvania,Philadelphia,728 S 55th St,0,6,0,0,1,,39.949115515002,-75.233303554368,Match,"728 S 55TH ST, PHILADELPHIA, PA, 19143",Philadelphia,101,42,"Philadelphia, 42"
+3276738,"July 29, 2025",Tennessee,Tiptonville,Carrington Rd,4,0,0,0,1,,,,No_Match,,,,,
+3273804,"July 28, 2025",Michigan,Detroit,3344 Puritan Ave,2,2,0,0,1,,42.410065111211,-83.134693153753,Match,"3344 PURITAN ST, DETROIT, MI, 48238",Wayne,163,26,"Wayne, 26"
+3273521,"July 28, 2025",Nevada,Reno,2500 E 2nd St,3,3,1,0,0,,39.527541410746,-119.778572731829,Match,"2500 E 2ND ST, RENO, NV, 89502",Washoe,031,32,"Washoe, 32"
+3273423,"July 28, 2025",Georgia,Atlanta,349 Edgewood Ave,1,10,0,0,1,,,,Tie,,,,,
+3273958,"July 28, 2025",New York,New York (Manhattan),345 Park Ave,4,2,1,0,0,,,,Tie,,,,,
+3273415,"July 27, 2025",Illinois,Chicago,W Flournoy St and S Springfield Ave,0,4,0,0,1,,41.872573152516,-87.722949223311,Match,"W FLOURNOY ST & S SPRINGFIELD AVE, CHICAGO, IL, 60624",Cook,031,17,"Cook, 17"
+3273353,"July 27, 2025",Indiana,Indianapolis,3900 block of Hornickel Dr,0,5,0,0,0,,39.828756924608,-85.960863045092,Match,"3900 HORNICKEL DR, INDIANAPOLIS, IN, 46235",Marion,097,18,"Marion, 18"
+3273527,"July 27, 2025",Colorado,Denver,20th St and Market St,0,4,0,0,1,,39.753650579289,-104.993418389007,Match,"20TH ST & MARKET ST, DENVER, CO, 80202",Denver,031,08,"Denver, 08"
+3274001,"July 27, 2025",Michigan,Flint,3241 Industrial Ave,1,4,0,0,0,,43.044960661529,-83.687339423354,Match,"3241 INDUSTRIAL AVE, FLINT, MI, 48505",Genesee,049,26,"Genesee, 26"
+3272738,"July 27, 2025",Illinois,Mount Vernon,600 block of S 15th St,2,5,0,0,3,,38.310928726683,-88.908769964219,Match,"600 S 15TH ST, MOUNT VERNON, IL, 62864",Jefferson,081,17,"Jefferson, 17"
+3272694,"July 26, 2025",Pennsylvania,Philadelphia,1900 block of W Hunting Park Ave,2,2,0,0,1,,40.01359801207,-75.158716257566,Match,"1900 W HUNTING PARK AVE, PHILADELPHIA, PA, 19140",Philadelphia,101,42,"Philadelphia, 42"
+3273390,"July 26, 2025",Mississippi,Yazoo City,Leach St,0,4,0,0,0,,,,No_Match,,,,,
+3271342,"July 24, 2025",Georgia,Atlanta,279 Oak Dr,1,5,0,0,0,,33.634878987996,-84.397387027522,Match,"279 OAK DR, ATLANTA, GA, 30354",Clayton,063,13,"Clayton, 13"
+3271477,"July 24, 2025",Pennsylvania,Philadelphia,2300 block of N Lambert St,0,4,0,0,0,,39.989325672365,-75.166687543615,Match,"2300 N LAMBERT ST, PHILADELPHIA, PA, 19132",Philadelphia,101,42,"Philadelphia, 42"
+3269743,"July 23, 2025",California,Needles,1900 block of Erin Dr,1,3,0,0,0,,,,No_Match,,,,,
+3267641,"July 20, 2025",Mississippi,Waynesboro,Turner St and Grey St,0,5,0,0,0,,31.677258165388,-88.652474197438,Match,"TURNER ST & GRAY ST, WAYNESBORO, MS, 39367",Wayne,153,28,"Wayne, 28"
+3266723,"July 20, 2025",Illinois,Chicago,4935 W Ferdinand St,0,4,0,0,0,,41.889478503317,-87.748937282554,Match,"4935 W FERDINAND ST, CHICAGO, IL, 60644",Cook,031,17,"Cook, 17"
+3266713,"July 19, 2025",Tennessee,Cordova,71 Fern Glade Cove,1,4,0,0,0,,35.122326038676,-89.755100954704,Match,"71 FERN GLADE COVE, CORDOVA, TN, 38018",Shelby,157,47,"Shelby, 47"
+3266988,"July 19, 2025",Arkansas,Little Rock,1800 Broadway St,0,4,0,0,1,,34.732034439492,-92.278481242592,Match,"1800 BROADWAY ST, LITTLE ROCK, AR, 72206",Pulaski,119,05,"Pulaski, 05"
+3266574,"July 19, 2025",Ohio,Cleveland,16400 block of Highview Ave,1,3,0,0,0,,,,No_Match,,,,,
+3265909,"July 19, 2025",Illinois,Chicago,8200 block of S Houston Ave,1,3,0,0,0,,41.746433835926,-87.550445170459,Match,"8200 S HOUSTON AVE, CHICAGO, IL, 60617",Cook,031,17,"Cook, 17"
+3264154,"July 15, 2025",New York,Bronx,E 187th St and Park Ave,0,4,0,0,0,,,,Tie,,,,,
+3261500,"July 13, 2025",Kentucky,Lexington,5899 Old Richmond Rd,2,3,1,0,0,,37.939402721048,-84.405363527406,Match,"5899 OLD RICHMOND RD, LEXINGTON, KY, 40515",Fayette,067,21,"Fayette, 21"
+3262173,"July 13, 2025",Texas,Houston,6502 Dixie Dr,2,15,0,0,0,,29.679472308709,-95.313899798122,Match,"6502 DIXIE DR, HOUSTON, TX, 77087",Harris,201,48,"Harris, 48"
+3261407,"July 13, 2025",North Carolina,Charlotte,300 N College St,1,5,0,0,3,,35.227835025585,-80.839643637034,Match,"300 N COLLEGE ST, CHARLOTTE, NC, 28202",Mecklenburg,119,37,"Mecklenburg, 37"
+3261161,"July 12, 2025",Wisconsin,Milwaukee,618 N Water St,2,3,0,0,1,,43.037617519233,-87.908956363707,Match,"618 N WATER ST, MILWAUKEE, WI, 53202",Milwaukee,079,55,"Milwaukee, 55"
+3261223,"July 12, 2025",Texas,Round Rock,1401 A W Grimes Blvd,2,2,0,0,0,,30.510641940199,-97.6550653702,Match,"1401 S A W GRIMES BLVD, ROUND ROCK, TX, 78664",Williamson,491,48,"Williamson, 48"
+3261477,"July 12, 2025",Pennsylvania,Easton,100 block of Wilkes Barre St,0,6,0,0,2,,,,Tie,,,,,
+3261096,"July 12, 2025",Tennessee,Chattanooga,6900 Ty Hi Dr,0,4,0,0,0,,35.060155570444,-85.155728354858,Match,"6900 TY HI DR, CHATTANOOGA, TN, 37421",Hamilton,065,47,"Hamilton, 47"
+3260230,"July 8, 2025",Idaho,Burley,723 E 14th St,4,0,0,0,1,,42.535430635576,-113.784599272075,Match,"723 E 14TH ST, BURLEY, ID, 83318",Cassia,031,16,"Cassia, 16"
+3255423,"July 7, 2025",Ohio,Akron,700 E Exchange St,0,5,0,0,0,,41.071074683359,-81.497242171589,Match,"700 E EXCHANGE ST, AKRON, OH, 44306",Summit,153,39,"Summit, 39"
+3254794,"July 7, 2025",Pennsylvania,Philadelphia,N 62nd St and Vine St,0,4,0,0,0,,39.967065934747,-75.243746702782,Match,"N 62ND ST & VINE ST, PHILADELPHIA, PA, 19139",Philadelphia,101,42,"Philadelphia, 42"
+3255922,"July 7, 2025",California,Los Angeles,10305 Main St,0,4,0,0,0,,33.942757202409,-118.273943436552,Match,"10305 S MAIN ST, LOS ANGELES, CA, 90003",Los Angeles,037,06,"Los Angeles, 06"
+3254764,"July 7, 2025",Pennsylvania,Philadelphia,1500 block of S Etting St,3,9,0,0,3,,39.934466363809,-75.190044693567,Match,"1500 S ETTING ST, PHILADELPHIA, PA, 19146",Philadelphia,101,42,"Philadelphia, 42"
+3254338,"July 6, 2025",Louisiana,Natchitoches,300 block of Keyser Ave,1,5,0,0,2,,,,No_Match,,,,,
+3254122,"July 6, 2025",Ohio,Toledo,159 Matzinger Rd,2,2,0,0,0,,41.70415241491,-83.542371814876,Match,"159 MATZINGER RD, TOLEDO, OH, 43612",Lucas,095,39,"Lucas, 39"
+3253874,"July 5, 2025",Hawaii,Honolulu,Palamea Ln,0,4,0,0,0,,,,No_Match,,,,,
+3253521,"July 5, 2025",Texas,Dallas,S Good Latimer Expy and Canton St,1,4,0,1,1,,32.78156726202,-96.786473978137,Match,"S GOOD LATIMER ST & CANTON ST, DALLAS, TX, 75201",Dallas,113,48,"Dallas, 48"
+3253096,"July 5, 2025",New York,Albany,300 block of Livingston Ave,0,5,0,0,0,,42.663695117673,-73.758774716337,Match,"300 LIVINGSTON AVE, ALBANY, NY, 12206",Albany,001,36,"Albany, 36"
+3253594,"July 5, 2025",Texas,Lubbock,2902 Parkway Dr,0,5,1,0,0,,,,No_Match,,,,,
+3253722,"July 5, 2025",Missouri,Saint Louis,N 9th St and Chambers St,1,3,0,0,0,,38.646721854527,-90.188989312106,Match,"N 9TH ST & CHAMBERS ST, SAINT LOUIS, MO, 63102",St. Louis,510,29,"St. Louis, 29"
+3254389,"July 5, 2025",Alabama,Talladega,1509 Old Shocco Rd,4,0,0,0,1,,33.437417666562,-86.151903486523,Match,"1509 OLD SHOCCO RD, TALLADEGA, AL, 35160",Talladega,121,01,"Talladega, 01"
+3253940,"July 5, 2025",California,San Francisco,100 block of Harbor Rd,1,4,0,0,0,,37.733391120942,-122.380254436217,Match,"100 HARBOR RD, SAN FRANCISCO, CA, 94124",San Francisco,075,06,"San Francisco, 06"
+3254494,"July 5, 2025",Washington,Sedro Woolley,697 Pacific St,1,5,0,0,0,,48.504391276524,-122.231192354871,Match,"697 PACIFIC ST, SEDRO WOOLLEY, WA, 98284",Skagit,057,53,"Skagit, 53"
+3253085,"July 5, 2025",Massachusetts,Brockton,May St,0,6,0,0,0,,,,No_Match,,,,,
+3253102,"July 5, 2025",Pennsylvania,Philadelphia,1136 S 11th St,0,8,0,0,1,,39.936171760478,-75.161686546113,Match,"1136 S 11TH ST, PHILADELPHIA, PA, 19147",Philadelphia,101,42,"Philadelphia, 42"
+3253021,"July 5, 2025",Illinois,Chicago,2700 block of S California Blvd,0,4,0,0,0,,,,No_Match,,,,,
+3253050,"July 5, 2025",Indiana,Indianapolis,W Washington St and S Illinois St,2,5,0,0,4,,39.767122444035,-86.159892875597,Match,"W WASHINGTON ST & S ILLINOIS ST, INDIANAPOLIS, IN, 46204",Marion,097,18,"Marion, 18"
+3253569,"July 5, 2025",Ohio,Cleveland,11501 Buckeye Rd,1,5,0,0,0,,41.481210655563,-81.604355320165,Match,"11501 BUCKEYE RD, CLEVELAND, OH, 44104",Cuyahoga,035,39,"Cuyahoga, 39"
+3253812,"July 4, 2025",California,Los Angeles,626 W 99th St,0,4,0,0,0,,33.946378487188,-118.285355994051,Match,"626 W 99TH ST, LOS ANGELES, CA, 90044",Los Angeles,037,06,"Los Angeles, 06"
+3253257,"July 4, 2025",New York,Albany,333 Madison Ave,1,3,0,0,3,,42.65062245192,-73.764319562758,Match,"333 MADISON AVE, ALBANY, NY, 12210",Albany,001,36,"Albany, 36"
+3252972,"July 4, 2025",Illinois,Chicago,4859 S Justine St,0,7,0,0,0,,41.805613397407,-87.663595928602,Match,"4859 S JUSTINE ST, CHICAGO, IL, 60609",Cook,031,17,"Cook, 17"
+3252547,"July 4, 2025",Ohio,Columbus,827 Wilson Ave,1,5,0,0,0,,39.948600299611,-82.967448895158,Match,"827 WILSON AVE, COLUMBUS, OH, 43206",Franklin,049,39,"Franklin, 39"
+3253178,"July 4, 2025",Virginia,Charlottesville,Orangedale Ave,0,5,0,0,1,,,,No_Match,,,,,
+3253871,"July 4, 2025",Ohio,Dayton,1600 block of W Grand Ave,0,4,0,0,0,,39.766811558623,-84.223035491988,Match,"1600 W GRAND AVE, DAYTON, OH, 45402",Montgomery,113,39,"Montgomery, 39"
+3252080,"July 3, 2025",Illinois,Chicago,1607 W 59th St,0,4,0,0,0,,41.786682868325,-87.664939406938,Match,"1607 W 59TH ST, CHICAGO, IL, 60636",Cook,031,17,"Cook, 17"
+3251873,"July 3, 2025",Illinois,Chicago,600 block of E 133rd St,0,5,0,0,0,,41.653764824918,-87.606225758504,Match,"600 E 133RD ST, CHICAGO, IL, 60827",Cook,031,17,"Cook, 17"
+3252377,"July 3, 2025",Georgia,Atlanta,600 SE Martin St,0,4,0,0,0,,33.737838803103,-84.384014212818,Match,"600 MARTIN ST SE, ATLANTA, GA, 30312",Fulton,121,13,"Fulton, 13"
+3251635,"July 2, 2025",Illinois,Chicago,311 W Chicago Ave,4,14,0,0,0,,41.896510929147,-87.636342199756,Match,"311 W CHICAGO AVE, CHICAGO, IL, 60654",Cook,031,17,"Cook, 17"
+3251608,"July 1, 2025",Kentucky,Nicholasville,Brannon Rd and US-27,0,4,0,0,0,,,,No_Match,,,,,
+3249480,"June 29, 2025",South Carolina,Kingstree,200 N Brooks St,2,2,0,0,0,,33.666438024927,-79.824101018064,Match,"200 N BROOKS ST, KINGSTREE, SC, 29556",Williamsburg,089,45,"Williamsburg, 45"
+3248471,"June 29, 2025",Alabama,Mobile,Springhill Ave and Catherine St,0,4,0,0,0,,,,No_Match,,,,,
+3248330,"June 28, 2025",Missouri,Kansas City,E 24th St and Lister Ave,1,3,0,0,0,,39.082079016636,-94.527640581012,Match,"E 24TH ST & LISTER AVE, KANSAS CITY, MO, 64127",Jackson,095,29,"Jackson, 29"
+3248741,"June 28, 2025",Texas,Austin,900 E Braker Ln,0,4,0,0,0,,30.376178408511,-97.673900707869,Match,"900 E BRAKER LN, AUSTIN, TX, 78753",Travis,453,48,"Travis, 48"
+3248162,"June 28, 2025",Louisiana,New Orleans,8500 block of Bill St,0,4,0,0,0,,30.041536067828,-89.997791108931,Match,"8500 BILL ST, NEW ORLEANS, LA, 70127",Orleans,071,22,"Orleans, 22"
+3249173,"June 28, 2025",Ohio,Columbus,800 block of Avonia Dr,1,3,0,0,0,,39.936474843601,-83.119936737157,Match,"800 AVONIA DR, COLUMBUS, OH, 43228",Franklin,049,39,"Franklin, 39"
+3248449,"June 28, 2025",Ohio,Springfield,1000 block of W Rose St,1,4,0,0,0,,39.909501900541,-83.829100133202,Match,"1000 W ROSE ST, SPRINGFIELD, OH, 45506",Clark,023,39,"Clark, 39"
+3248058,"June 27, 2025",Oregon,Portland,14919 SE Stark St,0,4,0,0,1,,45.519213189661,-122.509659669552,Match,"14919 SE STARK ST, PORTLAND, OR, 97233",Multnomah,051,41,"Multnomah, 41"
+3247121,"June 26, 2025",New Jersey,Trenton,100 block of Passaic St,1,3,0,0,2,,40.224235101544,-74.773302244679,Match,"100 PASSAIC ST, TRENTON, NJ, 08618",Mercer,021,34,"Mercer, 34"
+3246330,"June 25, 2025",Mississippi,Moorhead,800 E Southern Ave,0,4,0,0,0,,33.449296171406,-90.499708323408,Match,"800 S SOUTHERN AVE, MOORHEAD, MS, 38761",Sunflower,133,28,"Sunflower, 28"
+3245226,"June 23, 2025",Georgia,Jonesboro,148 Church St,0,4,0,0,1,,33.520170808446,-84.358218109232,Match,"148 CHURCH ST, JONESBORO, GA, 30236",Clayton,063,13,"Clayton, 13"
+3244129,"June 23, 2025",New Jersey,Newark,367 6th Ave W,1,4,0,0,0,,40.758888871779,-74.194588207696,Match,"367 6TH AVE W, NEWARK, NJ, 07107",Essex,013,34,"Essex, 34"
+3243988,"June 23, 2025",Maryland,Baltimore,2500 block of Edmondson Ave,0,4,0,0,0,,39.294793754477,-76.656414121248,Match,"2500 EDMONDSON AVE, BALTIMORE, MD, 21223",Baltimore,510,24,"Baltimore, 24"
+3243663,"June 23, 2025",Maryland,Baltimore,1900 block of McHenry St,0,4,0,0,0,,39.284299143561,-76.646799160469,Match,"1900 MCHENRY ST, BALTIMORE, MD, 21223",Baltimore,510,24,"Baltimore, 24"
+3242938,"June 22, 2025",Missouri,Springfield,505 E St Louis St,0,4,0,0,0,,,,Tie,,,,,
+3242853,"June 22, 2025",Michigan,Ferndale,21298 Majestic Ave,1,3,0,0,0,,42.450569301936,-83.163875542128,Match,"21298 MAJESTIC AVE, FERNDALE, MI, 48220",Oakland,125,26,"Oakland, 26"
+3242627,"June 22, 2025",Louisiana,Baton Rouge,3535 S Choctaw Dr,1,6,0,0,2,,30.470279419101,-91.154448454302,Match,"3535 CHOCTAW DR, BATON ROUGE, LA, 70805",East Baton Rouge,033,22,"East Baton Rouge, 22"
+3242908,"June 22, 2025",Missouri,Kansas City,Vine St and E 19th St,2,4,0,0,1,,39.089828017391,-94.563429070674,Match,"VINE ST & E 19TH ST, KANSAS CITY, MO, 64108",Jackson,095,29,"Jackson, 29"
+3242610,"June 22, 2025",New Jersey,East Orange,375 Central Ave,0,4,0,0,0,,40.766064935463,-74.236252970507,Match,"375 CENTRAL AVE, ORANGE, NJ, 07050",Essex,013,34,"Essex, 34"
+3243238,"June 22, 2025",Pennsylvania,Pittsburgh,N St Clair St and Broad St,0,5,0,0,2,,40.463839023385,-79.928209202155,Match,"N ST CLAIR ST & BROAD ST, PITTSBURGH, PA, 15206",Allegheny,003,42,"Allegheny, 42"
+3242524,"June 21, 2025",California,Moreno Valley,12000 block of Orchid Ln,0,6,0,0,0,,,,No_Match,,,,,
+3242684,"June 21, 2025",Oklahoma,Tulsa,E Admiral Pl and S 122nd E Ave,0,6,0,0,0,,36.160661596172,-95.841140987062,Match,"E ADMIRAL PL & S 122ND EAST AVE, TULSA, OK, 74116",Tulsa,143,40,"Tulsa, 40"
+3242475,"June 21, 2025",South Carolina,Anderson,2009 Scarborough Rd,1,9,0,0,3,,34.482137226431,-82.723692055485,Match,"2009 SCARBOROUGH RD, ANDERSON, SC, 29626",Anderson,007,45,"Anderson, 45"
+3242658,"June 21, 2025",Oklahoma,Tulsa,300 block of N Greenwood Ave,1,7,0,0,3,,36.161266139135,-95.986640531079,Match,"300 N GREENWOOD AVE, TULSA, OK, 74120",Tulsa,143,40,"Tulsa, 40"
+3242431,"June 21, 2025",California,Compton,1300 W El Segundo Blvd,0,4,0,0,0,,33.916176863443,-118.245173013805,Match,"1300 W EL SEGUNDO BLVD, COMPTON, CA, 90222",Los Angeles,037,06,"Los Angeles, 06"
+3242052,"June 20, 2025",Wisconsin,Milwaukee,8300 block of W Brown Deer Rd,2,3,0,0,1,,,,No_Match,,,,,
+3240121,"June 19, 2025",Oklahoma,Tulsa,1264 S Lawton Ave,0,5,0,0,0,,36.144676195838,-96.001407035697,Match,"1264 S LAWTON AVE, TULSA, OK, 74127",Tulsa,143,40,"Tulsa, 40"
+3239589,"June 17, 2025",Mississippi,Louisville,200 block of W College St,1,3,0,0,1,,,,No_Match,,,,,
+3238923,"June 17, 2025",Wisconsin,Milwaukee,1000 block of W Mineral St,0,4,0,0,0,,,,No_Match,,,,,
+3238015,"June 16, 2025",Ohio,Cleveland,5900 block of Luther Ave,1,6,0,0,0,,41.516214608401,-81.649238068049,Match,"5900 LUTHER AVE, CLEVELAND, OH, 44103",Cuyahoga,035,39,"Cuyahoga, 39"
+3235671,"June 16, 2025",Florida,Miami,NW 62nd St and NW 2nd Ave,2,2,0,0,0,,25.832506298908,-80.200360815832,Match,"NW 62ND ST & NW 2ND AVE, MIAMI, FL, 33150",Miami-Dade,086,12,"Miami-Dade, 12"
+3237753,"June 16, 2025",Ohio,Middletown,1200 Elliott Dr,1,3,0,0,2,,39.500746320962,-84.351258948429,Match,"1200 ELLIOTT DR, MIDDLETOWN, OH, 45044",Butler,017,39,"Butler, 39"
+3234040,"June 15, 2025",Ohio,Canton,2900 8th St NE,0,4,0,0,0,,40.800541480425,-81.335434641508,Match,"2900 8TH ST NE, CANTON, OH, 44704",Stark,151,39,"Stark, 39"
+3234286,"June 15, 2025",Connecticut,Hartford,181 Homestead Ave,0,5,0,0,0,,41.777424452504,-72.694356470975,Match,"181 HOMESTEAD AVE, HARTFORD, CT, 06112",Capitol,110,09,"Capitol, 09"
+3234370,"June 15, 2025",Utah,Salt Lake City (West Valley City),5405 W 3100 S,3,2,0,0,1,,40.703768131872,-112.020281399463,Match,"5405 W 3100 S, WEST VALLEY CITY, UT, 84120",Salt Lake,035,49,"Salt Lake, 49"
+3245191,"June 15, 2025",Pennsylvania,Johnstown,74 Fairfield Ave,0,4,0,0,0,,40.344826132271,-78.941463391583,Match,"74 FAIRFIELD AVE, JOHNSTOWN, PA, 15906",Cambria,021,42,"Cambria, 42"
+3233803,"June 15, 2025",Indiana,Elkhart,W Garfield Ave and Benham Ave,1,11,0,0,0,,41.67286309185,-85.970334762253,Match,"W GARFIELD AVE & BENHAM AVE, ELKHART, IN, 46516",Elkhart,039,18,"Elkhart, 18"
+3233357,"June 15, 2025",Michigan,Detroit,,0,5,0,0,0,,,,No_Match,,,,,
+3233175,"June 14, 2025",Nevada,Reno,Raggio Pkwy,1,4,0,0,0,,,,No_Match,,,,,
+3233431,"June 14, 2025",Tennessee,Nashville,Westchester Dr and Brick Church Pike,1,4,0,0,1,,36.253046145425,-86.77701846059,Match,"WESTCHESTER DR & BRICK CHURCH PIKE, NASHVILLE, TN, 37207",Davidson,037,47,"Davidson, 47"
+3233889,"June 14, 2025",Missouri,Kansas City,3500 Prospect Ave,2,3,0,0,0,,39.062575028554,-94.553281718282,Match,"3500 PROSPECT AVE, KANSAS CITY, MO, 64128",Jackson,095,29,"Jackson, 29"
+3232732,"June 14, 2025",Minnesota,Minneapolis (Brooklyn Park),8710 Windsor Terrace N,2,2,0,0,1,,45.1134850693,-93.32083580508,Match,"8710 WINDSOR TER, BROOKLYN PARK, MN, 55443",Hennepin,053,27,"Hennepin, 27"
+3238280,"June 14, 2025",Mississippi,Greenville,1500 block of S Colorado St,0,4,0,0,0,,33.38557436202,-91.030048489302,Match,"1500 S COLORADO ST, GREENVILLE, MS, 38703",Washington,151,28,"Washington, 28"
+3233274,"June 14, 2025",Ohio,Columbus,S Ludlow St and W Town St,1,6,0,0,0,,39.958498256558,-83.002666800664,Match,"S LUDLOW ST & W TOWN ST, COLUMBUS, OH, 43215",Franklin,049,39,"Franklin, 39"
+3232994,"June 14, 2025",Delaware,Dover,400 block of Barrister Pl,1,4,0,0,1,,39.158316105801,-75.498540081653,Match,"400 BARRISTER PL, DOVER, DE, 19901",Kent,001,10,"Kent, 10"
+3231819,"June 11, 2025",Florida,Jacksonville,5020 Cleveland Rd,1,3,0,0,0,,30.364633299321,-81.706318456865,Match,"5020 CLEVELAND RD, JACKSONVILLE, FL, 32209",Duval,031,12,"Duval, 12"
+3231555,"June 11, 2025",Michigan,Detroit,14300 block of Mettetal St,0,4,0,0,1,,42.391743049566,-83.206932160486,Match,"14300 METTETAL ST, DETROIT, MI, 48227",Wayne,163,26,"Wayne, 26"
+3231072,"June 9, 2025",Georgia,Augusta,2101 Walton Way,0,4,0,0,0,,33.47557217247,-82.009464321058,Match,"2101 WALTON WAY, AUGUSTA, GA, 30904",Richmond,245,13,"Richmond, 13"
+3229184,"June 9, 2025",District of Columbia,Washington,1200 block of Mt Olivet Rd NE,1,3,0,0,0,,38.910225024246,-76.984896895295,Match,"1200 MOUNT OLIVET RD NE, WASHINGTON, DC, 20002",District of Columbia,001,11,"District of Columbia, 11"
+3228035,"June 8, 2025",Ohio,Cleveland,4071 Lee Rd,0,7,0,0,4,,,,Tie,,,,,
+3228413,"June 8, 2025",Wisconsin,Milwaukee,300 block of W McKinley Ave,0,4,0,0,0,,,,No_Match,,,,,
+3228293,"June 8, 2025",Georgia,Lagrange,105 Seminary St,1,6,0,0,0,,33.044731145592,-85.020664249099,Match,"105 SEMINARY ST, LAGRANGE, GA, 30241",Troup,285,13,"Troup, 13"
+3228103,"June 7, 2025",Virginia,Portsmouth,400 block of Viking St,0,4,0,0,0,,36.799936410044,-76.360903837212,Match,"400 VIKING ST, PORTSMOUTH, VA, 23701",Portsmouth,740,51,"Portsmouth, 51"
+3227904,"June 7, 2025",North Carolina,Sanford,102 E Trade St,0,5,0,1,3,,35.457017703634,-79.150598412699,Match,"102 E TRADE ST, SANFORD, NC, 27332",Lee,105,37,"Lee, 37"
+3228792,"June 7, 2025",Michigan,Benton Harbor,1000 block of Bishop St,0,6,0,0,0,,,,No_Match,,,,,
+3227101,"June 6, 2025",South Carolina,Columbia,2408 Lincoln St,1,3,0,0,2,,34.015805104713,-81.046608933892,Match,"2408 LINCOLN ST, COLUMBIA, SC, 29201",Richland,079,45,"Richland, 45"
+3227478,"June 6, 2025",Louisiana,Cheneyville,200 block of Derbourne St,0,5,0,0,13,,,,No_Match,,,,,
+3226727,"June 5, 2025",Texas,Dallas,3412 S Malcolm X Blvd,0,7,0,0,0,,32.766332651101,-96.765089354274,Match,"3412 MALCOLM X BLVD, DALLAS, TX, 75215",Dallas,113,48,"Dallas, 48"
+3222953,"June 1, 2025",North Carolina,Hickory,1125 Walnut Acres Dr,1,12,0,0,6,,35.655753022394,-81.367304036601,Match,"1125 WALNUT ACRES DR, HICKORY, NC, 28602",Catawba,035,37,"Catawba, 37"
+3223359,"June 1, 2025",North Carolina,Asheville,College St and Rankin Ave,0,4,1,0,0,,35.595227105237,-82.55340073007,Match,"COLLEGE ST & RANKIN AVE, ASHEVILLE, NC, 28801",Buncombe,021,37,"Buncombe, 37"
+3223558,"June 1, 2025",Minnesota,Minneapolis,724 Sibley St NE,1,4,0,2,4,,44.993525627495,-93.269394217652,Match,"724 SIBLEY ST NE, MINNEAPOLIS, MN, 55413",Hennepin,053,27,"Hennepin, 27"
+3223058,"June 1, 2025",Virginia,Danville,Carver Dr and Cheyenne Dr,1,4,0,0,2,,36.610786771763,-79.37070012361,Match,"CARVER DR & CHEYENNE DR, DANVILLE, VA, 24540",Danville,590,51,"Danville, 51"
+3223369,"May 31, 2025",Georgia,Snellville,2500 Sawyer Pkwy SW,0,5,0,0,2,,33.840963343587,-84.010117009421,Match,"2500 SAWYER PKWY, SNELLVILLE, GA, 30078",Gwinnett,135,13,"Gwinnett, 13"
+3223123,"May 31, 2025",Mississippi,Fayette,1483 Main St,1,8,0,0,3,,,,No_Match,,,,,
+3222306,"May 31, 2025",Illinois,Chicago,7800 block of S Throop St,0,7,0,0,0,,41.752238865195,-87.655466179771,Match,"7800 S THROOP ST, CHICAGO, IL, 60620",Cook,031,17,"Cook, 17"
+3222806,"May 31, 2025",Indiana,Clarksville,1909 Greentree Blvd,0,4,0,0,2,,,,No_Match,,,,,
+3221157,"May 29, 2025",Indiana,Haubstadt,12000 block of S Scottsdale Dr,3,1,0,0,1,,,,No_Match,,,,,
+3220578,"May 28, 2025",Washington,Lakewood,8928 N Thorne Ln SW,0,7,0,0,0,,47.129045442154,-122.553253473358,Match,"8928 N THORNE LN SW, LAKEWOOD, WA, 98498",Pierce,053,53,"Pierce, 53"
+3220528,"May 28, 2025",Hawaii,Waianae,Lahaina St and Jade St,1,3,0,1,4,,21.466427582241,-158.209977612857,Match,"LAHAINA ST & JADE ST, WAIANAE, HI, 96792",Honolulu,003,15,"Honolulu, 15"
+3220589,"May 28, 2025",Georgia,Atlanta,2261 Cascade Rd SW,0,4,0,0,0,,33.722614500661,-84.462605696257,Match,"2261 CASCADE RD, ATLANTA, GA, 30311",Fulton,121,13,"Fulton, 13"
+3219130,"May 27, 2025",Connecticut,Waterbury,495 Union St,0,5,0,0,1,,41.549857303981,-73.027381735392,Match,"495 UNION ST, WATERBURY, CT, 06706",Naugatuck Valley,140,09,"Naugatuck Valley, 09"
+3218775,"May 26, 2025",Pennsylvania,Philadelphia,N Lemon Hill Dr and Sedgley Dr,2,9,0,0,0,,,,No_Match,,,,,
+3218025,"May 25, 2025",South Carolina,Little River,1522 Watson Ave,0,10,0,0,1,,33.871635600123,-78.612640658835,Match,"1522 WATSON AVE, LITTLE RIVER, SC, 29566",Horry,051,45,"Horry, 45"
+3217732,"May 25, 2025",Tennessee,Oak Ridge,S Benedict Ave,0,9,0,0,0,,,,No_Match,,,,,
+3217632,"May 24, 2025",Tennessee,Jackson,2700 N Parkway E,0,6,0,1,1,,,,No_Match,,,,,
+3217494,"May 24, 2025",Colorado,Colorado Springs,1429 Potter Dr,0,6,0,0,1,,38.853835863554,-104.752583419948,Match,"1429 POTTER DR, COLORADO SPRINGS, CO, 80909",El Paso,041,08,"El Paso, 08"
+3217117,"May 23, 2025",Pennsylvania,Chester,205 E 10th St,1,4,0,0,0,,39.854204969587,-75.359942310082,Match,"205 E 10TH ST, CHESTER, PA, 19013",Delaware,045,42,"Delaware, 42"
+3217276,"May 22, 2025",Texas,Mckinney,7560 SH-121,1,3,0,0,1,,,,No_Match,,,,,
+3212153,"May 18, 2025",Missouri,Saint Louis,800 block of Schirmer St,4,0,0,0,0,,38.55090761584,-90.265704729505,Match,"800 SCHIRMER ST, SAINT LOUIS, MO, 63111",St. Louis,510,29,"St. Louis, 29"
+3251434,"May 18, 2025",Arizona,Tucson,1100 block of S 6th Ave,0,4,0,0,0,,,,No_Match,,,,,
+3212178,"May 18, 2025",Georgia,Macon,4376 Log Cabin Dr,3,6,0,0,3,,32.823991360952,-83.70959792144,Match,"4376 LOG CABIN DR, MACON, GA, 31204",Bibb,021,13,"Bibb, 13"
+3211604,"May 17, 2025",Washington,Seattle,172 S Washington St,3,1,0,0,3,,47.600934679416,-122.332361097209,Match,"172 S WASHINGTON ST, SEATTLE, WA, 98104",King,033,53,"King, 53"
+3211829,"May 17, 2025",Michigan,Jackson,103 Lincoln Ct,1,3,0,0,0,,42.224455236758,-84.40328711723,Match,"103 LINCOLN CT, JACKSON, MI, 49203",Jackson,075,26,"Jackson, 26"
+3211202,"May 16, 2025",Nevada,Las Vegas,1725 N Rainbow Blvd,1,4,1,0,0,,36.191492885343,-115.242364612071,Match,"1725 N RAINBOW BLVD, LAS VEGAS, NV, 89108",Clark,003,32,"Clark, 32"
+3211548,"May 16, 2025",Illinois,Chicago,600 block of S Homan Ave,0,4,0,0,0,,41.873567799497,-87.710856727649,Match,"600 S HOMAN AVE, CHICAGO, IL, 60624",Cook,031,17,"Cook, 17"
+3209696,"May 11, 2025",Georgia,Valdosta,700 block of E Gordon St,0,4,0,0,1,,30.840986019628,-83.272446335618,Match,"700 E GORDON ST, VALDOSTA, GA, 31601",Lowndes,185,13,"Lowndes, 13"
+3206964,"May 11, 2025",South Carolina,Florence,3027 E Palmetto St,1,5,0,1,1,,34.19700744831,-79.707403581305,Match,"3027 E PALMETTO ST, FLORENCE, SC, 29506",Florence,041,45,"Florence, 45"
+3210524,"May 10, 2025",California,Paramount,7718 Somerset Blvd,0,4,0,0,0,,33.896282845609,-118.164871584539,Match,"7718 SOMERSET BLVD, PARAMOUNT, CA, 90723",Los Angeles,037,06,"Los Angeles, 06"
+3207234,"May 10, 2025",California,Arvin,Bautista St and Soledad Dr,2,2,0,0,0,,,,No_Match,,,,,
+3206682,"May 10, 2025",Pennsylvania,Philadelphia,N 33rd St and W Girard Ave,0,4,0,0,0,,,,No_Match,,,,,
+3206957,"May 10, 2025",California,Los Angeles,,0,6,0,0,0,,,,No_Match,,,,,
+3206052,"May 9, 2025",Michigan,Eastpointe,8 Mile and Kelly Rd,1,4,0,0,1,,42.450561798641,-82.940980608674,Match,"E 8 MILE RD & KELLY RD, EASTPOINTE, MI, 48021",Macomb,099,26,"Macomb, 26"
+3206048,"May 9, 2025",Michigan,Detroit,15700 block of Patton St,2,2,0,0,1,,42.404207613316,-83.243776204927,Match,"15700 PATTON ST, DETROIT, MI, 48223",Wayne,163,26,"Wayne, 26"
+3205141,"May 7, 2025",Connecticut,Hartford,Nelson St,0,4,0,0,0,,,,No_Match,,,,,
+3203108,"May 6, 2025",Tennessee,Memphis,2536 N Watkins Rd,2,3,0,0,0,,35.194852888808,-90.007754246007,Match,"2536 N WATKINS ST, MEMPHIS, TN, 38127",Shelby,157,47,"Shelby, 47"
+3203064,"May 5, 2025",Oklahoma,Oklahoma City,308 NW 10th St,0,7,0,0,3,,35.478184907661,-97.517796850207,Match,"308 NW 10TH ST, OKLAHOMA CITY, OK, 73103",Oklahoma,109,40,"Oklahoma, 40"
+3203683,"May 5, 2025",South Carolina,North Charleston,6800 block of Ward Ave,1,3,1,0,0,,32.916528743626,-80.044872078397,Match,"6800 WARD AVE, NORTH CHARLESTON, SC, 29406",Charleston,019,45,"Charleston, 45"
+3203390,"May 5, 2025",Pennsylvania,Sharon,317 Baldwin Ave,0,4,0,0,0,,41.228466174195,-80.495970607653,Match,"317 BALDWIN AVE, SHARON, PA, 16146",Mercer,085,42,"Mercer, 42"
+3201452,"May 4, 2025",Oklahoma,Tulsa,E 2nd St S and S Elgin Ave,0,5,1,1,0,,36.155999604515,-95.986846449599,Match,"E 2ND ST & S ELGIN AVE, TULSA, OK, 74120",Tulsa,143,40,"Tulsa, 40"
+3201117,"May 4, 2025",Texas,Houston,6000 block of Cherry Hill Ave,1,15,0,0,0,,29.691036519835,-95.322828556776,Match,"6000 CHERRYHILL ST, HOUSTON, TX, 77087",Harris,201,48,"Harris, 48"
+3201936,"May 4, 2025",Arizona,Glendale,6729 N 57th Dr,3,5,0,0,0,,33.536293608062,-112.182677670917,Match,"6729 N 57TH DR, GLENDALE, AZ, 85301",Maricopa,013,04,"Maricopa, 04"
+3201959,"May 4, 2025",Colorado,Denver,1900 block of Market St,0,4,0,0,1,,39.752680190036,-104.994564015348,Match,"1900 MARKET ST, DENVER, CO, 80202",Denver,031,08,"Denver, 08"
+3199958,"May 2, 2025",Maryland,Gwynn Oak (Woodlawn),1800 block of Woodlawn Dr,1,3,0,0,0,,39.317414605061,-76.737577367755,Match,"1800 WOODLAWN DR, GWYNN OAK, MD, 21207",Baltimore,005,24,"Baltimore, 24"
+3198160,"April 29, 2025",Minnesota,Minneapolis,1508 E 25th St,4,1,0,0,1,,44.957389304502,-93.253482547053,Match,"1508 E 25TH ST, MINNEAPOLIS, MN, 55404",Hennepin,053,27,"Hennepin, 27"
+3195984,"April 27, 2025",North Carolina,Elizabeth City,1704 Weeksville Rd,1,3,0,0,0,,,,No_Match,,,,,
+3196464,"April 27, 2025",Tennessee,Memphis,2871 S Perkins Rd,1,4,0,0,0,,35.070457551074,-89.905576335523,Match,"2871 S PERKINS RD, MEMPHIS, TN, 38118",Shelby,157,47,"Shelby, 47"
+3196061,"April 27, 2025",North Carolina,Rocky Mount,W End St,0,4,0,0,2,,,,No_Match,,,,,
+3195885,"April 26, 2025",South Carolina,Myrtle Beach,913 N Ocean Blvd,0,11,1,0,0,,,,Tie,,,,,
+3189434,"April 20, 2025",Texas,Houston,12929 Nyack Dr,0,4,0,0,0,,29.594114999727,-95.19665928015,Match,"12929 NYACK DR, HOUSTON, TX, 77089",Harris,201,48,"Harris, 48"
+3190014,"April 20, 2025",Louisiana,Ruston,302 S Farmerville St,1,5,0,0,1,,32.526114564997,-92.631050240118,Match,"302 S FARMERVILLE ST, RUSTON, LA, 71270",Lincoln,061,22,"Lincoln, 22"
+3189178,"April 19, 2025",Tennessee,Memphis,Mosby Ave and N Dunlap St,1,4,0,0,0,,,,Tie,,,,,
+3188506,"April 18, 2025",Texas,Garland,3820 W Walnut St,1,3,0,0,2,,32.916653936576,-96.689182068577,Match,"3820 W WALNUT ST, GARLAND, TX, 75042",Dallas,113,48,"Dallas, 48"
+3187190,"April 17, 2025",Florida,Tallahassee,75 N Woodward Ave,2,5,0,1,1,,,,No_Match,,,,,
+3185538,"April 15, 2025",Texas,Dallas,5520 Langdon Rd,0,5,0,0,1,,32.652743683937,-96.739913379745,Match,"5520 LANGDON RD, DALLAS, TX, 75241",Dallas,113,48,"Dallas, 48"
+3184200,"April 13, 2025",Arkansas,Conway,600 5th Ave,2,9,0,0,4,,35.086753324001,-92.423573773021,Match,"600 5TH AVE, CONWAY, AR, 72032",Faulkner,045,05,"Faulkner, 05"
+3184539,"April 13, 2025",Missouri,Saint Louis,3800 block of Natural Bridge Ave,1,4,0,0,0,,38.662700772085,-90.220449274066,Match,"3800 NATURAL BRIDGE AVE, SAINT LOUIS, MO, 63107",St. Louis,510,29,"St. Louis, 29"
+3184153,"April 13, 2025",Louisiana,New Orleans,100 block of Decatur St,0,5,0,0,2,,29.951933746635,-90.06691126177,Match,"100 DECATUR ST, NEW ORLEANS, LA, 70130",Orleans,071,22,"Orleans, 22"
+3184142,"April 13, 2025",Florida,Daytona Beach,155 Ontario Ct,1,3,0,0,0,,,,No_Match,,,,,
+3183722,"April 12, 2025",Texas,Crosby,13203 Crosby Lynchburg Rd,1,6,0,0,0,,29.880714631477,-95.063243836281,Match,"13203 CROSBY LYNCHBURG RD, CROSBY, TX, 77532",Harris,201,48,"Harris, 48"
+3182714,"April 11, 2025",California,Stockton,517 Doctor MLK Jr Blvd,0,6,0,0,0,,37.939909738051,-121.28069634786,Match,"517 E DR MARTIN LUTHER KING JR BLVD, STOCKTON, CA, 95206",San Joaquin,077,06,"San Joaquin, 06"
+3181158,"April 9, 2025",Tennessee,Memphis,4005 S Mendenhall Rd,1,5,0,0,1,,35.039472714143,-89.885258566202,Match,"4005 S MENDENHALL RD, MEMPHIS, TN, 38115",Shelby,157,47,"Shelby, 47"
+3180141,"April 8, 2025",Virginia,Fredericksburg,415 Olde Greenwich Cir,3,3,0,1,5,,38.269877025226,-77.47686737627,Match,"415 OLDE GREENWICH CIR, FREDERICKSBURG, VA, 22408",Spotsylvania,177,51,"Spotsylvania, 51"
+3178598,"April 5, 2025",California,Los Angeles,11000 block of S Manhattan Pl,1,4,0,0,0,,33.935212510922,-118.310115482774,Match,"11000 S MANHATTAN PL, LOS ANGELES, CA, 90047",Los Angeles,037,06,"Los Angeles, 06"
+3177421,"April 4, 2025",Tennessee,Knoxville,8039 Ray Mears Blvd,0,4,0,0,0,,35.923298756609,-84.047213111209,Match,"8039 RAY MEARS BLVD, KNOXVILLE, TN, 37919",Knox,093,47,"Knox, 47"
+3176539,"April 2, 2025",Maine,Sabattus,916 Middle Road,2,2,1,0,0,,44.063954447675,-70.084614731251,Match,"916 MIDDLE RD, SABATTUS, ME, 04280",Androscoggin,001,23,"Androscoggin, 23"
+3173826,"March 31, 2025",Texas,San Antonio,10227 Ironside Dr,0,4,1,0,0,,29.533453599248,-98.558131568608,Match,"10227 IRONSIDE DR, SAN ANTONIO, TX, 78230",Bexar,029,48,"Bexar, 48"
+3173233,"March 30, 2025",Indiana,Whiting,1516 Indianapolis Blvd,2,3,0,0,1,,41.685856727254,-87.506384569066,Match,"1516 INDIANAPOLIS BLVD, WHITING, IN, 46394",Lake,089,18,"Lake, 18"
+3173872,"March 30, 2025",California,San Francisco,58 Middle Point Rd,0,4,0,0,0,,37.736876268628,-122.379479377172,Match,"58 MIDDLE POINT RD, SAN FRANCISCO, CA, 94124",San Francisco,075,06,"San Francisco, 06"
+3173569,"March 30, 2025",Texas,Austin,215 E 6th St,0,4,0,0,1,,30.267570822345,-97.741274883637,Match,"215 E 6TH ST, AUSTIN, TX, 78701",Travis,453,48,"Travis, 48"
+3172689,"March 29, 2025",Maryland,Baltimore,400 block of Venable Ave,0,4,0,0,2,,39.329320407694,-76.611006239833,Match,"400 VENABLE AVE, BALTIMORE, MD, 21218",Baltimore,510,24,"Baltimore, 24"
+3173790,"March 29, 2025",South Carolina,Orangeburg,1175 Five Chop Rd,0,7,0,0,1,,33.480396421272,-80.822043600657,Match,"1175 FIVE CHOP RD, ORANGEBURG, SC, 29115",Orangeburg,075,45,"Orangeburg, 45"
+3172644,"March 29, 2025",Washington,Tacoma,17800 block of 25th Ave Ct E,2,4,0,1,2,,47.094844409256,-122.395277176433,Match,"17800 25TH AVENUE CT E, TACOMA, WA, 98445",Pierce,053,53,"Pierce, 53"
+3170672,"March 26, 2025",Florida,Hallandale (Hallandale Beach),3181 W Hallandale Beach Blvd,4,1,1,0,0,,25.98485184885,-80.173431870584,Match,"3181 W HALLANDALE BEACH BLVD, HALLANDALE BEACH, FL, 33009",Broward,011,12,"Broward, 12"
+3166785,"March 23, 2025",Texas,Houston,6419 1/2 Hillcroft St,0,6,0,0,1,,29.714804600902,-95.496874476059,Match,"6419 1/2 HILLCROFT ST, HOUSTON, TX, 77081",Harris,201,48,"Harris, 48"
+3166540,"March 22, 2025",Mississippi,Jackson,Lamar St and Pearl St,1,7,0,0,3,,32.298951090671,-90.186289744491,Match,"S LAMAR ST & E PEARL ST, JACKSON, MS, 39201",Hinds,049,28,"Hinds, 28"
+3166569,"March 22, 2025",Louisiana,Natchitoches,LA-1225 and Catholic Ln,0,4,0,0,0,,,,No_Match,,,,,
+3166767,"March 21, 2025",Washington,Moses Lake,500 block of W Loop Dr,1,4,0,1,3,,47.137929378323,-119.285048457645,Match,"500 W LOOP DR, MOSES LAKE, WA, 98837",Grant,025,53,"Grant, 53"
+3166052,"March 21, 2025",New Mexico,Las Cruces,850 S Walnut St,3,15,0,0,4,,32.31024911464,-106.753892304222,Match,"850 S WALNUT ST, LAS CRUCES, NM, 88001",Doña Ana,013,35,"Doña Ana, 35"
+3166856,"March 21, 2025",Georgia,Brunswick,5700 Altama Ave,1,3,0,0,0,,31.212323812687,-81.480822564933,Match,"5700 ALTAMA AVE, BRUNSWICK, GA, 31525",Glynn,127,13,"Glynn, 13"
+3165724,"March 19, 2025",Alabama,Selma,2800 block of Summerfield Rd,1,3,0,0,1,,32.439751671109,-87.033096961825,Match,"2800 SUMMERFIELD RD, SELMA, AL, 36701",Dallas,047,01,"Dallas, 01"
+3163394,"March 18, 2025",Georgia,Savannah,1900 Westlake Ave,0,5,0,0,0,,32.035753885844,-81.141135770525,Match,"1900 WESTLAKE AVE, SAVANNAH, GA, 31405",Chatham,051,13,"Chatham, 13"
+3161961,"March 15, 2025",New Jersey,Verona,10 Park Pl,0,4,0,0,0,,40.831571578002,-74.244739507345,Match,"10 PARK PL, VERONA, NJ, 07044",Essex,013,34,"Essex, 34"
+3161176,"March 15, 2025",Louisiana,Shreveport,204 Texas St,2,2,0,0,1,,32.514931668495,-93.746897247467,Match,"204 TEXAS ST, SHREVEPORT, LA, 71101",Caddo,017,22,"Caddo, 22"
+3161075,"March 14, 2025",Illinois,Chicago,1949 W 51st St,0,4,0,1,3,,41.801181866319,-87.673652695318,Match,"1949 W 51ST ST, CHICAGO, IL, 60609",Cook,031,17,"Cook, 17"
+3157288,"March 10, 2025",Alabama,Huntsville,708 Poplar Ave,0,4,0,0,1,,34.740714978142,-86.604371539506,Match,"708 POPLAR AVE NW, HUNTSVILLE, AL, 35816",Madison,089,01,"Madison, 01"
+3152807,"March 4, 2025",Maryland,Severn,8100 block of Meade Village Rd,2,2,0,0,0,,39.126422956842,-76.706129726753,Match,"8100 MEADE VILLAGE RD, SEVERN, MD, 21144",Anne Arundel,003,24,"Anne Arundel, 24"
+3152667,"March 4, 2025",Louisiana,Mamou,Ballpark Rd,2,12,0,0,1,,,,No_Match,,,,,
+3150651,"March 2, 2025",Texas,Houston,3333 Raleigh St,0,5,0,0,1,,29.70191172768,-95.373445462728,Match,"3333 RALEIGH ST, HOUSTON, TX, 77021",Harris,201,48,"Harris, 48"
+3152206,"March 2, 2025",Mississippi,Biloxi,279 Caillavet St,0,6,0,0,1,,30.402365398901,-88.892332120518,Match,"279 CAILLAVET ST, BILOXI, MS, 39530",Harrison,047,28,"Harrison, 28"
+3151104,"March 2, 2025",Louisiana,Franklinton,Greenlaw St,0,5,0,0,1,,,,No_Match,,,,,
+3151577,"March 2, 2025",Virginia,Portsmouth,2900 block of Arcadia Ave,1,3,0,0,1,,36.816717521857,-76.33450780334,Match,"2900 ARCADIA AVE, PORTSMOUTH, VA, 23704",Portsmouth,740,51,"Portsmouth, 51"
+3151474,"March 1, 2025",California,Hayward,21933 Foothill Blvd,0,4,0,0,0,,37.680948167581,-122.086679850679,Match,"21933 FOOTHILL BLVD, HAYWARD, CA, 94541",Alameda,001,06,"Alameda, 06"
+3151139,"March 1, 2025",Alabama,Sardis,304 Co Rd 134,0,6,0,0,1,,32.282406321368,-87.04386270967,Match,"304 CO RD 134, SARDIS, AL, 36775",Dallas,047,01,"Dallas, 01"
+3149025,"February 27, 2025",Ohio,Columbus,480 block of Kimball Pl,1,3,0,0,0,,39.956239454037,-82.963382282127,Match,"480 KIMBALL PL, COLUMBUS, OH, 43205",Franklin,049,39,"Franklin, 39"
+3146395,"February 24, 2025",Texas,Dallas,Canada Dr and Gulden Ln,3,2,0,0,2,,32.781306263841,-96.827671467713,Match,"CANADA DR & GULDEN LN, DALLAS, TX, 75212",Dallas,113,48,"Dallas, 48"
+3144174,"February 22, 2025",Pennsylvania,York,1701 Innovation Dr,1,5,1,0,0,,,,No_Match,,,,,
+3144274,"February 21, 2025",Indiana,Lake Station,6700 block of 9th Ave,4,0,1,0,0,,,,No_Match,,,,,
+3141807,"February 18, 2025",Florida,Tampa,2600 E 28th Ave,1,3,0,0,0,,27.976407550384,-82.430557593946,Match,"2600 E 28TH AVE, TAMPA, FL, 33605",Hillsborough,057,12,"Hillsborough, 12"
+3140814,"February 16, 2025",Georgia,Decatur,5300 block of Panola Industrial Blvd,1,4,0,0,0,,33.706925311043,-84.173698438629,Match,"5300 PANOLA INDUSTRIAL BLVD, DECATUR, GA, 30035",DeKalb,089,13,"DeKalb, 13"
+3139838,"February 15, 2025",Virginia,Roanoke,4100 block of Melrose Ave NW,0,4,0,1,1,,37.295953230868,-80.003547379764,Match,"4100 MELROSE AVE NW, ROANOKE, VA, 24017",Roanoke,770,51,"Roanoke, 51"
+3138476,"February 12, 2025",Missouri,Saint Louis (Ferguson),7000 block of Halpin Dr,1,3,0,0,0,,,,No_Match,,,,,
+3136711,"February 10, 2025",Wyoming,Byron,239 E Shoshone Ave,4,0,1,0,0,,44.794550181082,-108.501295149835,Match,"239 E SHOSHONE AVE, BYRON, WY, 82412",Big Horn,003,56,"Big Horn, 56"
+3135132,"February 9, 2025",California,Woodland Hills,5850 Winnetka Ave,1,6,0,0,0,,34.17674966744,-118.571120394018,Match,"5850 WINNETKA AVE, WOODLAND HILLS, CA, 91367",Los Angeles,037,06,"Los Angeles, 06"
+3135318,"February 8, 2025",North Carolina,Raleigh,1000 block of Auston Grove Dr,0,4,0,0,0,,35.790634246071,-78.54666494756,Match,"1000 AUSTON GROVE DR, RALEIGH, NC, 27610",Wake,183,37,"Wake, 37"
+3134984,"February 8, 2025",Arizona,Casa Grande,500 block of W 13th Pl,1,5,0,0,0,,,,No_Match,,,,,
+3134788,"February 8, 2025",Oklahoma,Tulsa,11800 block of E 21st St,2,2,0,0,3,,36.133415305538,-95.845168912904,Match,"11800 E 21ST ST, TULSA, OK, 74129",Tulsa,143,40,"Tulsa, 40"
+3134608,"February 7, 2025",Georgia,Atlanta,Lakewood Ave SE and Lethea St SE,0,4,0,0,0,,33.710123573694,-84.379891801573,Match,"LAKEWOOD AVE SE & LETHEA ST SE, ATLANTA, GA, 30315",Fulton,121,13,"Fulton, 13"
+3134167,"February 6, 2025",Florida,Quincy,3749 Pat Thomas Pkwy,2,3,1,0,0,,30.531396149119,-84.598488445737,Match,"3749 PAT THOMAS PKWY, QUINCY, FL, 32351",Gadsden,039,12,"Gadsden, 12"
+3131985,"February 4, 2025",Ohio,New Albany,8825 Smiths Mill Rd N,2,4,0,0,1,,,,No_Match,,,,,
+3130376,"February 2, 2025",Pennsylvania,Allentown,1500 Union Blvd,1,3,0,0,2,,40.624890103352,-75.433741738959,Match,"1500 UNION BLVD, ALLENTOWN, PA, 18109",Lehigh,077,42,"Lehigh, 42"
+3129861,"February 1, 2025",Oregon,Clatskanie,Quincy Mayger Rd and Ilmari Rd,1,3,1,0,0,,46.150329549694,-123.156669309803,Match,"QUINCY MAYGER RD & ILMARI RD, CLATSKANIE, OR, 97016",Columbia,009,41,"Columbia, 41"
+3129663,"January 31, 2025",California,Los Angeles,13200 block of Jarvis Avenue,2,5,0,0,0,,33.912738568904,-118.271704638136,Match,"13200 JARVIS AVE, LOS ANGELES, CA, 90061",Los Angeles,037,06,"Los Angeles, 06"
+3127740,"January 29, 2025",Tennessee,Memphis,900 block of College Park Dr,2,2,0,1,1,,35.121660899727,-90.033699042013,Match,"900 COLLEGE PARK DR, MEMPHIS, TN, 38126",Shelby,157,47,"Shelby, 47"
+3125975,"January 27, 2025",Indiana,Elkhart,575 E Jackson Blvd,2,2,1,0,0,,41.689674726369,-85.964956705707,Match,"575 E JACKSON BLVD, ELKHART, IN, 46516",Elkhart,039,18,"Elkhart, 18"
+3126004,"January 26, 2025",Virginia,Richmond (Bon Air),10016 Robious Rd,0,5,0,0,1,,37.506832118325,-77.580038050973,Match,"10016 ROBIOUS RD, RICHMOND, VA, 23235",Chesterfield,041,51,"Chesterfield, 51"
+3124977,"January 26, 2025",Texas,Amarillo,709 S Polk St,1,8,0,0,1,,35.206225173791,-101.837144193759,Match,"709 S POLK ST, AMARILLO, TX, 79101",Potter,375,48,"Potter, 48"
+3124458,"January 25, 2025",Tennessee,Memphis,2590 Park Ave,0,4,0,0,1,,35.108312227502,-89.97586478996,Match,"2590 PARK AVE, MEMPHIS, TN, 38114",Shelby,157,47,"Shelby, 47"
+3123627,"January 24, 2025",Alabama,Mobile,1200 Murray Hill Ct,1,3,0,0,1,,30.665432524121,-88.083542906197,Match,"1200 MURRAY HILL CT, MOBILE, AL, 36606",Mobile,097,01,"Mobile, 01"
+3121297,"January 22, 2025",California,Los Angeles,600 block of S Alvarado St,0,5,0,1,1,,34.059463733376,-118.274826912653,Match,"600 S ALVARADO ST, LOS ANGELES, CA, 90057",Los Angeles,037,06,"Los Angeles, 06"
+3122078,"January 22, 2025",Texas,San Antonio,18777 Stone Oak Pkwy,0,7,1,0,0,,29.615067060361,-98.493898075973,Match,"18777 STONE OAK PKWY, SAN ANTONIO, TX, 78258",Bexar,029,48,"Bexar, 48"
+3121802,"January 22, 2025",Maryland,Baltimore,5400 block of York Rd,1,3,0,0,0,,39.355563386844,-76.610026200307,Match,"5400 YORK RD, BALTIMORE, MD, 21212",Baltimore,510,24,"Baltimore, 24"
+3121591,"January 21, 2025",Minnesota,Minneapolis,W 29th St and Pleasant Ave,0,4,0,0,0,,44.950744011825,-93.282998747537,Match,"W 29TH ST & PLEASANT AVE S, MINNEAPOLIS, MN, 55408",Hennepin,053,27,"Hennepin, 27"
+3119395,"January 19, 2025",Florida,Boynton Beach,500 block of NE 2nd St,0,5,1,0,0,,,,No_Match,,,,,
+3118521,"January 18, 2025",Louisiana,New Orleans (River Ridge),10133 Stephen Dr,2,2,1,0,0,,29.973178896692,-90.212388005291,Match,"10133 STEPHEN DR, NEW ORLEANS, LA, 70123",Jefferson,051,22,"Jefferson, 22"
+3116474,"January 16, 2025",Colorado,Colorado Springs,7000 block of Dove Creek Cir,1,3,0,0,5,,,,No_Match,,,,,
+3115486,"January 14, 2025",Texas,Houston,12867 Greens Bayou St,2,2,0,0,0,,29.773835044012,-95.204067954514,Match,"12867 GREENS BAYOU ST, HOUSTON, TX, 77015",Harris,201,48,"Harris, 48"
+3114020,"January 12, 2025",Nebraska,Omaha,N 24th St and Binney St,1,4,0,0,0,,41.286043744777,-95.947002971461,Match,"N 24TH ST & BINNEY ST, OMAHA, NE, 68110",Douglas,055,31,"Douglas, 31"
+3113477,"January 11, 2025",Louisiana,Dubberly,5185 State Rte 531,0,6,0,0,4,,32.495605006201,-93.236783912661,Match,"5185 STATE RTE 531, DUBBERLY, LA, 71024",Webster,119,22,"Webster, 22"
+3109523,"January 5, 2025",Arizona,Tucson,3000 S Mission Rd,0,4,0,0,1,,32.187706937277,-111.001087747798,Match,"3000 S MISSION RD, TUCSON, AZ, 85713",Pima,019,04,"Pima, 04"
+3108706,"January 3, 2025",District of Columbia,Washington,1500 block of Harry Thomas Way NE,0,4,0,1,1,,,,No_Match,,,,,
+3107148,"January 1, 2025",New York,Corona (Queens),91-12 144th Pl,0,10,0,0,0,,,,No_Match,,,,,
+3106647,"January 1, 2025",Illinois,Kankakee,1845 Pierson Pkwy,2,5,0,0,0,,41.113093609223,-87.843202955508,Match,"1845 PIERSON PKWY, KANKAKEE, IL, 60901",Kankakee,091,17,"Kankakee, 17"
+3106379,"January 1, 2025",Louisiana,New Orleans,Bourbon St and Iberville St,1,7,1,0,0,,29.954676585726,-90.069082888123,Match,"BOURBON ST & IBERVILLE ST, NEW ORLEANS, LA, 70130",Orleans,071,22,"Orleans, 22"
+3107042,"January 1, 2025",Texas,Dallas,2900 block of St George Dr,1,3,0,0,1,,32.660881774607,-96.86790968492,Match,"2900 ST GEORGE DR, DALLAS, TX, 75237",Dallas,113,48,"Dallas, 48"

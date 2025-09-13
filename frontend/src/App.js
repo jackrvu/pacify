@@ -32,8 +32,8 @@ function App() {
     const [showPinsLayer, setShowPinsLayer] = useState(false); // Disable pins by default
 
     // Timeline state
-    const [timelineMode, setTimelineMode] = useState(false);
-    const [currentYear, setCurrentYear] = useState(2025);
+    const [timelineMode, setTimelineMode] = useState(true); // Start in timeline mode to get full dataset
+    const [currentYear, setCurrentYear] = useState(1995);
 
     // Legacy state for backward compatibility
     const [incidents, setIncidents] = useState([]); // Gun violence incident data
@@ -84,8 +84,8 @@ function App() {
             return;
         }
 
-        if (timelineMode && timelineData.length > 0) {
-            // Timeline mode: use filtered data
+        if (timelineData.length > 0) {
+            // Always use timeline data for consistency
             const yearData = getDataForYear(currentYear);
             // Convert timeline data format to legacy format for compatibility
             const legacyFormat = yearData.map(item => ({
@@ -94,40 +94,21 @@ function App() {
                 'State': item.state,
                 'City Or County': item.city || '',
                 'Address': item.address || '',
+                'Coordinate_Display': item.address || '',
+                'Google_Maps_Link': item.googleMapsLink || '',
                 'Victims Killed': item.killed,
                 'Victims Injured': item.injured,
                 'Latitude': item.latitude,
                 'Longitude': item.longitude,
+                'County_Name': item.county || '',
+                'County_State': item.countyState || '',
                 ...item.originalData
             }));
             setIncidents(legacyFormat);
-        } else if (!timelineMode) {
-            // Legacy mode: load 2025 data as before
-            const load2025Data = async () => {
-                try {
-                    const response = await fetch('/data/2025_with_locations.csv');
-                    const csvText = await response.text();
-
-                    Papa.parse(csvText, {
-                        header: true,
-                        skipEmptyLines: true,
-                        complete: (results) => {
-                            setIncidents(results.data);
-                        },
-                        error: (error) => {
-                            console.error('Error parsing CSV:', error);
-                        }
-                    });
-                } catch (error) {
-                    console.error('Error loading incident data:', error);
-                }
-            };
-
-            load2025Data();
         }
 
         setLoading(timelineLoading);
-    }, [timelineMode, currentYear, timelineData.length, timelineLoading, getDataForYear]);
+    }, [currentYear, timelineData.length, timelineLoading, getDataForYear]);
 
     // Show policy timeline when a state is selected
     useEffect(() => {
@@ -227,8 +208,8 @@ function App() {
     };
 
     const handlePolicyClick = (year, policies) => {
-        // Policy click is handled within the PolicyTimelinePopup component
-        // No need for separate modal
+        // Policy click is now handled within the PolicyTimelinePopup component modal
+        // This handler is kept for backward compatibility but is no longer needed
     };
 
     // Show loading screen while CSV data loads
@@ -254,10 +235,10 @@ function App() {
                     zoomControl={true}
                     attributionControl={true}
                 >
-                    {/* Base map tiles from OpenStreetMap */}
+                    {/* Base map tiles - Esri World Street Map */}
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                        //attribution='Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+                        url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}"
                     />
 
                     {/* County choropleth layer - shows data density by county */}

@@ -1,3 +1,6 @@
+// IncidentsPanel component - displays nearby incidents based on cursor position
+// Shows detailed incident information in a resizable sidebar panel
+// Supports both dynamic cursor-based updates and persistent incident display
 import React, { useState, useEffect, useRef } from 'react';
 import Papa from 'papaparse';
 import './IncidentsPanel.css';
@@ -278,11 +281,6 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
                         </button>
                     )}
 
-                    {!isMobile && (
-                        <div className="paused-indicator">
-                            {isPersistent ? 'Click to Unpause' : 'Click to Pause'}
-                        </div>
-                    )}
 
                     <div className="header-top">
                         <h3>Gun Violence Incidents</h3>
@@ -335,10 +333,35 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
                                                 </div>
                                             </div>
                                             <div className="incident-title">
-                                                {incident['City Or County']}, {incident.State}
+                                                {incident.County_Name ? 
+                                                    `${incident.County_Name}, ${incident.State}` : 
+                                                    incident['City Or County'] ? 
+                                                        `${incident['City Or County']}, ${incident.State}` : 
+                                                        incident.State
+                                                }
                                             </div>
+                                            {incident.County_Name && incident['City Or County'] && incident.County_Name !== incident['City Or County'] && (
+                                                <div className="incident-county-info" style={{ fontSize: '0.85em', color: '#666', marginBottom: '4px' }}>
+                                                    City: {incident['City Or County']}
+                                                </div>
+                                            )}
                                             <div className="incident-address">
-                                                {incident.Address}
+                                                {incident.Coordinate_Display ? (
+                                                    incident.Google_Maps_Link ? (
+                                                        <a 
+                                                            href={incident.Google_Maps_Link} 
+                                                            target="_blank" 
+                                                            rel="noopener noreferrer"
+                                                            style={{ color: '#007bff', textDecoration: 'underline' }}
+                                                        >
+                                                            {incident.Coordinate_Display}
+                                                        </a>
+                                                    ) : (
+                                                        incident.Coordinate_Display
+                                                    )
+                                                ) : (
+                                                    <span style={{ color: '#666' }}>Coordinates not available</span>
+                                                )}
                                             </div>
                                             {incident.distance && (
                                                 <div className="incident-distance">
