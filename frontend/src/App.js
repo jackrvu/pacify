@@ -13,7 +13,6 @@ import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
 import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
-import PolicyModal from './components/PolicyModal';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
@@ -60,8 +59,6 @@ function App() {
 
     // State for policy timeline popup
     const [showPolicyTimeline, setShowPolicyTimeline] = useState(false);
-    const [selectedPolicy, setSelectedPolicy] = useState(null);
-    const [showPolicyModal, setShowPolicyModal] = useState(false);
 
     // Detect mobile device on mount and window resize
     useEffect(() => {
@@ -224,15 +221,8 @@ function App() {
     };
 
     const handlePolicyClick = (year, policies) => {
-        // Find a representative policy from the year to show in modal
-        const policy = policies[0]; // Show the first policy for now
-        setSelectedPolicy(policy);
-        setShowPolicyModal(true);
-    };
-
-    const handleClosePolicyModal = () => {
-        setShowPolicyModal(false);
-        setSelectedPolicy(null);
+        // Policy click is handled within the PolicyTimelinePopup component
+        // No need for separate modal
     };
 
     // Show loading screen while CSV data loads
@@ -317,15 +307,9 @@ function App() {
                 currentYear={currentYear}
                 onYearChange={handleYearChange}
                 onPolicyClick={handlePolicyClick}
+                selectedState={selectedState}
             />
 
-            {/* Policy Modal */}
-            <PolicyModal
-                isOpen={showPolicyModal}
-                onClose={handleClosePolicyModal}
-                policy={selectedPolicy}
-                year={currentYear}
-            />
 
         </div>
     );

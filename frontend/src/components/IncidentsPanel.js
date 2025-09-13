@@ -12,7 +12,7 @@ function IncidentsPanel({ cursorPosition, incidents, onMapClick, isMobile, onPan
     const [isPanelMinimized, setIsPanelMinimized] = useState(false);
     
     // Resize state
-    const [panelWidth, setPanelWidth] = useState(640);
+    const [panelWidth, setPanelWidth] = useState(320); // Half the original size
     const [isResizing, setIsResizing] = useState(false);
 
     // Policy-related state

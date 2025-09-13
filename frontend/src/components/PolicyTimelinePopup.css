@@ -133,6 +133,22 @@
     position: relative;
 }
 
+.timeline-hint-message {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.timeline-hint-message p {
+    margin: 0;
+    color: #888;
+    font-size: 14px;
+    font-style: italic;
+}
+
 .timeline-track {
     position: relative;
     height: 80px;
@@ -407,6 +423,108 @@
     color: white;
     font-size: 1.1rem;
     font-weight: 500;
+}
+
+/* Back button */
+.back-to-timeline-btn {
+    background: #333;
+    border: 1px solid #555;
+    border-radius: 6px;
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 12px;
+}
+
+.back-to-timeline-btn:hover {
+    background: #444;
+    border-color: #666;
+}
+
+/* Policy modal content */
+.policy-modal-content {
+    padding: 20px;
+    height: calc(100% - 80px);
+    overflow-y: auto;
+}
+
+.policy-modal-header {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 16px;
+}
+
+.policy-modal-header h4 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.policy-modal-subtitle {
+    margin: 0;
+    font-size: 14px;
+    color: #888;
+    font-style: italic;
+}
+
+.policy-modal-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.policy-modal-item {
+    background: #222;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.policy-modal-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.policy-state {
+    font-weight: 600;
+    color: #fff;
+    font-size: 16px;
+}
+
+.policy-effect {
+    font-weight: 500;
+    font-size: 14px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.policy-modal-item-title {
+    font-size: 15px;
+    color: #ccc;
+    margin-bottom: 6px;
+    font-weight: 500;
+}
+
+.policy-modal-item-date {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 8px;
+}
+
+.policy-modal-item-description {
+    font-size: 14px;
+    color: #aaa;
+    line-height: 1.4;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #333;
 }
 
 /* Mobile responsiveness */

@@ -3,7 +3,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    width: 640px;
+    width: 320px; /* Half the original size */
     max-width: 90vw;
     height: 100%;
     background: #1a1a1a;

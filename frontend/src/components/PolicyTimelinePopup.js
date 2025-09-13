@@ -8,7 +8,8 @@ const PolicyTimelinePopup = ({
     availableYears = [],
     currentYear,
     onYearChange,
-    onPolicyClick
+    onPolicyClick,
+    selectedState = null
 }) => {
     const [policyData, setPolicyData] = useState([]);
     const [loadingPolicy, setLoadingPolicy] = useState(false);
@@ -22,6 +23,9 @@ const PolicyTimelinePopup = ({
     // Resize state
     const [panelHeight, setPanelHeight] = useState(200);
     const [isResizing, setIsResizing] = useState(false);
+    
+    // Modal state
+    const [showPolicyModal, setShowPolicyModal] = useState(false);
 
     // Load policy data when component mounts
     useEffect(() => {
@@ -106,7 +110,7 @@ const PolicyTimelinePopup = ({
         };
     }, [isResizing]);
 
-    // Group policies by year for timeline display
+    // Group policies by year for timeline display, filtered by selected state
     const policiesByYear = useMemo(() => {
         if (!policyData.length) return {};
 
@@ -114,7 +118,14 @@ const PolicyTimelinePopup = ({
 
         policyData.forEach(policy => {
             const year = parseInt(policy['Effective Date Year']);
+            const state = policy.State;
+            
+            // Only include policies for the selected state (if one is selected)
             if (year && year >= 1995 && year <= 2025) {
+                if (selectedState && state && state.toLowerCase() !== selectedState.toLowerCase()) {
+                    return; // Skip this policy if it's not for the selected state
+                }
+                
                 if (!grouped[year]) {
                     grouped[year] = [];
                 }
@@ -123,7 +134,7 @@ const PolicyTimelinePopup = ({
         });
 
         return grouped;
-    }, [policyData]);
+    }, [policyData, selectedState]);
 
     // Get policies for the timeline range
     const minYear = Math.min(...availableYears);
@@ -181,9 +192,20 @@ const PolicyTimelinePopup = ({
     const handlePolicyMarkerClick = (year, policies, event) => {
         event.stopPropagation();
         setSelectedPolicy({ year, policies });
+        setShowPolicyModal(true);
+        // Update map data to show the selected year
+        if (onYearChange) {
+            onYearChange(year);
+        }
         if (onPolicyClick) {
             onPolicyClick(year, policies);
         }
+    };
+
+    // Handle back button click
+    const handleBackToTimeline = () => {
+        setShowPolicyModal(false);
+        setSelectedPolicy(null);
     };
 
     // Calculate position for policy markers
@@ -218,6 +240,87 @@ const PolicyTimelinePopup = ({
 
     if (!isVisible) return null;
 
+    // Show policy modal if a policy is selected
+    if (showPolicyModal && selectedPolicy) {
+        return (
+            <div 
+                className={`policy-timeline-popup ${isResizing ? 'resizing' : ''}`}
+                style={{ height: `${panelHeight}px` }}
+            >
+                {/* Resize handle */}
+                <div 
+                    className="resize-handle-top"
+                    onMouseDown={handleResizeMouseDown}
+                />
+                <div className="timeline-popup-header">
+                    <div className="timeline-title">
+                        <button 
+                            className="back-to-timeline-btn"
+                            onClick={handleBackToTimeline}
+                            title="Back to timeline"
+                        >
+                            ← Back
+                        </button>
+                        <h3>
+                            Policy Changes in {selectedPolicy.year}
+                            {selectedState && ` - ${selectedState}`}
+                        </h3>
+                    </div>
+                    <button className="close-timeline-btn" onClick={onClose} aria-label="Close timeline">
+                        ×
+                    </button>
+                </div>
+
+                <div className="policy-modal-content">
+                    <div className="policy-modal-header">
+                        <h4>
+                            {selectedPolicy.policies.length} Policy Changes in {selectedPolicy.year}
+                            {selectedState && ` for ${selectedState}`}
+                        </h4>
+                        <p className="policy-modal-subtitle">
+                            Policy changes implemented in {selectedPolicy.year}
+                            {selectedState && ` for ${selectedState}`}
+                        </p>
+                    </div>
+                    
+                    <div className="policy-modal-list">
+                        {selectedPolicy.policies.map((policy, index) => (
+                            <div
+                                key={policy['Law ID'] || index}
+                                className="policy-modal-item"
+                            >
+                                <div className="policy-modal-item-header">
+                                    <span className="policy-state">{policy.State}</span>
+                                    <span
+                                        className="policy-effect"
+                                        style={{ color: getPolicyEffectColor(policy.Effect) }}
+                                    >
+                                        {policy.Effect || 'Unknown'}
+                                    </span>
+                                </div>
+                                <div className="policy-modal-item-title">
+                                    {policy['Law Class'] || 'Unknown Law Class'}
+                                </div>
+                                <div className="policy-modal-item-date">
+                                    {formatPolicyDate(
+                                        policy['Effective Date Year'],
+                                        policy['Effective Date Month'],
+                                        policy['Effective Date Day']
+                                    )}
+                                </div>
+                                {policy['Description'] && (
+                                    <div className="policy-modal-item-description">
+                                        {policy['Description']}
+                                    </div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div 
             className={`policy-timeline-popup ${isResizing ? 'resizing' : ''}`}
@@ -230,7 +333,10 @@ const PolicyTimelinePopup = ({
             />
             <div className="timeline-popup-header">
                 <div className="timeline-title">
-                    <h3>Gun Policy Timeline</h3>
+                    <h3>
+                        Gun Policy Timeline
+                        {selectedState && ` - ${selectedState}`}
+                    </h3>
                     <span className="current-year-display">{currentYear}</span>
                 </div>
                 <div className="timeline-controls">
@@ -249,6 +355,11 @@ const PolicyTimelinePopup = ({
             </div>
 
             <div className="timeline-container">
+                {!selectedState && (
+                    <div className="timeline-hint-message">
+                        <p>Click on a state on the map to view state-specific policy changes</p>
+                    </div>
+                )}
                 <div className="timeline-track">
                     {/* Main year slider */}
                     <input
@@ -314,55 +425,6 @@ const PolicyTimelinePopup = ({
                     </div>
                 </div>
 
-                {/* Policy details dropdown */}
-                {selectedPolicy && (
-                    <div className="policy-details-dropdown">
-                        <div className="policy-details-header">
-                            <h4>Policy Changes in {selectedPolicy.year}</h4>
-                            <button
-                                className="close-details-btn"
-                                onClick={() => setSelectedPolicy(null)}
-                                aria-label="Close policy details"
-                            >
-                                ×
-                            </button>
-                        </div>
-                        <div className="policy-details-list">
-                            {selectedPolicy.policies.slice(0, 10).map((policy, index) => (
-                                <div
-                                    key={policy['Law ID'] || index}
-                                    className="policy-detail-item"
-                                    onClick={() => onPolicyClick(selectedPolicy.year, [policy])}
-                                >
-                                    <div className="policy-detail-header">
-                                        <span className="policy-state">{policy.State}</span>
-                                        <span
-                                            className="policy-effect"
-                                            style={{ color: getPolicyEffectColor(policy.Effect) }}
-                                        >
-                                            {policy.Effect || 'Unknown'}
-                                        </span>
-                                    </div>
-                                    <div className="policy-detail-title">
-                                        {policy['Law Class'] || 'Unknown Law Class'}
-                                    </div>
-                                    <div className="policy-detail-date">
-                                        {formatPolicyDate(
-                                            policy['Effective Date Year'],
-                                            policy['Effective Date Month'],
-                                            policy['Effective Date Day']
-                                        )}
-                                    </div>
-                                </div>
-                            ))}
-                            {selectedPolicy.policies.length > 10 && (
-                                <div className="more-policies-indicator">
-                                    +{selectedPolicy.policies.length - 10} more policies
-                                </div>
-                            )}
-                        </div>
-                    </div>
-                )}
             </div>
 
             {loadingPolicy && (
