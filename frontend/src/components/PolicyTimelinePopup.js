@@ -441,6 +441,15 @@ const PolicyTimelinePopup = ({
         }
     };
 
+    // Capitalize first letter of each word in policy name
+    const capitalizePolicyName = (policyName) => {
+        if (!policyName) return 'Unknown Law Class';
+        return policyName
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    };
+
     // Get Gemini analysis for a policy
     const getGeminiAnalysis = (policyLawId) => {
         if (!policyAnalysisData.length || !policyLawId) return null;
@@ -487,7 +496,7 @@ const PolicyTimelinePopup = ({
                                     <div key={policyId} className="policy-change-item">
                                         <div className="policy-change-header">
                                             <div className="policy-change-title">
-                                                {policy.law_class || 'Unknown Law Class'}
+                                                {capitalizePolicyName(policy.law_class)}
                                             </div>
                                             <div className="policy-change-meta">
                                                 <span className="policy-state">{policy.state}</span>

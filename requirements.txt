@@ -4,3 +4,4 @@ h3>=3.7.0
 orjson>=3.8.0
 geopandas>=0.14.0
 shapely>=2.0.0
+mediacloud>=3.0.0

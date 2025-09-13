@@ -1,0 +1,119 @@
+.state-gun-violence-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 400px;
+    max-height: 64vh;
+    /* Reduced from 80vh to 64vh (80% of original) */
+    background: rgba(45, 45, 50, 0.95);
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: opacity 0.1s ease-out;
+    /* Quick fade transition */
+}
+
+.panel-header {
+    background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+    color: #e0e0e0;
+    padding: 16px 20px;
+    border-bottom: 1px solid #444;
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.gemini-attribution {
+    margin-top: 4px;
+    opacity: 0.9;
+}
+
+.gemini-attribution small {
+    font-size: 0.75rem;
+    font-style: italic;
+}
+
+.panel-content {
+    padding: 20px;
+    max-height: calc(64vh - 80px);
+    /* Adjusted for new panel height */
+    overflow-y: auto;
+    scroll-behavior: auto;
+    /* Remove smooth scrolling */
+}
+
+.context-text {
+    line-height: 1.6;
+    color: #d0d0d0;
+    font-size: 0.9rem;
+    text-align: justify;
+}
+
+/* Scrollbar styling - dark theme */
+.panel-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.panel-content::-webkit-scrollbar-track {
+    background: #2a2a2a;
+    border-radius: 3px;
+}
+
+.panel-content::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 3px;
+}
+
+.panel-content::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .state-gun-violence-panel {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        width: auto;
+        max-height: 56vh;
+        /* Adjusted for mobile (80% of 70vh) */
+    }
+
+    .panel-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .panel-content {
+        padding: 15px;
+        max-height: calc(56vh - 70px);
+        /* Adjusted for new mobile height */
+    }
+
+    .context-text {
+        font-size: 0.85rem;
+    }
+}
+
+/* Animation for smooth appearance */
+.state-gun-violence-panel {
+    animation: slideInFromRight 0.3s ease-out;
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}

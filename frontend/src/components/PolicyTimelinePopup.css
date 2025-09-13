@@ -929,8 +929,8 @@
 
 /* Gemini Policy Analysis Styles */
 .gemini-policy-analysis {
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(147, 51, 234, 0.08) 100%);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 20px;
     margin: 16px 0;
@@ -945,7 +945,7 @@
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 12px 12px 0 0;
 }
 
@@ -953,14 +953,14 @@
     color: #60a5fa;
     font-size: 1.1rem;
     font-weight: 600;
-    margin: 0 0 16px 0;
+    margin: 0 0 16px -8px;
     display: flex;
     align-items: center;
     gap: 8px;
 }
 
 .gemini-analysis-title::before {
-    content: '🤖';
+    content: '';
     font-size: 1.2rem;
 }
 

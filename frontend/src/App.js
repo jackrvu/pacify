@@ -9,12 +9,12 @@ import MapLayer from './components/MapLayer';
 import Controls from './components/Controls';
 import IncidentPins from './components/IncidentPins';
 import IncidentHeatmap from './components/IncidentHeatmap';
-import Violence3DGlobe from './components/Violence3DGlobe';
 import CursorTracker from './components/CursorTracker';
 import IncidentsPanel from './components/IncidentsPanel';
 import IncidentSummary from './components/IncidentSummary';
 import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
+import StateGunViolencePanel from './components/StateGunViolencePanel';
 import useTimelineData from './hooks/useTimelineData';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
@@ -33,8 +33,6 @@ function App() {
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
     const [showPinsLayer, setShowPinsLayer] = useState(false); // Disable pins by default
 
-    // State for 3D view toggle
-    const [show3DView, setShow3DView] = useState(false);
 
     // Timeline state
     const [timelineMode, setTimelineMode] = useState(true); // Start in timeline mode to get full dataset
@@ -65,6 +63,12 @@ function App() {
     // State for policy timeline popup
     const [showPolicyTimeline, setShowPolicyTimeline] = useState(false);
 
+    // State for gun violence context panel
+    const [stateContextData, setStateContextData] = useState([]);
+    const [hoveredState, setHoveredState] = useState(null);
+    const [showStateContextPanel, setShowStateContextPanel] = useState(false);
+    const [panelKey, setPanelKey] = useState(0); // Key to force panel recreation
+
 
 
     // Detect mobile device on mount and window resize
@@ -82,6 +86,26 @@ function App() {
         return () => {
             window.removeEventListener('resize', checkMobile);
         };
+    }, []);
+
+    // Load state context data
+    useEffect(() => {
+        const loadStateContextData = async () => {
+            try {
+                const response = await fetch('/data/state_context_progress.json');
+                if (response.ok) {
+                    const data = await response.json();
+                    setStateContextData(data.results || []);
+                    console.log(`Loaded state context data for ${data.results?.length || 0} states`);
+                } else {
+                    console.warn('Could not load state context data:', response.status);
+                }
+            } catch (error) {
+                console.error('Error loading state context data:', error);
+            }
+        };
+
+        loadStateContextData();
     }, []);
 
     // Update incidents based on timeline mode and current year
@@ -128,6 +152,24 @@ function App() {
     // Cursor and panel handlers
     const handleCursorMove = (position) => {
         setCursorPosition(position);
+
+        // Detect state on hover for context panel
+        if (position && incidents.length > 0) {
+            const state = detectStateFromPosition(position);
+            if (state && state !== hoveredState) {
+                // Kill the panel completely
+                setShowStateContextPanel(false);
+
+                // Update hovered state
+                setHoveredState(state);
+
+                // Wait 0.1 seconds, then recreate panel with new key
+                setTimeout(() => {
+                    setPanelKey(prev => prev + 1);
+                    setShowStateContextPanel(true);
+                }, 100);
+            }
+        }
     };
 
     const handleMapClick = () => {
@@ -192,6 +234,12 @@ function App() {
         return null;
     };
 
+    // Get state context data for hovered state
+    const getStateContextData = () => {
+        if (!hoveredState || !stateContextData.length) return null;
+        return stateContextData.find(state => state.state === hoveredState) || null;
+    };
+
 
     // Timeline handlers
     const handleTimelineToggle = (enabled) => {
@@ -207,10 +255,6 @@ function App() {
         setCurrentYear(year);
     };
 
-    // 3D view toggle handler
-    const handleToggle3DView = (enabled) => {
-        setShow3DView(enabled);
-    };
 
     // Policy timeline handlers
     const handleClosePolicyTimeline = () => {
@@ -241,49 +285,41 @@ function App() {
     return (
         <div className="App">
             <div className="map-container">
-                {/* Conditional rendering: 3D globe or 2D map */}
-                {show3DView ? (
-                    <Violence3DGlobe
-                        incidents={incidents}
-                        enabled={show3DView}
+                <MapContainer
+                    center={[39.8283, -98.5795]} // Geographic center of US
+                    zoom={4}
+                    style={{ height: '100vh', width: '100vw' }}
+                    zoomControl={true}
+                    attributionControl={true}
+                >
+                    {/* Base map tiles - Grim Hospital Gray Theme */}
+                    <TileLayer
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+                        className="grim-hospital-map"
                     />
-                ) : (
-                    <MapContainer
-                        center={[39.8283, -98.5795]} // Geographic center of US
-                        zoom={4}
-                        style={{ height: '100vh', width: '100vw' }}
-                        zoomControl={true}
-                        attributionControl={true}
-                    >
-                        {/* Base map tiles - Grim Hospital Gray Theme */}
-                        <TileLayer
-                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
-                            url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
-                            className="grim-hospital-map"
-                        />
 
-                        {/* County choropleth layer - shows data density by county */}
-                        {showCountyLayer && (
-                            <MapLayer enabled={showCountyLayer} />
-                        )}
+                    {/* County choropleth layer - shows data density by county */}
+                    {showCountyLayer && (
+                        <MapLayer enabled={showCountyLayer} />
+                    )}
 
-                        {/* Heatmap layer - shows incident clustering */}
-                        {showHeatMapLayer && (
-                            <IncidentHeatmap incidents={incidents} enabled={showHeatMapLayer} />
-                        )}
+                    {/* Heatmap layer - shows incident clustering */}
+                    {showHeatMapLayer && (
+                        <IncidentHeatmap incidents={incidents} enabled={showHeatMapLayer} />
+                    )}
 
-                        {/* Pins layer - shows individual incident markers */}
-                        {showPinsLayer && (
-                            <IncidentPins incidents={incidents} />
-                        )}
+                    {/* Pins layer - shows individual incident markers */}
+                    {showPinsLayer && (
+                        <IncidentPins incidents={incidents} />
+                    )}
 
-                        {/* Cursor tracking for incidents panel */}
-                        <CursorTracker
-                            onCursorMove={handleCursorMove}
-                            onMapClick={handleMapClick}
-                        />
-                    </MapContainer>
-                )}
+                    {/* Cursor tracking for incidents panel */}
+                    <CursorTracker
+                        onCursorMove={handleCursorMove}
+                        onMapClick={handleMapClick}
+                    />
+                </MapContainer>
 
                 {/* Floating controls for layer toggles */}
                 <div className="controls-overlay">
@@ -292,20 +328,9 @@ function App() {
                         timelineMode={timelineMode}
                         currentYear={currentYear}
                         availableYears={availableYears}
-                        onToggle3DView={handleToggle3DView}
-                        show3DView={show3DView}
                     />
 
 
-                    {/* Current View Indicator */}
-                    <div className="current-view-indicator">
-                        <div className="view-indicator-icon">
-                            {show3DView ? '🌍' : '🔥'}
-                        </div>
-                        <div className="view-indicator-text">
-                            {show3DView ? '3D Globe View' : 'Heatmap View'}
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -331,6 +356,12 @@ function App() {
                 selectedState={selectedState}
             />
 
+            {/* State Gun Violence Context Panel */}
+            <StateGunViolencePanel
+                key={panelKey}
+                stateData={getStateContextData()}
+                isVisible={showStateContextPanel && hoveredState}
+            />
 
         </div>
     );

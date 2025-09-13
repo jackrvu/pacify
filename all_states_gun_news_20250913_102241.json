@@ -1,0 +1,244 @@
+{
+  "metadata": {
+    "total_articles": 7,
+    "search_date": "2025-09-13T10:22:41.812117",
+    "date_range_days": 30,
+    "states_covered": 5,
+    "api_used": "MediaCloud",
+    "search_strategy": "Multi-query per state with gun-related terms"
+  },
+  "state_statistics": {
+    "Alabama": 1,
+    "Alaska": 0,
+    "Arizona": 0,
+    "Arkansas": 0,
+    "California": 0,
+    "Colorado": 0,
+    "Connecticut": 0,
+    "Delaware": 0,
+    "Florida": 1,
+    "Georgia": 0,
+    "Hawaii": 0,
+    "Idaho": 0,
+    "Illinois": 0,
+    "Indiana": 0,
+    "Iowa": 0,
+    "Kansas": 0,
+    "Kentucky": 0,
+    "Louisiana": 0,
+    "Maine": 0,
+    "Maryland": 0,
+    "Massachusetts": 0,
+    "Michigan": 3,
+    "Minnesota": 0,
+    "Mississippi": 0,
+    "Missouri": 0,
+    "Montana": 0,
+    "Nebraska": 0,
+    "Nevada": 0,
+    "New Hampshire": 0,
+    "New Jersey": 0,
+    "New Mexico": 0,
+    "New York": 0,
+    "North Carolina": 0,
+    "North Dakota": 0,
+    "Ohio": 0,
+    "Oklahoma": 0,
+    "Oregon": 1,
+    "Pennsylvania": 0,
+    "Rhode Island": 0,
+    "South Carolina": 0,
+    "South Dakota": 0,
+    "Tennessee": 0,
+    "Texas": 0,
+    "Utah": 0,
+    "Vermont": 0,
+    "Virginia": 0,
+    "Washington": 0,
+    "West Virginia": 0,
+    "Wisconsin": 1,
+    "Wyoming": 0
+  },
+  "articles_by_state": {
+    "Alabama": [
+      {
+        "id": "684cb09a1dc985c2c4371daa4c82c59ba9a61c1a1213730f447c11ed7b58eae0",
+        "indexed_date": "2025-09-13 04:52:31.980502+00:00",
+        "language": "en",
+        "media_name": "apnews.com",
+        "media_url": "apnews.com",
+        "publish_date": "2025-09-12",
+        "title": "Police fatally shoot man on Alabama highway",
+        "url": "https://apnews.com/article/police-shooting-alabama-b6bffa5a378ad8d3cb4cc27859d63285",
+        "search_query": "gun Alabama",
+        "state": "Alabama"
+      }
+    ],
+    "Florida": [
+      {
+        "id": "d7de5c128ffb68b6b255f6004280a4ba2378150a54d2cc8ccf9b3bb09751e437",
+        "indexed_date": "2025-09-13 13:22:07.368115+00:00",
+        "language": "en",
+        "media_name": "freerepublic.com",
+        "media_url": "freerepublic.com",
+        "publish_date": "2025-09-13",
+        "title": "Florida Dem lawmaker faces demands to resign after calling Charlie Kirk ‘fitting sacrifice to our Lords: Smith & Wesson’",
+        "url": "https://freerepublic.com/focus/f-chat/4340171/posts",
+        "search_query": "gun Florida",
+        "state": "Florida"
+      }
+    ],
+    "Michigan": [
+      {
+        "id": "484a78baefc172d44b2ad3d3e2d833d8b30a1608f8c45266c7b2d78e26139eed",
+        "indexed_date": "2025-09-13 14:19:31.083769+00:00",
+        "language": "en",
+        "media_name": "cbc.bb",
+        "media_url": "cbc.bb",
+        "publish_date": "2025-09-13",
+        "title": "Dominica: DPP calls for a ban on importation of toy gun",
+        "url": "https://www.cbc.bb/news/caribbean-news/dominica-dpp-calls-for-a-ban-on-importation-of-toy-gun/",
+        "search_query": "gun (filtered for Michigan)",
+        "state": "Michigan"
+      },
+      {
+        "id": "62ef072a149bd80a0c18ffdae9cc6be718d38c50f6bca1023e92d72db3d283eb",
+        "indexed_date": "2025-09-13 13:34:01.834210+00:00",
+        "language": "en",
+        "media_name": "urdupoint.com",
+        "media_url": "urdupoint.com",
+        "publish_date": "2025-09-13",
+        "title": "Family of suspect in Charlie Kirk shooting issues statement",
+        "url": "https://www.urdupoint.com/en/world/family-of-suspect-in-charlie-kirk-shooting-is-2043271.html",
+        "search_query": "gun (filtered for Michigan)",
+        "state": "Michigan"
+      },
+      {
+        "id": "3b3e42562d90f1034c28995a6e5f98ee70f78652efdd1e46feef6ad0bed98b3f",
+        "indexed_date": "2025-09-13 13:29:06.382478+00:00",
+        "language": "en",
+        "media_name": "pressandguide.com",
+        "media_url": "pressandguide.com",
+        "publish_date": "2025-09-13",
+        "title": "Michigan candidates vow to keep campaigning publicly after Charlie Kirk assassination",
+        "url": "https://www.pressandguide.com/2025/09/13/michigan-candidates-vow-to-keep-campaigning-publicly-after-charlie-kirk-assassination/",
+        "search_query": "gun (filtered for Michigan)",
+        "state": "Michigan"
+      }
+    ],
+    "Oregon": [
+      {
+        "id": "77ba28f6234b68c6b978f2725e6cbdf88650977ddabca04d672b85c914f24a62",
+        "indexed_date": "2025-09-13 12:26:07.166412+00:00",
+        "language": "en",
+        "media_name": "signalscv.com",
+        "media_url": "signalscv.com",
+        "publish_date": "2025-09-13",
+        "title": "Our Forgotten Movie Mogul, Frenchy LaSalle",
+        "url": "https://signalscv.com/2025/09/the-time-ranger-our-forgotten-movie-mogul-frenchy-lasalle/",
+        "search_query": "gun Oregon",
+        "state": "Oregon"
+      }
+    ],
+    "Wisconsin": [
+      {
+        "id": "1de0253d0f9c5d6a422673327b98925ad09a619f690f8412e4699a17b73d83cb",
+        "indexed_date": "2025-09-13 14:19:25.503036+00:00",
+        "language": "en",
+        "media_name": "wrn.com",
+        "media_url": "wrn.com",
+        "publish_date": "2025-09-12",
+        "title": "Wisconsin AM News Summary",
+        "url": "https://www.wrn.com/wisconsin-am-news-summary-193/",
+        "search_query": "gun violence Wisconsin",
+        "state": "Wisconsin"
+      }
+    ]
+  },
+  "all_articles": [
+    {
+      "id": "684cb09a1dc985c2c4371daa4c82c59ba9a61c1a1213730f447c11ed7b58eae0",
+      "indexed_date": "2025-09-13 04:52:31.980502+00:00",
+      "language": "en",
+      "media_name": "apnews.com",
+      "media_url": "apnews.com",
+      "publish_date": "2025-09-12",
+      "title": "Police fatally shoot man on Alabama highway",
+      "url": "https://apnews.com/article/police-shooting-alabama-b6bffa5a378ad8d3cb4cc27859d63285",
+      "search_query": "gun Alabama",
+      "state": "Alabama"
+    },
+    {
+      "id": "d7de5c128ffb68b6b255f6004280a4ba2378150a54d2cc8ccf9b3bb09751e437",
+      "indexed_date": "2025-09-13 13:22:07.368115+00:00",
+      "language": "en",
+      "media_name": "freerepublic.com",
+      "media_url": "freerepublic.com",
+      "publish_date": "2025-09-13",
+      "title": "Florida Dem lawmaker faces demands to resign after calling Charlie Kirk ‘fitting sacrifice to our Lords: Smith & Wesson’",
+      "url": "https://freerepublic.com/focus/f-chat/4340171/posts",
+      "search_query": "gun Florida",
+      "state": "Florida"
+    },
+    {
+      "id": "484a78baefc172d44b2ad3d3e2d833d8b30a1608f8c45266c7b2d78e26139eed",
+      "indexed_date": "2025-09-13 14:19:31.083769+00:00",
+      "language": "en",
+      "media_name": "cbc.bb",
+      "media_url": "cbc.bb",
+      "publish_date": "2025-09-13",
+      "title": "Dominica: DPP calls for a ban on importation of toy gun",
+      "url": "https://www.cbc.bb/news/caribbean-news/dominica-dpp-calls-for-a-ban-on-importation-of-toy-gun/",
+      "search_query": "gun (filtered for Michigan)",
+      "state": "Michigan"
+    },
+    {
+      "id": "62ef072a149bd80a0c18ffdae9cc6be718d38c50f6bca1023e92d72db3d283eb",
+      "indexed_date": "2025-09-13 13:34:01.834210+00:00",
+      "language": "en",
+      "media_name": "urdupoint.com",
+      "media_url": "urdupoint.com",
+      "publish_date": "2025-09-13",
+      "title": "Family of suspect in Charlie Kirk shooting issues statement",
+      "url": "https://www.urdupoint.com/en/world/family-of-suspect-in-charlie-kirk-shooting-is-2043271.html",
+      "search_query": "gun (filtered for Michigan)",
+      "state": "Michigan"
+    },
+    {
+      "id": "3b3e42562d90f1034c28995a6e5f98ee70f78652efdd1e46feef6ad0bed98b3f",
+      "indexed_date": "2025-09-13 13:29:06.382478+00:00",
+      "language": "en",
+      "media_name": "pressandguide.com",
+      "media_url": "pressandguide.com",
+      "publish_date": "2025-09-13",
+      "title": "Michigan candidates vow to keep campaigning publicly after Charlie Kirk assassination",
+      "url": "https://www.pressandguide.com/2025/09/13/michigan-candidates-vow-to-keep-campaigning-publicly-after-charlie-kirk-assassination/",
+      "search_query": "gun (filtered for Michigan)",
+      "state": "Michigan"
+    },
+    {
+      "id": "77ba28f6234b68c6b978f2725e6cbdf88650977ddabca04d672b85c914f24a62",
+      "indexed_date": "2025-09-13 12:26:07.166412+00:00",
+      "language": "en",
+      "media_name": "signalscv.com",
+      "media_url": "signalscv.com",
+      "publish_date": "2025-09-13",
+      "title": "Our Forgotten Movie Mogul, Frenchy LaSalle",
+      "url": "https://signalscv.com/2025/09/the-time-ranger-our-forgotten-movie-mogul-frenchy-lasalle/",
+      "search_query": "gun Oregon",
+      "state": "Oregon"
+    },
+    {
+      "id": "1de0253d0f9c5d6a422673327b98925ad09a619f690f8412e4699a17b73d83cb",
+      "indexed_date": "2025-09-13 14:19:25.503036+00:00",
+      "language": "en",
+      "media_name": "wrn.com",
+      "media_url": "wrn.com",
+      "publish_date": "2025-09-12",
+      "title": "Wisconsin AM News Summary",
+      "url": "https://www.wrn.com/wisconsin-am-news-summary-193/",
+      "search_query": "gun violence Wisconsin",
+      "state": "Wisconsin"
+    }
+  ]
+}
