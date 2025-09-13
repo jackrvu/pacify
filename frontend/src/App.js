@@ -9,6 +9,8 @@ import MapLayer from './components/MapLayer';
 import Controls from './components/Controls';
 import IncidentPins from './components/IncidentPins';
 import IncidentHeatmap from './components/IncidentHeatmap';
+import CursorTracker from './components/CursorTracker';
+import IncidentsPanel from './components/IncidentsPanel';
 import './App.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -24,9 +26,32 @@ function App() {
     // State for controlling map layer visibility
     const [showCountyLayer, setShowCountyLayer] = useState(true);
     const [showHeatMapLayer, setShowHeatMapLayer] = useState(true);
-    const [showPinsLayer, setShowPinsLayer] = useState(true);
+    const [showPinsLayer, setShowPinsLayer] = useState(false); // Disable pins by default
     const [incidents, setIncidents] = useState([]); // Gun violence incident data
     const [loading, setLoading] = useState(true);
+    
+    // State for cursor tracking and panel
+    const [cursorPosition, setCursorPosition] = useState(null);
+    const [mapClickCount, setMapClickCount] = useState(0);
+    const [isMobile, setIsMobile] = useState(false);
+    const [isPanelMinimized, setIsPanelMinimized] = useState(false);
+
+    // Detect mobile device on mount and window resize
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        // Check on mount
+        checkMobile();
+
+        // Listen for window resize
+        window.addEventListener('resize', checkMobile);
+
+        return () => {
+            window.removeEventListener('resize', checkMobile);
+        };
+    }, []);
 
     // Load CSV data on component mount
     useEffect(() => {
@@ -73,6 +98,15 @@ function App() {
         setShowPinsLayer(enabled);
     };
 
+    // Cursor and panel handlers
+    const handleCursorMove = (position) => {
+        setCursorPosition(position);
+    };
+
+    const handleMapClick = () => {
+        setMapClickCount(prev => prev + 1);
+    };
+
     // Show loading screen while CSV data loads
     if (loading) {
         return (
@@ -106,13 +140,19 @@ function App() {
 
                     {/* Heatmap layer - shows incident clustering */}
                     {showHeatMapLayer && (
-                        <IncidentHeatmap incidents={incidents} />
+                        <IncidentHeatmap incidents={incidents} enabled={showHeatMapLayer} />
                     )}
 
                     {/* Pins layer - shows individual incident markers */}
                     {showPinsLayer && (
                         <IncidentPins incidents={incidents} />
                     )}
+
+                    {/* Cursor tracking for incidents panel */}
+                    <CursorTracker 
+                        onCursorMove={handleCursorMove} 
+                        onMapClick={handleMapClick} 
+                    />
                 </MapContainer>
 
                 {/* Floating controls for layer toggles */}
@@ -124,6 +164,15 @@ function App() {
                     />
                 </div>
             </div>
+
+            {/* Incidents panel */}
+            <IncidentsPanel
+                cursorPosition={cursorPosition}
+                incidents={incidents}
+                onMapClick={mapClickCount}
+                isMobile={isMobile}
+                onPanelStateChange={setIsPanelMinimized}
+            />
         </div>
     );
 }

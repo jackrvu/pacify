@@ -116,7 +116,7 @@ body {
 .controls-overlay {
     position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px; /* Move to left side to avoid conflict with incidents panel */
     z-index: 1000;
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);

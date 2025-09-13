@@ -1,93 +1,30 @@
-// Incident heatmap component - converts CSV addresses to coordinates and displays heat layer
-// Uses Google Places API for geocoding and Leaflet.heat for visualization
-import React, { useEffect, useRef, useState } from 'react';
+// Incident heatmap component - displays heat layer from incident data with coordinates
+import React, { useEffect, useRef } from 'react';
 import { useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet.heat';
-import './IncidentModal.css';
 
-// Geocoding function using OpenStreetMap Nominatim API
-const geocodeAddress = async (address, city, state) => {
-    try {
-        const fullAddress = `${address}, ${city}, ${state}, USA`;
-        const response = await fetch(
-            `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(fullAddress)}&limit=1&countrycodes=us`
-        );
-        const data = await response.json();
-
-        if (data && data.length > 0) {
-            return {
-                lat: parseFloat(data[0].lat),
-                lng: parseFloat(data[0].lon)
-            };
-        }
-        return null;
-    } catch (error) {
-        console.error('Geocoding error:', error);
-        return null;
-    }
-};
-
-const IncidentHeatmap = ({ incidents }) => {
+const IncidentHeatmap = ({ incidents, enabled = true }) => {
     const map = useMap();
     const heatLayerRef = useRef(null);
-    const [filteredIncidents, setFilteredIncidents] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [modalIncidents, setModalIncidents] = useState([]);
-    const [modalPosition, setModalPosition] = useState({ x: 0, y: 0 });
 
-    // Process incidents and geocode addresses
-    useEffect(() => {
-        if (!incidents || incidents.length === 0) return;
-
-        const processIncidents = async () => {
-            const processedIncidents = [];
-
-            // Process incidents in batches to avoid rate limiting
-            const batchSize = 10;
-            for (let i = 0; i < incidents.length; i += batchSize) {
-                const batch = incidents.slice(i, i + batchSize);
-                const batchPromises = batch.map(async (incident) => {
-                    // Skip if address is N/A or empty
-                    if (!incident.Address || incident.Address === 'N/A' || incident.Address.trim() === '') {
-                        return null;
-                    }
-
-                    const coordinates = await geocodeAddress(
-                        incident.Address,
-                        incident['City Or County'],
-                        incident.State
-                    );
-
-                    if (coordinates) {
-                        return {
-                            ...incident,
-                            Latitude: coordinates.lat,
-                            Longitude: coordinates.lng,
-                            'Geocoding Match': 'Match'
-                        };
-                    }
-                    return null;
-                });
-
-                const batchResults = await Promise.all(batchPromises);
-                processedIncidents.push(...batchResults.filter(incident => incident !== null));
-
-                // Add a small delay between batches to respect rate limits
-                if (i + batchSize < incidents.length) {
-                    await new Promise(resolve => setTimeout(resolve, 1000));
-                }
-            }
-
-            setFilteredIncidents(processedIncidents);
-        };
-
-        processIncidents();
-    }, [incidents]);
+    // Filter incidents that have valid coordinates
+    const filteredIncidents = incidents.filter(incident => {
+        const lat = parseFloat(incident.Latitude);
+        const lng = parseFloat(incident.Longitude);
+        return !isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0;
+    });
 
     // Render heatmap layer on map using Leaflet.heat
     useEffect(() => {
-        if (!map || filteredIncidents.length === 0) return;
+        if (!map || filteredIncidents.length === 0 || !enabled) {
+            // Remove existing layer if disabled or no data
+            if (heatLayerRef.current) {
+                map.removeLayer(heatLayerRef.current);
+                heatLayerRef.current = null;
+            }
+            return;
+        }
 
         // Clean up existing layer
         if (heatLayerRef.current) {
@@ -107,44 +44,26 @@ const IncidentHeatmap = ({ incidents }) => {
             return [lat, lng, intensity];
         });
 
-        // Create heat map layer with yellow to red gradient
+        // Create heat map layer with yellow to red gradient (similar to icemap)
         heatLayerRef.current = L.heatLayer(heatData, {
-            radius: 30,
+            radius: 25,
             blur: 20,
-            maxZoom: 17,
-            max: 1.0,
+            maxZoom: 10,
             gradient: {
-                0.0: 'yellow',
-                0.2: 'orange',
-                0.4: 'red',
-                0.6: 'darkred',
-                0.8: 'maroon',
-                1.0: 'darkred'
+                0.0: '#FFFF00',   // Yellow for low intensity
+                0.2: '#FFD700',   // Gold
+                0.4: '#FF8C00',   // Dark orange
+                0.6: '#DC143C',   // Crimson
+                0.8: '#B22222',   // Fire brick
+                1.0: '#8B0000'    // Dark maroon for high intensity
             }
         });
 
-        // Add click event to the heat layer
-        heatLayerRef.current.on('click', (e) => {
-            const clickLat = e.latlng.lat;
-            const clickLng = e.latlng.lng;
-
-            // Find incidents within a reasonable radius of the click
-            const radius = 0.01; // Approximately 1km radius
-            const nearbyIncidents = filteredIncidents.filter(incident => {
-                const lat = parseFloat(incident.Latitude);
-                const lng = parseFloat(incident.Longitude);
-                const distance = Math.sqrt(
-                    Math.pow(lat - clickLat, 2) + Math.pow(lng - clickLng, 2)
-                );
-                return distance <= radius;
-            });
-
-            if (nearbyIncidents.length > 0) {
-                setModalIncidents(nearbyIncidents);
-                setModalPosition({ x: e.containerPoint.x, y: e.containerPoint.y });
-                setShowModal(true);
-            }
-        });
+        // Create a special pane for heat if it doesn't exist
+        if (!map.getPane('heatPane')) {
+            map.createPane('heatPane');
+            map.getPane('heatPane').style.zIndex = 400;
+        }
 
         heatLayerRef.current.addTo(map);
 
@@ -154,128 +73,9 @@ const IncidentHeatmap = ({ incidents }) => {
                 map.removeLayer(heatLayerRef.current);
             }
         };
-    }, [map, filteredIncidents]);
+    }, [map, filteredIncidents, enabled]);
 
-    // Close modal when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (showModal && !event.target.closest('.incident-modal')) {
-                setShowModal(false);
-            }
-        };
-
-        if (showModal) {
-            document.addEventListener('mousedown', handleClickOutside);
-        }
-
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutside);
-        };
-    }, [showModal]);
-
-    const formatDate = (dateString) => {
-        try {
-            const date = new Date(dateString);
-            return date.toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric'
-            });
-        } catch (error) {
-            return dateString;
-        }
-    };
-
-    const getSeverityColor = (killed, injured) => {
-        const total = killed + injured;
-        if (total >= 10) return '#8B0000'; // Dark red
-        if (total >= 5) return '#DC143C'; // Crimson
-        if (total >= 3) return '#FF4500'; // Orange red
-        if (total >= 1) return '#FF8C00'; // Dark orange
-        return '#FFD700'; // Gold
-    };
-
-    return (
-        <>
-            {showModal && (
-                <div
-                    className="incident-modal"
-                    style={{
-                        position: 'absolute',
-                        left: `${modalPosition.x}px`,
-                        top: `${modalPosition.y}px`,
-                        padding: '16px',
-                        maxWidth: '400px',
-                        maxHeight: '500px',
-                        zIndex: 1000,
-                        transform: 'translate(-50%, -100%)',
-                        marginTop: '-10px'
-                    }}
-                >
-                    <div className="modal-header">
-                        <h3>
-                            Incidents ({modalIncidents.length})
-                        </h3>
-                        <button
-                            onClick={() => setShowModal(false)}
-                            className="close-button"
-                        >
-                            ×
-                        </button>
-                    </div>
-
-                    <div className="modal-content">
-                        {modalIncidents.map((incident, index) => (
-                            <div
-                                key={incident['Incident ID'] || index}
-                                className="incident-item"
-                            >
-                                <div style={{
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'flex-start',
-                                    marginBottom: '8px'
-                                }}>
-                                    <div>
-                                        <strong style={{ color: '#333' }}>
-                                            {incident['City Or County']}, {incident.State}
-                                        </strong>
-                                        <div className="incident-date">
-                                            {formatDate(incident['Incident Date'])}
-                                        </div>
-                                    </div>
-                                    <div
-                                        className="severity-badge"
-                                        style={{
-                                            backgroundColor: getSeverityColor(
-                                                parseInt(incident['Victims Killed'] || 0),
-                                                parseInt(incident['Victims Injured'] || 0)
-                                            )
-                                        }}
-                                    >
-                                        {incident['Victims Killed'] || 0}K / {incident['Victims Injured'] || 0}I
-                                    </div>
-                                </div>
-
-                                <div className="incident-address">
-                                    <div><strong>Address:</strong> {incident.Address}</div>
-                                </div>
-
-                                {(incident['Suspects Killed'] || incident['Suspects Injured'] || incident['Suspects Arrested']) && (
-                                    <div className="suspects-info">
-                                        <strong>Suspects:</strong>
-                                        {incident['Suspects Killed'] && ` ${incident['Suspects Killed']}K`}
-                                        {incident['Suspects Injured'] && ` ${incident['Suspects Injured']}I`}
-                                        {incident['Suspects Arrested'] && ` ${incident['Suspects Arrested']}A`}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
-        </>
-    );
+    return null;
 };
 
 export default IncidentHeatmap;
