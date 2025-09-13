@@ -38,6 +38,16 @@ const HeatmapLegend = () => {
                 <span className="legend-text">Legend</span>
             </div>
 
+            {/* Methodology Button */}
+            <div className="heatmap-legend-button methodology-button" onClick={() => window.open('/methodology', '_blank')}>
+                <span className="legend-text">Methodology</span>
+            </div>
+
+            {/* About Button */}
+            <div className="heatmap-legend-button about-button" onClick={() => window.open('/about', '_blank')}>
+                <span className="legend-text">About</span>
+            </div>
+
             {/* Legend Modal */}
             {isModalOpen && (
                 <div className="heatmap-legend-modal-overlay" onClick={handleCloseModal}>
