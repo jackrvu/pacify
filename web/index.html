@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Gun Incidents: Rolling 3-Year Windows (1985–2018)</title>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1>US Gun Incidents: Rolling 3-Year Windows (1985–2018)</h1>
+        <div class="controls">
+            <div class="slider-container">
+                <label for="time-slider">Time Window:</label>
+                <input type="range" id="time-slider" min="0" max="0" value="0" step="1">
+                <div id="current-window">Loading...</div>
+            </div>
+            <div class="controls-row">
+                <label class="checkbox-container">
+                    <input type="checkbox" id="heatmap-mode" checked>
+                    <span class="checkmark"></span>
+                    Heatmap Mode
+                </label>
+                <button id="play-pause" class="play-button">▶ Play</button>
+            </div>
+        </div>
+        <div id="legend" class="legend">
+            <div id="legend-content">Loading data...</div>
+        </div>
+    </div>
+
+    <div id="map" class="map-container"></div>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
