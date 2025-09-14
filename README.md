@@ -19,7 +19,7 @@ A comprehensive web application for visualizing gun violence incidents and analy
 - **Data Sources**: 
   - Gun Violence Archive (50k+ incidents, 2019-2025)
   - RAND Corporation gun policy database (filtered for recent policies)
-  - MediaCloud API for real-time news coverage
+  - News API for real-time news coverage
 
 ## Quick Start
 
@@ -54,7 +54,7 @@ The `data_processing/` directory contains Python scripts for:
 
 ## Project Context
 
-Built for Johns Hopkins University's Hophacks 2025 (Marshall Wace Track), applying quantitative analysis techniques to public policy challenges. The platform combines academic rigor with practical application for evidence-based decision making.
+Built for Johns Hopkins University's Hophacks 2025 (Marshall Wace Data Visualization Track), applying quantitative analysis techniques to public policy challenges.
 
 ## Key Statistics
 
