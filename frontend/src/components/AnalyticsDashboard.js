@@ -943,15 +943,16 @@ const AnalyticsDashboard = ({
                         {/* Bookmarks Controls */}
                         <div className="bookmarks-controls">
                             <div className="bookmarks-filters">
-                                <select
+                                <CustomDropdown
                                     value={bookmarkTypeFilter}
-                                    onChange={(e) => setBookmarkTypeFilter(e.target.value)}
-                                    className="type-filter-select"
-                                >
-                                    <option value="all">All Bookmarks</option>
-                                    <option value="policy">Policies Only</option>
-                                    <option value="news">News Only</option>
-                                </select>
+                                    onChange={setBookmarkTypeFilter}
+                                    options={[
+                                        { value: "all", label: "All Bookmarks" },
+                                        { value: "policy", label: "Policies Only" },
+                                        { value: "news", label: "News Only" }
+                                    ]}
+                                    className="type-filter-dropdown"
+                                />
                                 <input
                                     type="text"
                                     value={bookmarkSearch}

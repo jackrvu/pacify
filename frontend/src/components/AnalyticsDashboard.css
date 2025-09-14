@@ -543,6 +543,8 @@
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 1;
 }
 
 .bookmarks-filters {
@@ -551,29 +553,13 @@
     align-items: center;
     width: 100%;
     box-sizing: border-box;
-    overflow: hidden;
 }
 
-.type-filter-select {
-    background: rgba(45, 45, 45, 0.8);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: white;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    min-width: 150px;
-}
-
-.type-filter-select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
-}
-
-.type-filter-select:hover {
-    border-color: rgba(255, 255, 255, 0.3);
+.type-filter-dropdown {
+    min-width: 80px;
+    max-width: 120px;
+    position: relative;
+    z-index: 1002;
 }
 
 .filter-select {
@@ -593,7 +579,7 @@
 
 .search-input {
     flex: 1;
-    min-width: 200px;
+    min-width: 300px;
     max-width: 100%;
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -1644,6 +1630,138 @@
     .gemini-custom-question {
         flex-direction: column;
         align-items: stretch;
+    }
+
+    /* Mobile text box fixes */
+    .annotation-textarea {
+        width: 100% !important;
+        min-width: auto !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 0.75rem !important;
+        font-size: 0.9rem !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        white-space: pre-wrap !important;
+    }
+
+    .annotation-edit-textarea {
+        width: 100% !important;
+        min-width: auto !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 0.75rem !important;
+        font-size: 0.9rem !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        white-space: pre-wrap !important;
+    }
+
+    .gemini-question-input {
+        width: 100% !important;
+        min-width: auto !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 0.75rem !important;
+        font-size: 0.9rem !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        white-space: pre-wrap !important;
+    }
+
+    .annotation-input {
+        width: 100% !important;
+        min-width: auto !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .annotation-edit-mode {
+        width: 100% !important;
+        min-width: auto !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .gemini-controls {
+        width: 100% !important;
+        min-width: auto !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .gemini-custom-question {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .analysis-tools-section {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 1rem !important;
+    }
+
+    .annotations-panel {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+}
+
+/* Extra small mobile screens */
+@media (max-width: 480px) {
+    /* Additional mobile text box fixes for very small screens */
+    .annotation-textarea {
+        padding: 0.5rem !important;
+        font-size: 0.85rem !important;
+        min-height: 80px !important;
+    }
+
+    .annotation-edit-textarea {
+        padding: 0.5rem !important;
+        font-size: 0.85rem !important;
+        min-height: 80px !important;
+    }
+
+    .gemini-question-input {
+        padding: 0.5rem !important;
+        font-size: 0.85rem !important;
+    }
+
+    .analysis-tools-section {
+        padding: 0.75rem !important;
+    }
+
+    .annotation-input {
+        gap: 0.75rem !important;
+    }
+
+    .annotation-edit-mode {
+        gap: 0.75rem !important;
+    }
+
+    .gemini-controls {
+        gap: 0.75rem !important;
+    }
+
+    .gemini-custom-question {
+        gap: 0.5rem !important;
+    }
+
+    .add-annotation-btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.85rem !important;
+    }
+
+    .gemini-ask-btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.85rem !important;
+    }
+
+    .save-annotation-btn,
+    .cancel-annotation-btn {
+        padding: 0.4rem 0.8rem !important;
+        font-size: 0.8rem !important;
     }
 }
 
