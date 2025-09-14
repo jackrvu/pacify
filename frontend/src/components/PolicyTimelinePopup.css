@@ -107,13 +107,15 @@
 }
 
 .current-year-display {
-    background: linear-gradient(135deg, #9ca3af, #6b7280);
+    background: rgba(156, 163, 175, 0.3);
     padding: 6px 12px;
     border-radius: 8px;
     font-weight: 700;
     font-size: 1.1rem;
     color: white;
     box-shadow: 0 2px 8px rgba(156, 163, 175, 0.3);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 
