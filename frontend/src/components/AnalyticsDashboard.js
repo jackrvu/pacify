@@ -62,24 +62,24 @@ const formatDateForDisplay = (dateString) => {
 // Function to determine policy effect based on law class
 const determinePolicyEffect = (lawClass) => {
     if (!lawClass) return null;
-    
+
     const lawClassLower = lawClass.toLowerCase();
-    
+
     // Permissive policies
-    const permissiveKeywords = ['concealed carry', 'constitutional carry', 'shall issue', 
-                               'preemption', 'castle doctrine', 'stand your ground', 'open carry'];
+    const permissiveKeywords = ['concealed carry', 'constitutional carry', 'shall issue',
+        'preemption', 'castle doctrine', 'stand your ground', 'open carry'];
     if (permissiveKeywords.some(keyword => lawClassLower.includes(keyword))) {
         return 'permissive';
     }
-    
+
     // Restrictive policies
-    const restrictiveKeywords = ['background check', 'waiting', 'prohibited', 'minimum age', 
-                                'registration', 'license required', 'permit required', 'ban',
-                                'child access', 'safe storage', 'reporting', 'training required'];
+    const restrictiveKeywords = ['background check', 'waiting', 'prohibited', 'minimum age',
+        'registration', 'license required', 'permit required', 'ban',
+        'child access', 'safe storage', 'reporting', 'training required'];
     if (restrictiveKeywords.some(keyword => lawClassLower.includes(keyword))) {
         return 'restrictive';
     }
-    
+
     return null;
 };
 
@@ -96,7 +96,7 @@ const AnalyticsDashboard = ({
 }) => {
     // Navigation hook
     const navigate = useNavigate();
-    
+
     // Dashboard view state
     const [activeView, setActiveView] = useState('analytics'); // 'analytics', 'bookmarks', 'news', 'policy-details', 'news-details'
 
@@ -239,7 +239,7 @@ const AnalyticsDashboard = ({
         // Apply search filter
         if (bookmarkSearch.trim()) {
             const searchLower = bookmarkSearch.toLowerCase();
-            filtered = filtered.filter(bookmark => 
+            filtered = filtered.filter(bookmark =>
                 bookmark.displayTitle.toLowerCase().includes(searchLower) ||
                 bookmark.displayMeta.toLowerCase().includes(searchLower) ||
                 (bookmark.summary && bookmark.summary.toLowerCase().includes(searchLower)) ||
@@ -318,7 +318,7 @@ const AnalyticsDashboard = ({
 
     const handleViewBookmark = (bookmark) => {
         console.log('handleViewBookmark called with bookmark:', bookmark);
-        
+
         if (bookmark.type === 'news') {
             // For news bookmarks, set as current news article and show details view
             setCurrentNewsArticle(bookmark);
@@ -743,7 +743,7 @@ const AnalyticsDashboard = ({
     // Extract state from article title or content if state field is empty
     const extractStateFromArticle = (article) => {
         if (!article) return null;
-        
+
         // List of US states for matching
         const states = [
             'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
@@ -754,16 +754,16 @@ const AnalyticsDashboard = ({
             'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
             'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
         ];
-        
+
         const textToSearch = `${article.title || ''} ${article.content || ''} ${article.summary || ''}`.toLowerCase();
-        
+
         // Find the first state mentioned in the article
         for (const state of states) {
             if (textToSearch.includes(state.toLowerCase())) {
                 return state;
             }
         }
-        
+
         return null;
     };
 
@@ -772,14 +772,14 @@ const AnalyticsDashboard = ({
             {/* Header */}
             <div className="dashboard-header">
                 <div className="session-info">
-                    <button 
-                        className="nav-btn methodology-btn" 
+                    <button
+                        className="nav-btn methodology-btn"
                         onClick={() => navigate('/methodology')}
                     >
                         Methodology
                     </button>
-                    <button 
-                        className="nav-btn about-btn" 
+                    <button
+                        className="nav-btn about-btn"
                         onClick={() => navigate('/about')}
                     >
                         About
@@ -822,7 +822,6 @@ const AnalyticsDashboard = ({
                     <div className="dashboard-main">
                         <div className="workspace-header">
                             <h2>Policy Timeline Browser</h2>
-                            <p>Browse enacted policies chronologically from our dataset</p>
                         </div>
 
                         {/* Policy Filters */}
@@ -1019,7 +1018,7 @@ const AnalyticsDashboard = ({
 
                                         <div className="bookmark-content">
                                             <p className="bookmark-summary">
-                                                {bookmark.type === 'news' 
+                                                {bookmark.type === 'news'
                                                     ? (bookmark.summary?.substring(0, 200) || bookmark.content?.substring(0, 200) || 'No summary available')
                                                     : (bookmark.original_content?.substring(0, 200) || 'No content available')
                                                 }{bookmark.type === 'news' ? '' : '...'}
@@ -1059,7 +1058,7 @@ const AnalyticsDashboard = ({
                 {activeView === 'news' && (
                     <div className="news-view">
                         <div className="news-content">
-                            <MediaTab 
+                            <MediaTab
                                 selectedState={currentPolicy?.state}
                                 selectedPolicy={currentPolicy}
                                 onBookmarkChange={refreshBookmarkedNewsArticles}
@@ -1230,7 +1229,7 @@ const AnalyticsDashboard = ({
                                 {/* Related News Panel */}
                                 {activeNewsAnalysisTab === 'media' && (
                                     <div className="media-panel">
-                                        <BookmarkMediaTab 
+                                        <BookmarkMediaTab
                                             selectedState={currentNewsArticle?.state || extractStateFromArticle(currentNewsArticle)}
                                             selectedPolicy={null}
                                             onBookmarkChange={refreshBookmarkedNewsArticles}
@@ -1502,7 +1501,7 @@ const AnalyticsDashboard = ({
                                 {/* Media Tab */}
                                 {activeAnalysisTab === 'media' && (
                                     <div className="media-panel">
-                                        <BookmarkMediaTab 
+                                        <BookmarkMediaTab
                                             selectedState={currentPolicy?.state}
                                             selectedPolicy={currentPolicy}
                                             onBookmarkChange={refreshBookmarkedNewsArticles}
@@ -1547,14 +1546,14 @@ const AnalyticsDashboard = ({
                             <p>Are you sure you want to delete this annotation? This action cannot be undone.</p>
                         </div>
                         <div className="modal-footer">
-                            <button 
-                                className="cancel-btn" 
+                            <button
+                                className="cancel-btn"
                                 onClick={cancelDeleteAnnotation}
                             >
                                 Cancel
                             </button>
-                            <button 
-                                className="delete-btn" 
+                            <button
+                                className="delete-btn"
                                 onClick={confirmDeleteAnnotation}
                             >
                                 Delete
@@ -1594,14 +1593,14 @@ const AnalyticsDashboard = ({
                             )}
                         </div>
                         <div className="modal-footer">
-                            <button 
-                                className="cancel-btn" 
+                            <button
+                                className="cancel-btn"
                                 onClick={cancelRemoveBookmark}
                             >
                                 Cancel
                             </button>
-                            <button 
-                                className="cancel-btn" 
+                            <button
+                                className="cancel-btn"
                                 onClick={confirmRemoveBookmark}
                             >
                                 Remove
