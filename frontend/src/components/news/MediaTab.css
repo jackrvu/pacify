@@ -1,0 +1,623 @@
+/* MediaTab component styles - News display for gun violence coverage */
+
+.media-tab {
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 97vw;
+    display: flex;
+    flex-direction: column;
+    resize: none;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.media-tab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.media-tab-title h3 {
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.media-tab-description {
+    margin: 0;
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.media-tab-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-end;
+}
+
+.news-source-selector {
+    display: flex;
+    gap: 0.5rem;
+    background: rgba(45, 45, 45, 0.8);
+    border-radius: 8px;
+    padding: 0.25rem;
+}
+
+.source-btn {
+    background: transparent;
+    border: none;
+    color: #ccc;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.source-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+}
+
+.source-btn.active {
+    background: #ff6b35;
+    color: white;
+}
+
+.source-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.refresh-btn {
+    background: rgba(45, 45, 45, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-right: 1rem;
+}
+
+.refresh-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.refresh-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Article Count Selector */
+.article-count-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(45, 45, 45, 0.8);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+}
+
+.article-count-selector label {
+    color: #ccc;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.count-select {
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.count-select:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(30, 30, 30, 0.9);
+}
+
+.count-select:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+}
+
+/* Pagination */
+.pagination-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(45, 45, 45, 0.3);
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pagination-info {
+    text-align: center;
+    color: #999;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.pagination-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.pagination-btn {
+    background: rgba(45, 45, 45, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.pagination-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.page-numbers {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.page-btn {
+    background: rgba(45, 45, 45, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 2.5rem;
+}
+
+.page-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.page-btn.active {
+    background: #ff6b35;
+    border-color: #ff6b35;
+    color: white;
+}
+
+.page-btn.active:hover {
+    background: #e55a2b;
+    border-color: #e55a2b;
+}
+
+/* API Status */
+.api-status {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 0.85rem;
+}
+
+.api-status.mediacloud {
+    background: rgba(34, 139, 34, 0.2);
+    border: 1px solid rgba(34, 139, 34, 0.3);
+    color: #90EE90;
+}
+
+.api-status.custom_api {
+    background: rgba(0, 255, 0, 0.2);
+    border: 1px solid rgba(0, 255, 0, 0.3);
+    color: #90EE90;
+}
+
+.api-status.rss_fallback {
+    background: rgba(255, 165, 0, 0.2);
+    border: 1px solid rgba(255, 165, 0, 0.3);
+    color: #FFD700;
+}
+
+.status-indicator {
+    font-size: 1rem;
+}
+
+.status-text {
+    font-weight: 500;
+}
+
+/* Loading State */
+.media-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    color: #ccc;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid #ff6b35;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.media-loading p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Error State */
+.media-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    color: #ff6b6b;
+    text-align: center;
+}
+
+.media-error p {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+}
+
+.retry-btn {
+    background: #ff6b35;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.retry-btn:hover {
+    background: #e55a2b;
+}
+
+/* Articles Container */
+.articles-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.articles-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.articles-header h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.media-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bookmark-media-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bookmark-media-header h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.article-count {
+    background: rgba(255, 107, 53, 0.2);
+    color: #ff6b35;
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Articles List */
+.articles-list {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-right: 0.5rem;
+    max-height: 500px;
+    box-sizing: border-box;
+}
+
+.articles-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.articles-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.articles-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.articles-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Article Card */
+.article-card {
+    background: rgba(45, 45, 45, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+.article-card:hover {
+    background: rgba(45, 45, 45, 0.8);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.article-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.75rem;
+    gap: 1rem;
+}
+
+.article-title {
+    margin: 0;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    flex: 1;
+}
+
+.article-title:hover {
+    color: #ff6b35;
+}
+
+.bookmark-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bookmark-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+.bookmark-btn.bookmarked {
+    background: rgba(255, 193, 7, 0.2);
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.bookmark-btn.bookmarked:hover {
+    background: rgba(255, 193, 7, 0.3);
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.article-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #999;
+}
+
+.article-source {
+    font-weight: 500;
+    color: #ff6b35;
+}
+
+.article-date {
+    color: #999;
+}
+
+.article-summary {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+}
+
+.article-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.read-more-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    color: #ff6b35;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.read-more-btn:hover {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: rgba(255, 107, 53, 0.5);
+    color: #fff;
+}
+
+/* No Articles State */
+.no-articles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    color: #999;
+    text-align: center;
+}
+
+.no-articles p {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.no-articles-subtitle {
+    font-size: 0.85rem !important;
+    color: #666 !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .media-tab-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .media-tab-controls {
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    
+    .articles-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .media-controls {
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    
+    .article-count-selector {
+        justify-content: center;
+    }
+    
+    .pagination-controls {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .page-numbers {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .article-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .article-title {
+        font-size: 0.95rem;
+    }
+    
+    .article-summary {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .media-tab {
+        padding: 1rem;
+    }
+    
+    .article-card {
+        padding: 0.75rem;
+    }
+    
+    .source-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    
+    .refresh-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}
