@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { 
-    getSixMonthGunViolenceNews, 
-    getStateNews, 
-    getMediaCloudStatus, 
-    formatArticleDate, 
-    getSourceDomain 
+import {
+    getSixMonthGunViolenceNews,
+    getStateNews,
+    getMediaCloudStatus,
+    formatArticleDate,
+    getSourceDomain
 } from '../utils/mediaCloudService';
-import { 
-    bookmarkNewsArticle, 
-    unbookmarkNewsArticle, 
-    isNewsArticleBookmarked 
+import {
+    bookmarkNewsArticle,
+    unbookmarkNewsArticle,
+    isNewsArticleBookmarked
 } from '../utils/newsBookmarkService';
 import './BookmarkMediaTab.css';
 
@@ -35,32 +35,32 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
     const loadNewsData = async () => {
         setLoading(true);
         setError(null);
-        
+
         try {
             // Load the comprehensive CSV data
             const response = await fetch(`/data/comprehensive_gun_news_20250914_023757_cleaned.csv?v=${Date.now()}&cleaned=true`);
             if (!response.ok) {
                 throw new Error('Failed to load news data');
             }
-            
+
             const csvText = await response.text();
             console.log('CSV loaded, length:', csvText.length);
             const lines = csvText.split('\n');
             console.log('Number of lines:', lines.length);
             const headers = lines[0].split(',');
             console.log('Headers:', headers);
-            
+
             const loadedArticles = [];
-            
+
             for (let i = 1; i < lines.length; i++) {
                 const line = lines[i].trim();
                 if (!line) continue;
-                
+
                 // Simple CSV parsing
                 const values = [];
                 let current = '';
                 let inQuotes = false;
-                
+
                 for (let j = 0; j < line.length; j++) {
                     const char = line[j];
                     if (char === '"') {
@@ -73,13 +73,13 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                     }
                 }
                 values.push(current.trim());
-                
+
                 if (values.length >= headers.length) {
                     const article = {};
                     headers.forEach((header, index) => {
                         article[header.trim()] = values[index] ? values[index].replace(/^"|"$/g, '') : '';
                     });
-                    
+
                     // Extract source from title if not available in media_name
                     let source = article.media_name || '';
                     if (!source && article.title) {
@@ -89,32 +89,32 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                             source = titleParts[titleParts.length - 1].trim();
                         }
                     }
-                    
+
                     // Clean up the title by removing the source part
                     let cleanTitle = article.title || 'No title';
                     if (source && cleanTitle.includes(' - ')) {
                         cleanTitle = cleanTitle.replace(` - ${source}`, '').trim();
                     }
-                    
+
                     // Clean up the summary by removing URLs, source, and redundant content
                     let cleanSummary = stripHtmlTags(article.summary || '');
-                    
+
                     // Remove URLs from summary
                     cleanSummary = cleanSummary.replace(/https?:\/\/[^\s]+/g, '').trim();
-                    
+
                     // Remove source if it's appended
                     if (source && cleanSummary.includes(source)) {
                         cleanSummary = cleanSummary.replace(source, '').trim();
                     }
-                    
+
                     // Remove extra whitespace and clean up
                     cleanSummary = cleanSummary.replace(/\s+/g, ' ').trim();
-                    
+
                     // If summary is identical to title or empty, set it to empty
                     if (cleanSummary === cleanTitle || cleanSummary.length < 10) {
                         cleanSummary = '';
                     }
-                    
+
                     // Transform to consistent format
                     const transformedArticle = {
                         title: cleanTitle,
@@ -126,15 +126,15 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                         id: article.story_id || article.id || `article_${i}`,
                         state: article.state || ''
                     };
-                    
+
                     loadedArticles.push(transformedArticle);
                 }
             }
-            
+
             console.log('Loaded articles:', loadedArticles.length);
             setAllArticles(loadedArticles);
             setLastUpdated(new Date());
-            
+
         } catch (err) {
             setError(`Error loading news data: ${err.message}`);
         } finally {
@@ -145,23 +145,23 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
     // Filter and sort articles based on state
     const filterAndSortArticles = () => {
         let filtered = [...allArticles];
-        
+
         // Filter by state if selected
         if (selectedState) {
-            filtered = filtered.filter(article => 
+            filtered = filtered.filter(article =>
                 article.title.toLowerCase().includes(selectedState.toLowerCase()) ||
                 article.summary.toLowerCase().includes(selectedState.toLowerCase()) ||
                 article.content.toLowerCase().includes(selectedState.toLowerCase())
             );
         }
-        
+
         // Sort by date (most recent first)
         filtered.sort((a, b) => {
             const dateA = new Date(a.published);
             const dateB = new Date(b.published);
             return dateB - dateA;
         });
-        
+
         setFilteredArticles(filtered);
         setCurrentPage(1); // Reset to first page when filters change
     };
@@ -184,20 +184,20 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
     // Update displayed articles when page or articles per page changes
     useEffect(() => {
         if (filteredArticles.length === 0) return;
-        
+
         const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-        
+
         // Ensure current page is within valid range
         const validCurrentPage = Math.min(currentPage, totalPages);
         if (validCurrentPage !== currentPage) {
             setCurrentPage(validCurrentPage);
             return;
         }
-        
+
         const startIndex = (currentPage - 1) * articlesPerPage;
         const endIndex = startIndex + articlesPerPage;
         const currentArticles = filteredArticles.slice(startIndex, endIndex);
-        
+
         console.log('Updating articles:', {
             currentPage,
             articlesPerPage,
@@ -207,7 +207,7 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
             startIndex,
             endIndex
         });
-        
+
         setArticles(currentArticles);
     }, [filteredArticles, currentPage, articlesPerPage]);
 
@@ -262,26 +262,45 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
         }
     };
 
-    const handleBookmarkClick = (article, e) => {
-        e.stopPropagation();
-        
-        if (isNewsArticleBookmarked(article.id)) {
-            const result = unbookmarkNewsArticle(article.id);
-            if (result.success) {
-                // Optionally show a success message or update UI
-                console.log('Article unbookmarked successfully');
+    // Individual news article bookmark component
+    const NewsBookmarkButton = ({ article }) => {
+        const [bookmarkState, setBookmarkState] = useState(isNewsArticleBookmarked(article.id));
+
+        // Update bookmark state when article changes
+        useEffect(() => {
+            setBookmarkState(isNewsArticleBookmarked(article.id));
+        }, [article.id]);
+
+        const handleBookmarkClick = (e) => {
+            e.stopPropagation();
+            if (bookmarkState) {
+                const result = unbookmarkNewsArticle(article.id);
+                if (result.success) {
+                    setBookmarkState(false);
+                    // Refresh the bookmarked articles list
+                    loadBookmarkedArticles();
+                } else {
+                    alert(result.message);
+                }
             } else {
-                alert(result.message);
+                const result = bookmarkNewsArticle(article);
+                if (result.success) {
+                    setBookmarkState(true);
+                } else {
+                    alert(result.message);
+                }
             }
-        } else {
-            const result = bookmarkNewsArticle(article);
-            if (result.success) {
-                // Optionally show a success message or update UI
-                console.log('Article bookmarked successfully');
-            } else {
-                alert(result.message);
-            }
-        }
+        };
+
+        return (
+            <button
+                className={`bookmark-btn ${bookmarkState ? 'bookmarked' : ''}`}
+                onClick={handleBookmarkClick}
+                title={bookmarkState ? 'Remove bookmark' : 'Bookmark article'}
+            >
+                {bookmarkState ? '★' : '☆'}
+            </button>
+        );
     };
 
     const renderLoading = () => (
@@ -319,7 +338,7 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                             <option value={100}>100</option>
                         </select>
                     </div>
-                    <button 
+                    <button
                         className="refresh-btn"
                         onClick={handleRefresh}
                         disabled={loading}
@@ -328,11 +347,11 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                     </button>
                 </div>
             </div>
-            
+
             <div className="bookmark-no-articles">
                 <p>No gun violence news found</p>
                 <p className="bookmark-no-articles-subtitle">
-                    {selectedState 
+                    {selectedState
                         ? `for ${selectedState} in the past 6 months`
                         : 'for the past 6 months'
                     }
@@ -365,7 +384,7 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                                 <option value={100}>100</option>
                             </select>
                         </div>
-                        <button 
+                        <button
                             className="refresh-btn"
                             onClick={handleRefresh}
                             disabled={loading}
@@ -374,24 +393,18 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                         </button>
                     </div>
                 </div>
-                
+
                 <div className="bookmark-articles-list" ref={articlesListRef}>
                     {articles.map((article, index) => (
                         <div key={article.id || index} className="bookmark-article-card">
                             <div className="bookmark-article-header">
-                                <h5 
+                                <h5
                                     className="bookmark-article-title"
                                     onClick={() => handleArticleClick(article)}
                                 >
                                     {article.title}
                                 </h5>
-                                <button
-                                    className={`bookmark-btn ${isNewsArticleBookmarked(article.id) ? 'bookmarked' : ''}`}
-                                    onClick={(e) => handleBookmarkClick(article, e)}
-                                    title={isNewsArticleBookmarked(article.id) ? 'Remove bookmark' : 'Bookmark article'}
-                                >
-                                    {isNewsArticleBookmarked(article.id) ? '★' : '☆'}
-                                </button>
+                                <NewsBookmarkButton article={article} />
                             </div>
                             <div className="bookmark-article-meta">
                                 <span className="bookmark-article-source">
@@ -401,18 +414,18 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                                     {formatArticleDate(article.published)}
                                 </span>
                             </div>
-                            
+
                             {article.summary && article.summary.length > 10 && (
                                 <div className="bookmark-article-summary">
-                                    {article.summary.length > 200 
+                                    {article.summary.length > 200
                                         ? `${article.summary.substring(0, 200)}...`
                                         : article.summary
                                     }
                                 </div>
                             )}
-                            
+
                             <div className="bookmark-article-actions">
-                                <button 
+                                <button
                                     className="bookmark-read-more-btn"
                                     onClick={() => handleArticleClick(article)}
                                 >
@@ -428,7 +441,7 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
 
     const renderPagination = () => {
         const totalPages = Math.ceil(filteredArticles.length / articlesPerPage);
-        
+
         if (totalPages <= 1) {
             return null;
         }
@@ -438,16 +451,16 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                 <div className="bookmark-pagination-info">
                     Showing {((currentPage - 1) * articlesPerPage) + 1} - {Math.min(currentPage * articlesPerPage, filteredArticles.length)} of {filteredArticles.length} articles
                 </div>
-                
+
                 <div className="bookmark-pagination-buttons">
-                    <button 
+                    <button
                         className="bookmark-pagination-btn"
                         onClick={handlePreviousPage}
                         disabled={currentPage === 1}
                     >
                         ← Previous
                     </button>
-                    
+
                     <div className="bookmark-page-numbers">
                         {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                             let pageNum;
@@ -457,14 +470,14 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                                 // Calculate which block of 5 pages we're in
                                 const blockStart = Math.floor((currentPage - 1) / 5) * 5 + 1;
                                 pageNum = blockStart + i;
-                                
+
                                 // If we're in the last block and it has fewer than 5 pages,
                                 // adjust to show the last 5 pages
                                 if (blockStart + 4 > totalPages) {
                                     pageNum = totalPages - 4 + i;
                                 }
                             }
-                            
+
                             return (
                                 <button
                                     key={pageNum}
@@ -476,8 +489,8 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                             );
                         })}
                     </div>
-                    
-                    <button 
+
+                    <button
                         className="bookmark-pagination-btn"
                         onClick={handleNextPage}
                         disabled={currentPage === totalPages}
@@ -495,13 +508,13 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
             {error && !loading && renderError()}
             {!loading && !error && renderArticles()}
             {!loading && !error && renderPagination()}
-            
+
             {lastUpdated && (
-                <div style={{ 
-                    marginTop: '1rem', 
-                    fontSize: '0.8rem', 
-                    color: '#666', 
-                    textAlign: 'center' 
+                <div style={{
+                    marginTop: '1rem',
+                    fontSize: '0.8rem',
+                    color: '#666',
+                    textAlign: 'center'
                 }}>
                     Last updated: {formatArticleDate(lastUpdated.toISOString())}
                 </div>

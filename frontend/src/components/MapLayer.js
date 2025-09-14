@@ -18,7 +18,7 @@ function MapLayer({ enabled = true }) {
 
     // Track map movement to prevent tooltip flicker during pan/zoom
     const [isMapMoving, setIsMapMoving] = useState(false);
-    
+
     // Track if we're currently dragging to prevent tooltip creation
     const [isDragging, setIsDragging] = useState(false);
 
@@ -34,12 +34,12 @@ function MapLayer({ enabled = true }) {
         };
         const handleDragStart = () => setIsDragging(true);
         const handleDragEnd = () => setIsDragging(false);
-        
+
         map.on('movestart', handleMoveStart);
         map.on('moveend', handleMoveEnd);
         map.on('dragstart', handleDragStart);
         map.on('dragend', handleDragEnd);
-        
+
         return () => {
             map.off('movestart', handleMoveStart);
             map.off('moveend', handleMoveEnd);
@@ -57,14 +57,14 @@ function MapLayer({ enabled = true }) {
                 }
             });
         }
-        
+
         // Also clear any lingering tooltips from the map's tooltip pane
         if (map) {
             const tooltipPane = map.getPane('tooltipPane');
             if (tooltipPane) {
                 tooltipPane.innerHTML = '';
             }
-            
+
             // Force close any open tooltips using Leaflet's internal methods
             if (map._tooltip) {
                 map._tooltip.close();
@@ -165,9 +165,9 @@ function MapLayer({ enabled = true }) {
         const formattedCount = caseCount.toLocaleString();
         const formattedCount90Days = caseCount90Days.toLocaleString();
 
-        // Create tooltip with county info
+        // Create tooltip with county info - removed county label
         layer.bindTooltip(`
-            <div style="font-weight:600;">${countyName} County</div>
+            <div style="font-weight:600;"></div>
         `, {
             sticky: false, // Changed to false to make tooltips more responsive to cleanup
             offset: [0, -5],
@@ -353,7 +353,7 @@ function MapLayer({ enabled = true }) {
         // Also close all tooltips when mouse leaves the map container
         const container = map.getContainer();
         container.addEventListener('mouseleave', closeAllTooltips);
-        
+
         // Add additional cleanup on mouse up to ensure clean state
         const handleMouseUp = () => {
             // Small delay to ensure any pending tooltip operations complete
