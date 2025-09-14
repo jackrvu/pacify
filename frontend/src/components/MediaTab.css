@@ -5,7 +5,8 @@
     border-radius: 12px;
     padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    width: 97vw;
+    width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     resize: none;
@@ -282,8 +283,13 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .media-loading p {
@@ -552,72 +558,138 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .media-tab {
+        width: 100%;
+        max-width: 100vw;
+        padding: 1rem;
+        margin: 0;
+        border-radius: 8px;
+    }
+
     .media-tab-header {
         flex-direction: column;
         align-items: stretch;
         gap: 1rem;
     }
-    
+
     .media-tab-controls {
         align-items: stretch;
         gap: 0.75rem;
     }
-    
+
     .articles-header {
         flex-direction: column;
         align-items: stretch;
         gap: 1rem;
     }
-    
+
     .media-controls {
         justify-content: space-between;
         flex-wrap: wrap;
     }
-    
+
     .article-count-selector {
         justify-content: center;
     }
-    
+
     .pagination-controls {
         flex-direction: column;
         gap: 0.75rem;
     }
-    
+
     .page-numbers {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
         justify-content: center;
+        display: flex;
+        flex-direction: row;
+        gap: 0.5rem;
     }
-    
+
+    .page-btn {
+        min-width: 40px;
+        height: 40px;
+        padding: 0.5rem;
+        font-size: 0.9rem;
+    }
+
     .article-meta {
         flex-direction: column;
         gap: 0.25rem;
     }
-    
+
     .article-title {
         font-size: 0.95rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
     }
-    
+
     .article-summary {
         font-size: 0.85rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .article-card {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+
+    .articles-list {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 }
 
 @media (max-width: 480px) {
     .media-tab {
-        padding: 1rem;
+        padding: 0.75rem;
+        width: 100%;
+        max-width: 100vw;
     }
-    
+
     .article-card {
         padding: 0.75rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
     }
-    
+
     .source-btn {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
     }
-    
+
     .refresh-btn {
         padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+
+    .article-title {
+        font-size: 0.9rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .article-summary {
+        font-size: 0.8rem;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+    }
+
+    .page-numbers {
+        flex-wrap: nowrap;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+        gap: 0.25rem;
+    }
+
+    .page-btn {
+        min-width: 36px;
+        height: 36px;
+        padding: 0.4rem;
         font-size: 0.8rem;
     }
 }

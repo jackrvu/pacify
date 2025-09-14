@@ -30,6 +30,7 @@ const MediaTab = ({ selectedState, selectedPolicy, onBookmarkChange }) => {
     const [articlesPerPage, setArticlesPerPage] = useState(25);
     const [currentPage, setCurrentPage] = useState(1);
     const [lastUpdated, setLastUpdated] = useState(null);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
     const articlesListRef = useRef(null);
 
     // Load news data from CSV file
@@ -167,6 +168,16 @@ const MediaTab = ({ selectedState, selectedPolicy, onBookmarkChange }) => {
     // Initial load
     useEffect(() => {
         loadNewsData();
+    }, []);
+
+    // Handle window resize for mobile detection
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
     }, []);
 
     // Update articles when data loads
@@ -452,19 +463,21 @@ const MediaTab = ({ selectedState, selectedPolicy, onBookmarkChange }) => {
                     </button>
 
                     <div className="page-numbers">
-                        {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                        {Array.from({ length: Math.min(isMobile ? 2 : 5, totalPages) }, (_, i) => {
                             let pageNum;
-                            if (totalPages <= 5) {
+                            const maxPages = isMobile ? 2 : 5;
+
+                            if (totalPages <= maxPages) {
                                 pageNum = i + 1;
                             } else {
-                                // Calculate which block of 5 pages we're in
-                                const blockStart = Math.floor((currentPage - 1) / 5) * 5 + 1;
+                                // Calculate which block of pages we're in
+                                const blockStart = Math.floor((currentPage - 1) / maxPages) * maxPages + 1;
                                 pageNum = blockStart + i;
 
-                                // If we're in the last block and it has fewer than 5 pages,
-                                // adjust to show the last 5 pages
-                                if (blockStart + 4 > totalPages) {
-                                    pageNum = totalPages - 4 + i;
+                                // If we're in the last block and it has fewer than maxPages pages,
+                                // adjust to show the last maxPages pages
+                                if (blockStart + maxPages - 1 > totalPages) {
+                                    pageNum = totalPages - maxPages + 1 + i;
                                 }
                             }
 

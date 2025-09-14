@@ -29,7 +29,9 @@ const MethodologyPage = () => {
                 fontSize: '16px',
                 fontWeight: '500',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
-            }} onClick={() => navigate('/')}>
+            }}
+                className="back-to-map-button"
+                onClick={() => navigate('/')}>
                 ← Back to Map
             </div>
 

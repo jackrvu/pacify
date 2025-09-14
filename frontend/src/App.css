@@ -297,6 +297,14 @@ body {
     .header p {
         font-size: 0.9rem;
     }
+
+    /* Make back to map button smaller on mobile */
+    .back-to-map-button {
+        padding: 6px 12px !important;
+        font-size: 14px !important;
+        top: 15px !important;
+        left: 15px !important;
+    }
 }
 
 /* Ensure map controls are above sidebar */

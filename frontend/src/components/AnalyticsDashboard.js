@@ -804,7 +804,7 @@ const AnalyticsDashboard = ({
                             className={`view-btn bookmarks-btn ${activeView === 'bookmarks' ? 'active' : ''}`}
                             onClick={() => setActiveView('bookmarks')}
                         >
-                            Bookmarks ({bookmarkedPolicies.length + bookmarkedNewsArticles.length})
+                            Bookmarks
                         </button>
                     </div>
 
