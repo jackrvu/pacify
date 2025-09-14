@@ -42,7 +42,18 @@ const PolicyIncidentGraph = ({ state, policyDate, timelineData }) => {
 
     const policyYear = useMemo(() => {
         if (!policyDate) return null;
-        return new Date(policyDate).getFullYear();
+        
+        // More robust date parsing for Safari compatibility
+        const date = new Date(policyDate);
+        const year = date.getFullYear();
+        
+        // Check if the date is valid and year is a number
+        if (isNaN(date.getTime()) || isNaN(year) || year < 1900 || year > 2100) {
+            console.warn('Invalid policy date:', policyDate);
+            return null;
+        }
+        
+        return year;
     }, [policyDate]);
 
     // Calculate graph dimensions and scaling with Safari-compatible NaN handling
