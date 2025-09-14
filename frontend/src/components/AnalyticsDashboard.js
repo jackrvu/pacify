@@ -98,7 +98,7 @@ const AnalyticsDashboard = ({
     const navigate = useNavigate();
     
     // Dashboard view state
-    const [activeView, setActiveView] = useState('analytics'); // 'analytics', 'bookmarks', 'news', 'policy-details'
+    const [activeView, setActiveView] = useState('analytics'); // 'analytics', 'bookmarks', 'news', 'policy-details', 'news-details'
 
     // Bookmark state
     const [bookmarkedPolicies, setBookmarkedPolicies] = useState([]);
@@ -119,6 +119,13 @@ const AnalyticsDashboard = ({
     const [geminiQuestion, setGeminiQuestion] = useState('');
     const [currentAnalysisType, setCurrentAnalysisType] = useState(null);
     const [activeAnalysisTab, setActiveAnalysisTab] = useState('ai'); // 'ai', 'annotations', 'media'
+
+    // News details state
+    const [currentNewsArticle, setCurrentNewsArticle] = useState(null);
+    const [newsAnnotations, setNewsAnnotations] = useState([]);
+    const [newNewsAnnotation, setNewNewsAnnotation] = useState('');
+    const [newsAnnotationType, setNewsAnnotationType] = useState('note');
+    const [activeNewsAnalysisTab, setActiveNewsAnalysisTab] = useState('annotations'); // 'annotations', 'media'
 
     // Annotation editing state
     const [editingAnnotation, setEditingAnnotation] = useState(null);
@@ -197,6 +204,12 @@ const AnalyticsDashboard = ({
         setBookmarkedNewsArticles(newsBookmarks);
     }, []);
 
+    // Function to refresh bookmarked news articles (called from MediaTab)
+    const refreshBookmarkedNewsArticles = () => {
+        const newsBookmarks = getBookmarkedNewsArticles();
+        setBookmarkedNewsArticles(newsBookmarks);
+    };
+
     // Create combined bookmark list with filtering
     const combinedBookmarks = useMemo(() => {
         const policyBookmarks = bookmarkedPolicies.map(bookmark => ({
@@ -274,11 +287,24 @@ const AnalyticsDashboard = ({
 
     const confirmRemoveBookmark = () => {
         if (bookmarkToDelete) {
-            const result = unbookmarkPolicy(bookmarkToDelete.law_id);
-            if (result.success) {
-                setBookmarkedPolicies(prev => prev.filter(b => b.law_id !== bookmarkToDelete.law_id));
+            // Check if it's a policy bookmark or news bookmark
+            if (bookmarkToDelete.law_id) {
+                // Policy bookmark
+                const result = unbookmarkPolicy(bookmarkToDelete.law_id);
+                if (result.success) {
+                    setBookmarkedPolicies(prev => prev.filter(b => b.law_id !== bookmarkToDelete.law_id));
+                } else {
+                    alert(result.message);
+                }
             } else {
-                alert(result.message);
+                // News bookmark
+                const result = unbookmarkNewsArticle(bookmarkToDelete.id);
+                if (result.success) {
+                    const newsBookmarks = getBookmarkedNewsArticles();
+                    setBookmarkedNewsArticles(newsBookmarks);
+                } else {
+                    alert(result.message);
+                }
             }
         }
         setShowBookmarkDeleteModal(false);
@@ -294,10 +320,18 @@ const AnalyticsDashboard = ({
         console.log('handleViewBookmark called with bookmark:', bookmark);
         
         if (bookmark.type === 'news') {
-            // For news bookmarks, open the original article
-            if (bookmark.link) {
-                window.open(bookmark.link, '_blank', 'noopener,noreferrer');
+            // For news bookmarks, set as current news article and show details view
+            setCurrentNewsArticle(bookmark);
+            setActiveView('news-details');
+
+            // Load existing annotations for this news article
+            if (bookmark.annotations) {
+                setNewsAnnotations(bookmark.annotations);
+            } else {
+                setNewsAnnotations([]);
             }
+
+            console.log('Switched to news-details view with article:', bookmark);
         } else {
             // For policy bookmarks, convert to policy format and set as current policy
             const policyData = {
@@ -327,12 +361,11 @@ const AnalyticsDashboard = ({
     };
 
     const handleUnbookmarkNews = (articleId) => {
-        const result = unbookmarkNewsArticle(articleId);
-        if (result.success) {
-            const newsBookmarks = getBookmarkedNewsArticles();
-            setBookmarkedNewsArticles(newsBookmarks);
-        } else {
-            alert(result.message);
+        const newsBookmarks = getBookmarkedNewsArticles();
+        const bookmark = newsBookmarks.find(b => b.id === articleId);
+        if (bookmark) {
+            setBookmarkToDelete(bookmark);
+            setShowBookmarkDeleteModal(true);
         }
     };
 
@@ -521,18 +554,36 @@ const AnalyticsDashboard = ({
 
     // Confirm delete annotation
     const confirmDeleteAnnotation = () => {
-        if (!currentPolicy || !annotationToDelete) return;
+        if (!annotationToDelete) return;
 
-        const result = removeAnnotation(currentPolicy.law_id, annotationToDelete);
-
-        if (result.success) {
-            // Reload annotations
-            const bookmarks = getBookmarkedPolicies();
-            const bookmark = bookmarks.find(b => b.law_id === currentPolicy.law_id);
-            if (bookmark && bookmark.annotations) {
-                setPolicyAnnotations(bookmark.annotations);
+        let result;
+        if (currentPolicy) {
+            // Delete policy annotation
+            result = removeAnnotation(currentPolicy.law_id, annotationToDelete);
+            if (result.success) {
+                // Reload annotations
+                const bookmarks = getBookmarkedPolicies();
+                const bookmark = bookmarks.find(b => b.law_id === currentPolicy.law_id);
+                if (bookmark && bookmark.annotations) {
+                    setPolicyAnnotations(bookmark.annotations);
+                }
+            }
+        } else if (currentNewsArticle) {
+            // Delete news annotation
+            result = removeNewsAnnotation(currentNewsArticle.id, annotationToDelete);
+            if (result.success) {
+                // Reload annotations
+                const bookmarks = getBookmarkedNewsArticles();
+                const bookmark = bookmarks.find(b => b.id === currentNewsArticle.id);
+                if (bookmark && bookmark.annotations) {
+                    setNewsAnnotations(bookmark.annotations);
+                }
             }
         } else {
+            return;
+        }
+
+        if (!result.success) {
             alert(result.message);
         }
 
@@ -602,6 +653,120 @@ const AnalyticsDashboard = ({
         setShowGeminiPanel(false);
     };
 
+    // News annotation handlers
+    const handleAddNewsAnnotation = () => {
+        if (!newNewsAnnotation.trim() || !currentNewsArticle) return;
+
+        const result = addNewsAnnotation(currentNewsArticle.id, {
+            content: newNewsAnnotation,
+            type: newsAnnotationType
+        });
+
+        if (result.success) {
+            setNewNewsAnnotation('');
+
+            // Reload annotations
+            const bookmarks = getBookmarkedNewsArticles();
+            const bookmark = bookmarks.find(b => b.id === currentNewsArticle.id);
+            if (bookmark && bookmark.annotations) {
+                setNewsAnnotations(bookmark.annotations);
+            }
+        } else {
+            alert(result.message);
+        }
+    };
+
+    const handleEditNewsAnnotation = (annotation) => {
+        setEditingAnnotation(annotation);
+        setEditAnnotationContent(annotation.content);
+    };
+
+    const handleSaveEditNewsAnnotation = () => {
+        if (!editAnnotationContent.trim() || !editingAnnotation || !currentNewsArticle) return;
+
+        const result = updateNewsAnnotation(currentNewsArticle.id, editingAnnotation.id, editAnnotationContent);
+
+        if (result.success) {
+            // Reload annotations
+            const bookmarks = getBookmarkedNewsArticles();
+            const bookmark = bookmarks.find(b => b.id === currentNewsArticle.id);
+            if (bookmark && bookmark.annotations) {
+                setNewsAnnotations(bookmark.annotations);
+            }
+
+            // Clear editing state
+            setEditingAnnotation(null);
+            setEditAnnotationContent('');
+        } else {
+            alert(result.message);
+        }
+    };
+
+    const handleCancelEditNewsAnnotation = () => {
+        setEditingAnnotation(null);
+        setEditAnnotationContent('');
+    };
+
+    const handleDeleteNewsAnnotation = (annotationId) => {
+        setAnnotationToDelete(annotationId);
+        setShowDeleteModal(true);
+    };
+
+    const confirmDeleteNewsAnnotation = () => {
+        if (!currentNewsArticle || !annotationToDelete) return;
+
+        const result = removeNewsAnnotation(currentNewsArticle.id, annotationToDelete);
+
+        if (result.success) {
+            // Reload annotations
+            const bookmarks = getBookmarkedNewsArticles();
+            const bookmark = bookmarks.find(b => b.id === currentNewsArticle.id);
+            if (bookmark && bookmark.annotations) {
+                setNewsAnnotations(bookmark.annotations);
+            }
+        } else {
+            alert(result.message);
+        }
+
+        // Close modal and reset state
+        setShowDeleteModal(false);
+        setAnnotationToDelete(null);
+    };
+
+    const handleBackToBookmarks = () => {
+        setActiveView('bookmarks');
+        setCurrentNewsArticle(null);
+        setNewsAnnotations([]);
+        setNewNewsAnnotation('');
+    };
+
+    // Extract state from article title or content if state field is empty
+    const extractStateFromArticle = (article) => {
+        if (!article) return null;
+        
+        // List of US states for matching
+        const states = [
+            'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware',
+            'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky',
+            'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi',
+            'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico',
+            'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania',
+            'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+            'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+        ];
+        
+        const textToSearch = `${article.title || ''} ${article.content || ''} ${article.summary || ''}`.toLowerCase();
+        
+        // Find the first state mentioned in the article
+        for (const state of states) {
+            if (textToSearch.includes(state.toLowerCase())) {
+                return state;
+            }
+        }
+        
+        return null;
+    };
+
     return (
         <div className="analytics-dashboard">
             {/* Header */}
@@ -630,16 +795,16 @@ const AnalyticsDashboard = ({
                             Analytics
                         </button>
                         <button
-                            className={`view-btn bookmarks-btn ${activeView === 'bookmarks' ? 'active' : ''}`}
-                            onClick={() => setActiveView('bookmarks')}
-                        >
-                            Bookmarks ({bookmarkedPolicies.length + bookmarkedNewsArticles.length})
-                        </button>
-                        <button
                             className={`view-btn news-btn ${activeView === 'news' ? 'active' : ''}`}
                             onClick={() => setActiveView('news')}
                         >
                             News
+                        </button>
+                        <button
+                            className={`view-btn bookmarks-btn ${activeView === 'bookmarks' ? 'active' : ''}`}
+                            onClick={() => setActiveView('bookmarks')}
+                        >
+                            Bookmarks ({bookmarkedPolicies.length + bookmarkedNewsArticles.length})
                         </button>
                     </div>
 
@@ -897,11 +1062,185 @@ const AnalyticsDashboard = ({
                             <MediaTab 
                                 selectedState={currentPolicy?.state}
                                 selectedPolicy={currentPolicy}
+                                onBookmarkChange={refreshBookmarkedNewsArticles}
                             />
                         </div>
                     </div>
                 )}
 
+
+                {activeView === 'news-details' && currentNewsArticle && (
+                    <div className="news-details-view">
+                        <div className="news-details-header">
+                            <button
+                                onClick={handleBackToBookmarks}
+                                className="back-btn"
+                            >
+                                ← Back to Bookmarks
+                            </button>
+                            <h2>News Article Analysis</h2>
+                        </div>
+
+                        <div className="news-details-content">
+                            {/* News Article Information */}
+                            <div className="news-info-section">
+                                <div className="news-header">
+                                    <h3>{currentNewsArticle.title}</h3>
+                                    <div className="news-meta">
+                                        <span className="news-date">
+                                            {formatDateForDisplay(currentNewsArticle.published)}
+                                        </span>
+                                        <span className="news-source">{currentNewsArticle.source}</span>
+                                        <button
+                                            className="external-link-btn"
+                                            onClick={() => window.open(currentNewsArticle.link, '_blank', 'noopener,noreferrer')}
+                                        >
+                                            Read Original Article →
+                                        </button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {/* Analysis Tools */}
+                            <div className="analysis-tools-section">
+                                <div className="tools-header">
+                                    <h3>Analysis Tools</h3>
+                                    <div className="tools-tabs">
+                                        <button
+                                            className={`tool-tab ${activeNewsAnalysisTab === 'annotations' ? 'active' : ''}`}
+                                            onClick={() => setActiveNewsAnalysisTab('annotations')}
+                                        >
+                                            Annotations
+                                        </button>
+                                        <button
+                                            className={`tool-tab ${activeNewsAnalysisTab === 'media' ? 'active' : ''}`}
+                                            onClick={() => setActiveNewsAnalysisTab('media')}
+                                        >
+                                            Related News
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Annotations Panel */}
+                                {activeNewsAnalysisTab === 'annotations' && (
+                                    <div className="annotations-panel">
+                                        <div className="annotation-input">
+                                            <CustomDropdown
+                                                value={newsAnnotationType}
+                                                onChange={setNewsAnnotationType}
+                                                options={[
+                                                    { value: "note", label: "Note" },
+                                                    { value: "question", label: "Question" },
+                                                    { value: "insight", label: "Insight" }
+                                                ]}
+                                                className="annotation-type-select"
+                                            />
+                                            <textarea
+                                                value={newNewsAnnotation}
+                                                onChange={(e) => setNewNewsAnnotation(e.target.value)}
+                                                placeholder="Add your annotation about this news article..."
+                                                className="annotation-textarea"
+                                                rows="3"
+                                            />
+                                            <button
+                                                onClick={handleAddNewsAnnotation}
+                                                className="add-annotation-btn"
+                                                disabled={!newNewsAnnotation.trim()}
+                                            >
+                                                Add Annotation
+                                            </button>
+                                        </div>
+
+                                        {/* Existing Annotations */}
+                                        {newsAnnotations.length > 0 && (
+                                            <div className="existing-annotations">
+                                                <h4>Your Annotations ({newsAnnotations.length})</h4>
+                                                <div className="annotations-list">
+                                                    {newsAnnotations.map((annotation, index) => (
+                                                        <div key={annotation.id || index} className="annotation-item">
+                                                            {editingAnnotation && editingAnnotation.id === annotation.id ? (
+                                                                // Edit mode
+                                                                <div className="annotation-edit-mode">
+                                                                    <textarea
+                                                                        value={editAnnotationContent}
+                                                                        onChange={(e) => setEditAnnotationContent(e.target.value)}
+                                                                        className="annotation-edit-textarea"
+                                                                        rows="3"
+                                                                    />
+                                                                    <div className="annotation-edit-actions">
+                                                                        <button
+                                                                            onClick={handleSaveEditNewsAnnotation}
+                                                                            className="save-annotation-btn"
+                                                                            disabled={!editAnnotationContent.trim()}
+                                                                        >
+                                                                            Save
+                                                                        </button>
+                                                                        <button
+                                                                            onClick={handleCancelEditNewsAnnotation}
+                                                                            className="cancel-annotation-btn"
+                                                                        >
+                                                                            Cancel
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            ) : (
+                                                                // View mode
+                                                                <>
+                                                                    <div className="annotation-header">
+                                                                        <div className="annotation-left">
+                                                                            <span className="annotation-type">
+                                                                                {annotation.type === 'note' ? 'Note' :
+                                                                                    annotation.type === 'question' ? 'Question' : 'Insight'}
+                                                                            </span>
+                                                                            <span className="annotation-date">
+                                                                                {formatDateForDisplay(annotation.created_at || annotation.timestamp)}
+                                                                            </span>
+                                                                        </div>
+                                                                        <div className="annotation-actions">
+                                                                            <button
+                                                                                onClick={() => handleEditNewsAnnotation(annotation)}
+                                                                                className="edit-annotation-btn"
+                                                                                title="Edit annotation"
+                                                                            >
+                                                                                Edit
+                                                                            </button>
+                                                                            <button
+                                                                                onClick={() => handleDeleteNewsAnnotation(annotation.id)}
+                                                                                className="delete-annotation-btn"
+                                                                                title="Delete annotation"
+                                                                            >
+                                                                                Delete
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div className="annotation-content">
+                                                                        {annotation.content}
+                                                                    </div>
+                                                                </>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
+                                )}
+
+                                {/* Related News Panel */}
+                                {activeNewsAnalysisTab === 'media' && (
+                                    <div className="media-panel">
+                                        <BookmarkMediaTab 
+                                            selectedState={currentNewsArticle?.state || extractStateFromArticle(currentNewsArticle)}
+                                            selectedPolicy={null}
+                                            onBookmarkChange={refreshBookmarkedNewsArticles}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 {activeView === 'policy-details' && currentPolicy && (
                     <div className="policy-details-view">
@@ -1166,6 +1505,7 @@ const AnalyticsDashboard = ({
                                         <BookmarkMediaTab 
                                             selectedState={currentPolicy?.state}
                                             selectedPolicy={currentPolicy}
+                                            onBookmarkChange={refreshBookmarkedNewsArticles}
                                         />
                                     </div>
                                 )}
@@ -1235,9 +1575,21 @@ const AnalyticsDashboard = ({
                             <p>Are you sure you want to remove this bookmark? This action cannot be undone.</p>
                             {bookmarkToDelete && (
                                 <div className="bookmark-details">
-                                    <strong>{bookmarkToDelete.law_class}</strong>
-                                    <br />
-                                    <small>{bookmarkToDelete.state} • {formatDateForDisplay(bookmarkToDelete.effective_date)}</small>
+                                    {bookmarkToDelete.law_id ? (
+                                        // Policy bookmark
+                                        <>
+                                            <strong>{bookmarkToDelete.law_class}</strong>
+                                            <br />
+                                            <small>{bookmarkToDelete.state} • {formatDateForDisplay(bookmarkToDelete.effective_date)}</small>
+                                        </>
+                                    ) : (
+                                        // News bookmark
+                                        <>
+                                            <strong>{bookmarkToDelete.title}</strong>
+                                            <br />
+                                            <small>{bookmarkToDelete.source} • {formatDateForDisplay(bookmarkToDelete.published)}</small>
+                                        </>
+                                    )}
                                 </div>
                             )}
                         </div>

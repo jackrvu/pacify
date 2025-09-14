@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import './StateGunViolencePanel.css';
 
-const StateGunViolencePanel = ({ stateData, isVisible, onClose }) => {
+const StateGunViolencePanel = ({ stateData, isVisible, onClose, hoveredCounty }) => {
     const contentRef = useRef(null);
     const scrollIntervalRef = useRef(null);
     const scrollPositionRef = useRef(0);
@@ -96,6 +96,11 @@ const StateGunViolencePanel = ({ stateData, isVisible, onClose }) => {
             <div className="panel-header">
                 <div className="header-content">
                     <h3>{stateData.state} Gun Violence</h3>
+                    {hoveredCounty && (
+                        <div className="county-info">
+                            <small>Currently viewing: {hoveredCounty.countyName} County</small>
+                        </div>
+                    )}
                     <div className="gemini-attribution">
                         <small>information powered by Gemini 2.5 Pro with Search</small>
                     </div>

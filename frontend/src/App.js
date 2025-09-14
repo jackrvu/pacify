@@ -77,6 +77,7 @@ function MapApp() {
     const [stateContextData, setStateContextData] = useState([]);
     const [hoveredState, setHoveredState] = useState(null);
     const [showStateContextPanel, setShowStateContextPanel] = useState(false);
+    const [hoveredCounty, setHoveredCounty] = useState(null);
     const [panelKey, setPanelKey] = useState(0); // Key to force panel recreation
 
 
@@ -189,6 +190,10 @@ function MapApp() {
                 setShowPolicyTimeline(true);
             }
         }
+    };
+
+    const handleCountyHover = (countyData) => {
+        setHoveredCounty(countyData);
     };
 
     // Function to detect state from cursor position using geographic boundaries
@@ -449,7 +454,7 @@ function MapApp() {
 
                     {/* County choropleth layer - shows data density by county */}
                     {showCountyLayer && (
-                        <MapLayer enabled={showCountyLayer} />
+                        <MapLayer enabled={showCountyLayer} onCountyHover={handleCountyHover} />
                     )}
 
                     {/* Heatmap layer - shows incident clustering */}
@@ -486,6 +491,7 @@ function MapApp() {
                 stateData={getStateContextData()}
                 isVisible={showStateContextPanel && hoveredState}
                 onClose={() => setShowStateContextPanel(false)}
+                hoveredCounty={hoveredCounty}
             />
 
             {/* Policy Timeline Popup */}

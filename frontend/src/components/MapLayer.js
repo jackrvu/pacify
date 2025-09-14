@@ -10,7 +10,7 @@ import * as d3Interpolate from 'd3-scale-chromatic';
 import { interpolateRgb } from 'd3-interpolate';
 import './MapLayer.css';
 
-function MapLayer({ enabled = true }) {
+function MapLayer({ enabled = true, onCountyHover }) {
     const map = useMap();
     const [countyData, setCountyData] = useState(null); // GeoJSON county boundaries from external source
     const [caseData, setCaseData] = useState({}); // Real incident data loaded from CSV
@@ -48,29 +48,7 @@ function MapLayer({ enabled = true }) {
         };
     }, [map]);
 
-    // Helper to close all tooltips for all county layers
-    const closeAllTooltips = useCallback(() => {
-        if (geojsonLayerRef.current) {
-            geojsonLayerRef.current.eachLayer(layer => {
-                if (layer.closeTooltip) {
-                    layer.closeTooltip();
-                }
-            });
-        }
-
-        // Also clear any lingering tooltips from the map's tooltip pane
-        if (map) {
-            const tooltipPane = map.getPane('tooltipPane');
-            if (tooltipPane) {
-                tooltipPane.innerHTML = '';
-            }
-
-            // Force close any open tooltips using Leaflet's internal methods
-            if (map._tooltip) {
-                map._tooltip.close();
-            }
-        }
-    }, [map]);
+    // No tooltip functionality needed
 
     // D3 color scale for county fill colors - red gradient based on case count
     const colorScale = useMemo(() => {
@@ -165,16 +143,7 @@ function MapLayer({ enabled = true }) {
         const formattedCount = caseCount.toLocaleString();
         const formattedCount90Days = caseCount90Days.toLocaleString();
 
-        // Create tooltip with county info - removed county label
-        layer.bindTooltip(`
-            <div style="font-weight:600;"></div>
-        `, {
-            sticky: false, // Changed to false to make tooltips more responsive to cleanup
-            offset: [0, -5],
-            direction: 'top',
-            className: 'county-tooltip',
-            interactive: false // Prevent tooltip from interfering with map interactions
-        });
+        // No tooltip - just highlighting on hover
 
         // Add event listeners for hover highlighting only (no click functionality)
         layer.on({
@@ -191,18 +160,22 @@ function MapLayer({ enabled = true }) {
                     l.bringToFront();
                 }
 
-                // Only show the tooltip if the map is not moving and not dragging
-                if (!isMapMoving && !isDragging) {
-                    layer.openTooltip();
+                // Call the callback with county information
+                if (onCountyHover) {
+                    onCountyHover({
+                        countyName: countyName,
+                        stateFips: stateFips,
+                        caseCount: caseCount,
+                        caseCount90Days: caseCount90Days
+                    });
                 }
             },
             mouseout: function (e) {
                 geojsonLayerRef.current.resetStyle(e.target);
-                // Close all tooltips on mouseout
-                closeAllTooltips();
-                // Close specific tooltip for this layer
-                if (layer.closeTooltip) {
-                    layer.closeTooltip();
+                
+                // Clear county hover information
+                if (onCountyHover) {
+                    onCountyHover(null);
                 }
             },
             click: function (e) {
@@ -222,7 +195,7 @@ function MapLayer({ enabled = true }) {
                 return false; // Prevent further event propagation
             }
         });
-    }, [caseData, closeAllTooltips, isMapMoving, isDragging]);
+    }, [caseData, isMapMoving, isDragging, onCountyHover]);
 
     // Memoize the style function and onEachFeatureFunction refs to avoid unnecessary re-creation
     const styleFunctionRef = useRef();
@@ -338,40 +311,7 @@ function MapLayer({ enabled = true }) {
 
     }, [countyData, caseData, enabled]); // Only depend on data and enabled
 
-    // Add this effect to close all tooltips on drag or mousedown
-    useEffect(() => {
-        if (!geojsonLayerRef.current || !map) return;
-
-        // Close tooltips on various map events
-        map.on('mousedown', closeAllTooltips);
-        map.on('dragstart', closeAllTooltips);
-        map.on('movestart', closeAllTooltips);
-        map.on('zoomstart', closeAllTooltips);
-        map.on('drag', closeAllTooltips); // Clear during drag
-        map.on('move', closeAllTooltips); // Clear during move
-
-        // Also close all tooltips when mouse leaves the map container
-        const container = map.getContainer();
-        container.addEventListener('mouseleave', closeAllTooltips);
-
-        // Add additional cleanup on mouse up to ensure clean state
-        const handleMouseUp = () => {
-            // Small delay to ensure any pending tooltip operations complete
-            setTimeout(closeAllTooltips, 10);
-        };
-        container.addEventListener('mouseup', handleMouseUp);
-
-        return () => {
-            map.off('mousedown', closeAllTooltips);
-            map.off('dragstart', closeAllTooltips);
-            map.off('movestart', closeAllTooltips);
-            map.off('zoomstart', closeAllTooltips);
-            map.off('drag', closeAllTooltips);
-            map.off('move', closeAllTooltips);
-            container.removeEventListener('mouseleave', closeAllTooltips);
-            container.removeEventListener('mouseup', handleMouseUp);
-        };
-    }, [map, geojsonLayerRef.current, closeAllTooltips]);
+    // No tooltip cleanup needed
 
     return null;
 }

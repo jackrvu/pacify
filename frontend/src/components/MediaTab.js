@@ -20,7 +20,7 @@ const stripHtmlTags = (html) => {
     return doc.body.textContent || '';
 };
 
-const MediaTab = ({ selectedState, selectedPolicy }) => {
+const MediaTab = ({ selectedState, selectedPolicy, onBookmarkChange }) => {
     const [articles, setArticles] = useState([]);
     const [allArticles, setAllArticles] = useState([]);
     const [filteredArticles, setFilteredArticles] = useState([]);
@@ -271,6 +271,10 @@ const MediaTab = ({ selectedState, selectedPolicy }) => {
                 const result = unbookmarkNewsArticle(article.id);
                 if (result.success) {
                     setBookmarkState(false);
+                    // Notify parent component to refresh bookmarks
+                    if (onBookmarkChange) {
+                        onBookmarkChange();
+                    }
                 } else {
                     alert(result.message);
                 }
@@ -278,6 +282,10 @@ const MediaTab = ({ selectedState, selectedPolicy }) => {
                 const result = bookmarkNewsArticle(article);
                 if (result.success) {
                     setBookmarkState(true);
+                    // Notify parent component to refresh bookmarks
+                    if (onBookmarkChange) {
+                        onBookmarkChange();
+                    }
                 } else {
                     alert(result.message);
                 }

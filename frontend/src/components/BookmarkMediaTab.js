@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import {
     getSixMonthGunViolenceNews,
     getStateNews,
@@ -20,7 +21,7 @@ const stripHtmlTags = (html) => {
     return doc.body.textContent || '';
 };
 
-const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
+const BookmarkMediaTab = ({ selectedState, selectedPolicy, onBookmarkChange }) => {
     const [articles, setArticles] = useState([]);
     const [allArticles, setAllArticles] = useState([]);
     const [filteredArticles, setFilteredArticles] = useState([]);
@@ -30,6 +31,10 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [lastUpdated, setLastUpdated] = useState(null);
     const articlesListRef = useRef(null);
+    
+    // Modal state for bookmark deletion confirmation
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [articleToDelete, setArticleToDelete] = useState(null);
 
     // Load news data from CSV file
     const loadNewsData = async () => {
@@ -262,6 +267,37 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
         }
     };
 
+    // Modal handlers for bookmark deletion confirmation
+    const handleDeleteBookmark = (article) => {
+        setArticleToDelete(article);
+        setShowDeleteModal(true);
+    };
+
+    const confirmDeleteBookmark = () => {
+        if (!articleToDelete) return;
+
+        const result = unbookmarkNewsArticle(articleToDelete.id);
+        if (result.success) {
+            // Reload articles to reflect the change
+            loadNewsData();
+            // Notify parent component to refresh bookmarks
+            if (onBookmarkChange) {
+                onBookmarkChange();
+            }
+        } else {
+            alert(result.message);
+        }
+
+        // Close modal and reset state
+        setShowDeleteModal(false);
+        setArticleToDelete(null);
+    };
+
+    const cancelDeleteBookmark = () => {
+        setShowDeleteModal(false);
+        setArticleToDelete(null);
+    };
+
     // Individual news article bookmark component
     const NewsBookmarkButton = ({ article }) => {
         const [bookmarkState, setBookmarkState] = useState(isNewsArticleBookmarked(article.id));
@@ -274,18 +310,16 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
         const handleBookmarkClick = (e) => {
             e.stopPropagation();
             if (bookmarkState) {
-                const result = unbookmarkNewsArticle(article.id);
-                if (result.success) {
-                    setBookmarkState(false);
-                    // Refresh the bookmarked articles list
-                    loadBookmarkedArticles();
-                } else {
-                    alert(result.message);
-                }
+                // Show confirmation modal for deletion
+                handleDeleteBookmark(article);
             } else {
                 const result = bookmarkNewsArticle(article);
                 if (result.success) {
                     setBookmarkState(true);
+                    // Notify parent component to refresh bookmarks
+                    if (onBookmarkChange) {
+                        onBookmarkChange();
+                    }
                 } else {
                     alert(result.message);
                 }
@@ -518,6 +552,41 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                 }}>
                     Last updated: {formatArticleDate(lastUpdated.toISOString())}
                 </div>
+            )}
+
+            {/* Delete Confirmation Modal */}
+            {showDeleteModal && createPortal(
+                <div className="modal-overlay">
+                    <div className="modal-content delete-modal">
+                        <div className="modal-header">
+                            <h3>Remove Bookmark</h3>
+                        </div>
+                        <div className="modal-body">
+                            <p>Are you sure you want to remove this bookmark? This action cannot be undone.</p>
+                            {articleToDelete && (
+                                <div className="bookmark-details">
+                                    <h4>{articleToDelete.title}</h4>
+                                    <p className="bookmark-source">{articleToDelete.source}</p>
+                                </div>
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button 
+                                className="cancel-btn" 
+                                onClick={cancelDeleteBookmark}
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                className="delete-btn" 
+                                onClick={confirmDeleteBookmark}
+                            >
+                                Remove Bookmark
+                            </button>
+                        </div>
+                    </div>
+                </div>,
+                document.body
             )}
         </div>
     );
