@@ -423,21 +423,62 @@
 }
 
 .article-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 0.75rem;
+    gap: 1rem;
 }
 
 .article-title {
-    margin: 0 0 0.5rem 0;
+    margin: 0;
     color: #fff;
     font-size: 1rem;
     font-weight: 600;
     line-height: 1.4;
     cursor: pointer;
     transition: color 0.2s ease;
+    flex: 1;
 }
 
 .article-title:hover {
     color: #ff6b35;
+}
+
+.bookmark-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+    min-width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bookmark-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.8);
+    transform: scale(1.1);
+}
+
+.bookmark-btn.bookmarked {
+    background: rgba(255, 193, 7, 0.2);
+    border-color: #ffc107;
+    color: #ffc107;
+}
+
+.bookmark-btn.bookmarked:hover {
+    background: rgba(255, 193, 7, 0.3);
+    border-color: #ffc107;
+    color: #ffc107;
 }
 
 .article-meta {

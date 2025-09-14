@@ -5,6 +5,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AnalyticsDashboard.css';
 import { getBookmarkedPolicies, unbookmarkPolicy, addAnnotation, updateAnnotation, removeAnnotation, bookmarkPolicy, isPolicyBookmarked } from '../utils/bookmarkService';
+import { getBookmarkedNewsArticles, unbookmarkNewsArticle, addNewsAnnotation, updateNewsAnnotation, removeNewsAnnotation, isNewsArticleBookmarked } from '../utils/newsBookmarkService';
 import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
 import VisualAnalysisResponse from './VisualAnalysisResponse';
 import PolicyIncidentGraph from './PolicyIncidentGraph';
@@ -101,9 +102,11 @@ const AnalyticsDashboard = ({
 
     // Bookmark state
     const [bookmarkedPolicies, setBookmarkedPolicies] = useState([]);
+    const [bookmarkedNewsArticles, setBookmarkedNewsArticles] = useState([]);
     const [selectedBookmark, setSelectedBookmark] = useState(null);
     const [showBookmarkModal, setShowBookmarkModal] = useState(false);
     const [bookmarkSearch, setBookmarkSearch] = useState('');
+    const [bookmarkTypeFilter, setBookmarkTypeFilter] = useState('all'); // 'all', 'policy', 'news'
 
     // Policy details state
     const [currentPolicy, setCurrentPolicy] = useState(null);
@@ -186,11 +189,60 @@ const AnalyticsDashboard = ({
         loadPolicyData();
     }, []);
 
-    // Load bookmarked policies
+    // Load bookmarked policies and news articles
     useEffect(() => {
-        const bookmarks = getBookmarkedPolicies();
-        setBookmarkedPolicies(bookmarks);
+        const policyBookmarks = getBookmarkedPolicies();
+        const newsBookmarks = getBookmarkedNewsArticles();
+        setBookmarkedPolicies(policyBookmarks);
+        setBookmarkedNewsArticles(newsBookmarks);
     }, []);
+
+    // Create combined bookmark list with filtering
+    const combinedBookmarks = useMemo(() => {
+        const policyBookmarks = bookmarkedPolicies.map(bookmark => ({
+            ...bookmark,
+            type: 'policy',
+            displayTitle: bookmark.law_class ? bookmark.law_class.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ') : 'Unknown Law Class',
+            displayDate: bookmark.effective_date,
+            displayMeta: bookmark.state
+        }));
+
+        const newsBookmarks = bookmarkedNewsArticles.map(bookmark => ({
+            ...bookmark,
+            type: 'news',
+            displayTitle: bookmark.title,
+            displayDate: bookmark.published,
+            displayMeta: bookmark.source
+        }));
+
+        const combined = [...policyBookmarks, ...newsBookmarks];
+
+        // Apply type filter
+        let filtered = combined;
+        if (bookmarkTypeFilter !== 'all') {
+            filtered = combined.filter(bookmark => bookmark.type === bookmarkTypeFilter);
+        }
+
+        // Apply search filter
+        if (bookmarkSearch.trim()) {
+            const searchLower = bookmarkSearch.toLowerCase();
+            filtered = filtered.filter(bookmark => 
+                bookmark.displayTitle.toLowerCase().includes(searchLower) ||
+                bookmark.displayMeta.toLowerCase().includes(searchLower) ||
+                (bookmark.summary && bookmark.summary.toLowerCase().includes(searchLower)) ||
+                (bookmark.human_explanation && bookmark.human_explanation.toLowerCase().includes(searchLower))
+            );
+        }
+
+        // Sort by bookmark date (most recent first)
+        filtered.sort((a, b) => {
+            const dateA = new Date(a.bookmarked_at);
+            const dateB = new Date(b.bookmarked_at);
+            return dateB - dateA;
+        });
+
+        return filtered;
+    }, [bookmarkedPolicies, bookmarkedNewsArticles, bookmarkTypeFilter, bookmarkSearch]);
 
     // Handle policy selection for dashboard viewing
     useEffect(() => {
@@ -240,30 +292,48 @@ const AnalyticsDashboard = ({
 
     const handleViewBookmark = (bookmark) => {
         console.log('handleViewBookmark called with bookmark:', bookmark);
-        // Convert bookmark to policy format and set as current policy
-        const policyData = {
-            law_id: bookmark.law_id,
-            state: bookmark.state,
-            law_class: bookmark.law_class,
-            effect: bookmark.effect,
-            effective_date: bookmark.effective_date,
-            original_content: bookmark.original_content,
-            human_explanation: bookmark.human_explanation,
-            mass_shooting_analysis: bookmark.mass_shooting_analysis,
-            state_mass_shooting_stats: bookmark.state_mass_shooting_stats
-        };
-
-        setCurrentPolicy(policyData);
-        setActiveView('policy-details');
-
-        // Load existing annotations for this policy
-        if (bookmark.annotations) {
-            setPolicyAnnotations(bookmark.annotations);
+        
+        if (bookmark.type === 'news') {
+            // For news bookmarks, open the original article
+            if (bookmark.link) {
+                window.open(bookmark.link, '_blank', 'noopener,noreferrer');
+            }
         } else {
-            setPolicyAnnotations([]);
-        }
+            // For policy bookmarks, convert to policy format and set as current policy
+            const policyData = {
+                law_id: bookmark.law_id,
+                state: bookmark.state,
+                law_class: bookmark.law_class,
+                effect: bookmark.effect,
+                effective_date: bookmark.effective_date,
+                original_content: bookmark.original_content,
+                human_explanation: bookmark.human_explanation,
+                mass_shooting_analysis: bookmark.mass_shooting_analysis,
+                state_mass_shooting_stats: bookmark.state_mass_shooting_stats
+            };
 
-        console.log('Switched to policy-details view with policy:', policyData);
+            setCurrentPolicy(policyData);
+            setActiveView('policy-details');
+
+            // Load existing annotations for this policy
+            if (bookmark.annotations) {
+                setPolicyAnnotations(bookmark.annotations);
+            } else {
+                setPolicyAnnotations([]);
+            }
+
+            console.log('Switched to policy-details view with policy:', policyData);
+        }
+    };
+
+    const handleUnbookmarkNews = (articleId) => {
+        const result = unbookmarkNewsArticle(articleId);
+        if (result.success) {
+            const newsBookmarks = getBookmarkedNewsArticles();
+            setBookmarkedNewsArticles(newsBookmarks);
+        } else {
+            alert(result.message);
+        }
     };
 
 
@@ -563,7 +633,7 @@ const AnalyticsDashboard = ({
                             className={`view-btn bookmarks-btn ${activeView === 'bookmarks' ? 'active' : ''}`}
                             onClick={() => setActiveView('bookmarks')}
                         >
-                            Bookmarks ({bookmarkedPolicies.length})
+                            Bookmarks ({bookmarkedPolicies.length + bookmarkedNewsArticles.length})
                         </button>
                         <button
                             className={`view-btn news-btn ${activeView === 'news' ? 'active' : ''}`}
@@ -702,18 +772,27 @@ const AnalyticsDashboard = ({
                 {activeView === 'bookmarks' && (
                     <div className="bookmarks-view">
                         <div className="bookmarks-header">
-                            <h2>Bookmarked Policies</h2>
-                            <p>Manage your saved policies and annotations</p>
+                            <h2>Bookmarks</h2>
+                            <p>Manage your saved policies and news articles</p>
                         </div>
 
                         {/* Bookmarks Controls */}
                         <div className="bookmarks-controls">
                             <div className="bookmarks-filters">
+                                <select
+                                    value={bookmarkTypeFilter}
+                                    onChange={(e) => setBookmarkTypeFilter(e.target.value)}
+                                    className="type-filter-select"
+                                >
+                                    <option value="all">All Bookmarks</option>
+                                    <option value="policy">Policies Only</option>
+                                    <option value="news">News Only</option>
+                                </select>
                                 <input
                                     type="text"
                                     value={bookmarkSearch}
                                     onChange={(e) => setBookmarkSearch(e.target.value)}
-                                    placeholder="Search policies..."
+                                    placeholder="Search bookmarks..."
                                     className="search-input"
                                 />
                             </div>
@@ -721,21 +800,26 @@ const AnalyticsDashboard = ({
 
                         {/* Bookmarks List */}
                         <div className="bookmarks-list">
-                            {filteredBookmarks.length === 0 ? (
+                            {combinedBookmarks.length === 0 ? (
                                 <div className="empty-state">
                                     <div className="empty-icon"></div>
-                                    <h3>No bookmarked policies</h3>
-                                    <p>Bookmark policies from the map to see them here</p>
+                                    <h3>No bookmarks</h3>
+                                    <p>Bookmark policies from the map or news articles to see them here</p>
                                 </div>
                             ) : (
-                                filteredBookmarks.map((bookmark) => (
+                                combinedBookmarks.map((bookmark) => (
                                     <div key={bookmark.id} className="bookmark-card" onClick={() => handleViewBookmark(bookmark)}>
                                         <div className="bookmark-header">
                                             <div className="bookmark-title">
-                                                <h3>{bookmark.law_class ? bookmark.law_class.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ') : 'Unknown Law Class'}</h3>
+                                                <div className="bookmark-title-row">
+                                                    <h3>{bookmark.displayTitle}</h3>
+                                                    <span className={`bookmark-type-tag ${bookmark.type}`}>
+                                                        {bookmark.type === 'policy' ? 'Policy' : 'News'}
+                                                    </span>
+                                                </div>
                                                 <div className="bookmark-meta">
-                                                    <span className="bookmark-state">{bookmark.state}</span>
-                                                    {(() => {
+                                                    <span className="bookmark-meta-item">{bookmark.displayMeta}</span>
+                                                    {bookmark.type === 'policy' && (() => {
                                                         const effect = bookmark.effect || determinePolicyEffect(bookmark.law_class);
                                                         return effect && (
                                                             <span
@@ -746,32 +830,34 @@ const AnalyticsDashboard = ({
                                                         );
                                                     })()}
                                                     <span className="bookmark-date">
-                                                        {formatDateForDisplay(bookmark.effective_date)}
+                                                        {formatDateForDisplay(bookmark.displayDate)}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div className="bookmark-actions">
-                                                {(() => {
-                                                    const effect = bookmark.effect || determinePolicyEffect(bookmark.law_class);
-                                                    return effect && (effect.toLowerCase() === 'restrictive' || effect.toLowerCase() === 'permissive');
-                                                })() && (
-                                                    <button
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.stopPropagation();
+                                                        if (bookmark.type === 'news') {
+                                                            handleUnbookmarkNews(bookmark.id);
+                                                        } else {
                                                             handleRemoveBookmark(bookmark.law_id);
-                                                        }}
-                                                        className="close-bookmark-btn"
-                                                        title="Remove bookmark"
-                                                    >
-                                                        ×
-                                                    </button>
-                                                )}
+                                                        }
+                                                    }}
+                                                    className="close-bookmark-btn"
+                                                    title="Remove bookmark"
+                                                >
+                                                    ×
+                                                </button>
                                             </div>
                                         </div>
 
                                         <div className="bookmark-content">
                                             <p className="bookmark-summary">
-                                                {bookmark.original_content?.substring(0, 200)}...
+                                                {bookmark.type === 'news' 
+                                                    ? (bookmark.summary?.substring(0, 200) || bookmark.content?.substring(0, 200) || 'No summary available')
+                                                    : (bookmark.original_content?.substring(0, 200) || 'No content available')
+                                                }{bookmark.type === 'news' ? '' : '...'}
                                             </p>
 
                                             {bookmark.annotations && bookmark.annotations.length > 0 && (
@@ -815,6 +901,7 @@ const AnalyticsDashboard = ({
                         </div>
                     </div>
                 )}
+
 
                 {activeView === 'policy-details' && currentPolicy && (
                     <div className="policy-details-view">

@@ -6,6 +6,11 @@ import {
     formatArticleDate, 
     getSourceDomain 
 } from '../utils/mediaCloudService';
+import { 
+    bookmarkNewsArticle, 
+    unbookmarkNewsArticle, 
+    isNewsArticleBookmarked 
+} from '../utils/newsBookmarkService';
 import './BookmarkMediaTab.css';
 
 // Helper function to strip HTML tags
@@ -257,6 +262,28 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
         }
     };
 
+    const handleBookmarkClick = (article, e) => {
+        e.stopPropagation();
+        
+        if (isNewsArticleBookmarked(article.id)) {
+            const result = unbookmarkNewsArticle(article.id);
+            if (result.success) {
+                // Optionally show a success message or update UI
+                console.log('Article unbookmarked successfully');
+            } else {
+                alert(result.message);
+            }
+        } else {
+            const result = bookmarkNewsArticle(article);
+            if (result.success) {
+                // Optionally show a success message or update UI
+                console.log('Article bookmarked successfully');
+            } else {
+                alert(result.message);
+            }
+        }
+    };
+
     const renderLoading = () => (
         <div className="bookmark-media-loading">
             <div className="loading-spinner"></div>
@@ -358,14 +385,21 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy }) => {
                                 >
                                     {article.title}
                                 </h5>
-                                <div className="bookmark-article-meta">
-                                    <span className="bookmark-article-source">
-                                        {article.source}
-                                    </span>
-                                    <span className="bookmark-article-date">
-                                        {formatArticleDate(article.published)}
-                                    </span>
-                                </div>
+                                <button
+                                    className={`bookmark-btn ${isNewsArticleBookmarked(article.id) ? 'bookmarked' : ''}`}
+                                    onClick={(e) => handleBookmarkClick(article, e)}
+                                    title={isNewsArticleBookmarked(article.id) ? 'Remove bookmark' : 'Bookmark article'}
+                                >
+                                    {isNewsArticleBookmarked(article.id) ? '★' : '☆'}
+                                </button>
+                            </div>
+                            <div className="bookmark-article-meta">
+                                <span className="bookmark-article-source">
+                                    {article.source}
+                                </span>
+                                <span className="bookmark-article-date">
+                                    {formatArticleDate(article.published)}
+                                </span>
                             </div>
                             
                             {article.summary && article.summary.length > 10 && (
