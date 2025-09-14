@@ -18,6 +18,15 @@
     overflow-y: auto;
 }
 
+/* Desktop: Hide mobile slider, show desktop slider */
+.mobile-slider-container {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
 /* Resize handle for policy timeline */
 .resize-handle-top {
     position: absolute;
@@ -579,24 +588,82 @@
 
     .timeline-popup-header {
         padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .timeline-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
     }
 
     .timeline-title h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin: 0;
     }
 
     .current-year-display {
-        font-size: 1rem;
+        font-size: 0.9rem;
         padding: 4px 8px;
+        background: rgba(156, 163, 175, 0.3);
+        border-radius: 6px;
     }
 
+    .timeline-header-controls {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .play-pause-btn {
+        font-size: 1.2rem;
+        width: 20px;
+        height: 20px;
+    }
+
+    .close-timeline-btn {
+        font-size: 1.2rem;
+        width: 20px;
+        height: 20px;
+    }
 
     .timeline-container {
-        padding: 16px;
+        padding: 20px 16px 16px 16px;
+        margin-top: 8px;
     }
 
     .timeline-track {
         height: 100px;
+        margin-top: 1px;
+    }
+
+    .timeline-slider {
+        z-index: 10;
+        margin-top: 1px;
+    }
+
+    /* Hide desktop slider on mobile */
+    .desktop-only {
+        display: none;
+    }
+
+    /* Show mobile slider container */
+    .mobile-slider-container {
+        display: block;
+        position: relative;
+        height: 40px;
+        margin: 8px 16px;
+    }
+
+    .mobile-slider-container .current-year-indicator {
+        position: absolute;
+        top: 0;
+        transform: translateX(-50%);
+        z-index: 15;
     }
 
     .policy-marker-dot {
@@ -609,12 +676,16 @@
     }
 
     .policy-marker-year {
-        font-size: 10px;
+        font-size: 9px;
         top: 20px;
     }
 
     .year-label {
-        font-size: 11px;
+        font-size: 9px;
+    }
+
+    .year-labels {
+        top: 60px;
     }
 
     .policy-details-dropdown {
@@ -924,20 +995,31 @@
 
     .policy-modal-header {
         padding: 20px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
     }
 
     .policy-modal-header h2 {
         font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0;
     }
 
     .modal-state-subtitle {
         font-size: 0.9rem;
+        display: block;
+        margin-top: 4px;
     }
 
     .modal-close-btn {
         width: 40px;
         height: 40px;
         font-size: 24px;
+        margin-left: auto;
     }
 
     .policy-modal-body {

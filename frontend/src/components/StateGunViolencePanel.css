@@ -121,37 +121,10 @@
     background: #777;
 }
 
-/* Mobile responsiveness */
+/* Mobile responsiveness - Hide panel completely on mobile */
 @media (max-width: 768px) {
     .state-gun-violence-panel {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        left: 10px;
-        width: auto;
-        max-height: 56vh;
-        /* Adjusted for mobile (80% of 70vh) */
-    }
-
-    .panel-header h3 {
-        font-size: 1.1rem;
-    }
-
-    .panel-content {
-        padding: 15px;
-        max-height: calc(56vh - 70px);
-        /* Adjusted for new mobile height */
-    }
-
-    .context-text {
-        font-size: 0.85rem;
-    }
-
-    .close-button {
-        font-size: 1.3rem;
-        width: 22px;
-        height: 22px;
-        margin-left: 8px;
+        display: none !important;
     }
 }
 

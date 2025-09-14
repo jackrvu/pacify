@@ -656,6 +656,18 @@ const PolicyTimelinePopup = ({
                     </div>
                 </div>
 
+                {/* Mobile-only slider positioned after header for proper z-index */}
+                <div className="mobile-slider-container">
+                    <div
+                        className={`current-year-indicator ${(isDragging || isPlaying) ? 'no-transition' : ''}`}
+                        style={{ left: `${continuousPosition}%` }}
+                        onMouseDown={handleIndicatorDrag}
+                    >
+                        <div className="indicator-line"></div>
+                        <div className="indicator-label">{currentYear}</div>
+                    </div>
+                </div>
+
                 <div className="timeline-container">
                     {!selectedState && (
                         <div className="timeline-hint-message">
@@ -696,9 +708,9 @@ const PolicyTimelinePopup = ({
                         </div>
 
 
-                        {/* Current year indicator */}
+                        {/* Current year indicator - Desktop only */}
                         <div
-                            className={`current-year-indicator ${(isDragging || isPlaying) ? 'no-transition' : ''}`}
+                            className={`current-year-indicator desktop-only ${(isDragging || isPlaying) ? 'no-transition' : ''}`}
                             style={{ left: `${continuousPosition}%` }}
                             onMouseDown={handleIndicatorDrag}
                         >
