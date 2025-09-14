@@ -592,12 +592,6 @@ const AnalyticsDashboard = ({
 
                                             <div className="policy-actions">
                                                 <button
-                                                    className="view-details-btn"
-                                                    onClick={() => handleViewPolicyDetails(policy)}
-                                                >
-                                                    View Details
-                                                </button>
-                                                <button
                                                     className={`bookmark-btn ${isPolicyBookmarked(policy.law_id) ? 'bookmarked' : ''}`}
                                                     onClick={(e) => {
                                                         e.stopPropagation();

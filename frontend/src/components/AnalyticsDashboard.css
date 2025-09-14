@@ -11,7 +11,7 @@
             #353535 75%,
             #282828 100%);
     color: white;
-    overflow: hidden;
+    overflow-y: auto;
 }
 
 /* Header */
@@ -124,7 +124,6 @@
 .dashboard-content {
     display: flex;
     flex: 1;
-    overflow: hidden;
 }
 
 /* Sidebar */
@@ -167,7 +166,6 @@
     display: flex;
     flex-direction: column;
     padding: 1.5rem;
-    overflow: hidden;
 }
 
 .workspace-header {
@@ -1312,7 +1310,6 @@
 
 .policy-list {
     flex: 1;
-    overflow-y: auto;
     padding: 0 1rem;
 }
 
@@ -1401,54 +1398,31 @@
     justify-content: flex-end;
 }
 
-.view-details-btn,
 .bookmark-btn {
-    padding: 0.5rem 1rem;
+    background: transparent;
     border: none;
-    border-radius: 6px;
-    font-size: 0.9rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.view-details-btn {
-    background: linear-gradient(135deg, #6b7280, #4b5563);
-    color: white;
-}
-
-.view-details-btn:hover {
-    background: linear-gradient(135deg, #4b5563, #374151);
-    transform: translateY(-1px);
-}
-
-.bookmark-btn {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #ffd700;
-    padding: 0.5rem;
-    border-radius: 6px;
-    font-size: 1.2rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    flex-shrink: 0;
+    color: #ff6b35;
+    font-size: 24px;
     width: 40px;
     height: 40px;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
 }
 
 .bookmark-btn:hover {
-    background: rgba(255, 215, 0, 0.2);
-    transform: scale(1.05);
+    background: transparent;
+    transform: scale(1.1);
+    color: #ff6b35;
 }
 
 .bookmark-btn.bookmarked {
-    background: rgba(255, 215, 0, 0.3);
-    color: #ffd700;
-    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    background: transparent;
+    color: #ff6b35;
+    text-shadow: 0 0 12px rgba(255, 107, 53, 0.8);
 }
 
 .loading-state {

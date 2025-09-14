@@ -52,7 +52,7 @@ const IncidentHeatmap = ({ incidents, enabled = true }) => {
             if (totalCasualties === 0) {
                 intensity = 0.1;   // White
             } else if (totalCasualties === 1) {
-                intensity = 0.2;  // Bright yellow
+                intensity = 0.2;  // Bright orange
             } else if (totalCasualties === 2) {
                 intensity = 0.3;  // Bright orange
             } else if (totalCasualties === 3) {
@@ -83,7 +83,7 @@ const IncidentHeatmap = ({ incidents, enabled = true }) => {
             gradient: {
                 0.0: 'transparent',  // Transparent for no data
                 0.1: '#FFFFFF',     // White
-                0.2: '#FFFF00',     // Bright yellow
+                0.2: '#ff6b35',     // Bright orange
                 0.3: '#FF8000',     // Bright orange
                 0.4: '#FF4000',     // Bright red-orange
                 0.5: '#FF0000',     // Bright red

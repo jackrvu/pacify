@@ -109,7 +109,7 @@ const PolicyIncidentGraph = ({ state, policyDate, timelineData }) => {
                             y1="20"
                             x2={40 + ((policyYear - minYear) / yearRange) * 340}
                             y2="100"
-                            stroke="#ffd700"
+                            stroke="#ff6b35"
                             strokeWidth="2"
                             strokeDasharray="5,5"
                             className="policy-line"
