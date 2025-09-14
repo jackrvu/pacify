@@ -128,8 +128,13 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .bookmark-media-loading p {
@@ -467,68 +472,109 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    .bookmark-media-tab {
+        padding: 1rem;
+        margin-bottom: 0;
+        padding-bottom: 1rem;
+    }
+
     .bookmark-media-tab-header {
         flex-direction: column;
         align-items: stretch;
         gap: 1rem;
     }
-    
+
     .bookmark-media-tab-controls {
         align-items: stretch;
         gap: 0.75rem;
     }
-    
+
     .bookmark-media-header {
         flex-direction: column;
         align-items: stretch;
         gap: 1rem;
     }
-    
+
     .bookmark-media-controls {
         justify-content: space-between;
         flex-wrap: wrap;
     }
-    
+
     .bookmark-article-count-selector {
         justify-content: center;
     }
-    
+
+    .bookmark-articles-list {
+        max-height: 400px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
     .bookmark-pagination-controls {
         flex-direction: column;
         gap: 0.75rem;
+        margin-top: 0.75rem;
+        margin-bottom: 0;
+        padding: 0.5rem;
     }
-    
+
     .bookmark-page-numbers {
         flex-wrap: wrap;
         justify-content: center;
     }
-    
+
     .bookmark-article-meta {
         flex-direction: column;
         gap: 0.25rem;
     }
-    
+
     .bookmark-article-title {
         font-size: 0.95rem;
     }
-    
+
     .bookmark-article-summary {
         font-size: 0.85rem;
+    }
+
+    /* Fix bottom spacing for last updated text */
+    .bookmark-media-tab>div:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 }
 
 @media (max-width: 480px) {
     .bookmark-media-tab {
-        padding: 1rem;
+        padding: 0.75rem;
+        margin-bottom: 0;
+        padding-bottom: 0.75rem;
     }
-    
+
     .bookmark-article-card {
         padding: 0.75rem;
     }
-    
+
+    .bookmark-articles-list {
+        max-height: 350px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    .bookmark-pagination-controls {
+        margin-top: 0.5rem;
+        margin-bottom: 0;
+        padding: 0.4rem;
+    }
+
     .refresh-btn {
         padding: 0.4rem 0.8rem;
         font-size: 0.8rem;
+    }
+
+    /* Fix bottom spacing for last updated text */
+    .bookmark-media-tab>div:last-child {
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 }
 
@@ -652,19 +698,19 @@
         margin: 1rem;
         max-width: calc(100% - 2rem);
     }
-    
+
     .modal-header,
     .modal-body,
     .modal-footer {
         padding-left: 1rem;
         padding-right: 1rem;
     }
-    
+
     .modal-footer {
         flex-direction: column;
         gap: 0.5rem;
     }
-    
+
     .cancel-btn,
     .delete-btn {
         width: 100%;
