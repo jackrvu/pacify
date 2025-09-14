@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
+import CustomDropdown from './CustomDropdown';
 import {
     getSixMonthGunViolenceNews,
     getStateNews,
@@ -359,18 +360,18 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy, onBookmarkChange }) =
                 <h4>Gun Violence News</h4>
                 <div className="bookmark-media-controls">
                     <div className="bookmark-article-count-selector">
-                        <label htmlFor="articles-per-page-no">Show:</label>
-                        <select
-                            id="articles-per-page-no"
-                            className="bookmark-count-select"
+                        <label>Show:</label>
+                        <CustomDropdown
                             value={articlesPerPage}
-                            onChange={(e) => handleArticlesPerPageChange(parseInt(e.target.value))}
-                        >
-                            <option value={10}>10</option>
-                            <option value={25}>25</option>
-                            <option value={50}>50</option>
-                            <option value={100}>100</option>
-                        </select>
+                            onChange={handleArticlesPerPageChange}
+                            options={[
+                                { value: 10, label: "10" },
+                                { value: 25, label: "25" },
+                                { value: 50, label: "50" },
+                                { value: 100, label: "100" }
+                            ]}
+                            className="bookmark-count-dropdown"
+                        />
                     </div>
                     <button
                         className="refresh-btn"
@@ -405,18 +406,18 @@ const BookmarkMediaTab = ({ selectedState, selectedPolicy, onBookmarkChange }) =
                     <h4>Gun Violence News</h4>
                     <div className="bookmark-media-controls">
                         <div className="bookmark-article-count-selector">
-                            <label htmlFor="articles-per-page">Show:</label>
-                            <select
-                                id="articles-per-page"
-                                className="bookmark-count-select"
+                            <label>Show:</label>
+                            <CustomDropdown
                                 value={articlesPerPage}
-                                onChange={(e) => handleArticlesPerPageChange(parseInt(e.target.value))}
-                            >
-                                <option value={10}>10</option>
-                                <option value={25}>25</option>
-                                <option value={50}>50</option>
-                                <option value={100}>100</option>
-                            </select>
+                                onChange={handleArticlesPerPageChange}
+                                options={[
+                                    { value: 10, label: "10" },
+                                    { value: 25, label: "25" },
+                                    { value: 50, label: "50" },
+                                    { value: 100, label: "100" }
+                                ]}
+                                className="bookmark-count-dropdown"
+                            />
                         </div>
                         <button
                             className="refresh-btn"
