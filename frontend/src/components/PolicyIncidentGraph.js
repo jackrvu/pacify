@@ -2,6 +2,14 @@ import React, { useMemo } from 'react';
 import './PolicyIncidentGraph.css';
 
 const PolicyIncidentGraph = ({ state, policyDate, timelineData }) => {
+    // Utility function to safely display text (hide if NaN)
+    const safeText = (value, fallback = '') => {
+        if (value === null || value === undefined || isNaN(value) || value === 'NaN') {
+            return fallback;
+        }
+        return value;
+    };
+
     // Process data for the graph
     const graphData = useMemo(() => {
         if (!timelineData || !state || !policyDate) return [];
@@ -37,10 +45,10 @@ const PolicyIncidentGraph = ({ state, policyDate, timelineData }) => {
         return new Date(policyDate).getFullYear();
     }, [policyDate]);
 
-    // Calculate graph dimensions and scaling
-    const maxCount = graphData.length > 0 ? Math.max(...graphData.map(d => d.count), 1) : 1;
-    const minYear = graphData.length > 0 ? Math.min(...graphData.map(d => d.year)) : 2020;
-    const maxYear = graphData.length > 0 ? Math.max(...graphData.map(d => d.year)) : 2025;
+    // Calculate graph dimensions and scaling with Safari-compatible NaN handling
+    const maxCount = graphData.length > 0 ? Math.max(...graphData.map(d => Number(d.count) || 0), 1) : 1;
+    const minYear = graphData.length > 0 ? Math.min(...graphData.map(d => Number(d.year) || 2020)) : 2020;
+    const maxYear = graphData.length > 0 ? Math.max(...graphData.map(d => Number(d.year) || 2025)) : 2025;
     const yearRange = Math.max(maxYear - minYear, 1);
 
     if (graphData.length === 0) {
@@ -80,16 +88,18 @@ const PolicyIncidentGraph = ({ state, policyDate, timelineData }) => {
                         stroke="#ffffff"
                         strokeWidth="2"
                         points={graphData.map((d, i) => {
+                            const count = Number(d.count) || 0;
                             const x = 40 + (i / Math.max(graphData.length - 1, 1)) * 340;
-                            const y = 100 - (d.count / maxCount) * 80;
+                            const y = 100 - (count / maxCount) * 80;
                             return `${isNaN(x) ? 40 : x},${isNaN(y) ? 100 : y}`;
                         }).join(' ')}
                     />
 
                     {/* Data points */}
                     {graphData.map((d, i) => {
+                        const count = Number(d.count) || 0;
                         const x = 40 + (i / Math.max(graphData.length - 1, 1)) * 340;
-                        const y = 100 - (d.count / maxCount) * 80;
+                        const y = 100 - (count / maxCount) * 80;
                         return (
                             <circle
                                 key={i}
@@ -130,21 +140,23 @@ const PolicyIncidentGraph = ({ state, policyDate, timelineData }) => {
                                 fill="#cccccc"
                                 fontSize="10"
                             >
-                                {value}
+                                {isNaN(value) ? 0 : value}
                             </text>
                         );
                     })}
                 </svg>
             </div>
             <div className="graph-legend">
-                <div className="legend-item">
-                    <div className="legend-line white"></div>
-                    <span>Incidents</span>
-                </div>
-                {policyYear && (
+                {graphData.length > 0 && (
+                    <div className="legend-item">
+                        <div className="legend-line white"></div>
+                        <span>Incidents</span>
+                    </div>
+                )}
+                {policyYear && !isNaN(policyYear) && (
                     <div className="legend-item">
                         <div className="legend-line gold"></div>
-                        <span>Policy Enacted ({policyYear})</span>
+                        <span>Policy Enacted ({safeText(policyYear)})</span>
                     </div>
                 )}
             </div>

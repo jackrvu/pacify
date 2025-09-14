@@ -12,6 +12,14 @@ const PolicyImpactVisualization = ({
     selectedPolicy = null,
     availablePolicyAnalyses = []
 }) => {
+    // Utility function to safely display text (hide if NaN)
+    const safeText = (value, fallback = '') => {
+        if (value === null || value === undefined || isNaN(value) || value === 'NaN') {
+            return fallback;
+        }
+        return value;
+    };
+
     const [analysisData, setAnalysisData] = useState(null);
     const [loading, setLoading] = useState(false);
     const [selectedAnalysis, setSelectedAnalysis] = useState(null);
@@ -333,25 +341,32 @@ const PolicyImpactVisualization = ({
         try {
             const beforeData = analysisData.time_series_data?.before_period?.map(item => ({
                 ...item,
+                year: Number(item.year) || 0,
+                incident_rate: Number(item.incident_rate) || 0,
                 period: 'Before',
                 period_type: 'before'
-            })) || [];
+            })).filter(item => !isNaN(item.year) && !isNaN(item.incident_rate)) || [];
 
             const afterData = analysisData.time_series_data?.after_period?.map(item => ({
                 ...item,
+                year: Number(item.year) || 0,
+                incident_rate: Number(item.incident_rate) || 0,
                 period: 'After',
                 period_type: 'after'
-            })) || [];
+            })).filter(item => !isNaN(item.year) && !isNaN(item.incident_rate)) || [];
 
             // Add implementation year marker
+            const implementationYear = Number(analysisData.policy_info?.implementation_year) || 0;
             const implementationMarker = {
-                year: analysisData.policy_info?.implementation_year,
+                year: implementationYear,
                 incident_rate: null,
                 period: 'Implementation',
                 period_type: 'implementation'
             };
 
-            const timelineResult = [...beforeData, implementationMarker, ...afterData].sort((a, b) => a.year - b.year);
+            const timelineResult = [...beforeData, implementationMarker, ...afterData]
+                .filter(item => !isNaN(item.year))
+                .sort((a, b) => a.year - b.year);
             console.log('📈 Timeline data prepared:', timelineResult);
 
             return timelineResult;
@@ -366,32 +381,33 @@ const PolicyImpactVisualization = ({
     const comparisonData = useMemo(() => {
         if (!analysisData || !analysisData.control_comparison) return [];
 
-        return [
-            {
-                state: analysisData.policy_info.state,
-                type: 'Treatment State',
-                before_rate: analysisData.impact_summary.before_rate,
-                after_rate: analysisData.impact_summary.after_rate,
-                change_percent: analysisData.impact_summary.change_percent
-            },
-            ...analysisData.control_comparison.map(control => ({
-                state: control.state,
-                type: 'Control State',
-                before_rate: control.before_rate,
-                after_rate: control.after_rate,
-                change_percent: control.change_percent
-            }))
-        ];
+        const treatmentState = {
+            state: analysisData.policy_info?.state || 'Unknown',
+            type: 'Treatment State',
+            before_rate: Number(analysisData.impact_summary?.before_rate) || 0,
+            after_rate: Number(analysisData.impact_summary?.after_rate) || 0,
+            change_percent: Number(analysisData.impact_summary?.change_percent) || 0
+        };
+
+        const controlStates = analysisData.control_comparison.map(control => ({
+            state: control.state || 'Unknown',
+            type: 'Control State',
+            before_rate: Number(control.before_rate) || 0,
+            after_rate: Number(control.after_rate) || 0,
+            change_percent: Number(control.change_percent) || 0
+        }));
+
+        return [treatmentState, ...controlStates];
     }, [analysisData]);
 
     const formatChangePercent = (value) => {
-        if (value === null || value === undefined) return 'N/A';
-        if (!isFinite(value)) return 'N/A';
-        return `${value > 0 ? '+' : ''}${value.toFixed(1)}%`;
+        if (value === null || value === undefined) return null;
+        if (isNaN(value) || !isFinite(value)) return null;
+        return safeText(`${value > 0 ? '+' : ''}${value.toFixed(1)}%`);
     };
 
     const getChangeColor = (value) => {
-        if (value === null || value === undefined || !isFinite(value)) return '#666';
+        if (value === null || value === undefined || isNaN(value) || !isFinite(value)) return '#666';
         return value > 0 ? '#dc3545' : '#28a745'; // Red for increase, green for decrease
     };
 
@@ -604,7 +620,7 @@ const PolicyImpactVisualization = ({
                                                         label={{ value: 'Incidents per 100k', angle: -90, position: 'insideLeft' }}
                                                     />
                                                     <Tooltip content={<CustomTooltip />} />
-                                                    <Legend />
+                                                    {timelineData.some(d => !isNaN(d.incident_rate)) && <Legend />}
                                                     <Line
                                                         type="monotone"
                                                         dataKey="incident_rate"
@@ -617,7 +633,7 @@ const PolicyImpactVisualization = ({
                                                             return <circle cx={props.cx} cy={props.cy} r={4} fill="#2563eb" />;
                                                         }}
                                                         connectNulls={false}
-                                                        name="Incident Rate"
+                                                        name={timelineData.some(d => !isNaN(d.incident_rate)) ? "Incident Rate" : ""}
                                                     />
                                                 </LineChart>
                                             </ResponsiveContainer>
@@ -637,9 +653,9 @@ const PolicyImpactVisualization = ({
                                                 <XAxis dataKey="state" />
                                                 <YAxis label={{ value: 'Incidents per 100k', angle: -90, position: 'insideLeft' }} />
                                                 <Tooltip />
-                                                <Legend />
-                                                <Bar dataKey="before_rate" fill="#94a3b8" name="Before Policy" />
-                                                <Bar dataKey="after_rate" fill="#3b82f6" name="After Policy" />
+                                                {comparisonData.some(d => !isNaN(d.before_rate) || !isNaN(d.after_rate)) && <Legend />}
+                                                <Bar dataKey="before_rate" fill="#94a3b8" name={comparisonData.some(d => !isNaN(d.before_rate)) ? "Before Policy" : ""} />
+                                                <Bar dataKey="after_rate" fill="#3b82f6" name={comparisonData.some(d => !isNaN(d.after_rate)) ? "After Policy" : ""} />
                                             </BarChart>
                                         </ResponsiveContainer>
                                     </div>
@@ -655,13 +671,13 @@ const PolicyImpactVisualization = ({
                                             <div className="impact-metric">
                                                 <span className="metric-label">Before Rate:</span>
                                                 <span className="metric-value">
-                                                    {analysisData.impact_summary.before_rate.toFixed(2)} per 100k
+                                                    {isNaN(analysisData.impact_summary.before_rate) ? 'N/A' : analysisData.impact_summary.before_rate.toFixed(2)} per 100k
                                                 </span>
                                             </div>
                                             <div className="impact-metric">
                                                 <span className="metric-label">After Rate:</span>
                                                 <span className="metric-value">
-                                                    {analysisData.impact_summary.after_rate.toFixed(2)} per 100k
+                                                    {isNaN(analysisData.impact_summary.after_rate) ? 'N/A' : analysisData.impact_summary.after_rate.toFixed(2)} per 100k
                                                 </span>
                                             </div>
                                             <div className="impact-metric">
@@ -670,7 +686,7 @@ const PolicyImpactVisualization = ({
                                                     className="metric-value"
                                                     style={{ color: getChangeColor(analysisData.impact_summary.change_percent) }}
                                                 >
-                                                    {formatChangePercent(analysisData.impact_summary.change_percent)}
+                                                    {formatChangePercent(analysisData.impact_summary.change_percent) || 'N/A'}
                                                 </span>
                                             </div>
                                         </div>

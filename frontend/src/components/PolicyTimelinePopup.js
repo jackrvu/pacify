@@ -330,8 +330,13 @@ const PolicyTimelinePopup = ({
         const timelineRect = timelineTrack.getBoundingClientRect();
         let currentDragPosition = continuousPosition; // Store the drag position locally
 
-        const handleMouseMove = (e) => {
-            const x = e.clientX - timelineRect.left;
+        const getEventX = (e) => {
+            // Handle both mouse and touch events
+            return e.clientX || (e.touches && e.touches[0] ? e.touches[0].clientX : 0);
+        };
+
+        const handleMove = (e) => {
+            const x = getEventX(e) - timelineRect.left;
             const percentage = Math.max(0, Math.min(100, (x / timelineRect.width) * 100));
 
             // Store the current drag position
@@ -350,7 +355,7 @@ const PolicyTimelinePopup = ({
             }
         };
 
-        const handleMouseUp = () => {
+        const handleEnd = () => {
             setIsDragging(false);
 
             // Use the actual drag position, not the state value
@@ -365,12 +370,18 @@ const PolicyTimelinePopup = ({
             onYearChange(snapYear);
             setContinuousPosition(yearToPosition(snapYear));
 
-            document.removeEventListener('mousemove', handleMouseMove);
-            document.removeEventListener('mouseup', handleMouseUp);
+            // Remove all event listeners
+            document.removeEventListener('mousemove', handleMove);
+            document.removeEventListener('mouseup', handleEnd);
+            document.removeEventListener('touchmove', handleMove);
+            document.removeEventListener('touchend', handleEnd);
         };
 
-        document.addEventListener('mousemove', handleMouseMove);
-        document.addEventListener('mouseup', handleMouseUp);
+        // Add both mouse and touch event listeners
+        document.addEventListener('mousemove', handleMove);
+        document.addEventListener('mouseup', handleEnd);
+        document.addEventListener('touchmove', handleMove, { passive: false });
+        document.addEventListener('touchend', handleEnd);
     };
 
     // Handle back button click
@@ -656,18 +667,6 @@ const PolicyTimelinePopup = ({
                     </div>
                 </div>
 
-                {/* Mobile-only slider positioned after header for proper z-index */}
-                <div className="mobile-slider-container">
-                    <div
-                        className={`current-year-indicator ${(isDragging || isPlaying) ? 'no-transition' : ''}`}
-                        style={{ left: `${continuousPosition}%` }}
-                        onMouseDown={handleIndicatorDrag}
-                    >
-                        <div className="indicator-line"></div>
-                        <div className="indicator-label">{currentYear}</div>
-                    </div>
-                </div>
-
                 <div className="timeline-container">
                     {!selectedState && (
                         <div className="timeline-hint-message">
@@ -708,11 +707,12 @@ const PolicyTimelinePopup = ({
                         </div>
 
 
-                        {/* Current year indicator - Desktop only */}
+                        {/* Current year indicator */}
                         <div
-                            className={`current-year-indicator desktop-only ${(isDragging || isPlaying) ? 'no-transition' : ''}`}
+                            className={`current-year-indicator ${(isDragging || isPlaying) ? 'no-transition' : ''}`}
                             style={{ left: `${continuousPosition}%` }}
                             onMouseDown={handleIndicatorDrag}
+                            onTouchStart={handleIndicatorDrag}
                         >
                             <div className="indicator-line"></div>
                             <div className="indicator-label">{currentYear}</div>
