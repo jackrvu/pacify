@@ -1,0 +1,492 @@
+/* BookmarkMediaTab component styles - Optimized for bookmark news section */
+
+.bookmark-media-tab {
+    background: rgba(30, 30, 30, 0.8);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    resize: none;
+    overflow: hidden;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.bookmark-media-tab-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+}
+
+.bookmark-media-tab-title h3 {
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.bookmark-media-tab-description {
+    margin: 0;
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.bookmark-media-tab-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: flex-end;
+}
+
+.refresh-btn {
+    background: rgba(45, 45, 45, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.refresh-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.refresh-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Article Count Selector */
+.bookmark-article-count-selector {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(45, 45, 45, 0.8);
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem;
+}
+
+.bookmark-article-count-selector label {
+    color: #ccc;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.bookmark-count-select {
+    background: rgba(30, 30, 30, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bookmark-count-select:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(30, 30, 30, 0.9);
+}
+
+.bookmark-count-select:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.2);
+}
+
+/* Loading State */
+.bookmark-media-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    color: #ccc;
+}
+
+.loading-spinner {
+    width: 32px;
+    height: 32px;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    border-top: 3px solid #ff6b35;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.bookmark-media-loading p {
+    margin: 0;
+    font-size: 0.9rem;
+}
+
+/* Error State */
+.bookmark-media-error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    color: #ff6b6b;
+    text-align: center;
+}
+
+.bookmark-media-error p {
+    margin: 0 0 1rem 0;
+    font-size: 0.9rem;
+}
+
+.retry-btn {
+    background: #ff6b35;
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.retry-btn:hover {
+    background: #e55a2b;
+}
+
+/* Articles Container */
+.bookmark-articles-container {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+.bookmark-media-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bookmark-media-header h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.bookmark-media-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Articles List */
+.bookmark-articles-list {
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-right: 0.5rem;
+    max-height: 500px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.bookmark-articles-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.bookmark-articles-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+}
+
+.bookmark-articles-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 3px;
+}
+
+.bookmark-articles-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Article Card */
+.bookmark-article-card {
+    background: rgba(45, 45, 45, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+    transition: all 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bookmark-article-card:hover {
+    background: rgba(45, 45, 45, 0.8);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.bookmark-article-header {
+    margin-bottom: 0.75rem;
+}
+
+.bookmark-article-title {
+    margin: 0 0 0.5rem 0;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.bookmark-article-title:hover {
+    color: #ff6b35;
+}
+
+.bookmark-article-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.8rem;
+    color: #999;
+    flex-wrap: wrap;
+}
+
+.bookmark-article-source {
+    font-weight: 500;
+    color: #ff6b35;
+}
+
+.bookmark-article-date {
+    color: #999;
+}
+
+.bookmark-article-summary {
+    color: #ccc;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.bookmark-article-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bookmark-read-more-btn {
+    background: transparent;
+    border: 1px solid rgba(255, 107, 53, 0.3);
+    color: #ff6b35;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.bookmark-read-more-btn:hover {
+    background: rgba(255, 107, 53, 0.1);
+    border-color: rgba(255, 107, 53, 0.5);
+    color: #fff;
+}
+
+/* No Articles State */
+.bookmark-no-articles {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1rem;
+    color: #999;
+    text-align: center;
+}
+
+.bookmark-no-articles p {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+}
+
+.bookmark-no-articles-subtitle {
+    font-size: 0.85rem !important;
+    color: #666 !important;
+}
+
+/* Pagination */
+.bookmark-pagination-controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding: 0.75rem;
+    background: rgba(45, 45, 45, 0.3);
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bookmark-pagination-info {
+    text-align: center;
+    color: #999;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.bookmark-pagination-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.bookmark-pagination-btn {
+    background: rgba(45, 45, 45, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.bookmark-pagination-btn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.bookmark-pagination-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.bookmark-page-numbers {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.bookmark-page-btn {
+    background: rgba(45, 45, 45, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 2.5rem;
+}
+
+.bookmark-page-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.bookmark-page-btn.active {
+    background: #ff6b35;
+    border-color: #ff6b35;
+    color: white;
+}
+
+.bookmark-page-btn.active:hover {
+    background: #e55a2b;
+    border-color: #e55a2b;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .bookmark-media-tab-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .bookmark-media-tab-controls {
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    
+    .bookmark-media-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1rem;
+    }
+    
+    .bookmark-media-controls {
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    
+    .bookmark-article-count-selector {
+        justify-content: center;
+    }
+    
+    .bookmark-pagination-controls {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .bookmark-page-numbers {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .bookmark-article-meta {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    
+    .bookmark-article-title {
+        font-size: 0.95rem;
+    }
+    
+    .bookmark-article-summary {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .bookmark-media-tab {
+        padding: 1rem;
+    }
+    
+    .bookmark-article-card {
+        padding: 0.75rem;
+    }
+    
+    .refresh-btn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+    }
+}

@@ -22,6 +22,11 @@
     font-style: italic;
 }
 
+.highlighted-phrase {
+    color: #ff6b35;
+    font-weight: 600;
+}
+
 .analysis-section {
     background: linear-gradient(135deg, rgba(45, 45, 45, 0.7), rgba(35, 35, 35, 0.8));
     border-radius: 16px;

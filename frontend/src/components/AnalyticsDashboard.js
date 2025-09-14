@@ -2,12 +2,16 @@
 // Provides data analysis tools with local storage persistence
 
 import React, { useState, useEffect, useMemo } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AnalyticsDashboard.css';
 import { getBookmarkedPolicies, unbookmarkPolicy, addAnnotation, updateAnnotation, removeAnnotation, bookmarkPolicy, isPolicyBookmarked } from '../utils/bookmarkService';
 import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
 import VisualAnalysisResponse from './VisualAnalysisResponse';
 import PolicyIncidentGraph from './PolicyIncidentGraph';
 import PolicyModal from './PolicyModal';
+import CustomDropdown from './CustomDropdown';
+import MediaTab from './MediaTab';
+import BookmarkMediaTab from './BookmarkMediaTab';
 
 // Utility function for consistent timestamp generation
 const getCurrentTimestamp = () => {
@@ -54,6 +58,30 @@ const formatDateForDisplay = (dateString) => {
     }
 };
 
+// Function to determine policy effect based on law class
+const determinePolicyEffect = (lawClass) => {
+    if (!lawClass) return null;
+    
+    const lawClassLower = lawClass.toLowerCase();
+    
+    // Permissive policies
+    const permissiveKeywords = ['concealed carry', 'constitutional carry', 'shall issue', 
+                               'preemption', 'castle doctrine', 'stand your ground', 'open carry'];
+    if (permissiveKeywords.some(keyword => lawClassLower.includes(keyword))) {
+        return 'permissive';
+    }
+    
+    // Restrictive policies
+    const restrictiveKeywords = ['background check', 'waiting', 'prohibited', 'minimum age', 
+                                'registration', 'license required', 'permit required', 'ban',
+                                'child access', 'safe storage', 'reporting', 'training required'];
+    if (restrictiveKeywords.some(keyword => lawClassLower.includes(keyword))) {
+        return 'restrictive';
+    }
+    
+    return null;
+};
+
 const AnalyticsDashboard = ({
     incidents,
     timelineData,
@@ -65,8 +93,11 @@ const AnalyticsDashboard = ({
     showAnalyticsDashboard,
     onFlyToLocation
 }) => {
+    // Navigation hook
+    const navigate = useNavigate();
+    
     // Dashboard view state
-    const [activeView, setActiveView] = useState('analytics'); // 'analytics', 'bookmarks', 'policy-details'
+    const [activeView, setActiveView] = useState('analytics'); // 'analytics', 'bookmarks', 'news', 'policy-details'
 
     // Bookmark state
     const [bookmarkedPolicies, setBookmarkedPolicies] = useState([]);
@@ -84,6 +115,7 @@ const AnalyticsDashboard = ({
     const [showGeminiPanel, setShowGeminiPanel] = useState(true);
     const [geminiQuestion, setGeminiQuestion] = useState('');
     const [currentAnalysisType, setCurrentAnalysisType] = useState(null);
+    const [activeAnalysisTab, setActiveAnalysisTab] = useState('ai'); // 'ai', 'annotations', 'media'
 
     // Annotation editing state
     const [editingAnnotation, setEditingAnnotation] = useState(null);
@@ -104,6 +136,14 @@ const AnalyticsDashboard = ({
     // Policy modal state
     const [showPolicyModal, setShowPolicyModal] = useState(false);
     const [selectedPolicyForModal, setSelectedPolicyForModal] = useState(null);
+
+    // Delete confirmation modal state
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [annotationToDelete, setAnnotationToDelete] = useState(null);
+
+    // Bookmark removal confirmation modal state
+    const [showBookmarkDeleteModal, setShowBookmarkDeleteModal] = useState(false);
+    const [bookmarkToDelete, setBookmarkToDelete] = useState(null);
 
     // Load policy data
     useEffect(() => {
@@ -175,12 +215,27 @@ const AnalyticsDashboard = ({
 
     // Bookmark handlers
     const handleRemoveBookmark = (lawId) => {
-        const result = unbookmarkPolicy(lawId);
-        if (result.success) {
-            setBookmarkedPolicies(prev => prev.filter(b => b.law_id !== lawId));
-        } else {
-            alert(result.message);
+        const bookmark = bookmarkedPolicies.find(b => b.law_id === lawId);
+        setBookmarkToDelete(bookmark);
+        setShowBookmarkDeleteModal(true);
+    };
+
+    const confirmRemoveBookmark = () => {
+        if (bookmarkToDelete) {
+            const result = unbookmarkPolicy(bookmarkToDelete.law_id);
+            if (result.success) {
+                setBookmarkedPolicies(prev => prev.filter(b => b.law_id !== bookmarkToDelete.law_id));
+            } else {
+                alert(result.message);
+            }
         }
+        setShowBookmarkDeleteModal(false);
+        setBookmarkToDelete(null);
+    };
+
+    const cancelRemoveBookmark = () => {
+        setShowBookmarkDeleteModal(false);
+        setBookmarkToDelete(null);
     };
 
     const handleViewBookmark = (bookmark) => {
@@ -287,6 +342,7 @@ const AnalyticsDashboard = ({
                 state: policy.state,
                 policy_type: policy.policy_type,
                 law_class: policy.law_class,
+                effect: policy.effect,
                 effective_date: policy.effective_date,
                 description: policy.description,
                 impact_analysis: policy.impact_analysis,
@@ -387,11 +443,17 @@ const AnalyticsDashboard = ({
         setEditAnnotationContent('');
     };
 
-    // Delete annotation handler
+    // Show delete confirmation modal
     const handleDeleteAnnotation = (annotationId) => {
-        if (!currentPolicy || !window.confirm('Are you sure you want to delete this annotation?')) return;
+        setAnnotationToDelete(annotationId);
+        setShowDeleteModal(true);
+    };
 
-        const result = removeAnnotation(currentPolicy.law_id, annotationId);
+    // Confirm delete annotation
+    const confirmDeleteAnnotation = () => {
+        if (!currentPolicy || !annotationToDelete) return;
+
+        const result = removeAnnotation(currentPolicy.law_id, annotationToDelete);
 
         if (result.success) {
             // Reload annotations
@@ -403,19 +465,29 @@ const AnalyticsDashboard = ({
         } else {
             alert(result.message);
         }
+
+        // Close modal and reset state
+        setShowDeleteModal(false);
+        setAnnotationToDelete(null);
+    };
+
+    // Cancel delete annotation
+    const cancelDeleteAnnotation = () => {
+        setShowDeleteModal(false);
+        setAnnotationToDelete(null);
     };
 
     // Get analysis title based on insight type
     const getAnalysisTitle = (insightType) => {
         const titles = {
-            'safety_impact': '🛡️ Safety Impact Analysis',
-            'constitutional': '⚖️ Constitutional Analysis',
-            'effectiveness': '📊 Policy Effectiveness Analysis',
-            'comparison': '🔄 State Comparison Analysis',
-            'unintended': '⚠️ Unintended Consequences Analysis',
-            'implementation': '🔧 Implementation Challenges Analysis'
+            'safety_impact': 'Safety Impact Analysis',
+            'constitutional': 'Constitutional Analysis',
+            'effectiveness': 'Policy Effectiveness Analysis',
+            'comparison': 'State Comparison Analysis',
+            'unintended': 'Unintended Consequences Analysis',
+            'implementation': 'Implementation Challenges Analysis'
         };
-        return titles[insightType] || '🤖 AI Analysis';
+        return titles[insightType] || 'AI Analysis';
     };
 
     const handleGeminiAnalysis = async (insightType = null) => {
@@ -465,21 +537,39 @@ const AnalyticsDashboard = ({
             {/* Header */}
             <div className="dashboard-header">
                 <div className="session-info">
+                    <button 
+                        className="nav-btn methodology-btn" 
+                        onClick={() => navigate('/methodology')}
+                    >
+                        Methodology
+                    </button>
+                    <button 
+                        className="nav-btn about-btn" 
+                        onClick={() => navigate('/about')}
+                    >
+                        About
+                    </button>
                 </div>
 
                 <div className="session-controls">
                     <div className="view-switcher">
                         <button
-                            className={`view-btn ${activeView === 'analytics' ? 'active' : ''}`}
+                            className={`view-btn analytics-btn ${activeView === 'analytics' ? 'active' : ''}`}
                             onClick={() => setActiveView('analytics')}
                         >
                             Analytics
                         </button>
                         <button
-                            className={`view-btn ${activeView === 'bookmarks' ? 'active' : ''}`}
+                            className={`view-btn bookmarks-btn ${activeView === 'bookmarks' ? 'active' : ''}`}
                             onClick={() => setActiveView('bookmarks')}
                         >
                             Bookmarks ({bookmarkedPolicies.length})
+                        </button>
+                        <button
+                            className={`view-btn news-btn ${activeView === 'news' ? 'active' : ''}`}
+                            onClick={() => setActiveView('news')}
+                        >
+                            News
                         </button>
                     </div>
 
@@ -504,40 +594,39 @@ const AnalyticsDashboard = ({
                         <div className="policy-filters">
                             <div className="filter-group">
                                 <label>State:</label>
-                                <select
+                                <CustomDropdown
                                     value={policyFilter.state}
-                                    onChange={(e) => setPolicyFilter(prev => ({ ...prev, state: e.target.value }))}
-                                >
-                                    <option value="all">All States</option>
-                                    {uniqueStates.map(state => (
-                                        <option key={state} value={state}>{state}</option>
-                                    ))}
-                                </select>
+                                    onChange={(value) => setPolicyFilter(prev => ({ ...prev, state: value }))}
+                                    options={[
+                                        { value: "all", label: "All States" },
+                                        ...uniqueStates.map(state => ({ value: state, label: state }))
+                                    ]}
+                                />
                             </div>
 
                             <div className="filter-group">
                                 <label>Sort By:</label>
-                                <select
+                                <CustomDropdown
                                     value={sortBy}
-                                    onChange={(e) => setSortBy(e.target.value)}
-                                >
-                                    <option value="state">State Name (A-Z)</option>
-                                    <option value="policy">Policy Name (A-Z)</option>
-                                    <option value="date">Date (Newest First)</option>
-                                </select>
+                                    onChange={setSortBy}
+                                    options={[
+                                        { value: "state", label: "State Name" },
+                                        { value: "policy", label: "Policy Name" },
+                                        { value: "date", label: "Date" }
+                                    ]}
+                                />
                             </div>
 
                             <div className="filter-group">
                                 <label>Year:</label>
-                                <select
+                                <CustomDropdown
                                     value={policyFilter.year}
-                                    onChange={(e) => setPolicyFilter(prev => ({ ...prev, year: e.target.value }))}
-                                >
-                                    <option value="all">All Years</option>
-                                    {uniqueYears.map(year => (
-                                        <option key={year} value={year.toString()}>{year}</option>
-                                    ))}
-                                </select>
+                                    onChange={(value) => setPolicyFilter(prev => ({ ...prev, year: value }))}
+                                    options={[
+                                        { value: "all", label: "All Years" },
+                                        ...uniqueYears.map(year => ({ value: year.toString(), label: year.toString() }))
+                                    ]}
+                                />
                             </div>
                         </div>
 
@@ -646,26 +735,37 @@ const AnalyticsDashboard = ({
                                                 <h3>{bookmark.law_class ? bookmark.law_class.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ') : 'Unknown Law Class'}</h3>
                                                 <div className="bookmark-meta">
                                                     <span className="bookmark-state">{bookmark.state}</span>
-                                                    <span
-                                                        className={`bookmark-effect ${bookmark.effect?.toLowerCase()}`}
-                                                    >
-                                                        {bookmark.effect}
-                                                    </span>
+                                                    {(() => {
+                                                        const effect = bookmark.effect || determinePolicyEffect(bookmark.law_class);
+                                                        return effect && (
+                                                            <span
+                                                                className={`bookmark-effect ${effect.toLowerCase()}`}
+                                                            >
+                                                                {effect.toUpperCase()}
+                                                            </span>
+                                                        );
+                                                    })()}
                                                     <span className="bookmark-date">
                                                         {formatDateForDisplay(bookmark.effective_date)}
                                                     </span>
                                                 </div>
                                             </div>
                                             <div className="bookmark-actions">
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        handleRemoveBookmark(bookmark.law_id);
-                                                    }}
-                                                    className="btn btn-danger btn-sm"
-                                                >
-                                                    Remove
-                                                </button>
+                                                {(() => {
+                                                    const effect = bookmark.effect || determinePolicyEffect(bookmark.law_class);
+                                                    return effect && (effect.toLowerCase() === 'restrictive' || effect.toLowerCase() === 'permissive');
+                                                })() && (
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            handleRemoveBookmark(bookmark.law_id);
+                                                        }}
+                                                        className="close-bookmark-btn"
+                                                        title="Remove bookmark"
+                                                    >
+                                                        ×
+                                                    </button>
+                                                )}
                                             </div>
                                         </div>
 
@@ -705,14 +805,25 @@ const AnalyticsDashboard = ({
                     </div>
                 )}
 
+                {activeView === 'news' && (
+                    <div className="news-view">
+                        <div className="news-content">
+                            <MediaTab 
+                                selectedState={currentPolicy?.state}
+                                selectedPolicy={currentPolicy}
+                            />
+                        </div>
+                    </div>
+                )}
+
                 {activeView === 'policy-details' && currentPolicy && (
                     <div className="policy-details-view">
                         <div className="policy-details-header">
                             <button
-                                onClick={handleBackToAnalytics}
+                                onClick={() => setActiveView('bookmarks')}
                                 className="back-btn"
                             >
-                                ← Back to Analytics
+                                ← Back to Bookmarks
                             </button>
                             <h2>Policy Analysis Dashboard</h2>
                         </div>
@@ -765,33 +876,40 @@ const AnalyticsDashboard = ({
                                     <h3>Analysis Tools</h3>
                                     <div className="tools-tabs">
                                         <button
-                                            className={`tool-tab ${!showGeminiPanel ? 'active' : ''}`}
-                                            onClick={() => setShowGeminiPanel(false)}
+                                            className={`tool-tab ${activeAnalysisTab === 'annotations' ? 'active' : ''}`}
+                                            onClick={() => setActiveAnalysisTab('annotations')}
                                         >
                                             Annotations
                                         </button>
                                         <button
-                                            className={`tool-tab ${showGeminiPanel ? 'active' : ''}`}
-                                            onClick={() => setShowGeminiPanel(true)}
+                                            className={`tool-tab ${activeAnalysisTab === 'ai' ? 'active' : ''}`}
+                                            onClick={() => setActiveAnalysisTab('ai')}
                                         >
                                             AI Analysis
+                                        </button>
+                                        <button
+                                            className={`tool-tab ${activeAnalysisTab === 'media' ? 'active' : ''}`}
+                                            onClick={() => setActiveAnalysisTab('media')}
+                                        >
+                                            Media
                                         </button>
                                     </div>
                                 </div>
 
                                 {/* Annotations Panel */}
-                                {!showGeminiPanel && (
+                                {activeAnalysisTab === 'annotations' && (
                                     <div className="annotations-panel">
                                         <div className="annotation-input">
-                                            <select
+                                            <CustomDropdown
                                                 value={annotationType}
-                                                onChange={(e) => setAnnotationType(e.target.value)}
+                                                onChange={setAnnotationType}
+                                                options={[
+                                                    { value: "note", label: "Note" },
+                                                    { value: "question", label: "Question" },
+                                                    { value: "insight", label: "Insight" }
+                                                ]}
                                                 className="annotation-type-select"
-                                            >
-                                                <option value="note">Note</option>
-                                                <option value="question">Question</option>
-                                                <option value="insight">Insight</option>
-                                            </select>
+                                            />
                                             <textarea
                                                 value={newAnnotation}
                                                 onChange={(e) => setNewAnnotation(e.target.value)}
@@ -844,13 +962,15 @@ const AnalyticsDashboard = ({
                                                                 // View mode
                                                                 <>
                                                                     <div className="annotation-header">
-                                                                        <span className="annotation-type">
-                                                                            {annotation.type === 'note' ? 'Note' :
-                                                                                annotation.type === 'question' ? 'Question' : 'Insight'}
-                                                                        </span>
-                                                                        <span className="annotation-date">
-                                                                            {formatDateForDisplay(annotation.created_at || annotation.timestamp)}
-                                                                        </span>
+                                                                        <div className="annotation-left">
+                                                                            <span className="annotation-type">
+                                                                                {annotation.type === 'note' ? 'Note' :
+                                                                                    annotation.type === 'question' ? 'Question' : 'Insight'}
+                                                                            </span>
+                                                                            <span className="annotation-date">
+                                                                                {formatDateForDisplay(annotation.created_at || annotation.timestamp)}
+                                                                            </span>
+                                                                        </div>
                                                                         <div className="annotation-actions">
                                                                             <button
                                                                                 onClick={() => handleEditAnnotation(annotation)}
@@ -890,7 +1010,7 @@ const AnalyticsDashboard = ({
                                 )}
 
                                 {/* Gemini Analysis Panel */}
-                                {showGeminiPanel && (
+                                {activeAnalysisTab === 'ai' && (
                                     <div className="gemini-panel">
                                         <div className="gemini-controls">
                                             <div className="gemini-quick-actions">
@@ -952,6 +1072,16 @@ const AnalyticsDashboard = ({
                                         )}
                                     </div>
                                 )}
+
+                                {/* Media Tab */}
+                                {activeAnalysisTab === 'media' && (
+                                    <div className="media-panel">
+                                        <BookmarkMediaTab 
+                                            selectedState={currentPolicy?.state}
+                                            selectedPolicy={currentPolicy}
+                                        />
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -978,6 +1108,69 @@ const AnalyticsDashboard = ({
                 year={selectedPolicyForModal ? new Date(selectedPolicyForModal.effective_date).getFullYear() : null}
                 timelineData={timelineData}
             />
+
+            {/* Delete Confirmation Modal */}
+            {showDeleteModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content delete-modal">
+                        <div className="modal-header">
+                            <h3>Delete Annotation</h3>
+                        </div>
+                        <div className="modal-body">
+                            <p>Are you sure you want to delete this annotation? This action cannot be undone.</p>
+                        </div>
+                        <div className="modal-footer">
+                            <button 
+                                className="cancel-btn" 
+                                onClick={cancelDeleteAnnotation}
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                className="delete-btn" 
+                                onClick={confirmDeleteAnnotation}
+                            >
+                                Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Bookmark Removal Confirmation Modal */}
+            {showBookmarkDeleteModal && (
+                <div className="modal-overlay">
+                    <div className="modal-content delete-modal">
+                        <div className="modal-header">
+                            <h3>Remove Bookmark</h3>
+                        </div>
+                        <div className="modal-body">
+                            <p>Are you sure you want to remove this bookmark? This action cannot be undone.</p>
+                            {bookmarkToDelete && (
+                                <div className="bookmark-details">
+                                    <strong>{bookmarkToDelete.law_class}</strong>
+                                    <br />
+                                    <small>{bookmarkToDelete.state} • {formatDateForDisplay(bookmarkToDelete.effective_date)}</small>
+                                </div>
+                            )}
+                        </div>
+                        <div className="modal-footer">
+                            <button 
+                                className="cancel-btn" 
+                                onClick={cancelRemoveBookmark}
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                className="cancel-btn" 
+                                onClick={confirmRemoveBookmark}
+                            >
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

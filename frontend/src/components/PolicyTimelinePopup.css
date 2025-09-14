@@ -146,7 +146,7 @@
 }
 
 .timeline-container {
-    padding: 24px;
+    padding: 40px 24px 24px 24px;
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
@@ -206,7 +206,7 @@
 
 .indicator-line {
     width: 2px;
-    height: 60px;
+    height: 47px;
     background: linear-gradient(to bottom, #9ca3af, #6b7280);
     margin: 0 auto;
     border-radius: 1px;
@@ -777,6 +777,8 @@
     border-radius: 12px;
     padding: 20px;
     transition: all 0.2s ease;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
 .policy-change-item:hover {

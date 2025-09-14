@@ -2,17 +2,14 @@
 // Uses Leaflet for mapping with county choropleth and incident heatmap layers
 
 import React, { useState, useEffect, useRef } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import L from 'leaflet';
-import Papa from 'papaparse';
 import MapLayer from './components/MapLayer';
 import Controls from './components/Controls';
 import IncidentPins from './components/IncidentPins';
 import IncidentHeatmap from './components/IncidentHeatmap';
 import CursorTracker from './components/CursorTracker';
-import IncidentsPanel from './components/IncidentsPanel';
-import TimelineControls from './components/TimelineControls';
 import PolicyTimelinePopup from './components/PolicyTimelinePopup';
 import StateGunViolencePanel from './components/StateGunViolencePanel';
 import HeatmapLegend from './components/HeatmapLegend';
@@ -74,6 +71,7 @@ function MapApp() {
     // State for analytics dashboard
     const [showAnalyticsDashboard, setShowAnalyticsDashboard] = useState(false);
     const [selectedPolicyForDashboard, setSelectedPolicyForDashboard] = useState(null);
+    const [isAnalyticsTabExpanded, setIsAnalyticsTabExpanded] = useState(false);
 
     // State for gun violence context panel
     const [stateContextData, setStateContextData] = useState([]);
@@ -480,11 +478,15 @@ function MapApp() {
                         availableYears={availableYears}
                     />
                 </div>
-
-                {/* Heatmap Legend - positioned independently */}
-                <HeatmapLegend />
             </div>
 
+            {/* State Gun Violence Context Panel */}
+            <StateGunViolencePanel
+                key={panelKey}
+                stateData={getStateContextData()}
+                isVisible={showStateContextPanel && hoveredState}
+                onClose={() => setShowStateContextPanel(false)}
+            />
 
             {/* Policy Timeline Popup */}
             <PolicyTimelinePopup
@@ -498,13 +500,8 @@ function MapApp() {
                 onViewPolicyDetails={handleViewPolicyDetails}
             />
 
-            {/* State Gun Violence Context Panel */}
-            <StateGunViolencePanel
-                key={panelKey}
-                stateData={getStateContextData()}
-                isVisible={showStateContextPanel && hoveredState}
-                onClose={() => setShowStateContextPanel(false)}
-            />
+            {/* Heatmap Legend - positioned independently */}
+            <HeatmapLegend showNavigationTabs={!isAnalyticsTabExpanded} />
 
             {/* Resizable Analytics Tab */}
             <ResizableTab
@@ -520,6 +517,7 @@ function MapApp() {
                     setSelectedPolicyForDashboard(null);
                 }}
                 onFlyToLocation={handleFlyToLocation}
+                onTabExpandedChange={setIsAnalyticsTabExpanded}
             />
 
         </div>

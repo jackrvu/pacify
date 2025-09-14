@@ -10,9 +10,10 @@ const VisualAnalysisResponse = ({ analysis, hideSectionTitles = false, enableTyp
         enableTypewriter
     );
 
-    // Simple markdown-like formatting for **bold** text
+    // Simple markdown-like formatting for **bold** text and ##highlighted## phrases
     const formatMarkdown = (text) => {
         return text
+            .replace(/##(.*?)##/g, '<span class="highlighted-phrase">$1</span>')
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/\n\n/g, '<br/><br/>')

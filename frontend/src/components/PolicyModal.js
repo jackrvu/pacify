@@ -4,6 +4,7 @@ import { bookmarkPolicy, unbookmarkPolicy, isPolicyBookmarked, addAnnotation } f
 import { analyzePolicyWithGemini, getPolicyInsights, isGeminiAvailable } from '../utils/geminiService';
 import PolicyIncidentGraph from './PolicyIncidentGraph';
 import VisualAnalysisResponse from './VisualAnalysisResponse';
+import CustomDropdown from './CustomDropdown';
 
 const PolicyModal = ({
     isOpen,
@@ -170,6 +171,13 @@ const PolicyModal = ({
                     <div className="policy-modal-title">
                         <h2>{policy['Law Class'] || 'Gun Policy Details'}</h2>
                         <div className="policy-meta">
+                            <span className="policy-date">
+                                {formatPolicyDate(
+                                    policy['Effective Date Year'],
+                                    policy['Effective Date Month'],
+                                    policy['Effective Date Day']
+                                )}
+                            </span>
                             <span className="policy-state">{policy.State}</span>
                             <span
                                 className="policy-effect-badge"
@@ -341,15 +349,16 @@ const PolicyModal = ({
                         {showAnnotations && (
                             <div className="annotations-panel">
                                 <div className="annotation-input">
-                                    <select
+                                    <CustomDropdown
                                         value={annotationType}
-                                        onChange={(e) => setAnnotationType(e.target.value)}
+                                        onChange={setAnnotationType}
+                                        options={[
+                                            { value: "note", label: "Note" },
+                                            { value: "question", label: "Question" },
+                                            { value: "insight", label: "Insight" }
+                                        ]}
                                         className="annotation-type-select"
-                                    >
-                                        <option value="note">📝 Note</option>
-                                        <option value="question">❓ Question</option>
-                                        <option value="insight">💡 Insight</option>
-                                    </select>
+                                    />
                                     <textarea
                                         value={newAnnotation}
                                         onChange={(e) => setNewAnnotation(e.target.value)}

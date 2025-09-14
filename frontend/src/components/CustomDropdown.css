@@ -1,0 +1,123 @@
+.custom-dropdown {
+  position: relative;
+  width: 100%;
+  font-family: inherit;
+}
+
+.dropdown-trigger {
+  background: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 18px;
+  line-height: 1.2;
+}
+
+.dropdown-trigger:hover {
+  border-color: #ff6b35;
+  background: rgba(40, 40, 40, 0.8);
+  transform: translateY(-1px);
+}
+
+.dropdown-trigger.open {
+  border-color: #ff6b35;
+  box-shadow: 0 0 0 2px rgba(255, 107, 53, 0.3);
+  background: rgba(40, 40, 40, 0.8);
+}
+
+.dropdown-value {
+  flex: 1;
+  text-align: left;
+}
+
+.dropdown-arrow {
+  font-size: 0.65rem;
+  transition: transform 0.2s ease;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.dropdown-arrow.open {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  margin-top: 4px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dropdown-option {
+  padding: 0.5rem 0.75rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  line-height: 1.2;
+}
+
+.dropdown-option:last-child {
+  border-bottom: none;
+}
+
+.dropdown-option:hover {
+  background: rgba(255, 107, 53, 0.2);
+  color: white;
+}
+
+.dropdown-option.selected {
+  background: #ff6b35;
+  color: white;
+}
+
+.dropdown-option.selected:hover {
+  background: #e55a2b;
+}
+
+.custom-dropdown.disabled .dropdown-trigger {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.custom-dropdown.disabled .dropdown-trigger:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(30, 30, 30, 0.8);
+  transform: none;
+}
+
+/* Scrollbar styling for dropdown menu */
+.dropdown-menu::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown-menu::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 53, 0.5);
+  border-radius: 3px;
+}
+
+.dropdown-menu::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 53, 0.7);
+}

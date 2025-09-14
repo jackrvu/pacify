@@ -59,6 +59,16 @@
     flex-wrap: wrap;
 }
 
+.policy-date {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #cccccc;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 .policy-state {
     background: rgba(255, 255, 255, 0.1);
     padding: 6px 12px;
@@ -308,8 +318,6 @@
 }
 
 .control-btn.active {
-    background: rgba(255, 215, 0, 0.3);
-    border-color: rgba(255, 215, 0, 0.5);
     color: #ff6b35;
 }
 
@@ -352,6 +360,12 @@
     resize: vertical;
     min-height: 80px;
     font-family: inherit;
+    outline: none;
+}
+
+.annotation-textarea:focus {
+    outline: 2px solid #ff6b35;
+    outline-offset: 2px;
 }
 
 .annotation-textarea::placeholder {
@@ -359,7 +373,7 @@
 }
 
 .add-annotation-btn {
-    background: linear-gradient(135deg, #28a745, #20c997);
+    background: linear-gradient(135deg, #ff6b35, #e55a2b);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -372,7 +386,7 @@
 }
 
 .add-annotation-btn:hover:not(:disabled) {
-    background: linear-gradient(135deg, #20c997, #17a2b8);
+    background: linear-gradient(135deg, #e55a2b, #d1491f);
     transform: translateY(-1px);
 }
 
@@ -436,6 +450,12 @@
     padding: 10px 12px;
     border-radius: 6px;
     font-size: 0.9rem;
+    outline: none;
+}
+
+.gemini-question-input:focus {
+    outline: 2px solid #ff6b35;
+    outline-offset: 2px;
 }
 
 .gemini-question-input::placeholder {
@@ -443,7 +463,7 @@
 }
 
 .gemini-ask-btn {
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: linear-gradient(135deg, #ff6b35, #e55a2b);
     color: white;
     border: none;
     padding: 10px 16px;
@@ -468,15 +488,12 @@
 .gemini-response {
     margin-top: 16px;
     padding: 16px;
-    background: rgba(0, 123, 255, 0.1);
-    border-radius: 8px;
-    border: 1px solid rgba(0, 123, 255, 0.2);
 }
 
 .gemini-response h4 {
     margin: 0 0 12px 0;
-    color: #007bff;
-    font-size: 1rem;
+    color: #ff6b35;
+    font-size: 1.75rem;
     font-weight: 600;
 }
 
@@ -603,6 +620,7 @@
         gap: 8px;
     }
 
+    .policy-date,
     .policy-state,
     .policy-effect-badge {
         font-size: 0.8rem;

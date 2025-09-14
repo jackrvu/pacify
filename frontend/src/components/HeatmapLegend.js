@@ -1,10 +1,10 @@
 // HeatmapLegend component - displays a clickable legend for the heatmap layer
 // Shows color gradient and explains what each color intensity represents
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './HeatmapLegend.css';
 
-const HeatmapLegend = () => {
+const HeatmapLegend = ({ showNavigationTabs = true }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
 
@@ -36,19 +36,25 @@ const HeatmapLegend = () => {
     return (
         <>
             {/* Legend Button */}
-            <div className="heatmap-legend-button" onClick={handleLegendClick}>
-                <span className="legend-text">Legend</span>
-            </div>
+            {showNavigationTabs && (
+                <div className="heatmap-legend-button" onClick={handleLegendClick}>
+                    <span className="legend-text">Legend</span>
+                </div>
+            )}
 
             {/* Methodology Button */}
-            <div className="heatmap-legend-button methodology-button" onClick={() => navigate('/methodology')}>
-                <span className="legend-text">Methodology</span>
-            </div>
+            {showNavigationTabs && (
+                <div className="heatmap-legend-button methodology-button" onClick={() => navigate('/methodology')}>
+                    <span className="legend-text">Methodology</span>
+                </div>
+            )}
 
             {/* About Button */}
-            <div className="heatmap-legend-button about-button" onClick={() => navigate('/about')}>
-                <span className="legend-text">About</span>
-            </div>
+            {showNavigationTabs && (
+                <div className="heatmap-legend-button about-button" onClick={() => navigate('/about')}>
+                    <span className="legend-text">About</span>
+                </div>
+            )}
 
             {/* Legend Modal */}
             {isModalOpen && (

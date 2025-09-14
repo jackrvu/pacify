@@ -92,7 +92,9 @@ State Statistics (2019-2025):
 
 Specific Question: ${question}
 
-Please provide a focused analysis addressing ONLY this specific question. Do not include other analysis sections like Constitutional Analysis, State Context, etc. Focus exclusively on the question asked and provide a comprehensive answer with bullet points (•) for key points.`;
+Please provide a focused analysis addressing ONLY this specific question. Do not include other analysis sections like Constitutional Analysis, State Context, etc. Focus exclusively on the question asked and provide a comprehensive answer with bullet points (•) for key points.
+
+IMPORTANT: For each bullet point, identify the key words or phrases that are important and wrap them with double number signs on both sides. For example: ##gun violence##, ##constitutional rights##, ##public safety##, ##law enforcement##, etc.`;
     } else {
         return `${basePrompt}
 
@@ -110,6 +112,7 @@ For each section:
 - Be purposeful and actionable
 - Do NOT write long paragraphs
 - Do NOT use bold text or other formatting
+- IMPORTANT: For each bullet point, identify the key words or phrases that are important and wrap them with double number signs on both sides. For example: ##gun violence##, ##constitutional rights##, ##public safety##, ##law enforcement##, etc.
 
 Example format:
 ## Policy Summary

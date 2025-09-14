@@ -14,7 +14,8 @@ const ResizableTab = ({
     selectedPolicyForDashboard,
     showAnalyticsDashboard,
     onCloseAnalyticsDashboard,
-    onFlyToLocation
+    onFlyToLocation,
+    onTabExpandedChange
 }) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const [isResizing, setIsResizing] = useState(false);
@@ -124,6 +125,13 @@ const ResizableTab = ({
             setTabWidth(window.innerWidth);
         }
     }, [showAnalyticsDashboard, selectedPolicyForDashboard, isExpanded]);
+
+    // Notify parent when expansion state changes
+    useEffect(() => {
+        if (onTabExpandedChange) {
+            onTabExpandedChange(isExpanded);
+        }
+    }, [isExpanded, onTabExpandedChange]);
 
     return (
         <div className="resizable-tab-container">

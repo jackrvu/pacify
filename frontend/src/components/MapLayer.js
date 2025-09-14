@@ -18,17 +18,33 @@ function MapLayer({ enabled = true }) {
 
     // Track map movement to prevent tooltip flicker during pan/zoom
     const [isMapMoving, setIsMapMoving] = useState(false);
+    
+    // Track if we're currently dragging to prevent tooltip creation
+    const [isDragging, setIsDragging] = useState(false);
 
     useEffect(() => {
         if (!map) return;
-        const handleMoveStart = () => setIsMapMoving(true);
-        const handleMoveEnd = () => setIsMapMoving(false);
+        const handleMoveStart = () => {
+            setIsMapMoving(true);
+            setIsDragging(true);
+        };
+        const handleMoveEnd = () => {
+            setIsMapMoving(false);
+            setIsDragging(false);
+        };
+        const handleDragStart = () => setIsDragging(true);
+        const handleDragEnd = () => setIsDragging(false);
+        
         map.on('movestart', handleMoveStart);
         map.on('moveend', handleMoveEnd);
-        // Removed zoomstart/zoomend handlers to fix zooming
+        map.on('dragstart', handleDragStart);
+        map.on('dragend', handleDragEnd);
+        
         return () => {
             map.off('movestart', handleMoveStart);
             map.off('moveend', handleMoveEnd);
+            map.off('dragstart', handleDragStart);
+            map.off('dragend', handleDragEnd);
         };
     }, [map]);
 
@@ -41,7 +57,20 @@ function MapLayer({ enabled = true }) {
                 }
             });
         }
-    }, []);
+        
+        // Also clear any lingering tooltips from the map's tooltip pane
+        if (map) {
+            const tooltipPane = map.getPane('tooltipPane');
+            if (tooltipPane) {
+                tooltipPane.innerHTML = '';
+            }
+            
+            // Force close any open tooltips using Leaflet's internal methods
+            if (map._tooltip) {
+                map._tooltip.close();
+            }
+        }
+    }, [map]);
 
     // D3 color scale for county fill colors - red gradient based on case count
     const colorScale = useMemo(() => {
@@ -140,10 +169,11 @@ function MapLayer({ enabled = true }) {
         layer.bindTooltip(`
             <div style="font-weight:600;">${countyName} County</div>
         `, {
-            sticky: true,
+            sticky: false, // Changed to false to make tooltips more responsive to cleanup
             offset: [0, -5],
             direction: 'top',
-            className: 'county-tooltip'
+            className: 'county-tooltip',
+            interactive: false // Prevent tooltip from interfering with map interactions
         });
 
         // Add event listeners for hover highlighting only (no click functionality)
@@ -161,8 +191,8 @@ function MapLayer({ enabled = true }) {
                     l.bringToFront();
                 }
 
-                // Only show the tooltip if the map is not moving
-                if (!isMapMoving) {
+                // Only show the tooltip if the map is not moving and not dragging
+                if (!isMapMoving && !isDragging) {
                     layer.openTooltip();
                 }
             },
@@ -192,7 +222,7 @@ function MapLayer({ enabled = true }) {
                 return false; // Prevent further event propagation
             }
         });
-    }, [caseData, closeAllTooltips, isMapMoving]);
+    }, [caseData, closeAllTooltips, isMapMoving, isDragging]);
 
     // Memoize the style function and onEachFeatureFunction refs to avoid unnecessary re-creation
     const styleFunctionRef = useRef();
@@ -312,21 +342,34 @@ function MapLayer({ enabled = true }) {
     useEffect(() => {
         if (!geojsonLayerRef.current || !map) return;
 
+        // Close tooltips on various map events
         map.on('mousedown', closeAllTooltips);
         map.on('dragstart', closeAllTooltips);
         map.on('movestart', closeAllTooltips);
         map.on('zoomstart', closeAllTooltips);
+        map.on('drag', closeAllTooltips); // Clear during drag
+        map.on('move', closeAllTooltips); // Clear during move
 
         // Also close all tooltips when mouse leaves the map container
         const container = map.getContainer();
         container.addEventListener('mouseleave', closeAllTooltips);
+        
+        // Add additional cleanup on mouse up to ensure clean state
+        const handleMouseUp = () => {
+            // Small delay to ensure any pending tooltip operations complete
+            setTimeout(closeAllTooltips, 10);
+        };
+        container.addEventListener('mouseup', handleMouseUp);
 
         return () => {
             map.off('mousedown', closeAllTooltips);
             map.off('dragstart', closeAllTooltips);
             map.off('movestart', closeAllTooltips);
             map.off('zoomstart', closeAllTooltips);
+            map.off('drag', closeAllTooltips);
+            map.off('move', closeAllTooltips);
             container.removeEventListener('mouseleave', closeAllTooltips);
+            container.removeEventListener('mouseup', handleMouseUp);
         };
     }, [map, geojsonLayerRef.current, closeAllTooltips]);
 
