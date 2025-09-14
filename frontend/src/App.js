@@ -443,11 +443,10 @@ function MapApp() {
                     zoom={4}
                     style={{ height: '100vh', width: '100vw' }}
                     zoomControl={true}
-                    attributionControl={true}
+                    attributionControl={false}
                 >
                     {/* Base map tiles - Grim Hospital Gray Theme */}
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
                         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
                         className="grim-hospital-map"
                     />
