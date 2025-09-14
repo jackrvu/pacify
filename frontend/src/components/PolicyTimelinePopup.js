@@ -36,7 +36,6 @@ const PolicyTimelinePopup = ({
 
     // Modal state
     const [showPolicyModal, setShowPolicyModal] = useState(false);
-    const [expandedPolicies, setExpandedPolicies] = useState(new Set());
     const modalBodyRef = useRef(null);
 
     // Get policies for the timeline range
@@ -112,13 +111,8 @@ const PolicyTimelinePopup = ({
         }
     }, [isVisible, policyData.length]);
 
-    // Reset modal state when selectedState changes
-    useEffect(() => {
-        if (showPolicyModal) {
-            setShowPolicyModal(false);
-            setSelectedPolicy(null);
-        }
-    }, [selectedState]);
+    // Note: Removed the effect that was resetting modal state when selectedState changes
+    // This was causing the modal to reload instead of smoothly updating content
 
     // Update continuous position when current year changes (but not when dragging)
     useEffect(() => {
@@ -383,30 +377,8 @@ const PolicyTimelinePopup = ({
     const handleBackToTimeline = () => {
         setShowPolicyModal(false);
         setSelectedPolicy(null);
-        setExpandedPolicies(new Set()); // Reset expanded policies when closing modal
     };
 
-    // Toggle policy expansion
-    const togglePolicyExpansion = (policyId) => {
-        const scrollTop = modalBodyRef.current?.scrollTop || 0;
-
-        setExpandedPolicies(prev => {
-            const newSet = new Set(prev);
-            if (newSet.has(policyId)) {
-                newSet.delete(policyId);
-            } else {
-                newSet.add(policyId);
-            }
-            return newSet;
-        });
-
-        // Restore scroll position after re-render
-        requestAnimationFrame(() => {
-            if (modalBodyRef.current) {
-                modalBodyRef.current.scrollTop = scrollTop;
-            }
-        });
-    };
 
     // Calculate position for policy markers
     const getPolicyMarkerPosition = (year) => {
@@ -541,7 +513,6 @@ const PolicyTimelinePopup = ({
                         <div className="policy-changes-list">
                             {selectedPolicy.policies.map((policy, index) => {
                                 const policyId = policy.law_id || `policy-${index}`;
-                                const isExpanded = expandedPolicies.has(policyId);
                                 const hasContent = policy.original_content && policy.original_content.trim().length > 0;
                                 const geminiAnalysis = getGeminiAnalysis(policy.law_id);
 
@@ -627,27 +598,9 @@ const PolicyTimelinePopup = ({
 
                                         {hasContent && (
                                             <div className="policy-change-description">
-                                                {isExpanded ? (
-                                                    <div className="policy-description-full">
-                                                        {policy.original_content}
-                                                    </div>
-                                                ) : (
-                                                    <div className="policy-description-preview">
-                                                        {policy.original_content.length > 150
-                                                            ? `${policy.original_content.substring(0, 150)}...`
-                                                            : policy.original_content
-                                                        }
-                                                    </div>
-                                                )}
-
-                                                {policy.original_content.length > 150 && (
-                                                    <button
-                                                        className="see-more-btn"
-                                                        onClick={() => togglePolicyExpansion(policyId)}
-                                                    >
-                                                        {isExpanded ? 'See Less' : 'See More'}
-                                                    </button>
-                                                )}
+                                                <div className="policy-description-full">
+                                                    {policy.original_content}
+                                                </div>
                                             </div>
                                         )}
 
@@ -757,8 +710,9 @@ const PolicyTimelinePopup = ({
                     {/* Year labels below timeline */}
                     <div className="year-labels">
                         {availableYears.map((year, index) => {
-                            // Show more years for closer spacing (~80px apart)
-                            const shouldShow = index % Math.ceil(availableYears.length / 12) === 0 ||
+                            // Show more years for closer spacing - reduced from 60 to 80 for even tighter spacing
+                            // Show both even and odd years for better coverage
+                            const shouldShow = (index % Math.ceil(availableYears.length / 80) === 0) ||
                                 year === minYear ||
                                 year === maxYear ||
                                 year === currentYear;
@@ -769,7 +723,7 @@ const PolicyTimelinePopup = ({
                                 <div
                                     key={year}
                                     className="year-label"
-                                    style={{ left: `${getPolicyMarkerPosition(year)}%` }}
+                                    style={{ left: `${yearToPosition(year)}%` }}
                                 >
                                     {year}
                                 </div>

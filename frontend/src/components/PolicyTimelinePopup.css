@@ -148,6 +148,9 @@
 .timeline-container {
     padding: 24px;
     position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100% - 80px);
 }
 
 .timeline-hint-message {
@@ -322,8 +325,8 @@
 .year-labels {
     position: absolute;
     top: 90px;
-    left: 0;
-    right: 0;
+    left: 20px;
+    right: 20px;
     height: 20px;
 }
 

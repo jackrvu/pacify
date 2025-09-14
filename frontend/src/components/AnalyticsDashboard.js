@@ -643,7 +643,7 @@ const AnalyticsDashboard = ({
                                     <div key={bookmark.id} className="bookmark-card" onClick={() => handleViewBookmark(bookmark)}>
                                         <div className="bookmark-header">
                                             <div className="bookmark-title">
-                                                <h3>{bookmark.law_class}</h3>
+                                                <h3>{bookmark.law_class ? bookmark.law_class.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(' ') : 'Unknown Law Class'}</h3>
                                                 <div className="bookmark-meta">
                                                     <span className="bookmark-state">{bookmark.state}</span>
                                                     <span

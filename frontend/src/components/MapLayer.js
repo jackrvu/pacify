@@ -170,6 +170,10 @@ function MapLayer({ enabled = true }) {
                 geojsonLayerRef.current.resetStyle(e.target);
                 // Close all tooltips on mouseout
                 closeAllTooltips();
+                // Close specific tooltip for this layer
+                if (layer.closeTooltip) {
+                    layer.closeTooltip();
+                }
             },
             click: function (e) {
                 // Completely prevent any click functionality
@@ -310,6 +314,8 @@ function MapLayer({ enabled = true }) {
 
         map.on('mousedown', closeAllTooltips);
         map.on('dragstart', closeAllTooltips);
+        map.on('movestart', closeAllTooltips);
+        map.on('zoomstart', closeAllTooltips);
 
         // Also close all tooltips when mouse leaves the map container
         const container = map.getContainer();
@@ -318,6 +324,8 @@ function MapLayer({ enabled = true }) {
         return () => {
             map.off('mousedown', closeAllTooltips);
             map.off('dragstart', closeAllTooltips);
+            map.off('movestart', closeAllTooltips);
+            map.off('zoomstart', closeAllTooltips);
             container.removeEventListener('mouseleave', closeAllTooltips);
         };
     }, [map, geojsonLayerRef.current, closeAllTooltips]);

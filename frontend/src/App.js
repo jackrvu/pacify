@@ -170,17 +170,11 @@ function MapApp() {
         if (position && incidents.length > 0) {
             const state = detectStateFromPosition(position);
             if (state && state !== hoveredState) {
-                // Kill the panel completely
-                setShowStateContextPanel(false);
-
-                // Update hovered state
+                // Update hovered state immediately
                 setHoveredState(state);
 
-                // Wait 0.1 seconds, then recreate panel with new key
-                setTimeout(() => {
-                    setPanelKey(prev => prev + 1);
-                    setShowStateContextPanel(true);
-                }, 100);
+                // Show panel instantly
+                setShowStateContextPanel(true);
             }
         }
     };
@@ -199,49 +193,122 @@ function MapApp() {
         }
     };
 
-    // Function to detect state from cursor position by finding nearby incidents
+    // Function to detect state from cursor position using geographic boundaries
     const detectStateFromPosition = (position) => {
-        if (!position || !incidents.length) return null;
+        if (!position) return null;
 
         const { lat, lng } = position;
-        const searchRadius = 1.0; // Increased radius for state detection
 
-        // Find incidents near the clicked position
-        const nearbyIncidents = incidents.filter(incident => {
-            const incidentLat = parseFloat(incident.Latitude);
-            const incidentLng = parseFloat(incident.Longitude);
+        // First try to find nearby incidents for accurate state detection
+        if (incidents.length > 0) {
+            const searchRadius = 2.0; // Larger radius for better coverage
 
-            if (isNaN(incidentLat) || isNaN(incidentLng)) return false;
+            const nearbyIncidents = incidents.filter(incident => {
+                const incidentLat = parseFloat(incident.Latitude);
+                const incidentLng = parseFloat(incident.Longitude);
 
-            const distance = Math.sqrt(
-                Math.pow(lat - incidentLat, 2) +
-                Math.pow(lng - incidentLng, 2)
-            );
+                if (isNaN(incidentLat) || isNaN(incidentLng)) return false;
 
-            return distance <= searchRadius;
-        });
+                const distance = Math.sqrt(
+                    Math.pow(lat - incidentLat, 2) +
+                    Math.pow(lng - incidentLng, 2)
+                );
 
-        // Return the most common state among nearby incidents
-        if (nearbyIncidents.length > 0) {
-            const stateCounts = {};
-            nearbyIncidents.forEach(incident => {
-                const state = incident.State;
-                if (state) {
-                    stateCounts[state] = (stateCounts[state] || 0) + 1;
-                }
+                return distance <= searchRadius;
             });
 
-            // Find the state with the most incidents
-            let mostCommonState = null;
-            let maxCount = 0;
-            Object.entries(stateCounts).forEach(([state, count]) => {
-                if (count > maxCount) {
-                    maxCount = count;
-                    mostCommonState = state;
-                }
-            });
+            // Return the most common state among nearby incidents
+            if (nearbyIncidents.length > 0) {
+                const stateCounts = {};
+                nearbyIncidents.forEach(incident => {
+                    const state = incident.State;
+                    if (state) {
+                        stateCounts[state] = (stateCounts[state] || 0) + 1;
+                    }
+                });
 
-            return mostCommonState;
+                // Find the state with the most incidents
+                let mostCommonState = null;
+                let maxCount = 0;
+                Object.entries(stateCounts).forEach(([state, count]) => {
+                    if (count > maxCount) {
+                        maxCount = count;
+                        mostCommonState = state;
+                    }
+                });
+
+                return mostCommonState;
+            }
+        }
+
+        // Fallback: Use geographic boundaries for state detection
+        // This is a simplified geographic state detection based on lat/lng ranges
+        return getStateFromCoordinates(lat, lng);
+    };
+
+    // Helper function to determine state from coordinates using geographic boundaries
+    const getStateFromCoordinates = (lat, lng) => {
+        // US state boundary approximations (simplified ranges)
+        const stateBoundaries = {
+            'Alaska': { minLat: 51, maxLat: 71, minLng: -180, maxLng: -130 },
+            'Hawaii': { minLat: 18, maxLat: 22, minLng: -162, maxLng: -154 },
+            'California': { minLat: 32, maxLat: 42, minLng: -124, maxLng: -114 },
+            'Texas': { minLat: 25, maxLat: 36, minLng: -106, maxLng: -93 },
+            'Florida': { minLat: 24, maxLat: 31, minLng: -87, maxLng: -80 },
+            'New York': { minLat: 40, maxLat: 45, minLng: -79, maxLng: -71 },
+            'Illinois': { minLat: 36, maxLat: 42, minLng: -91, maxLng: -87 },
+            'Pennsylvania': { minLat: 39, maxLat: 42, minLng: -80, maxLng: -74 },
+            'Ohio': { minLat: 38, maxLat: 42, minLng: -84, maxLng: -80 },
+            'Georgia': { minLat: 30, maxLat: 35, minLng: -85, maxLng: -80 },
+            'North Carolina': { minLat: 33, maxLat: 36, minLng: -84, maxLng: -75 },
+            'Michigan': { minLat: 41, maxLat: 48, minLng: -90, maxLng: -82 },
+            'New Jersey': { minLat: 38, maxLat: 41, minLng: -75, maxLng: -73 },
+            'Virginia': { minLat: 36, maxLat: 39, minLng: -83, maxLng: -75 },
+            'Washington': { minLat: 45, maxLat: 49, minLng: -124, maxLng: -116 },
+            'Arizona': { minLat: 31, maxLat: 37, minLng: -114, maxLng: -109 },
+            'Massachusetts': { minLat: 41, maxLat: 43, minLng: -73, maxLng: -69 },
+            'Tennessee': { minLat: 34, maxLat: 36, minLng: -90, maxLng: -81 },
+            'Indiana': { minLat: 37, maxLat: 42, minLng: -88, maxLng: -84 },
+            'Missouri': { minLat: 35, maxLat: 40, minLng: -95, maxLng: -89 },
+            'Maryland': { minLat: 37, maxLat: 40, minLng: -79, maxLng: -75 },
+            'Wisconsin': { minLat: 42, maxLat: 47, minLng: -92, maxLng: -86 },
+            'Colorado': { minLat: 36, maxLat: 41, minLng: -109, maxLng: -102 },
+            'Minnesota': { minLat: 43, maxLat: 49, minLng: -97, maxLng: -89 },
+            'South Carolina': { minLat: 32, maxLat: 35, minLng: -83, maxLng: -78 },
+            'Alabama': { minLat: 30, maxLat: 35, minLng: -88, maxLng: -84 },
+            'Louisiana': { minLat: 28, maxLat: 33, minLng: -94, maxLng: -88 },
+            'Kentucky': { minLat: 36, maxLat: 39, minLng: -89, maxLng: -81 },
+            'Oregon': { minLat: 41, maxLat: 46, minLng: -124, maxLng: -116 },
+            'Oklahoma': { minLat: 33, maxLat: 37, minLng: -103, maxLng: -94 },
+            'Connecticut': { minLat: 40, maxLat: 42, minLng: -73, maxLng: -71 },
+            'Utah': { minLat: 36, maxLat: 42, minLng: -114, maxLng: -109 },
+            'Iowa': { minLat: 40, maxLat: 43, minLng: -96, maxLng: -90 },
+            'Nevada': { minLat: 35, maxLat: 42, minLng: -120, maxLng: -114 },
+            'Arkansas': { minLat: 33, maxLat: 36, minLng: -94, maxLng: -89 },
+            'Mississippi': { minLat: 30, maxLat: 35, minLng: -91, maxLng: -88 },
+            'Kansas': { minLat: 37, maxLat: 40, minLng: -102, maxLng: -94 },
+            'New Mexico': { minLat: 31, maxLat: 37, minLng: -109, maxLng: -103 },
+            'Nebraska': { minLat: 40, maxLat: 43, minLng: -104, maxLng: -95 },
+            'West Virginia': { minLat: 37, maxLat: 40, minLng: -82, maxLng: -77 },
+            'Idaho': { minLat: 41, maxLat: 49, minLng: -117, maxLng: -111 },
+            'Hawaii': { minLat: 18, maxLat: 22, minLng: -162, maxLng: -154 },
+            'New Hampshire': { minLat: 42, maxLat: 45, minLng: -72, maxLng: -70 },
+            'Maine': { minLat: 43, maxLat: 47, minLng: -71, maxLng: -66 },
+            'Montana': { minLat: 44, maxLat: 49, minLng: -116, maxLng: -104 },
+            'Rhode Island': { minLat: 41, maxLat: 42, minLng: -71, maxLng: -71 },
+            'Delaware': { minLat: 38, maxLat: 40, minLng: -75, maxLng: -75 },
+            'South Dakota': { minLat: 42, maxLat: 46, minLng: -104, maxLng: -96 },
+            'North Dakota': { minLat: 45, maxLat: 49, minLng: -104, maxLng: -96 },
+            'Vermont': { minLat: 42, maxLat: 45, minLng: -73, maxLng: -71 },
+            'Wyoming': { minLat: 40, maxLat: 45, minLng: -111, maxLng: -104 }
+        };
+
+        // Check which state the coordinates fall into
+        for (const [stateName, bounds] of Object.entries(stateBoundaries)) {
+            if (lat >= bounds.minLat && lat <= bounds.maxLat &&
+                lng >= bounds.minLng && lng <= bounds.maxLng) {
+                return stateName;
+            }
         }
 
         return null;
