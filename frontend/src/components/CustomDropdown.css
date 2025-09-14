@@ -121,3 +121,20 @@
 .dropdown-menu::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 107, 53, 0.7);
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .dropdown-trigger {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .dropdown-option {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.6rem;
+  }
+
+  .dropdown-arrow {
+    font-size: 0.6rem;
+  }
+}
